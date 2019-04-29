@@ -119,6 +119,7 @@ public class LocalWSDLEditor extends InternalWSDLMultiPageEditor {
     @Override
     protected void createPages() {
         super.createPages();
+        setActivePage(0);
         resourceChangeHandler.dispose();
         resourceChangeHandler = new LocalWSDLEditorResourceChangeHandler(this);
         resourceChangeHandler.attach();
