@@ -666,7 +666,20 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
             @Override
             public void widgetSelected(SelectionEvent e) {
+
                 exportTypeCombo.notifyListeners(SWT.Selection, null);
+
+                if (exportAsZipButton != null) {
+
+                    if (addBSButton.getSelection()) {
+                        exportAsZipButton.setSelection(true);
+                        exportAsZipButton.setEnabled(false);
+                    } else {
+                        exportAsZipButton.setEnabled(true);
+                        exportAsZipButton.setSelection(false);
+                    }
+
+                }
             }
         });
 
