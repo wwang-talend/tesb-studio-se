@@ -26,6 +26,8 @@
 		org.talend.core.model.metadata.IMetadataTable
 		org.talend.core.model.metadata.types.JavaTypesManager
 		org.talend.core.model.metadata.types.JavaType
+		
+		org.talend.core.model.utils.NodeUtil
 
 		java.io.UnsupportedEncodingException
 		java.net.URLEncoder
@@ -611,7 +613,19 @@ public static class RestServiceProviderImpl4TalendJob {
 
 		javax.ws.rs.core.StreamingOutput streamingOutput = new javax.ws.rs.core.StreamingOutput() {
 			public void write(java.io.OutputStream output) {
+				
+				<%
+				if(codeGenArgument.getIsRunInMultiThread() || NodeUtil.containsMultiThreadComponent(process)){
+				%>
+				final java.util.Map<String, Object> globalMap = java.util.Collections.synchronizedMap(new java.util.HashMap<String, Object>());
+				<%
+				} else {
+				%>
 				final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();
+				<%
+				}
+				%>
+				
 				try {
 					globalMap.put("restResponseStream", output);
 
@@ -1168,8 +1182,19 @@ if (exposeSwagger) {
 			org.apache.cxf.jaxrs.ext.MessageContext context, int status, String error) {
 
 		// System.out.println("wrong call [uri: " + context.getUriInfo().getPath() + " ; method: " + context.getRequest().getMethod() + " ; status: " + status + " ; error: " + error + "]");
-
+		
+		<%
+		if(codeGenArgument.getIsRunInMultiThread() || NodeUtil.containsMultiThreadComponent(process)){
+		%>
+		java.util.Map<String, Object> wrongRequest = java.util.Collections.synchronizedMap(new java.util.HashMap<String, Object>());
+		<%
+		} else {
+		%>
 		java.util.Map<String, Object> wrongRequest = new java.util.HashMap<String, Object>();
+		<%
+		}
+		%>
+		
 		wrongRequest.put("ERROR", error);
 		wrongRequest.put("STATUS", status);
 		wrongRequest.put("VERB", context.getRequest().getMethod());
