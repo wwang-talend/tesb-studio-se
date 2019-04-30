@@ -565,7 +565,17 @@ public static class RestServiceProviderImpl4TalendJob {
 	}
 
 	private javax.ws.rs.core.Response processRequest(java.util.Map<String, Object> request) {
+		<%
+		if(codeGenArgument.getIsRunInMultiThread() || NodeUtil.containsMultiThreadComponent(process)){
+		%>
+		final java.util.Map<String, Object> globalMap = java.util.Collections.synchronizedMap(new java.util.HashMap<String, Object>());
+		<%
+		} else {
+		%>
 		final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();
+		<%
+		}
+		%>
 		try {
 			globalMap.put("restRequest", request);
 
@@ -1183,17 +1193,7 @@ if (exposeSwagger) {
 
 		// System.out.println("wrong call [uri: " + context.getUriInfo().getPath() + " ; method: " + context.getRequest().getMethod() + " ; status: " + status + " ; error: " + error + "]");
 		
-		<%
-		if(codeGenArgument.getIsRunInMultiThread() || NodeUtil.containsMultiThreadComponent(process)){
-		%>
-		java.util.Map<String, Object> wrongRequest = java.util.Collections.synchronizedMap(new java.util.HashMap<String, Object>());
-		<%
-		} else {
-		%>
 		java.util.Map<String, Object> wrongRequest = new java.util.HashMap<String, Object>();
-		<%
-		}
-		%>
 		
 		wrongRequest.put("ERROR", error);
 		wrongRequest.put("STATUS", status);
