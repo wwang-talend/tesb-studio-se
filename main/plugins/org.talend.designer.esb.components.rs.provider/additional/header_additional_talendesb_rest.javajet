@@ -1371,7 +1371,7 @@ public static class StreamingDOM4JProvider extends org.apache.cxf.jaxrs.provider
 				currentMessage = (org.apache.cxf.message.Message)((java.util.Map<String, Object>)globalMap.get("restRequest")).get("CURRENT_MESSAGE");
 			}
 
-			if (currentMessage.getExchange().containsKey(SUPRESS_XML_DECLARATION)) {
+			if (currentMessage != null && currentMessage.getExchange() != null && currentMessage.getExchange().containsKey(SUPRESS_XML_DECLARATION)) {
 				org.dom4j.io.OutputFormat format = new org.dom4j.io.OutputFormat();
 				format.setSuppressDeclaration(true);
 				writer = new org.dom4j.io.XMLWriter(os, format);
