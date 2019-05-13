@@ -9,6 +9,8 @@
 		
 		org.talend.designer.codegen.config.CodeGeneratorArgument
 
+		org.talend.core.model.utils.NodeUtil
+
 		org.talend.core.model.process.INode
 		org.talend.core.model.process.IProcess
 	"
@@ -113,7 +115,17 @@ String cid = node.getUniqueName();
 	private static final String ROUTER_EXCHANGE = "ROUTER_EXCHANGE";
 
 	public void process(org.apache.camel.Exchange routerExchange) {
+		<%
+		if(codeGenArgument.getIsRunInMultiThread() || NodeUtil.containsMultiThreadComponent(process)){
+		%>
+		final java.util.Map<String, Object> globalMap = java.util.Collections.synchronizedMap(new java.util.HashMap<String, Object>());
+		<%
+		} else {
+		%>
 		final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>(this.globalMap);
+		<%
+		}
+		%>
 
 		try {
 			globalMap.put(ROUTER_EXCHANGE, routerExchange);
