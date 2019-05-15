@@ -213,7 +213,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                     String destinationValue = getDestinationValue();
 
                     if (isMS) {
-                        if (exportAsZip || isAddMavenScript()) {
+                        if (exportAsZip) {
                             destinationValue = destinationValue.substring(0, destinationValue.lastIndexOf("."))
                                     + FileConstants.ZIP_FILE_SUFFIX;
                         } else {
@@ -534,10 +534,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
     protected void handleDestinationBrowseButtonPressed() {
         FileDialog dialog = new FileDialog(getContainer().getShell(), SWT.SAVE);
 
-        if (isAddMavenScript()) {
-            dialog.setFilterExtensions(new String[] { "*" + FileConstants.ZIP_FILE_SUFFIX, "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
-        } else if (EXPORTTYPE_SPRING_BOOT.equals(exportTypeCombo.getText())) {
-            if (exportAsZip || isAddMavenScript()) {
+        if (EXPORTTYPE_SPRING_BOOT.equals(exportTypeCombo.getText())) {
+            if (exportAsZip) {
                 dialog.setFilterExtensions(new String[] { "*" + FileConstants.ZIP_FILE_SUFFIX, "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
             } else {
                 dialog.setFilterExtensions(new String[] { "*.jar", "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
@@ -559,10 +557,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
             return;
         }
         String idealSuffix;
-        if (isAddMavenScript()) {
-            idealSuffix = FileConstants.ZIP_FILE_SUFFIX;
-        } else if (EXPORTTYPE_SPRING_BOOT.equals(exportTypeCombo.getText())) {
-            if (exportAsZip || isAddMavenScript()) {
+        if (EXPORTTYPE_SPRING_BOOT.equals(exportTypeCombo.getText())) {
+            if (exportAsZip) {
                 idealSuffix = FileConstants.ZIP_FILE_SUFFIX;
             } else {
                 idealSuffix = FileConstants.JAR_FILE_SUFFIX;
@@ -644,11 +640,6 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         exportChoiceMap.put(ExportChoice.needLauncher, exportAsZip);
         if (addBSButton != null) {
             exportChoiceMap.put(ExportChoice.needMavenScript, addBSButton.getSelection());
-
-            if (isAddMavenScript()) {
-                exportChoiceMap.put(ExportChoice.needAssembly, true);
-                exportChoiceMap.put(ExportChoice.needLauncher, true);
-            }
         }
         exportChoiceMap.put(ExportChoice.onlyDefautContext, onlyExportDefaultContext);
 
@@ -667,19 +658,20 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
             @Override
             public void widgetSelected(SelectionEvent e) {
 
+
                 exportTypeCombo.notifyListeners(SWT.Selection, null);
-
-                if (exportAsZipButton != null) {
-
-                    if (addBSButton.getSelection()) {
-                        exportAsZipButton.setSelection(true);
-                        exportAsZipButton.setEnabled(false);
-                    } else {
-                        exportAsZipButton.setEnabled(true);
-                        exportAsZipButton.setSelection(false);
-                    }
-
-                }
+//
+//                if (exportAsZipButton != null) {
+//
+//                    if (addBSButton.getSelection()) {
+//                        exportAsZipButton.setSelection(true);
+//                        exportAsZipButton.setEnabled(false);
+//                    } else {
+//                        exportAsZipButton.setEnabled(true);
+//                        exportAsZipButton.setSelection(false);
+//                    }
+//
+//                }
             }
         });
 
