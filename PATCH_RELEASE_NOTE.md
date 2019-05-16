@@ -77,7 +77,7 @@ This patch also includes the following patches:
 - TPS-2209 [6.3.1] Could not find or load main class exception after building with CI Builder(TUP-18278)
 - TPS-2224 [6.3.1] Issues with Retrieve schema from HDFS ( Encrypted zone) (TUP-18774)
 - TPS-2018 [6.3.1] Cannot Retrieve Columns from Metadata MapRDB Database Connection (TUP-18046)
-- TPS-2168:[6.3.1] FileNotFoundException: class path resource [META-INF/tesb/agent-context.xml] (TESB-20301) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+- TPS-2168:[6.3.1] FileNotFoundException: class path resource [META-INF/tesb/agent-context.xml] (TESB-20301)
 - TPS-2240 [6.3.1] Stats&Logs still use JTDS driver even select Microsoft. (TUP-18492)
 - TPS-2271 [6.3.1] Project reference from a project branch to another branch (TUP-19042)
 - TPS-2277 [6.3.1] Request Patch for: " Studio unstability since the application of the patch: "Patch_20170117_TPS-1726_TPS-1688_v1-6.2.1.zip"" (TUP-17031)
