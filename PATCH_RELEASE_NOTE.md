@@ -5,7 +5,7 @@ product:
 - https://talend.poolparty.biz/coretaxonomy/24
 ---
 
-# TPS-3130 <!-- mandatory -->
+# TPS-3120 <!-- mandatory -->
 
 | Info             | Value |
 | ---------------- | ---------------- |
@@ -24,7 +24,7 @@ This patch is cumulative. It includes all previous generally available patches f
 
 This patch contains the following fixes:
 
-- TPS-3130 [6.3.1] twriteJsonField consumed 100% CPU (TESB-25705)
+- TPS-3120 [6.3.1] twriteJsonField consumed 100% CPU (TESB-25705)
 
 This patch also includes the following patches:
 
