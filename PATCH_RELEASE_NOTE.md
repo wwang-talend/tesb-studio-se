@@ -9,7 +9,7 @@ product:
 
 | Info             | Value |
 | ---------------- | ---------------- |
-| Patch Name       | Patch_20190516_TPS-3120_v1-6.3.1 |
+| Patch Name       | Patch\_20190516\_TPS-3120\_v1-6.3.1 |
 | Release Date     | 2019-05-17 |
 | Target Version   | 20161216_1026-6.3.1 |
 | Product affected | Talend Studio |
