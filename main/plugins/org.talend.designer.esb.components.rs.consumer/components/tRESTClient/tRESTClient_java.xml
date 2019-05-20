@@ -275,6 +275,8 @@
 			<IMPORT MODULE_GROUP="security-common" REQUIRED="true" />
 
 			<IMPORT MODULE_GROUP="spring-context" REQUIRED="true" />
+            
+			<IMPORT MODULE_GROUP="esb-java-11-group" REQUIRED="true" />
 
 			<IMPORT MODULE_GROUP="locator"
 					REQUIRED_IF="SERVICE_LOCATOR == 'true'" />
@@ -284,6 +286,7 @@
 
 			<IMPORT MODULE_GROUP="correlationid-policy"
 					REQUIRED_IF="USE_BUSINESS_CORRELATION == 'true'" />
+
 		</IMPORTS>
 	</CODEGENERATION>
 
