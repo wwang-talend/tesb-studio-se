@@ -804,8 +804,9 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         JavaCamelJobScriptsExportWSAction action = null;
         IRunnableWithProgress actionMS = null;
         Map<ExportChoice, Object> exportChoiceMap = getExportChoiceMap();
-        boolean needMavenScript = exportChoiceMap.containsKey(ExportChoice.needMavenScript)
-                && exportChoiceMap.get(ExportChoice.needMavenScript) == Boolean.TRUE;
+        boolean needMavenScript = false;
+        // exportChoiceMap.containsKey(ExportChoice.needMavenScript) &&
+        // exportChoiceMap.get(ExportChoice.needMavenScript) == Boolean.TRUE;
 
         if (needMavenScript && destinationKar.regionMatches(true, destinationKar.length() - 4, ".kar", 0, 4)) {
             destinationKar = destinationKar.substring(0, destinationKar.length() - 3) + "zip";
