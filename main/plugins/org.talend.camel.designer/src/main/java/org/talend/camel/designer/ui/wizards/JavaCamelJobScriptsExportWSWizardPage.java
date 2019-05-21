@@ -638,9 +638,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         exportChoiceMap.put(ExportChoice.needMetaInfo, true);
         exportChoiceMap.put(ExportChoice.needContext, true);
         exportChoiceMap.put(ExportChoice.needLauncher, exportAsZip);
-        if (addBSButton != null) {
-            exportChoiceMap.put(ExportChoice.needMavenScript, addBSButton.getSelection());
-        }
+        exportChoiceMap.put(ExportChoice.needMavenScript, false);
+
         exportChoiceMap.put(ExportChoice.onlyDefautContext, onlyExportDefaultContext);
 
         return exportChoiceMap;
