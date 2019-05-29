@@ -14,6 +14,7 @@ package org.talend.camel.designer.ui.wizards;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -631,6 +632,11 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
     @Override
     protected Map<ExportChoice, Object> getExportChoiceMap() {
+
+        if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE)) {
+            return getExportChoiceMapForImage();
+        }
+
         Map<ExportChoice, Object> exportChoiceMap = new EnumMap<ExportChoice, Object>(ExportChoice.class);
         exportChoiceMap.put(ExportChoice.needJobItem, false);
         exportChoiceMap.put(ExportChoice.needSourceCode, false);
@@ -641,6 +647,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         exportChoiceMap.put(ExportChoice.needMavenScript, false);
 
         exportChoiceMap.put(ExportChoice.onlyDefautContext, onlyExportDefaultContext);
+
+        exportChoiceMap.put(ExportChoice.binaries, true);
 
         return exportChoiceMap;
     }
@@ -834,39 +842,49 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT)
                 || exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE)) {
 
-            try {
-                if (microService != null) {
+//            try {
+//                if (microService != null) {
+//
+//                    if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE)) {
+//                        exportChoiceMap = getExportChoiceMapForImage();
+//                    }
+//
+//                    buildJobHandler = microService.createBuildJobHandler(getProcessItem(), version, destinationKar,
+//                            exportChoiceMap);
+//
+//                    Map<String, Object> prepareParams = new HashMap<String, Object>();
+//                    prepareParams.put(IBuildResourceParametes.OPTION_ITEMS, true);
+//                    prepareParams.put(IBuildResourceParametes.OPTION_ITEMS_DEPENDENCIES, true);
+//
+//                    try {
+//                        buildJobHandler.prepare(monitor, prepareParams);
+//                    } catch (Exception e) {
+//                        MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
+//                        return false;
+//                    }
+//
+//                    actionMS = microService.createRunnableWithProgress(exportChoiceMap, Arrays.asList(getCheckNodes()), version,
+//                            destinationKar, "");
+//                }
+//
+//            } catch (Exception e) {
+//                MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
+//                e.printStackTrace();
+//            }
 
-                    if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE)) {
-                        exportChoiceMap = getExportChoiceMapForImage();
-                    }
+            IRunnableWithProgress worker = new IRunnableWithProgress() {
 
-                    buildJobHandler = microService.createBuildJobHandler(getProcessItem(), version, destinationKar,
-                            exportChoiceMap);
+                @Override
+                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-                    Map<String, Object> prepareParams = new HashMap<String, Object>();
-                    prepareParams.put(IBuildResourceParametes.OPTION_ITEMS, true);
-                    prepareParams.put(IBuildResourceParametes.OPTION_ITEMS_DEPENDENCIES, true);
+                    buildJobWithMaven(JobExportType.ROUTE, monitor);
 
-                    try {
-                        buildJobHandler.prepare(monitor, prepareParams);
-                    } catch (Exception e) {
-                        MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
-                        return false;
-                    }
-
-                    actionMS = microService.createRunnableWithProgress(exportChoiceMap, Arrays.asList(getCheckNodes()), version,
-                            destinationKar, "");
                 }
-
-            } catch (Exception e) {
-                MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
-                e.printStackTrace();
-            }
+            };
 
             try {
-                getContainer().run(false, true, actionMS);
-                buildJobHandler.build(monitor);
+                getContainer().run(false, true, worker);
+                // buildJobHandler.build(monitor);
             } catch (Exception e) {
                 MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
                 return false;
@@ -915,16 +933,16 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                 return false;
             }
 
-        }
+            IFile targetFile = buildJobHandler.getJobTargetFile();
 
-        IFile targetFile = buildJobHandler.getJobTargetFile();
-
-        if (targetFile != null && targetFile.exists()) {
-            try {
-                FilesUtils.copyFile(targetFile.getLocation().toFile(), new File(getDestinationValue()));
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (targetFile != null && targetFile.exists()) {
+                try {
+                    FilesUtils.copyFile(targetFile.getLocation().toFile(), new File(getDestinationValue()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
         return true;
