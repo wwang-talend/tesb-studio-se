@@ -504,5 +504,10 @@
 	    <artifactId>jakarta.activation</artifactId>
 	    <version>1.2.1</version>
 	</dependency>
+    <dependency>
+        <groupId>org.apache.servicemix.specs</groupId>
+        <artifactId>org.apache.servicemix.specs.jaxws-api-2.2</artifactId>
+        <version>2.9.0</version>
+    </dependency>
   </dependencies>
 </project>
