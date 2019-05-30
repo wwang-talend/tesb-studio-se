@@ -971,6 +971,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         exportChoiceMap.put(ExportChoice.buildImage, Boolean.TRUE);
         exportChoiceMap.put(ExportChoice.needLauncher, Boolean.TRUE);
         exportChoiceMap.put(ExportChoice.launcherName, JobScriptsManager.UNIX_ENVIRONMENT);
+
+        exportChoiceMap.put(ExportChoice.binaries, true);
 //        exportChoiceMap.put(ExportChoice.needSystemRoutine, Boolean.TRUE);
 //        exportChoiceMap.put(ExportChoice.needUserRoutine, Boolean.TRUE);
 //        exportChoiceMap.put(ExportChoice.needTalendLibraries, Boolean.TRUE);
