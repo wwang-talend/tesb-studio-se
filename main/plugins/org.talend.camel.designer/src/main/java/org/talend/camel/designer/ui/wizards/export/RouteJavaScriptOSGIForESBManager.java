@@ -40,10 +40,6 @@ import org.dom4j.io.SAXReader;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PlatformUI;
 import org.talend.camel.core.model.camelProperties.CamelProcessItem;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ModuleNeeded;
@@ -223,28 +219,11 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             throws IOException {
 
         // Add subjob import packages to be handled by dependencies resolver
-	if (subjobImportPackages != null && subjobImportPackages.containsKey(processItem.getProperty().getId())) {
-	    processItem.getProperty().getAdditionalProperties().put("Import-Package",
-		    subjobImportPackages.get(processItem.getProperty().getId()));
-	    subjobImportPackages.remove(processItem.getProperty().getId());
-
-	    // Save route editor for TESB-25036
-	    // TODO Change to use temp variables to save import packages, instead of using additional property
-	    // @see org.talend.camel.designer.ui.wizards.actions.JavaCamelJobScriptsExportWSAction.addJobPackageToOsgiImport(ProcessItem
-	    // process, Set<String> jobPackageNames)
-	    IWorkbench workbench = PlatformUI.getWorkbench();
-	    if (workbench != null && workbench.getActiveWorkbenchWindow() != null
-		    && workbench.getActiveWorkbenchWindow().getActivePage() != null) {
-		IEditorReference[] editorReferences = workbench.getActiveWorkbenchWindow().getActivePage()
-			.getEditorReferences();
-		for (IEditorReference editor : editorReferences) {
-		    if (editor.isDirty() && processItem.getProperty().getLabel().equals(editor.getName())) {
-			editor.getEditor(false).doSave(new NullProgressMonitor());
-			break;
-		    }
-		}
-	    }
-	}
+        if (subjobImportPackages != null && subjobImportPackages.containsKey(processItem.getProperty().getId())) {
+            processItem.getProperty().getAdditionalProperties()
+                          .put("Import-Package", subjobImportPackages.get(processItem.getProperty().getId()));
+            subjobImportPackages.remove(processItem.getProperty().getId());
+        }
 
         final DependenciesResolver resolver = new DependenciesResolver(processItem);
         //exportPackage.append(getPackageName(processItem));
