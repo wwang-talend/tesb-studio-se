@@ -1,7 +1,6 @@
 public class CLASS {
 
 	public String getExpression(String language, String expression, String cidd, String useNamespacess, String resultClassType) {
-		language = language.toLowerCase();
 		if ("bean".equals(language)) {
 			return "method(" + expression + ")";
 		} else if ("correlation".equals(language)) {
@@ -26,7 +25,6 @@ public class CLASS {
 	}
 	
 	public String getExpressionDefinition(String language, String expression, String cidd, String useNamespacess, String resultClassType) {
-		language = language.toLowerCase();
 		if ("el".equals(language)) {
 			return "new org.apache.camel.model.language.ELExpression(" + expression + ")";
 		} else if ("groovy".equals(language)) {
