@@ -842,49 +842,18 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT)
                 || exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE)) {
 
-//            try {
-//                if (microService != null) {
-//
-//                    if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE)) {
-//                        exportChoiceMap = getExportChoiceMapForImage();
-//                    }
-//
-//                    buildJobHandler = microService.createBuildJobHandler(getProcessItem(), version, destinationKar,
-//                            exportChoiceMap);
-//
-//                    Map<String, Object> prepareParams = new HashMap<String, Object>();
-//                    prepareParams.put(IBuildResourceParametes.OPTION_ITEMS, true);
-//                    prepareParams.put(IBuildResourceParametes.OPTION_ITEMS_DEPENDENCIES, true);
-//
-//                    try {
-//                        buildJobHandler.prepare(monitor, prepareParams);
-//                    } catch (Exception e) {
-//                        MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
-//                        return false;
-//                    }
-//
-//                    actionMS = microService.createRunnableWithProgress(exportChoiceMap, Arrays.asList(getCheckNodes()), version,
-//                            destinationKar, "");
-//                }
-//
-//            } catch (Exception e) {
-//                MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
-//                e.printStackTrace();
-//            }
-
             IRunnableWithProgress worker = new IRunnableWithProgress() {
 
                 @Override
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-                    buildJobWithMaven(JobExportType.ROUTE, monitor);
+                    buildJobWithMaven(exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT) ? JobExportType.ROUTE
+                            : JobExportType.MSESB_IMAGE, monitor);
 
                 }
             };
-
             try {
                 getContainer().run(false, true, worker);
-                // buildJobHandler.build(monitor);
             } catch (Exception e) {
                 MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
                 return false;
