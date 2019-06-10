@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -55,14 +55,14 @@ public class OpenOnSelectionHelper extends org.eclipse.wst.wsdl.ui.internal.util
 	        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 
 	        if (editorPart.getEditorInput() instanceof IFileEditorInput &&
-	        		((IFileEditorInput)editorPart.getEditorInput()).getFile().equals(file)) {  
+	        		((IFileEditorInput)editorPart.getEditorInput()).getFile().equals(file)) {
 	        	workbenchPage.getNavigationHistory().markLocation(editorPart);
 	        } else {
 	        	try {
 	        		Item item=((ServiceEditorInput)editorPart.getEditorInput()).getItem();
 	        		// TODO: Use content type as below
 	        		if (resource.endsWith("xsd")) { //$NON-NLS-1$
-	        			editorPart = workbenchPage.openEditor(new ServiceEditorInput(file,item), WSDLEditorPlugin.XSD_EDITOR_ID); 
+	        			editorPart = workbenchPage.openEditor(new ServiceEditorInput(file,item), WSDLEditorPlugin.XSD_EDITOR_ID);
 	        		} else {
 	        			// Since we are already in the wsdleditor
 	        			editorPart =  workbenchPage.openEditor(new ServiceEditorInput(file,item), editorPart.getEditorSite().getId());
@@ -99,7 +99,7 @@ public class OpenOnSelectionHelper extends org.eclipse.wst.wsdl.ui.internal.util
 	          IEditorInput input = refs[i].getEditorInput();
 	          if (input instanceof ADTReadOnlyFileEditorInput) {
 	            ADTReadOnlyFileEditorInput readOnlyEditorInput = (ADTReadOnlyFileEditorInput) input;
-	            if (readOnlyEditorInput.getUrlString().equals(resource) && 
+	            if (readOnlyEditorInput.getUrlString().equals(resource) &&
 	                (!doOpenWsdlEditor && readOnlyEditorInput.getEditorID().equals(WSDLEditorPlugin.XSD_EDITOR_ID)
 	                || doOpenWsdlEditor && readOnlyEditorInput.getEditorID().equals(WSDLEditorPlugin.WSDL_EDITOR_ID))) {
 	              newEditorPart = refs[i].getEditor(true);
@@ -131,6 +131,6 @@ public class OpenOnSelectionHelper extends org.eclipse.wst.wsdl.ui.internal.util
               ExceptionHandler.process(e);
 	      }
 	    }
-	  
+
 	}
 }

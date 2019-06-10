@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006-2018 Talend – www.talend.com
+// Copyright (C) 2006-2019 Talend – www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ public class StringUtil {
 
     private StringUtil() {
     }
-    
+
     public static String toString(InputStream in) {
         char[] buffer = new char[8196];
         StringBuilder answer = new StringBuilder();

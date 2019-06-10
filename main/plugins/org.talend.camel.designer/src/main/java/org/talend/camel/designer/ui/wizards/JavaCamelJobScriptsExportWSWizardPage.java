@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -82,7 +82,7 @@ import org.talend.repository.ui.wizards.exportjob.util.ExportJobUtil;
 
 /**
  * DOC x class global comment. Detailled comment <br/>
- * 
+ *
  */
 public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizardPage {
 
@@ -157,7 +157,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
              */
             @Override
@@ -438,7 +438,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.internal.wizards.datatransfer.WizardFileSystemResourceExportPage1#createDestinationGroup(org.
      * eclipse.swt.widgets.Composite)
      */
@@ -479,7 +479,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.ui.wizards.exportjob.JobScriptsExportWizardPage#createControl(org.eclipse.swt.widgets.
      * Composite)
      */
@@ -521,7 +521,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
     /**
      * Answer the suffix that files exported from this wizard should have. If this suffix is a file extension (which is
      * typically the case) then it must include the leading period character.
-     * 
+     *
      */
     @Override
     protected String getOutputSuffix() {
@@ -760,7 +760,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.ui.wizards.exportjob.JobScriptsExportWizardPage#getContextName()
      */
     @Override
@@ -785,7 +785,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.ui.wizards.exportjob.JobScriptsExportWizardPage#checkExport()
      */
     @Override
@@ -818,7 +818,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         if (needMavenScript && destinationKar.regionMatches(true, destinationKar.length() - 4, ".kar", 0, 4)) {
             destinationKar = destinationKar.substring(0, destinationKar.length() - 3) + "zip";
         }
-        
+
         if(exportAsZip) {
             exportChoiceMap.put(ExportChoice.needAssembly, Boolean.TRUE);
         }
@@ -836,7 +836,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBMicroService.class)) {
             microService = (IESBMicroService) GlobalServiceRegister.getDefault().getService(IESBMicroService.class);
         }
-        
+
         IBuildJobHandler buildJobHandler = null;
 
         if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT)

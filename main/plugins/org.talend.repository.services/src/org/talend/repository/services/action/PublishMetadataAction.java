@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -38,9 +38,9 @@ import org.talend.repository.ui.actions.AContextualAction;
 
 /**
  * Action used to export job scripts. <br/>
- * 
+ *
  * $Id: ExportJobScriptAction.java 1 2006-12-13 ä¸‹å�ˆ03:12:05 bqian
- * 
+ *
  */
 public class PublishMetadataAction extends AContextualAction {
 
@@ -57,7 +57,7 @@ public class PublishMetadataAction extends AContextualAction {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.ui.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
      * org.eclipse.jface.viewers.IStructuredSelection)
      */

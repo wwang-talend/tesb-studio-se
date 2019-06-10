@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -51,11 +51,11 @@ import org.talend.repository.utils.EmfModelUtils;
 
 /**
  * Camel component feature
- * 
+ *
  * http://jira.talendforge.org/browse/TESB-5375
- * 
+ *
  * @author LiXiaopeng
- * 
+ *
  */
 public final class CamelFeatureUtil {
 
@@ -228,7 +228,7 @@ public final class CamelFeatureUtil {
 
 	/**
 	 * Add feature and bundle to Feature Model
-	 * 
+	 *
 	 * @param node
 	 * @param featuresModel
 	 */
@@ -237,7 +237,7 @@ public final class CamelFeatureUtil {
         IProcess process = designerService.getProcessFromProcessItem(routeProcess, false);
 
         Collection<FeatureModel> features = new HashSet<FeatureModel>();
-        for (String lib : process.getNeededLibraries(TalendProcessOptionConstants.MODULES_WITH_CHILDREN)) {      	
+        for (String lib : process.getNeededLibraries(TalendProcessOptionConstants.MODULES_WITH_CHILDREN)) {
             Collection<FeatureModel> featureModel = computeFeature(getNameWithoutVersion(lib));
             if (featureModel != null) {
                 features.addAll(featureModel);
@@ -253,9 +253,9 @@ public final class CamelFeatureUtil {
     }
 
 	/**
-	 * 
+	 *
 	 * DOC ggu Comment method "getMavenGroupId".
-	 * 
+	 *
 	 * @param item
 	 * @return
 	 */

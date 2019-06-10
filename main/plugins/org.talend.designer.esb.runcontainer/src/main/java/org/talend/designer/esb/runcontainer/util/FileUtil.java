@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -42,7 +42,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 public class FileUtil {
 
     private static final List<String> CONTAINER_FILES;
-   
+
 
     static {
         final List<String> containerFiles = new ArrayList<>();
@@ -62,7 +62,7 @@ public class FileUtil {
     public static boolean isValidLocation(String rtHome) {
         return getValidLocation(rtHome) != null;
     }
-    
+
     public static String getValidLocation(String rtHome) {
         if (rtHome == null) {
             throw new IllegalArgumentException("rtHome cannot be null");
@@ -331,18 +331,18 @@ public class FileUtil {
 
         try {
             Set<PosixFilePermission> perms = Files.getPosixFilePermissions(file);
-            
+
             perms.add(OWNER_READ);
             perms.add(OWNER_EXECUTE);
-            
+
             if (perms.contains(GROUP_READ)) {
                 perms.add(GROUP_EXECUTE);
             }
-            
+
             if (perms.contains(OTHERS_READ)) {
                 perms.add(OTHERS_EXECUTE);
             }
-            
+
             Files.setPosixFilePermissions(file, perms);
         } catch (IOException e) {
             e.printStackTrace();

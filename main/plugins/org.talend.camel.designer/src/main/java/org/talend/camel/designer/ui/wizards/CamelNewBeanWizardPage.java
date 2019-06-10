@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -21,9 +21,9 @@ import org.talend.repository.ui.wizards.routines.NewRoutineWizardPage;
 
 /**
  * Page for new project details. <br/>
- * 
+ *
  * $Id: NewProcessWizardPage.java 52559 2010-12-13 04:14:06Z nrousseau $
- * 
+ *
  */
 public class CamelNewBeanWizardPage extends NewRoutineWizardPage {
 

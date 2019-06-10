@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -41,7 +41,7 @@ public class UpdateCJMSProjectMigrationTask extends AbstractRouteItemMigrationTa
 
 
     /**
-     * 
+     *
      * @param currentNode
      * @return
      */
@@ -89,7 +89,7 @@ public class UpdateCJMSProjectMigrationTask extends AbstractRouteItemMigrationTa
 
     /**
      * Get maximum Y position of the process.
-     * 
+     *
      * @param processType
      * @return
      */
@@ -120,7 +120,7 @@ public class UpdateCJMSProjectMigrationTask extends AbstractRouteItemMigrationTa
 
     /**
      * Compute the location of cMQConnectionFactory Node
-     * 
+     *
      * @param processType
      * @param nodes
      */
@@ -137,7 +137,7 @@ public class UpdateCJMSProjectMigrationTask extends AbstractRouteItemMigrationTa
 
     /**
      * Update cJMS, add cMQConnectionFactory.
-     * 
+     *
      * @param item
      * @throws PersistenceException
      */

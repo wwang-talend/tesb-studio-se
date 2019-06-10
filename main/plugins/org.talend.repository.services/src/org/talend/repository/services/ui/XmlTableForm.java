@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -97,7 +97,7 @@ public class XmlTableForm extends Composite {
 
     /**
      * DOC Administrator FileTableForm constructor comment.
-     * 
+     *
      * @param parent
      * @param style
      */
@@ -122,9 +122,9 @@ public class XmlTableForm extends Composite {
         nameFilter.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         // List Table
-        table = new Table(groupTableSettings, SWT.BORDER | SWT.CHECK | SWT.MULTI | SWT.VIRTUAL); 
+        table = new Table(groupTableSettings, SWT.BORDER | SWT.CHECK | SWT.MULTI | SWT.VIRTUAL);
         table.addListener(SWT.SetData, new Listener() {
-            public void handleEvent(Event event) { 
+            public void handleEvent(Event event) {
                 TableItem tableItem = (TableItem)event.item;
                 @SuppressWarnings("unchecked")
                 List<Item> items = (List<Item>) table.getData();
@@ -133,7 +133,7 @@ public class XmlTableForm extends Composite {
                 tableItem.setImage(ImageProvider.getImage(ECoreImage.METADATA_FILE_XML_ICON));
                 tableItem.setChecked(item.isCheck());
                 tableItem.setData(item);
-            } 
+            }
         });
         TableColumn tableName = new TableColumn(table, SWT.NONE);
         tableName.setWidth(300);

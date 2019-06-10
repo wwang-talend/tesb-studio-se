@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -52,17 +52,17 @@ public class NewOrEditDependencyDialog extends TitleAreaDialog {
 
 	/** The name text. */
 	private Text fNameText;
-	
+
 	/** The optional btn. */
 	private Button fOptionalBtn;
-	
+
 	/** The version part. */
 	private DependencyVersionPart fVersionPart;
 
     private final ManifestItem item;
 
     /**
-	 * Instantiates a new new or edit dependency dialog. 
+	 * Instantiates a new new or edit dependency dialog.
 	 * Use for create a new dependency
 	 *
 	 * @param input the input
@@ -174,7 +174,7 @@ public class NewOrEditDependencyDialog extends TitleAreaDialog {
 
 	/**
 	 * Validate.
-	 * 
+	 *
 	 * @return true, if successful valid
 	 */
 	private boolean validate() {

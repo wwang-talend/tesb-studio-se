@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -144,7 +144,7 @@ public class RunESBRuntimeProcess extends Process {
 
     /**
      * Start tracing server logs
-     * 
+     *
      * @throws Exception
      */
     public void start() throws Exception {
@@ -226,12 +226,12 @@ public class RunESBRuntimeProcess extends Process {
             String configID = node.getObject().getLabel();
 
             monitor.setTaskName("Deploy artifact into Runtime server");
-            
+
             ServiceItem serviceItem = null;
             JobExportType exportType = ComponentCategory.CATEGORY_4_DI.getName().equals(process.getComponentsType())
                     ? JobExportType.OSGI
                     : JobExportType.ROUTE;
-            
+
             // check for service
             if (exportType == JobExportType.OSGI
                     && EmfModelUtils.getComponentByName(processItem, "tESBProviderRequest") != null) {
@@ -268,7 +268,7 @@ public class RunESBRuntimeProcess extends Process {
             exportChoiceMap.put(ExportChoice.includeTestSource, false);
             exportChoiceMap.put(ExportChoice.includeLibs, true);
             exportChoiceMap.put(ExportChoice.needLog4jLevel, false);
-            
+
             applyContextConfiguration(configID);
             if (JobExportType.SERVICE == exportType) {
                 Map<String, Object> parameters = new HashMap<String, Object>();
@@ -288,7 +288,7 @@ public class RunESBRuntimeProcess extends Process {
                 BuildJobManager.getInstance().buildJob(target.getAbsolutePath(), processItem, process.getVersion(),
                         processItem.getProcess().getDefaultContext(), exportChoiceMap, exportType, monitor);
             }
-            
+
             if(JobExportType.SERVICE == exportType || JobExportType.ROUTE == exportType) {
                 kars = JMXUtil.installKar(target);
             }else if (exportType == JobExportType.OSGI) {

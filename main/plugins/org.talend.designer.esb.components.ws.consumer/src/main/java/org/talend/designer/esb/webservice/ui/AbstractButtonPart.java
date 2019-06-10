@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -65,7 +65,7 @@ public abstract class AbstractButtonPart<T extends EventListener> extends Abstra
 	/**
 	 * Gets the image. Can use {@link #getImageFromBundle(String, String)} or
 	 * {@link #getImageFromIImage(IImage)}.
-	 * 
+	 *
 	 * @return the image
 	 */
 	protected abstract Image getImage();
@@ -74,7 +74,7 @@ public abstract class AbstractButtonPart<T extends EventListener> extends Abstra
 	/**
 	 * Gets the image from bundle. Will return null without any Exception when
 	 * failed.
-	 * 
+	 *
 	 * @param bundle
 	 *            the bundle
 	 * @param path

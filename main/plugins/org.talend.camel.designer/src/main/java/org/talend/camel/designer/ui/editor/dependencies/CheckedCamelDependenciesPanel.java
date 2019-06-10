@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -81,7 +81,7 @@ public class CheckedCamelDependenciesPanel extends CamelDependenciesPanel {
             @Override
             public void checkStateChanged(CheckStateChangedEvent event) {
                 if (((ManifestItem) event.getElement()).isBuiltIn()) {
-                    viewer.setChecked(event.getElement(), !event.getChecked()); 
+                    viewer.setChecked(event.getElement(), !event.getChecked());
                 } else {
                     ((ManifestItem) event.getElement()).setOptional(!event.getChecked());
                     fireDependenciesChangedListener();

@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -41,7 +41,7 @@ public abstract class AbstractRouteItemMigrationTask extends
 
 	/**
 	 * Restrict only works on Route Repository Node.
-	 * 
+	 *
 	 * @see org.talend.core.model.migration.AbstractItemMigrationTask#getTypes()
 	 */
 	@Override
@@ -64,7 +64,7 @@ public abstract class AbstractRouteItemMigrationTask extends
 	protected List<NodeType> findComponentNodes(CamelProcessItem item, String component) {
 		return findComponentNodes(item, component, false);
 	}
-	
+
 	/**
 	 * Find component nodes match given regex.
 	 *
@@ -75,7 +75,7 @@ public abstract class AbstractRouteItemMigrationTask extends
 	protected List<NodeType> findComponentNodesRegex(CamelProcessItem item, String componentRegex) {
 		return findComponentNodes(item,componentRegex,true);
 	}
-	
+
 	private List<NodeType> findComponentNodes(CamelProcessItem item,String search,boolean isRegex){
 		if(search == null) {
 			throw new RuntimeException("Can't search component node by \"null\" in "+this.getClass());

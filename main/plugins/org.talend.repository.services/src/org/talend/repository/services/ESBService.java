@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -344,7 +344,7 @@ public class ESBService implements IESBService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IESBService#getServicesType()
      */
     @Override
@@ -527,7 +527,7 @@ public class ESBService implements IESBService {
 
     /**
      * When services connection is renamed, refresh the connection label in the component view of job.
-     * 
+     *
      * @param item
      */
     @Override
@@ -830,7 +830,7 @@ public class ESBService implements IESBService {
 
     /**
      * To fix [TESB-6072], tESBProviderRequest_x in job need to be update to binding to the new service.
-     * 
+     *
      * @param newProcessItem The cloned job process item.
      * @param serviceItem The cloned service item.
      * @param port
@@ -992,7 +992,7 @@ public class ESBService implements IESBService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IESBService#getXSDPopulationUtil()
      */
     @Override
@@ -1032,7 +1032,7 @@ public class ESBService implements IESBService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IESBService#getDefaultGroupIdSuffix(org.talend.core.model.properties.Property)
      */
     @Override
@@ -1089,7 +1089,7 @@ public class ESBService implements IESBService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.IESBService#createOSGIJavaProcessor(org.talend.core.model.process.IProcess,
      * org.talend.core.model.properties.Property, boolean)
      */

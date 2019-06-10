@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -64,20 +64,20 @@ import org.talend.utils.io.FilesUtils;
 import org.talend.utils.string.MD5;
 
 public class ConfigOptionController extends AbstractElementPropertySectionController {
-    
+
     private static Logger log = Logger.getLogger(ConfigOptionController.class);
 
 	protected final String JAR_NAME = "JAR_NAME";
 	protected final String JAR_PATH = "JAR_PATH";
 	protected final String JAR_NEXUS_VERSION = "JAR_NEXUS_VERSION";
 	protected final String JAR_NEXUS_PRE_VERSION = "JAR_NEXUS_PRE_VERSION";
-	
+
 	protected SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");//20170411034415
-	
+
 	protected INexusService service;
-	
+
     ArtifactRepositoryBean nexusServerBean = TalendLibsServerManager.getInstance().getCustomNexusServer();
-	
+
 	public ConfigOptionController(IDynamicProperty dp) {
 		super(dp);
         if (GlobalServiceRegister.getDefault().isServiceRegistered(INexusService.class)) {
@@ -90,7 +90,7 @@ public class ConfigOptionController extends AbstractElementPropertySectionContro
 	public void propertyChange(PropertyChangeEvent evt) {
 
 	}
-	
+
     IRepositoryArtifactHandler hander;
 
 	protected boolean isAvailable(){
@@ -120,10 +120,10 @@ public class ConfigOptionController extends AbstractElementPropertySectionContro
 	        }catch (Exception ex) {
 	            MessageDialog.openError(composite.getShell(), "Checking Nexus Connection Error", "Can not connect to "+nexusServerBean.getServer()+"\n"+ex.getMessage());
 	        }finally{
-	            
+
 	        }
 	    }
-	    
+
 
         return false;
 	}
@@ -198,7 +198,7 @@ public class ConfigOptionController extends AbstractElementPropertySectionContro
 	public void refresh(IElementParameter param, boolean check) {
 
 		TableViewerCreator tableViewerCreator = (TableViewerCreator) hashCurControls.get("NEED_UPDATE_LIST");
-		
+
         if (tableViewerCreator == null || tableViewerCreator.getTable() == null || tableViewerCreator.getTable().isDisposed()) {
             return;
         }else{
@@ -247,28 +247,28 @@ public class ConfigOptionController extends AbstractElementPropertySectionContro
                 // refreshDynamicProperty();
                 // tableViewerCreator.getTableViewer().refresh();
             }
-        	
+
         }
 	}
-	
+
     protected Map getNeedUpdateJar(String flag,String jarName,String nexusVersion,String nexusPreVersion){
 		Map needUpdateJar = new HashMap();
 
 		//needUpdateJar.put("SCHEMA_COLUMN", flag);
-		
+
 		needUpdateJar.put("JAR_STATUS", flag);
-		
+
 		needUpdateJar.put("JAR_SYNC", "true");
-		
+
 		needUpdateJar.put(JAR_NAME, jarName);
-		
+
 		needUpdateJar.put(JAR_NEXUS_VERSION, nexusVersion);
-		
+
 		needUpdateJar.put(JAR_NEXUS_PRE_VERSION, nexusPreVersion);
-		
+
 		return needUpdateJar;
     }
-    
+
     protected File generateTempFile(InputStream is,String fileName){
         File file = new File(ExportJobUtil.getTmpFolder() + File.separator + fileName);
 
@@ -277,19 +277,19 @@ public class ConfigOptionController extends AbstractElementPropertySectionContro
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return file;
     }
-    
+
     protected String getGroupId(){
         String groupId = "org.talend.libraries";
-//        
+//
 //        final EMap additionalProperties = ((RouteProcess)((Node)elem).getProcess()).getProperty().getAdditionalProperties();
 //        final Object groupIdValue = additionalProperties.get(MavenConstants.NAME_GROUP_ID);
 //        if (groupIdValue != null && groupIdValue.toString().length() > 0) {
 //            groupId = groupIdValue.toString();
 //        }
-        
+
         return groupId;
     }
 

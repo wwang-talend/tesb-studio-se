@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -33,9 +33,9 @@ import org.talend.designer.runprocess.ui.ERunprocessImages;
 
 /**
  * Start runtime server steps:
- * 
+ *
  * 1. check is there a local runtime server exists(start in studio or is an external runtime server)
- * 
+ *
  * 2.
  */
 public class StartRuntimeAction extends Action {
@@ -60,7 +60,7 @@ public class StartRuntimeAction extends Action {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.jface.action.Action#run()
      */
     @Override

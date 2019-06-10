@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006-2018 Talend – www.talend.com
+// Copyright (C) 2006-2019 Talend – www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -52,7 +52,7 @@ import org.talend.designer.core.ui.editor.subjobcontainer.SubjobContainerPart;
 
 /**
  * DOC yyan class global comment. Detailled comment <br/>
- * 
+ *
  * @see org.talend.camel.designer.ui.editor.CamelEditorDropTargetListener
  */
 public class RoutePasteAction extends GEFPasteAction {

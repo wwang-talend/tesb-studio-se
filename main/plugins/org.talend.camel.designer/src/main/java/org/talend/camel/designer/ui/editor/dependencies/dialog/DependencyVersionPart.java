@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -28,11 +28,11 @@ import org.talend.camel.designer.ui.editor.dependencies.Messages;
 
 /**
  * Use to create UI part to set/get dependency version.
- * 
+ *
  * @author GaoZone (modify from
  *         {@link org.eclipse.pde.internal.ui.parts.PluginVersionPart}
- * 
- * 
+ *
+ *
  */
 public class DependencyVersionPart {
 
@@ -60,7 +60,7 @@ public class DependencyVersionPart {
 	/**
 	 * Instantiates a new dependency version part. Support single version input
 	 * and version range input.
-	 * 
+	 *
 	 * @param rangeAllowed
 	 *            the range allowed, true means need to fill both min version
 	 *            and max version.
@@ -71,7 +71,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Creates the version fields.
-	 * 
+	 *
 	 * @param comp
 	 *            the comp
 	 * @param createGroup
@@ -90,7 +90,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Creates the range field.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent
 	 * @param createGroup
@@ -135,7 +135,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Creates the single field.
-	 * 
+	 *
 	 * @param parent
 	 *            the parent
 	 * @param createGroup
@@ -188,7 +188,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Validate version.
-	 * 
+	 *
 	 * @param versionString
 	 *            the versionString
 	 * @return the i status
@@ -209,7 +209,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Validate version range.
-	 * 
+	 *
 	 * @return the i status
 	 */
 	private String validateVersionRange() {
@@ -228,7 +228,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Validate full version range text.
-	 * 
+	 *
 	 * @return an OK status if all versions are valid, otherwise the status's
 	 *         message will contain an error message.
 	 */
@@ -243,7 +243,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Gets the min version.
-	 * 
+	 *
 	 * @return the min version
 	 */
 	private String getMinVersion() {
@@ -252,7 +252,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Gets the max version.
-	 * 
+	 *
 	 * @return the max version
 	 */
 	private String getMaxVersion() {
@@ -263,7 +263,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Gets the min inclusive.
-	 * 
+	 *
 	 * @return the min inclusive
 	 */
 	private boolean getMinInclusive() {
@@ -274,7 +274,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Gets the max inclusive.
-	 * 
+	 *
 	 * @return the max inclusive
 	 */
 	private boolean getMaxInclusive() {
@@ -285,7 +285,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Extract single version from text.
-	 * 
+	 *
 	 * @return the string
 	 */
 	private String extractSingleVersionFromText() {
@@ -298,7 +298,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Gets the version.
-	 * 
+	 *
 	 * @return the version
 	 */
 	public String getVersion() {
@@ -331,7 +331,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Adds the listeners.
-	 * 
+	 *
 	 * @param minListener
 	 *            the min listener
 	 * @param selectionListener
@@ -354,7 +354,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Gets the group text.
-	 * 
+	 *
 	 * @return the group text
 	 */
 	protected String getGroupText() {
@@ -363,7 +363,7 @@ public class DependencyVersionPart {
 
 	/**
 	 * Sets the version.
-	 * 
+	 *
 	 * @param version
 	 *            the new version
 	 */

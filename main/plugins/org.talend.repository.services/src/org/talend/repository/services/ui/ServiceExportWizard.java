@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -45,9 +45,9 @@ import org.talend.repository.ui.wizards.exportjob.scriptsmanager.JobScriptsManag
 
 /**
  * Job scripts export wizard. <br/>
- * 
+ *
  * $Id: ServiceExportWizard.java 1 2006-12-13 PM 03:13:18 bqian
- * 
+ *
  */
 public class ServiceExportWizard extends Wizard implements IExportWizard {
 

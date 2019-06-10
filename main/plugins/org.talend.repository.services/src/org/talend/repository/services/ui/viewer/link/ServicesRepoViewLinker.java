@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -25,15 +25,15 @@ import org.talend.repository.services.action.ServiceEditorInput;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>
- * 
+ *
  * $Id: talend.epf 55206 2011-02-15 17:32:14Z mhirt $
- * 
+ *
  */
 public class ServicesRepoViewLinker extends AbstractFileEditorInputLinker {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.talend.core.repository.link.AbstractFileEditorInputLinker#checkFileExtension(org.eclipse.core.resources.IFile
      * )
@@ -45,7 +45,7 @@ public class ServicesRepoViewLinker extends AbstractFileEditorInputLinker {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.repository.link.AbstractFileEditorInputLinker#getEditor(org.eclipse.ui.IWorkbenchPage,
      * org.eclipse.ui.IEditorInput)
      */
@@ -61,7 +61,7 @@ public class ServicesRepoViewLinker extends AbstractFileEditorInputLinker {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.talend.core.repository.link.AbstractFileEditorInputLinker#getRepoNodeFromEditor(org.eclipse.ui.IEditorPart)
      */

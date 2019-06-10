@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -92,7 +92,7 @@ public class AddRuntimeDirWizardPage extends WizardPage {
 
     /**
      * Create contents of the wizard.
-     * 
+     *
      * @param parent
      */
     @Override
@@ -328,9 +328,9 @@ public class AddRuntimeDirWizardPage extends WizardPage {
 
     /*
      * private long getFolderSize(File folder) { long length = 0; File[] files = folder.listFiles();
-     * 
+     *
      * int count = files.length;
-     * 
+     *
      * for (int i = 0; i < count; i++) { if (files[i].isFile()) { length += files[i].length(); } else { length +=
      * getFolderSize(files[i]); } } return length; }
      */
@@ -458,7 +458,7 @@ public class AddRuntimeDirWizardPage extends WizardPage {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
      */
     @Override

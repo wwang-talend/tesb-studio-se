@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -27,7 +27,7 @@ public class CheckingBundlesProgressTest {
      * Test method for
      * {@link org.talend.designer.esb.runcontainer.ui.progress.CheckingBundlesProgress#run(org.eclipse.core.runtime.IProgressMonitor)}
      * .
-     * 
+     *
      * @throws Exception
      */
     @Test

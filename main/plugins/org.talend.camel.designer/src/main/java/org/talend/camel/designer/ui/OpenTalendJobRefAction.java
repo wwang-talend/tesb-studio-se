@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -23,7 +23,7 @@ import org.talend.designer.core.ui.editor.nodes.Node;
 import org.talend.designer.core.ui.editor.nodes.NodePart;
 
 /**
- * The Action binding to a Talend Component UI eidotr, 
+ * The Action binding to a Talend Component UI eidotr,
  * and only effect to cTalendJob component.
  * Use to support a simple access point for editor job that linked to a cTalendJob component.
  */
@@ -45,7 +45,7 @@ public class OpenTalendJobRefAction extends org.talend.core.ui.editor.CustomExte
 
     /* Check if this action enable. Will ensure the cTalendJob was selected and has legal value.
      * @see org.eclipse.gef.ui.actions.WorkbenchPartAction#calculateEnabled()
-     * 
+     *
      */
     @Override
     protected boolean calculateEnabled() {
@@ -95,8 +95,8 @@ public class OpenTalendJobRefAction extends org.talend.core.ui.editor.CustomExte
     	boolean oldValueNotSwitchToDiKey=PlatformUI.getPreferenceStore().getBoolean(notAskAutoSwitchToDIKey);
     	PlatformUI.getPreferenceStore().setValue(notAskAutoSwitchToDIKey, true);
     	//need to be  restore at the end .
-    	
-    	
+
+
         // open in editor, type and count already checked in calculateEnabled()
         List<?> selectedObjects = getSelectedObjects();
         Object select = selectedObjects.get(0);
@@ -111,7 +111,7 @@ public class OpenTalendJobRefAction extends org.talend.core.ui.editor.CustomExte
         if(activeEditor==null||activeEditor.getEditorSite()==null) {
         	return;
         }
-        
+
         Node node = (Node) nodePart.getModel();
         String selectedJobName=(String)node.getElementParameter(NODE_PARAM_SELECTED_JOB_NAME).getValue();
         String openJobName=activeEditor.getEditorInput().getName();
@@ -128,7 +128,7 @@ public class OpenTalendJobRefAction extends org.talend.core.ui.editor.CustomExte
         	//Restore config of switch perspective suggestion dialog. just for defense.
         	PlatformUI.getPreferenceStore().setValue(notAskAutoSwitchToDIKey, oldValueNotSwitchToDiKey);
         }
-        
+
     }
 
 }

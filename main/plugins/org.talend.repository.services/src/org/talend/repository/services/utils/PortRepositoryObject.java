@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -43,7 +43,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getId()
      */
     public String getId() {
@@ -52,7 +52,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getLabel()
      */
     public String getLabel() {
@@ -61,7 +61,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getVersion()
      */
     public String getVersion() {
@@ -70,7 +70,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getAuthor()
      */
     public User getAuthor() {
@@ -79,7 +79,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getStatusCode()
      */
     public String getStatusCode() {
@@ -88,7 +88,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getCreationDate()
      */
     public Date getCreationDate() {
@@ -97,7 +97,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getDescription()
      */
     public String getDescription() {
@@ -106,7 +106,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getModificationDate()
      */
     public Date getModificationDate() {
@@ -115,7 +115,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getPurpose()
      */
     public String getPurpose() {
@@ -124,7 +124,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryObjectType()
      */
     public ERepositoryObjectType getRepositoryObjectType() {
@@ -133,7 +133,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getChildren()
      */
     public List<IRepositoryViewObject> getChildren() {
@@ -142,7 +142,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.talend.core.model.repository.IRepositoryViewObject#setRepositoryNode(org.talend.repository.model.IRepositoryNode
      * )
@@ -153,7 +153,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryNode()
      */
     public IRepositoryNode getRepositoryNode() {
@@ -162,7 +162,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#isDeleted()
      */
     public boolean isDeleted() {
@@ -171,7 +171,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getProjectLabel()
      */
     public String getProjectLabel() {
@@ -180,7 +180,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getPath()
      */
     public String getPath() {
@@ -189,7 +189,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getRepositoryStatus()
      */
     public ERepositoryStatus getRepositoryStatus() {
@@ -198,7 +198,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#getInformationStatus()
      */
     public ERepositoryStatus getInformationStatus() {
@@ -207,7 +207,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.repository.model.ISubRepositoryObject#removeFromParent()
      */
     public void removeFromParent() {
@@ -217,7 +217,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.repository.model.ISubRepositoryObject#getProperty()
      */
     public Property getProperty() {
@@ -226,7 +226,7 @@ public class PortRepositoryObject implements IRepositoryViewObject {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.model.repository.IRepositoryViewObject#isModified()
      */
     public boolean isModified() {

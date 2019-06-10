@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -35,7 +35,7 @@ public class RouteletOSGiBundleBuildProvider extends RouteOSGiBundleBuildProvide
     protected ERepositoryObjectType getObjectType() {
         return ERepositoryObjectType.PROCESS_ROUTELET;
     }
-    
+
     @Override
     public IMavenPomCreator createPomCreator(Map<String, Object> parameters) {
         if (parameters == null || parameters.isEmpty()) {
@@ -97,6 +97,6 @@ public class RouteletOSGiBundleBuildProvider extends RouteOSGiBundleBuildProvide
             osgiPomCreator.setItemRelativePath(itemRelativePath);
         }
         return osgiPomCreator;
-    }    
+    }
 
 }

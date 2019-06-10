@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -27,13 +27,13 @@ public abstract class AbstractRouteItemComponentMigrationTask extends
 
 	/**
 	 * the regex patten to filter component name.
-	 * 
+	 *
 	 * @return the component name regex
 	 */
 	public abstract String getComponentNameRegex();
 
-	/* 
-	 * 
+	/*
+	 *
 	 */
 	/* (non-Javadoc)
 	 * @see org.talend.camel.designer.migration.AbstractRouteItemMigrationTask#execute(org.talend.camel.core.model.camelProperties.CamelProcessItem)

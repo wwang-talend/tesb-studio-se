@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -62,7 +62,7 @@ import org.talend.repository.services.model.services.ServicePort;
 public class CreateMavenDataServicePom extends CreateMavenJobPom {
 
     /**
-     * 
+     *
      */
     private static final String MAVEN_VERSION = "4.0.0";
 
@@ -214,9 +214,9 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         featureModel.addProperty("talend.job.version", model.getProperties().getProperty("talend.job.version"));
         featureModel.addProperty("talend.product.version", VersionUtils.getVersion());
         featureModel.addProperty("talend.job.finalName", featureModel.getArtifactId() + "-" + featureModel.getVersion()); // DemoService-feature-0.1.0
-        
+
         featureModel.addProfile(addProfileForNexus(publishAsSnapshot, featureModel));
-        
+
         PomUtil.savePom(monitor, featureModel, feature);
 
         IFile controlBundle = pom.getParent().getFile(new Path(POM_CONTROL_BUNDLE_XML));
@@ -286,7 +286,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
 
     /*
      * feature.xml and copy wsdl, mainfest
-     * 
+     *
      * @see org.talend.designer.maven.tools.creator.CreateMavenJobPom#generateTemplates(boolean)
      */
     @Override
@@ -404,7 +404,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
 
     /**
      * Avoid clean control-bundle file in target folde, in case of using mvn clean package, TESB-22296
-     * 
+     *
      * @return plugin
      */
     private Plugin addSkipMavenCleanPlugin() {

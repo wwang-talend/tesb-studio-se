@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -77,7 +77,7 @@ import org.talend.repository.model.RepositoryNode;
 
 /**
  * Route builder DND listener. To handle specific exception and improve performance.
- * 
+ *
  * @since 6.3.0
  */
 public class CamelEditorDropTargetListener extends TalendEditorDropTargetListener {
@@ -142,7 +142,7 @@ public class CamelEditorDropTargetListener extends TalendEditorDropTargetListene
 
     /**
      * Routelet and context types are validated
-     * 
+     *
      * @return true if validated
      */
     private boolean checkSelectionSource() {
@@ -206,7 +206,7 @@ public class CamelEditorDropTargetListener extends TalendEditorDropTargetListene
                     if (node.getComponent().getComponentType() == EComponentType.JOBLET) {
                         if (routeletList.contains(node.getComponent().getName())) {
                             isDuplicateRoutelet = true;
-                            duplicatesName += " ," + node.getComponent().getName(); //$NON-NLS-1$                            
+                            duplicatesName += " ," + node.getComponent().getName(); //$NON-NLS-1$
                         }
                     }
                 }

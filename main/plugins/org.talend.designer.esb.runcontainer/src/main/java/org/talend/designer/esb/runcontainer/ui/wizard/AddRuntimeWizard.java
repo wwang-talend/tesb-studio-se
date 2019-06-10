@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -70,10 +70,10 @@ public class AddRuntimeWizard extends Wizard {
         /*
          * if (dirPage.isCopyNeeded()) { try { String runtimeHome = dirPage.getRuntimeHome(); getContainer().run(true,
          * true, new IRunnableWithProgress() {
-         * 
+         *
          * @Override public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
          * try { FileUtil.copyContainer(runtimeHome, target, monitor); } catch (IOException e) { } }
-         * 
+         *
          * }); } catch (Exception e) { MessageDialog.openError(this.getShell(),
          * RunContainerMessages.getString("AddRuntimeWizard.ErrorCopy"), ExceptionUtils.getStackTrace(e)); //$NON-NLS-1$
          * return false; } } else { target = dirPage.getRuntimeHome(); }
