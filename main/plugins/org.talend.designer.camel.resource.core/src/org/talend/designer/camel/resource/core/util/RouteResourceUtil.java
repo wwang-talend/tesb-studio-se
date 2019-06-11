@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -64,9 +64,9 @@ import org.talend.utils.io.FilesUtils;
 
 /**
  * Route Resource Utility
- * 
+ *
  * @author xpli
- * 
+ *
  */
 public class RouteResourceUtil {
 
@@ -82,7 +82,7 @@ public class RouteResourceUtil {
 
     /**
      * Get source file of Item.
-     * 
+     *
      * @param item
      * @return
      */
@@ -123,7 +123,7 @@ public class RouteResourceUtil {
     }
 
     /**
-     * 
+     *
      * @param routeItem
      * @param models
      */
@@ -148,7 +148,7 @@ public class RouteResourceUtil {
     }
 
     /**
-     * 
+     *
      * @param routeItem
      * @param models
      */
@@ -159,7 +159,7 @@ public class RouteResourceUtil {
     }
 
     /**
-     * 
+     *
      * @param routeItem
      * @param models
      */
@@ -170,7 +170,7 @@ public class RouteResourceUtil {
     }
 
     /**
-     * 
+     *
      * @param id
      * @param version
      * @return
@@ -265,7 +265,7 @@ public class RouteResourceUtil {
     }
 
     /**
-     * 
+     *
      * @param routeItem
      * @param models
      */
@@ -305,7 +305,7 @@ public class RouteResourceUtil {
 
     /**
      * @param routeItem
-     * 
+     *
      * @param models
      */
     private static Collection<ResourceDependencyModel> getBuiltInResourceDependencies(final ProcessItem routeItem) {
@@ -322,7 +322,7 @@ public class RouteResourceUtil {
 
     /**
      * @param routeItem
-     * 
+     *
      * @param models
      */
     private static Collection<ResourceDependencyModel> getBuiltInResourceDependencies(final IProcess2 process) {
@@ -364,7 +364,7 @@ public class RouteResourceUtil {
 
     /**
      * Create ResourceDependencyModel
-     * 
+     *
      * @param paramName
      * @param node
      * @return
@@ -390,7 +390,7 @@ public class RouteResourceUtil {
 
     /**
      * Copy route resource
-     * 
+     *
      * @param model
      * @throws CoreException
      */

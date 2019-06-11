@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -60,5 +60,5 @@ public class Activator extends AbstractUIPlugin {
         String defaultRestUri = getPreferenceStore().getString(REST_URI_PREFERENCE);
         System.getProperties().put(REST_URI_PREFERENCE, defaultRestUri);
     }
-    
+
 }

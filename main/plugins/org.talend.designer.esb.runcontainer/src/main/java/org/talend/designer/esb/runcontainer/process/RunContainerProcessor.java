@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -73,16 +73,16 @@ public class RunContainerProcessor extends MavenJavaProcessor {
     public String getProcessorType() {
         return "runtimeProcessor";
     }
-    
+
     @Override
     protected boolean packagingAndAssembly() {
         return ERepositoryObjectType.PROCESS_ROUTE.equals(ERepositoryObjectType.getType(getProperty())) ? true : false;
     }
-    
+
     @Override
     public void generatePom(int option) {
         super.generatePom(option);
-        
+
         if (option == TalendProcessOptionConstants.GENERATE_IS_MAINJOB
                 && ComponentCategory.CATEGORY_4_CAMEL.getName().equals(getProcess().getComponentsType())) {
             try {

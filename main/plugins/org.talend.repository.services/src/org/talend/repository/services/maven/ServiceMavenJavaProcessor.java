@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -23,7 +23,7 @@ import org.talend.repository.services.model.services.impl.ServiceItemImpl;
 public class ServiceMavenJavaProcessor extends MavenJavaProcessor {
 
     private EmptyContext emptyContext;
-    
+
     /**
      * @param process always be null
      * @param property
@@ -35,7 +35,7 @@ public class ServiceMavenJavaProcessor extends MavenJavaProcessor {
         emptyContext.setName(IContext.DEFAULT);
         setContext(emptyContext);
     }
-    
+
     @Override
     protected boolean isStandardJob() {
         return property != null && property.getItem() != null && property.getItem() instanceof ServiceItemImpl;

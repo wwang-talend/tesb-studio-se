@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -20,17 +20,17 @@ import org.talend.designer.codegen.config.TemplateUtil;
 /**
  * Internal Templates for Code Generator, must be always available to
  * encapsulate rela parts of code.
- * 
+ *
  * $Id$
- * 
+ *
  */
 public enum ECamelTemplate {
-	FOOTER_ROUTE("footer_route"), //$NON-NLS-1$ 
-	HEADER_ROUTE("header_route"), //$NON-NLS-1$ 
-	CAMEL_SPECIALLINKS("camel_speciallinks"), //$NON-NLS-1$ 
+	FOOTER_ROUTE("footer_route"), //$NON-NLS-1$
+	HEADER_ROUTE("header_route"), //$NON-NLS-1$
+	CAMEL_SPECIALLINKS("camel_speciallinks"), //$NON-NLS-1$
 
 	// ref templates.
-	CONTEXT(EInternalTemplate.CONTEXT), 
+	CONTEXT(EInternalTemplate.CONTEXT),
 	CLOSE_BLOCKS_CODE(EInternalTemplate.CLOSE_BLOCKS_CODE),
 	PART_HEADER(EInternalTemplate.PART_HEADER),
 	PART_FOOTER(EInternalTemplate.PART_FOOTER),
@@ -41,7 +41,7 @@ public enum ECamelTemplate {
 	private final String templateName;
 
 	/**
-	 * 
+	 *
 	 * @param templateName
 	 */
 	private ECamelTemplate(String templateName) {

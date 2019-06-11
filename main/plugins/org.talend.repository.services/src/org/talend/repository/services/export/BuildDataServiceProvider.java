@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006-2018 Talend – www.talend.com
+// Copyright (C) 2006-2019 Talend – www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -49,7 +49,7 @@ public class BuildDataServiceProvider extends RepositoryObjectTypeBuildProvider 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.runtime.repository.build.RepositoryObjectTypeBuildProvider#getObjectType()
      */
     @Override
@@ -59,7 +59,7 @@ public class BuildDataServiceProvider extends RepositoryObjectTypeBuildProvider 
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.runtime.repository.build.RepositoryObjectTypeBuildProvider#valid(java.util.Map)
      */
     @Override
@@ -92,7 +92,7 @@ public class BuildDataServiceProvider extends RepositoryObjectTypeBuildProvider 
 
     @Override
     public IMavenPomCreator createPomCreator(Map<String, Object> parameters) {
-        
+
 
         if (parameters == null || parameters.isEmpty()) {
             return null;
@@ -142,7 +142,7 @@ public class BuildDataServiceProvider extends RepositoryObjectTypeBuildProvider 
     }
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.runtime.repository.build.AbstractBuildProvider#createBuildExportHandler(java.util.Map)
      */
     @Override

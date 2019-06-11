@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -52,7 +52,7 @@ public class ServiceImportHandler extends ImportRepTypeHandler {
         // TODO Auto-generated method stub
         return false;
     }
-    
+
     /* (non-Javadoc)
      * @see org.talend.repository.items.importexport.handlers.imports.ImportBasicHandler#afterImportingItems(org.eclipse.core.runtime.IProgressMonitor, org.talend.repository.items.importexport.manager.ResourcesManager, org.talend.repository.items.importexport.handlers.model.ImportItem)
      */

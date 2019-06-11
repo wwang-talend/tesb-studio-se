@@ -1019,6 +1019,7 @@
 			<library id="stax-ex-1.8.1" />
 			<library id="txw2-2.3.2" />
 			<library id="jakarta.jws-api-1.1.1" />
+			<library id="org.apache.servicemix.specs.jaxws-api-2.2-2.9.0" />			
         </libraryNeededGroup>
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="istack-commons-runtime-3.0.8.jar"
@@ -1079,6 +1080,11 @@
             name="jakarta.jws-api-1.1.1.jar"
             id="jakarta.jws-api-1.1.1"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.jws-api-1.1.1.jar"
+            bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="org.apache.servicemix.specs.jaxws-api-2.2-2.9.0.jar"
+            id="org.apache.servicemix.specs.jaxws-api-2.2-2.9.0"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/org.apache.servicemix.specs.jaxws-api-2.2-2.9.0.jar"
             bundleID="" />
         <!-- Java 11 missing jars end-->
   </extension>

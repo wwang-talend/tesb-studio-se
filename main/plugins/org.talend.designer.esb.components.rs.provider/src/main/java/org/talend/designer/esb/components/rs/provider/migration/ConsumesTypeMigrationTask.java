@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -48,7 +48,7 @@ public class ConsumesTypeMigrationTask extends AbstractJobItemComponentMigration
 	/**
 	 * Update consumes type in case POST/PUT, set default consumes type to
 	 * "XML-JSON".
-	 * 
+	 *
 	 * @param currentNode
 	 *            the current node
 	 * @return true, if successful

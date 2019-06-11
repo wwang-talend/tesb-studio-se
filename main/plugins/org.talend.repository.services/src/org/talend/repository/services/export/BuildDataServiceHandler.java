@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -68,7 +68,7 @@ import org.talend.repository.utils.JobContextUtils;
 
 /**
  * DOC yyan class global comment. Detailled comment
- * 
+ *
  * For OSGi data service - SOAP
  */
 public class BuildDataServiceHandler implements IBuildJobHandler {
@@ -182,7 +182,7 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.ui.wizards.exportjob.handler.BuildJobHandler#build(org.eclipse.core.runtime.
      * IProgressMonitor)
      */
@@ -306,7 +306,7 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.runtime.repository.build.IBuildExportHandler#getArguments()
      */
     @Override
@@ -316,7 +316,7 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.runtime.process.IBuildJobHandler#generateJobFiles(org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
@@ -401,7 +401,7 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.talend.core.runtime.process.IBuildJobHandler#generateTestReports(org.eclipse.core.runtime.IProgressMonitor)
      */
@@ -413,7 +413,7 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.core.runtime.process.IBuildJobHandler#generateItemFiles(boolean,
      * org.eclipse.core.runtime.IProgressMonitor)
      */
@@ -433,7 +433,7 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
 
     /*
      * Bundle extention is kar
-     * 
+     *
      * @see org.talend.core.runtime.process.IBuildJobHandler#getJobTargetFile()
      */
     @Override

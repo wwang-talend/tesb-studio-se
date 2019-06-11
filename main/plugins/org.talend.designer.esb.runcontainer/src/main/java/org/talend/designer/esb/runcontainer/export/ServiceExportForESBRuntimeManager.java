@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -46,7 +46,7 @@ public class ServiceExportForESBRuntimeManager extends ServiceExportManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.services.ui.scriptmanager.ServiceExportManager#getJobManager(java.util.Map,
      * java.lang.String, org.talend.core.model.repository.IRepositoryViewObject, java.lang.String, java.lang.String)
      */
@@ -67,7 +67,7 @@ public class ServiceExportForESBRuntimeManager extends ServiceExportManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.repository.services.ui.scriptmanager.ServiceExportManager#createBlueprint(java.io.File,
      * java.util.Map, java.util.Map, org.eclipse.core.resources.IFile, java.lang.String)
      */

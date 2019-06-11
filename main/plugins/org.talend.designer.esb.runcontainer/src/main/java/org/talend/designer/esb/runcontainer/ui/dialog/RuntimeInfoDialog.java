@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -39,7 +39,7 @@ public class RuntimeInfoDialog extends Dialog {
 
     /**
      * Create the dialog.
-     * 
+     *
      * @param parent
      * @param style
      */
@@ -49,7 +49,7 @@ public class RuntimeInfoDialog extends Dialog {
 
     /**
      * DOC yyan RuntimeInfoDialog constructor comment.
-     * 
+     *
      * @param activeShell
      * @param list
      * @param applicationModal
@@ -61,7 +61,7 @@ public class RuntimeInfoDialog extends Dialog {
 
     /**
      * Open the dialog.
-     * 
+     *
      * @return the result
      */
     public Object open() {

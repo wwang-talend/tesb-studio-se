@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -52,7 +52,7 @@ public class TemplatePartGenerator extends ArgumentBuilderHolder implements Part
 			closeBlocksArgument.setBlocksCodeToClose(node.getBlocksCodeToClose());
 			return generateTypedComponentCode(template, closeBlocksArgument);
 		}
-			
+
 		default:
 			return generateDefaultTypedComponentCode(template, params);
 		}
@@ -88,7 +88,7 @@ public class TemplatePartGenerator extends ArgumentBuilderHolder implements Part
 
 	/**
 	 * Generate Code Part for a given Component.
-	 * 
+	 *
 	 * @param type
 	 *            the internal component template
 	 * @param argument

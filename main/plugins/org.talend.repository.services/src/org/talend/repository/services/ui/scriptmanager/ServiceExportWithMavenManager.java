@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -66,7 +66,7 @@ public class ServiceExportWithMavenManager extends JavaScriptForESBWithMavenMana
 
     /**
      * Getter for mavenGroupId.
-     * 
+     *
      * @return the mavenGroupId
      */
     public String getMavenGroupId() {
@@ -75,7 +75,7 @@ public class ServiceExportWithMavenManager extends JavaScriptForESBWithMavenMana
 
     /**
      * Sets the mavenGroupId.
-     * 
+     *
      * @param mavenGroupId the mavenGroupId to set
      */
     public void setMavenGroupId(String mavenGroupId) {
@@ -220,7 +220,7 @@ public class ServiceExportWithMavenManager extends JavaScriptForESBWithMavenMana
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.talend.repository.ui.wizards.exportjob.scriptsmanager.JobJavaScriptsManager#getMainMavenProperties(org.talend
      * .core.model.properties.Item)

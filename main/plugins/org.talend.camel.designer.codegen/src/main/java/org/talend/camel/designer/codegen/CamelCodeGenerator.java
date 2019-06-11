@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -34,7 +34,7 @@ public class CamelCodeGenerator implements ICodeGenerator {
    /**
      * Constructor : use the process and language to initialize internal
      * components.
-     * 
+     *
      * @param process
      * @param language
      */
@@ -50,7 +50,7 @@ public class CamelCodeGenerator implements ICodeGenerator {
     }
 	/**
 	 * Generate the code for the process given to the constructor.
-	 * 
+	 *
 	 * @return the generated code
 	 * @throws CodeGeneratorException
 	 *             if an error occurs during Code Generation
@@ -63,7 +63,7 @@ public class CamelCodeGenerator implements ICodeGenerator {
 
 	/**
 	 * Generate Part Code for a given Component.
-	 * 
+	 *
 	 * @param node
 	 *            the component
 	 * @param part
@@ -85,7 +85,7 @@ public class CamelCodeGenerator implements ICodeGenerator {
 
 	/**
 	 * Parse Process, and generate Code for Context Variables.
-	 * 
+	 *
 	 * @param designerContext
 	 *            the context to generate code from
 	 * @return the generated code

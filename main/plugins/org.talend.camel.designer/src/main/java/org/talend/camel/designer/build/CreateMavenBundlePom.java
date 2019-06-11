@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -111,13 +111,13 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         boolean route = "CAMEL".equals(getJobProcessor().getProcess().getComponentsType())
                 && ERepositoryObjectType.getType(getJobProcessor().getProperty()).equals(ERepositoryObjectType.PROCESS_ROUTE);
-        
+
         Parent parentPom = new Parent();
         parentPom.setGroupId(bundleModel.getGroupId());
         parentPom.setArtifactId(bundleModel.getArtifactId() + "-Kar");
         parentPom.setVersion(bundleModel.getVersion());
         parentPom.setRelativePath("/");
-        
+
         if (route) {
 
             RouteProcess routeProcess = (RouteProcess) getJobProcessor().getProcess();
@@ -138,7 +138,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
             featureModel.setVersion(bundleModel.getVersion());
             featureModel.setPackaging("pom");
-            
+
             featureModel.setProperties(bundleModel.getProperties());
             featureModel.addProperty("cloud.publisher.skip", "false");
             Build featureModelBuild = new Build();
@@ -190,7 +190,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         bundleModel.setName(bundleModel.getName() + " Bundle");
 
         updateBundleMainfest(bundleModel);
-        
+
         PomUtil.savePom(monitor, bundleModel, pomBundle);
 
         PomUtil.savePom(monitor, pom, curPomFile);
@@ -199,7 +199,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         afterCreate(monitor);
     }
-    
+
     protected void updateBundleMainfest(Model bundleModel) {
         // do nothing for route
     }
@@ -338,7 +338,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         deployCloudProfile.getBuild().addPlugin(addSkipDeployFeatureMavenPlugin());
         return deployCloudProfile;
     }
-    
+
     private Plugin addFeaturesMavenPlugin(String finalNameValue) {
         Plugin plugin = new Plugin();
 
@@ -426,7 +426,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         pluginExecution.setConfiguration(configuration);
 
         pluginExecutions.add(pluginExecution);
-        
+
         // deploy features to nexus server
         Set<JobInfo> subjobs = getJobProcessor().getBuildChildrenJobs();
         if (subjobs != null && !subjobs.isEmpty()) {
@@ -459,7 +459,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                             buildType = (String) property.getAdditionalProperties()
                                     .get(TalendProcessArgumentConstant.ARG_BUILD_TYPE);
                         }
-                        
+
                         String pathToJar = "OSGI".equals(buildType)
                                 ? relativeTargetDir + Path.SEPARATOR + subjob.getJobName() + "-bundle-"
                                         + PomIdsHelper.getJobVersion(subjob.getProcessItem().getProperty()) + ".jar"
@@ -499,9 +499,9 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                 }
             }
         }
-        
-        
-        
+
+
+
         plugin.setExecutions(pluginExecutions);
 
         return plugin;
@@ -555,7 +555,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             IPath currentProjectRootDir = getTalendJobJavaProject(getJobProcessor()).getProject().getLocation();
             IPath targetDir = getTalendJobJavaProject(getProcessor(job)).getTargetFolder().getLocation();
             String relativeTargetDir = targetDir.makeRelativeTo(currentProjectRootDir).toString();
-            
+
             if(!ProjectManager.getInstance().isInCurrentMainProject(job.getProcessItem().getProperty())) {
                 // this job/routelet is from a reference project
                 currentProjectRootDir = new Path(currentProjectRootDir.getDevice()  ,currentProjectRootDir.toString().replaceAll("/\\d+/", "/"));
@@ -585,8 +585,8 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             String pathToJar = relativeTargetDir + Path.SEPARATOR + job.getJobName()
                     + (("OSGI".equals(buildType) || needOSGIProcessor) || isRoutesSubjob() ? "-bundle-" : "-")
                     + PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()) + ".jar";
-            
-            
+
+
             file.setValue(pathToJar);
             addFile = true;
         }
@@ -708,7 +708,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
     /**
      * Skip clean control-bundle file in target folde, in case of using mvn clean + package goal
-     * 
+     *
      * @return plugin
      */
     private Plugin addSkipMavenCleanPlugin() {
@@ -726,7 +726,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         return plugin;
     }
-    
+
     @Override
     protected InputStream getTemplateStream() throws IOException {
         File templateFile = PomUtil.getTemplateFile(getObjectTypeFolder(), getItemRelativePath(),
@@ -743,7 +743,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             throw new IOException(e);
         }
     }
-    
+
     protected String getBundleTemplatePath() {
         return PATH_ROUTES + IProjectSettingTemplateConstants.MAVEN_KARAF_BUILD_BUNDLE_FILE_NAME;
     }

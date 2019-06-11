@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -68,7 +68,7 @@ public class JMXUtil {
 
     /**
      * for Job installation
-     * 
+     *
      * @param bundle
      * @return
      * @throws ReflectionException
@@ -119,7 +119,7 @@ public class JMXUtil {
 
     /**
      * for Route installation
-     * 
+     *
      * @param kar
      * @throws ReflectionException
      */
@@ -176,7 +176,7 @@ public class JMXUtil {
 
     /**
      * if use catched connection
-     * 
+     *
      * @return MBeanServerConnection
      */
     public static MBeanServerConnection createJMXconnection() {
@@ -207,7 +207,7 @@ public class JMXUtil {
      */
     private static void reloadPreference() {
         IPreferenceStore store = ESBRunContainerPlugin.getDefault().getPreferenceStore();
-        
+
         if (store != null) {
             username = store.getString(RunContainerPreferenceInitializer.P_ESB_RUNTIME_USERNAME);
 
@@ -228,7 +228,7 @@ public class JMXUtil {
 
     /**
      * Check whether the JMX connection is connected
-     * 
+     *
      * @return
      */
     public static boolean isConnected() {

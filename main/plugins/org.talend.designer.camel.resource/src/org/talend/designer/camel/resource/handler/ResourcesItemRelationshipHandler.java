@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -28,7 +28,7 @@ import org.talend.designer.camel.resource.core.util.RouteResourceUtil;
 /**
  * Use to add resources dependencies for route. Need to update when dependencies
  * change(add/remove resources in [Manage Route Resource Dialog].)
- * 
+ *
  * @see org.talend.designer.camel.resource.ui.actions.ManageRouteResourcesAction
  */
 public class ResourcesItemRelationshipHandler extends AbstractJobItemRelationshipHandler {

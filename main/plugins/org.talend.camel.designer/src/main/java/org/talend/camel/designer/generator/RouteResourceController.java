@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -58,7 +58,7 @@ import org.talend.designer.runprocess.ProcessorUtilities;
 
 /**
  * @author Xiaopeng Li
- * 
+ *
  */
 public class RouteResourceController extends AbstractElementPropertySectionController {
 
@@ -99,7 +99,7 @@ public class RouteResourceController extends AbstractElementPropertySectionContr
     }
 
     /**
-     * 
+     *
      * @param source
      * @return
      */
@@ -125,7 +125,7 @@ public class RouteResourceController extends AbstractElementPropertySectionContr
 
     /**
      * DOC nrousseau Comment method "createComboCommand".
-     * 
+     *
      * @param source
      * @return
      */
@@ -241,7 +241,7 @@ public class RouteResourceController extends AbstractElementPropertySectionContr
     }
 
     /**
-     * 
+     *
      * @param subComposite
      * @param param
      * @param lastControl
@@ -341,7 +341,7 @@ public class RouteResourceController extends AbstractElementPropertySectionContr
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.talend.designer.core.ui.editor.properties.controllers.
      * AbstractElementPropertySectionController#estimateRowSize (org.eclipse.swt.widgets.Composite,
      * org.talend.core.model.process.IElementParameter)
@@ -393,8 +393,8 @@ public class RouteResourceController extends AbstractElementPropertySectionContr
     }
 
     /**
-	 * 
-	 * 
+	 *
+	 *
 	 */
     private void refreshCombo(IElementParameter childParameter) {
         if (childParameter == null) {
@@ -431,7 +431,7 @@ public class RouteResourceController extends AbstractElementPropertySectionContr
     /**
      * see feature 0003664: tRunJob: When opening the tree dialog to select the job target, it could be useful to open
      * it on previous selected job if exists.
-     * 
+     *
      * @param button
      * @param dialog
      */
@@ -449,8 +449,8 @@ public class RouteResourceController extends AbstractElementPropertySectionContr
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param processParam
      */
     private void updateContextList(IElementParameter processParam) {

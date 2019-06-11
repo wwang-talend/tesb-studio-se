@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -22,7 +22,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 /**
  * http://jira.talendforge.org/browse/TESB-6440
- * 
+ *
  * @author LiXiaopeng
  * Update: Removed common functions to handle NodeType to {@link AbstractRouteItemComponentMigrationTask.UtilTool} - by GaoZone.
  * {@link }
@@ -46,7 +46,7 @@ public class UpdatecJMSMigrationTask extends AbstractRouteItemComponentMigration
 
     /**
      * Update cJMS, add cJMSConnectionFactory.
-     * 
+     *
      * @param item
      * @throws PersistenceException
      */
@@ -57,7 +57,7 @@ public class UpdatecJMSMigrationTask extends AbstractRouteItemComponentMigration
     	}
 		String oldId = oldParam.getValue();
 		boolean paramRemoved = UtilTool.removeParameterType(currentNode, oldParam);
-		
+
 		if(oldId == null) {
 			return paramRemoved;
 		}

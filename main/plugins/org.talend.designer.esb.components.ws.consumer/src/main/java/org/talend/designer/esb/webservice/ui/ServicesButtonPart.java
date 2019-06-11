@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2018 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -32,7 +32,7 @@ interface ServiceSelectionListener extends EventListener {
 
 /**
  * Provide a dialog to select a service node from Services. (separated from {@link WebServiceUI}
- * 
+ *
  * @author GaoZone
  */
 public class ServicesButtonPart extends AbstractButtonPart<ServiceSelectionListener> {

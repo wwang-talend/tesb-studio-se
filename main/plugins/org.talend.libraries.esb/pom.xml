@@ -126,11 +126,16 @@
 
   <dependencies>
 	<!-- override 2.1.13 activated by cxf for java 6 -->
-	<!--dependency>
+	<dependency>
 		<groupId>com.sun.xml.bind</groupId>
 		<artifactId>jaxb-impl</artifactId>
-		<version>2.2.6</version>
-	</dependency-->
+		<version>2.2.11</version>
+	</dependency>
+	<dependency>
+		<groupId>com.sun.xml.bind</groupId>
+		<artifactId>jaxb-core</artifactId>
+		<version>2.2.11</version>
+	</dependency>
 	<dependency>
 		<groupId>org.apache.cxf</groupId>
 		<artifactId>cxf-core</artifactId>
@@ -504,5 +509,10 @@
 	    <artifactId>jakarta.activation</artifactId>
 	    <version>1.2.1</version>
 	</dependency>
+    <dependency>
+        <groupId>org.apache.servicemix.specs</groupId>
+        <artifactId>org.apache.servicemix.specs.jaxws-api-2.2</artifactId>
+        <version>2.9.0</version>
+    </dependency>
   </dependencies>
 </project>
