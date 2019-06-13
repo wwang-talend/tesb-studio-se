@@ -32,22 +32,4 @@ public class CreateRouteletMavenBundlePom extends CreateMavenBundlePom {
     public CreateRouteletMavenBundlePom(IProcessor jobProcessor, IFile pomFile) {
         super(jobProcessor, pomFile);
     }
-
-    @Override
-    protected void updateBundleMainfest(Model bundleModel) {
-        for (Profile profile : bundleModel.getProfiles()) {
-            if ("packaging-and-assembly".equals(profile.getId())) {
-                List<Plugin> plugins = profile.getBuild().getPlugins();
-                for (Plugin plugin : plugins) {
-                    if ("maven-assembly-plugin".equals(plugin.getArtifactId())) {
-                        bundleModel.setBuild(new Build());
-                        bundleModel.getBuild().addPlugin(plugin);
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-    }
-
 }
