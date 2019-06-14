@@ -142,13 +142,18 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         Label label = new Label(optionsGroup, SWT.NONE);
         label.setText(Messages.getString("JavaJobScriptsExportWSWizardPage.BuildLabel")); //$NON-NLS-1$
 
+        boolean canESBMicroServiceDockerImage = PluginChecker.isDockerPluginLoaded();
+
         exportTypeCombo = new Combo(optionsGroup, SWT.PUSH);
 
         // TESB-5328
         exportTypeCombo.add(EXPORTTYPE_KAR);
         if (PluginChecker.isTIS()) {
             exportTypeCombo.add(EXPORTTYPE_SPRING_BOOT);
-            exportTypeCombo.add(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE);
+
+            if (canESBMicroServiceDockerImage) {
+                exportTypeCombo.add(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE);
+            }
         }
         // exportTypeCombo.setEnabled(false); // only can export kar file
         exportTypeCombo.setText(EXPORTTYPE_KAR);
