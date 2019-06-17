@@ -140,11 +140,6 @@
 			<DEFAULT>""</DEFAULT>
 		</PARAMETER>
 
-		<PARAMETER NAME="WMA_JAR_LABEL" FIELD="LABEL" NUM_ROW="31"
-			REQUIRED="true" SHOW_IF="MQ_TYPE == 'WMQ'">
-			<DEFAULT>(Note:Need add com.ibm.mq.jar, com.ibm.mq.jmqi.jar,com.ibm.mqjms.jar, dhbcore.jar, connector.jar)</DEFAULT>
-		</PARAMETER>
-
 		<PARAMETER NAME="WMQ_DRIVER_JAR" FIELD="TABLE" NUM_ROW="30"
 			NB_LINES="8" REPOSITORY_VALUE="DRIVER_JAR" SHOW_IF="MQ_TYPE == 'WMQ'">
 			<ITEMS>
@@ -192,12 +187,6 @@
 			SHOW_IF="(MQ_TYPE == 'WMQ_N') AND (WMQ_N_AUTH == 'true')">
 			<DEFAULT>""</DEFAULT>
 		</PARAMETER>
-
-		
-		<PARAMETER NAME="WMQ_N_JAR_LABEL" FIELD="LABEL" NUM_ROW="41"
-			REQUIRED="true" SHOW_IF="MQ_TYPE == 'WMQ_N'">
-            <DEFAULT>(Note:Need add com.ibm.mq.jar, com.ibm.mq.commonservices.jar, com.ibm.mq.headers.jar, com.ibm.mq.jmqi.jar, connector.jar)</DEFAULT> 			
-			</PARAMETER>
 
 		<PARAMETER NAME="WMQ_N_DRIVER_JAR" FIELD="TABLE" NUM_ROW="40"
 			NB_LINES="8" REPOSITORY_VALUE="DRIVER_JAR" SHOW_IF="MQ_TYPE == 'WMQ_N'">
