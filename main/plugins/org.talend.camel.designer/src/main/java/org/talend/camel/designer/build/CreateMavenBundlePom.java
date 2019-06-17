@@ -107,6 +107,8 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         // patch for TESB-23953: find "tdm-lib-di-" and remove in route, only keep 'tdm-camel'
         boolean containsTdmCamelDependency = false;
         Dependency tdmDIDependency = null;
+        Dependency logbackClassicDependency = null;
+        Dependency logbackCoreDependency = null;
         List<Dependency> dependencies = bundleModel.getDependencies();
         for (int i = 0; i < dependencies.size(); i++) {
             String artifactId = dependencies.get(i).getArtifactId();
@@ -116,9 +118,21 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             if (artifactId.startsWith("tdm-camel-")) {
                 containsTdmCamelDependency = true;
             }
+            if(artifactId.equals("logback-classic")) {
+            	logbackClassicDependency = dependencies.get(i);
+            }
+            if(artifactId.equals("logback-core")) {
+            	logbackCoreDependency = dependencies.get(i);
+            }
         }
         if (containsTdmCamelDependency && tdmDIDependency != null) {
             bundleModel.getDependencies().remove(tdmDIDependency);
+        }
+        if (logbackClassicDependency != null) {
+            bundleModel.getDependencies().remove(logbackClassicDependency);
+        }
+        if (logbackCoreDependency != null) {
+        	bundleModel.getDependencies().remove(logbackCoreDependency);
         }
 
         IContainer parent = curPomFile.getParent();
