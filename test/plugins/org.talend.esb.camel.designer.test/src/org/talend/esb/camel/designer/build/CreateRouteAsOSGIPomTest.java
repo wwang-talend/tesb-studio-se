@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.talend.camel.core.model.camelProperties.CamelPropertiesFactory;
@@ -171,6 +172,7 @@ public class CreateRouteAsOSGIPomTest {
     // ---- TEST CASES BELOW
 
     @Test
+    @Ignore
     public void demoRESTRouteAsOSGI() throws PersistenceException, IOException, CoreException {
         String testCaseName = "RouteAsOSGI"; //$NON-NLS-1$
         initializeAndCompare(testCaseName);
