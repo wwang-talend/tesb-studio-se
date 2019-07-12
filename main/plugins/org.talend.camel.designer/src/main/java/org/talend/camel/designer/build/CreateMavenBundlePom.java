@@ -179,7 +179,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             featureModel.addProperty("cloud.publisher.skip", "false");
             Build featureModelBuild = new Build();
 
-            getJobProcessor().getBuildFirstChildrenJobs();
             Set<JobInfo> subjobs = getJobProcessor().getBuildChildrenJobs();
             if (subjobs != null && !subjobs.isEmpty()) {
                 int ndx = 0;
