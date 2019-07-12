@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.maven.model.Activation;
@@ -40,7 +42,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.talend.camel.core.model.camelProperties.RouteletProcessItem;
 import org.talend.camel.designer.ui.editor.RouteProcess;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.CorePlugin;
@@ -60,6 +61,7 @@ import org.talend.core.runtime.projectsetting.IProjectSettingTemplateConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.template.MavenTemplateManager;
+import org.talend.designer.maven.tools.AggregatorPomsHelper;
 import org.talend.designer.maven.tools.creator.CreateMavenJobPom;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
@@ -74,7 +76,11 @@ import org.talend.utils.io.FilesUtils;
  */
 public class CreateMavenBundlePom extends CreateMavenJobPom {
 
-    private static final String PATH_ROUTES = "resources/templates/karaf/routes/";
+    private static final String PROJECT_VERSION = "${project.version}";
+
+	private static final String JOB_FINAL_NAME = "talend.job.finalName";
+
+	private static final String PATH_ROUTES = "resources/templates/karaf/routes/";
 
     private Model bundleModel;
 
@@ -173,7 +179,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             featureModel.addProperty("cloud.publisher.skip", "false");
             Build featureModelBuild = new Build();
 
-
             Set<JobInfo> subjobs = getJobProcessor().getBuildChildrenJobs();
             if (subjobs != null && !subjobs.isEmpty()) {
                 int ndx = 0;
@@ -183,7 +188,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                     }
                 }
             }
-            featureModelBuild.addPlugin(addFeaturesMavenPlugin(bundleModel.getProperties().getProperty("talend.job.finalName")));
+            featureModelBuild.addPlugin(addFeaturesMavenPlugin(bundleModel.getProperties().getProperty(JOB_FINAL_NAME)));
 
             // featureModelBuild.addPlugin(addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
             featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
@@ -215,6 +220,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         File pomBundle = new File(parent.getLocation().toOSString() + File.separator + "pom-bundle.xml");
 
+        bundleModel.addProperty(JOB_FINAL_NAME, "${talend.job.name}-${project.version}");
         bundleModel.addProperty("cloud.publisher.skip", "true");
         bundleModel.setParent(parentPom);
         bundleModel.setName(bundleModel.getName() + " Bundle");
@@ -579,47 +585,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         Xpp3Dom packaging = new Xpp3Dom("packaging");
         packaging.setValue("jar");
 
-        Xpp3Dom file = new Xpp3Dom("file");
-        boolean addFile = false;
-        if (getJobProcessor() != null && getProcessor(job) != null) {
-            IPath currentProjectRootDir = getTalendJobJavaProject(getJobProcessor()).getProject().getLocation();
-            IPath targetDir = getTalendJobJavaProject(getProcessor(job)).getTargetFolder().getLocation();
-            String relativeTargetDir = targetDir.makeRelativeTo(currentProjectRootDir).toString();
-
-            if(!ProjectManager.getInstance().isInCurrentMainProject(job.getProcessItem().getProperty())) {
-                // this job/routelet is from a reference project
-                currentProjectRootDir = new Path(currentProjectRootDir.getDevice()  ,currentProjectRootDir.toString().replaceAll("/\\d+/", "/"));
-                targetDir = new Path(targetDir.getDevice()  ,targetDir.toString().replaceAll("/\\d+/", "/"));
-                relativeTargetDir = targetDir.makeRelativeTo(currentProjectRootDir).toString();
-            }
-            Property property = null;
-            String buildType = null;
-            if (!job.isJoblet()) {
-                property = job.getProcessItem().getProperty();
-            } else {
-                property = job.getJobletProperty();
-            }
-            if (property != null) {
-                buildType = (String) property.getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE);
-            }
-
-            JobInfo mainJobInfo = LastGenerationInfo.getInstance().getLastMainJob();
-
-            boolean needOSGIProcessor = true;
-
-            if ((mainJobInfo != null && mainJobInfo.getJobId().equals(property.getId()))
-                    || property.getItem() instanceof RouteletProcessItem) {
-                needOSGIProcessor = false;
-            }
-
-            String pathToJar = relativeTargetDir + Path.SEPARATOR + job.getJobName()
-                    + (("OSGI".equals(buildType) || needOSGIProcessor) || isRoutesSubjob() ? "-bundle-" : "-")
-                    + PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()) + ".jar";
-
-
-            file.setValue(pathToJar);
-            addFile = true;
-        }
+        Xpp3Dom file = createInstallFileElement(job);
 
         Xpp3Dom generatePom = new Xpp3Dom("generatePom");
         generatePom.setValue("true");
@@ -628,7 +594,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         configuration.addChild(artifactId);
         configuration.addChild(version);
         configuration.addChild(packaging);
-        if (addFile) {
+        if (file != null) {
             configuration.addChild(file);
         }
         configuration.addChild(generatePom);
@@ -646,7 +612,74 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         return plugin;
     }
 
-    boolean isRoutelet(JobInfo job) {
+	private Xpp3Dom createInstallFileElement(JobInfo job) {
+		Xpp3Dom file = null;
+        if (getJobProcessor() != null && getProcessor(job) != null) {
+            IPath currentProjectRootDir = getTalendJobJavaProject(getJobProcessor()).getProject().getLocation();
+            IPath targetDir = getTalendJobJavaProject(getProcessor(job)).getTargetFolder().getLocation();
+            String relativeTargetDir = targetDir.makeRelativeTo(currentProjectRootDir).toString();
+
+            if(!ProjectManager.getInstance().isInCurrentMainProject(job.getProcessItem().getProperty())) {
+                // this job/routelet is from a reference project
+                currentProjectRootDir = new Path(currentProjectRootDir.getDevice()  ,currentProjectRootDir.toString().replaceAll("/\\d+/", "/"));
+                targetDir = new Path(targetDir.getDevice()  ,targetDir.toString().replaceAll("/\\d+/", "/"));
+                relativeTargetDir = targetDir.makeRelativeTo(currentProjectRootDir).toString();
+            }
+
+            IFile jobPom = AggregatorPomsHelper.getItemPomFolder(job.getProcessItem().getProperty()).getFile(TalendMavenConstants.POM_FILE_NAME);
+            if (jobPom.exists()) {
+            	try {
+            		Model jobModel = MODEL_MANAGER.readMavenModel(jobPom);
+            		String  resolvedFinalName = null;
+            		if(jobModel.getProperties().getProperty(JOB_FINAL_NAME) != null ) {
+            			resolvedFinalName = resolveJobFinalName(jobModel.getProperties().getProperty(JOB_FINAL_NAME), jobModel);
+					} else {
+						for(String modelName : jobModel.getModules()) {
+							IFile subPom = AggregatorPomsHelper.getItemPomFolder(job.getProcessItem().getProperty()).getFile(modelName);
+							if (subPom.exists()) {
+								Model subModel = MODEL_MANAGER.readMavenModel(subPom);
+								if(subModel.getProperties().getProperty(JOB_FINAL_NAME) != null) {
+									resolvedFinalName = resolveJobFinalName(subModel.getProperties().getProperty(JOB_FINAL_NAME), subModel);
+									break;
+								}
+							}
+						}
+            		}
+					if (resolvedFinalName == null) {
+						resolvedFinalName = job.getJobName().toLowerCase() + "_"
+								+ PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_");
+					}
+            		
+            		String pathToJar = relativeTargetDir + Path.SEPARATOR +  resolvedFinalName + ".jar";
+            		file = new Xpp3Dom("file");
+            		file.setValue(pathToJar);
+            	} catch (CoreException e) {
+            		e.printStackTrace();
+            	}
+            }
+        }
+		return file;
+	}
+
+	private String resolveJobFinalName(String finalNameWithToken, Model jobModel) {
+		if (finalNameWithToken != null) {
+			Pattern p = Pattern.compile("\\$\\{([^\\}]+)\\}");
+			Matcher m = p.matcher(finalNameWithToken);
+			while (m.find()) {
+				if (PROJECT_VERSION.equals(m.group(0))) {
+					finalNameWithToken = finalNameWithToken.replace(PROJECT_VERSION, jobModel.getVersion());
+				} else {
+					String propertyValue = jobModel.getProperties().getProperty(m.group(1));
+					if (propertyValue != null) {
+						finalNameWithToken = finalNameWithToken.replace(m.group(0), propertyValue);
+					}
+				}
+			}
+		}
+		return finalNameWithToken;
+	}
+
+	boolean isRoutelet(JobInfo job) {
         if (job != null && job.getProcessItem() != null) {
             Property p = job.getProcessItem().getProperty();
             if (p != null) {
@@ -664,22 +697,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             }
         }
         return false;
-    }
-
-    /**
-     * Checks if pom-file currently created is
-     * for job used in cTalendJob component.
-     * @return
-     */
-    private boolean isRoutesSubjob() {
-        Property property = getJobProcessor().getProperty();
-        Object buildType = property.getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE);
-        Object type = ERepositoryObjectType.getType(property);
-        if(buildType != null && buildType.equals("ROUTE") && type.equals(ERepositoryObjectType.PROCESS)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public static IProcessor getProcessor(JobInfo jobInfo) {
