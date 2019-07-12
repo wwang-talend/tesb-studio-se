@@ -76,7 +76,11 @@ import org.talend.utils.io.FilesUtils;
  */
 public class CreateMavenBundlePom extends CreateMavenJobPom {
 
-    private static final String PATH_ROUTES = "resources/templates/karaf/routes/";
+    private static final String PROJECT_VERSION = "${project.version}";
+
+	private static final String JOB_FINAL_NAME = "talend.job.finalName";
+
+	private static final String PATH_ROUTES = "resources/templates/karaf/routes/";
 
     private Model bundleModel;
 
@@ -185,7 +189,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                     }
                 }
             }
-            featureModelBuild.addPlugin(addFeaturesMavenPlugin(bundleModel.getProperties().getProperty("talend.job.finalName")));
+            featureModelBuild.addPlugin(addFeaturesMavenPlugin(bundleModel.getProperties().getProperty(JOB_FINAL_NAME)));
 
             // featureModelBuild.addPlugin(addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
             featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
@@ -217,7 +221,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         File pomBundle = new File(parent.getLocation().toOSString() + File.separator + "pom-bundle.xml");
 
-        bundleModel.addProperty("talend.job.finalName", "${talend.job.name}-${project.version}");
+        bundleModel.addProperty(JOB_FINAL_NAME, "${talend.job.name}-${project.version}");
         bundleModel.addProperty("cloud.publisher.skip", "true");
         bundleModel.setParent(parentPom);
         bundleModel.setName(bundleModel.getName() + " Bundle");
@@ -628,15 +632,15 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             	try {
             		Model jobModel = MODEL_MANAGER.readMavenModel(jobPom);
             		String  resolvedFinalName = null;
-            		if(jobModel.getProperties().getProperty("talend.job.finalName") != null ) {
-            			resolvedFinalName = resolveJobFinalName(jobModel.getProperties().getProperty("talend.job.finalName"), jobModel);
+            		if(jobModel.getProperties().getProperty(JOB_FINAL_NAME) != null ) {
+            			resolvedFinalName = resolveJobFinalName(jobModel.getProperties().getProperty(JOB_FINAL_NAME), jobModel);
 					} else {
 						for(String modelName : jobModel.getModules()) {
 							IFile subPom = AggregatorPomsHelper.getItemPomFolder(job.getProcessItem().getProperty()).getFile(modelName);
 							if (subPom.exists()) {
 								Model subModel = MODEL_MANAGER.readMavenModel(subPom);
-								if(subModel.getProperties().getProperty("talend.job.finalName") != null) {
-									resolvedFinalName = resolveJobFinalName(subModel.getProperties().getProperty("talend.job.finalName"), subModel);
+								if(subModel.getProperties().getProperty(JOB_FINAL_NAME) != null) {
+									resolvedFinalName = resolveJobFinalName(subModel.getProperties().getProperty(JOB_FINAL_NAME), subModel);
 									break;
 								}
 							}
@@ -663,9 +667,13 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 			Pattern p = Pattern.compile("\\$\\{([^\\}]+)\\}");
 			Matcher m = p.matcher(finalNameWithToken);
 			while (m.find()) {
-				String propertyValue = jobModel.getProperties().getProperty(m.group(1));
-				if (propertyValue != null) {
-					finalNameWithToken = finalNameWithToken.replace(m.group(0), propertyValue);
+				if (PROJECT_VERSION.equals(m.group(0))) {
+					finalNameWithToken = finalNameWithToken.replace(PROJECT_VERSION, jobModel.getVersion());
+				} else {
+					String propertyValue = jobModel.getProperties().getProperty(m.group(1));
+					if (propertyValue != null) {
+						finalNameWithToken = finalNameWithToken.replace(m.group(0), propertyValue);
+					}
 				}
 			}
 		}
