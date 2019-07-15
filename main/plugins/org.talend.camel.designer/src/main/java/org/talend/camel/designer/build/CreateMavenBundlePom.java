@@ -604,6 +604,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             }
 
             JobInfo mainJobInfo = LastGenerationInfo.getInstance().getLastMainJob();
+            String jobVersion = PomIdsHelper.getJobVersion(job.getProcessItem().getProperty());
 
             boolean needOSGIProcessor = true;
 
@@ -611,11 +612,13 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                     || property.getItem() instanceof RouteletProcessItem) {
                 needOSGIProcessor = false;
             }
-
+            if(!getJobProcessor().getBuildFirstChildrenJobs().contains(job) && isJob(job)) {
+            	needOSGIProcessor = false;
+            	jobVersion = PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_");
+            }
             String pathToJar = relativeTargetDir + Path.SEPARATOR + job.getJobName()
-                    + (("OSGI".equals(buildType) || needOSGIProcessor) || isRoutesSubjob() ? "-bundle-" : "-")
-                    + PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()) + ".jar";
-
+                    + (("OSGI".equals(buildType) || needOSGIProcessor) || isRoutesSubjob() ? "-bundle-" : isJob(job) ? "_" : "-")
+                    + jobVersion + ".jar";
 
             file.setValue(pathToJar);
             addFile = true;
