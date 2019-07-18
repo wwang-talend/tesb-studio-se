@@ -51,6 +51,7 @@ import org.talend.designer.publish.core.models.FeatureModel;
 import org.talend.designer.publish.core.models.FeaturesModel;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.IRunProcessService;
+import org.talend.designer.runprocess.ProcessorUtilities;
 import org.talend.repository.services.maven.CreateMavenDataServicePom;
 import org.talend.repository.services.maven.ServiceMavenJavaProcessor;
 import org.talend.repository.services.model.services.ServiceConnection;
@@ -483,6 +484,8 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
      */
     @Override
     public void prepare(IProgressMonitor monitor, Map<String, Object> parameters) throws Exception {
+
+        ProcessorUtilities.setOperatingDataService(true);
         // generate sources
         generateJobFiles(monitor);
         // Generate nodes job
@@ -502,6 +505,8 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
                 // buildJobOSGiHandler.build(monitor);
             }
         }
+
+        // ProcessorUtilities.setOperatingDataService(false);
     }
 
 }
