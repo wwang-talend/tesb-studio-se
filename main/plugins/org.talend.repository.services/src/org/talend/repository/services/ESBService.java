@@ -195,6 +195,8 @@ public class ESBService implements IESBService {
         }
     }
 
+    private boolean operatingDataService = false;
+
     @Override
     public String getWsdlFilePath(Item item) {
         if (item != null && item instanceof ServiceItem) {
@@ -1096,6 +1098,26 @@ public class ESBService implements IESBService {
     @Override
     public IProcessor createOSGIJavaProcessor(IProcess process, Property property, boolean filenameFromLabel) {
         return new OSGIJavaProcessor(process, property, filenameFromLabel);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.IESBService#isOperatingDataService()
+     */
+    @Override
+    public boolean isOperatingDataService() {
+        return operatingDataService;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.IESBService#setOperatingDataService(boolean)
+     */
+    @Override
+    public void setOperatingDataService(boolean operatingDataService) {
+        this.operatingDataService = operatingDataService;
     }
 
 };
