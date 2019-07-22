@@ -411,39 +411,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         return plugin;
     }
 
-    private Plugin addSkipDockerMavenPlugin() {
-        Plugin plugin = new Plugin();
-
-        plugin.setGroupId("io.fabric8");
-        plugin.setArtifactId("fabric8-maven-plugin");
-        plugin.setVersion("4.0.0");
-
-        Xpp3Dom skip = new Xpp3Dom("skip");
-        skip.setValue("true");
-
-        Xpp3Dom configuration = new Xpp3Dom("configuration");
-        configuration.addChild(skip);
-
-        List<PluginExecution> pluginExecutions = new ArrayList<PluginExecution>();
-        PluginExecution pluginExecutionStart = new PluginExecution();
-        pluginExecutionStart.setId("start");
-        pluginExecutionStart.setPhase("none");
-
-        pluginExecutions.add(pluginExecutionStart);
-
-        PluginExecution pluginExecutionPushImage = new PluginExecution();
-        pluginExecutionPushImage.setId("push-image");
-        pluginExecutionPushImage.setPhase("none");
-
-        pluginExecutions.add(pluginExecutionPushImage);
-
-        plugin.setExecutions(pluginExecutions);
-        plugin.setConfiguration(configuration);
-
-        return plugin;
-
-    }
-
     private Plugin addDeployFeatureMavenPlugin(String modelArtifactId, String modelVersion, boolean publishAsSnapshot) {
         Plugin plugin = new Plugin();
 
