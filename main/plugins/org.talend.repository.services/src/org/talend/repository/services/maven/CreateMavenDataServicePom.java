@@ -175,8 +175,11 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         pomModel.addModule(POM_FEATURE_XML);
 
         pomModel.addProfile(addProfileForCloud());
-        // pomModel.setBuild(new Build());
-        // pomModel.getBuild().addPlugin(addSkipDeployFeatureMavenPlugin());
+
+        pomModel.setBuild(new Build());
+
+        pomModel.getBuild().addPlugin(addSkipDockerMavenPlugin());
+
         PomUtil.savePom(monitor, pomModel, pom);
 
         Parent parentPom = new Parent();
@@ -200,6 +203,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         featureModel.setPackaging("pom");
         Build featureModelBuild = new Build();
         featureModelBuild.addPlugin(addFeaturesMavenPlugin());
+        featureModelBuild.addPlugin(addSkipDockerMavenPlugin());
         // featureModelBuild.addPlugin(
         // addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
         featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
@@ -230,6 +234,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         controlBundleModel.setName(displayName + " Control Bundle");
         Build controlBundleModelBuild = new Build();
         controlBundleModelBuild.addPlugin(addControlBundleMavenPlugin());
+        controlBundleModelBuild.addPlugin(addSkipDockerMavenPlugin());
         controlBundleModelBuild.addResource(addControlBundleMavenResource());
         controlBundleModel.setBuild(controlBundleModelBuild);
         controlBundleModel.setParent(parentPom);
