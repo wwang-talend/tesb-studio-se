@@ -1120,4 +1120,26 @@ public class ESBService implements IESBService {
         this.operatingDataService = operatingDataService;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.IESBService#getSerivceRelatedJobIds(org.talend.core.model.properties.Item)
+     */
+    @Override
+    public List<String> getSerivceRelatedJobIds(Item serviceItem) {
+        List<String> ids = new ArrayList<String>();
+        if (serviceItem instanceof ServiceItem) {
+            ServiceItem item = (ServiceItem) serviceItem;
+            ServiceConnection conn = (ServiceConnection) item.getConnection();
+            for (ServicePort port : conn.getServicePort()) {
+                for (ServiceOperation operation : port.getServiceOperation()) {
+                    if (operation.getReferenceJobId() != null) {
+                        ids.add(operation.getReferenceJobId());
+                    }
+                }
+            }
+        }
+        return ids;
+    }
+
 };
