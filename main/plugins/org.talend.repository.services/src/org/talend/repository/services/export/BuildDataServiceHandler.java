@@ -483,11 +483,6 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
      */
     @Override
     public void prepare(IProgressMonitor monitor, Map<String, Object> parameters) throws Exception {
-
-        IESBService service = (IESBService) GlobalServiceRegister.getDefault().getService(IESBService.class);
-
-        service.setOperatingDataService(true);
-
         // generate sources
         generateJobFiles(monitor);
         // Generate nodes job

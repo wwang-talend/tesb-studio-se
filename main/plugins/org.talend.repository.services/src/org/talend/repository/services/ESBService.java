@@ -97,6 +97,7 @@ import org.talend.repository.services.utils.OperationRepositoryObject;
 import org.talend.repository.services.utils.PortRepositoryObject;
 import org.talend.repository.services.utils.WSDLPopulationUtil;
 import org.talend.repository.services.utils.WSDLUtils;
+import org.talend.repository.utils.EmfModelUtils;
 
 /**
  * DOC nrousseau class global comment. ESB SOAP Service
@@ -1103,26 +1104,6 @@ public class ESBService implements IESBService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.IESBService#isOperatingDataService()
-     */
-    @Override
-    public boolean isOperatingDataService() {
-        return operatingDataService;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.IESBService#setOperatingDataService(boolean)
-     */
-    @Override
-    public void setOperatingDataService(boolean operatingDataService) {
-        this.operatingDataService = operatingDataService;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.core.IESBService#getSerivceRelatedJobIds(org.talend.core.model.properties.Item)
      */
     @Override
@@ -1140,6 +1121,16 @@ public class ESBService implements IESBService {
             }
         }
         return ids;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.IESBService#isRESTService(org.talend.core.model.properties.ProcessItem)
+     */
+    @Override
+    public boolean isRESTService(ProcessItem processItem) {
+        return null != EmfModelUtils.getComponentByName(processItem, "tRESTRequest");
     }
 
 };
