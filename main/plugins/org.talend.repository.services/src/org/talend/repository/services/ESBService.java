@@ -196,8 +196,6 @@ public class ESBService implements IESBService {
         }
     }
 
-    private boolean operatingDataService = false;
-
     @Override
     public String getWsdlFilePath(Item item) {
         if (item != null && item instanceof ServiceItem) {
