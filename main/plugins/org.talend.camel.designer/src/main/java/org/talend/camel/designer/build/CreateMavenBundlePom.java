@@ -193,6 +193,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             // featureModelBuild.addPlugin(addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
             featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
             featureModelBuild.addPlugin(addSkipMavenCleanPlugin());
+            featureModelBuild.addPlugin(addSkipDockerMavenPlugin());
             featureModel.setBuild(featureModelBuild);
             featureModel.addProfile(addProfileForNexus(publishAsSnapshot, featureModel));
             PomUtil.savePom(monitor, featureModel, featurePom);
@@ -225,6 +226,12 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         bundleModel.setParent(parentPom);
         bundleModel.setName(bundleModel.getName() + " Bundle");
 
+        if (bundleModel.getBuild() == null) {
+            bundleModel.setBuild(new Build());
+        }
+
+        bundleModel.getBuild().addPlugin(addSkipDockerMavenPlugin());
+        
         updateBundleMainfest(bundleModel);
 
         PomUtil.savePom(monitor, bundleModel, pomBundle);
