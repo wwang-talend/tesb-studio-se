@@ -97,6 +97,7 @@ import org.talend.repository.services.utils.OperationRepositoryObject;
 import org.talend.repository.services.utils.PortRepositoryObject;
 import org.talend.repository.services.utils.WSDLPopulationUtil;
 import org.talend.repository.services.utils.WSDLUtils;
+import org.talend.repository.utils.EmfModelUtils;
 
 /**
  * DOC nrousseau class global comment. ESB SOAP Service
@@ -1096,6 +1097,38 @@ public class ESBService implements IESBService {
     @Override
     public IProcessor createOSGIJavaProcessor(IProcess process, Property property, boolean filenameFromLabel) {
         return new OSGIJavaProcessor(process, property, filenameFromLabel);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.IESBService#getSerivceRelatedJobIds(org.talend.core.model.properties.Item)
+     */
+    @Override
+    public List<String> getSerivceRelatedJobIds(Item serviceItem) {
+        List<String> ids = new ArrayList<String>();
+        if (serviceItem instanceof ServiceItem) {
+            ServiceItem item = (ServiceItem) serviceItem;
+            ServiceConnection conn = (ServiceConnection) item.getConnection();
+            for (ServicePort port : conn.getServicePort()) {
+                for (ServiceOperation operation : port.getServiceOperation()) {
+                    if (operation.getReferenceJobId() != null) {
+                        ids.add(operation.getReferenceJobId());
+                    }
+                }
+            }
+        }
+        return ids;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.IESBService#isRESTService(org.talend.core.model.properties.ProcessItem)
+     */
+    @Override
+    public boolean isRESTService(ProcessItem processItem) {
+        return null != EmfModelUtils.getComponentByName(processItem, "tRESTRequest");
     }
 
 };

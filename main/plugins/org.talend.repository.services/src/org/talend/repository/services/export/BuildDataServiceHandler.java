@@ -502,6 +502,8 @@ public class BuildDataServiceHandler implements IBuildJobHandler {
                 // buildJobOSGiHandler.build(monitor);
             }
         }
+
+        // ProcessorUtilities.setOperatingDataService(false);
     }
 
 }
