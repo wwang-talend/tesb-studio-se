@@ -202,10 +202,12 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
     protected void generateConfig(ExportFileResource osgiResource, ProcessItem processItem, IProcess process)
             throws IOException {
 
-        NodeType nodeType = EmfModelUtils.getComponentByName(processItem, "tRESTRequest");
+        boolean needBlueprint = (EmfModelUtils.getComponentByName(processItem, "tRESTRequest") == null)
+                && (EmfModelUtils.getComponentByName(processItem, "tRouteInput") == null);
+
         Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
 
-        if (nodeType == null) {
+        if (needBlueprint) {
             final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
 
             TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
