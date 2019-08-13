@@ -201,15 +201,18 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
     @Override
     protected void generateConfig(ExportFileResource osgiResource, ProcessItem processItem, IProcess process)
             throws IOException {
-        final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
 
+        NodeType nodeType = EmfModelUtils.getComponentByName(processItem, "tRESTRequest");
         Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
 
-        TemplateProcessor
-                .processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
-                        collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
+        if (nodeType == null) {
+            final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
 
-        osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
+            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
+                    collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
+
+            osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
+        }
 
         String springContent = null;
         if (processItem instanceof CamelProcessItem) {
