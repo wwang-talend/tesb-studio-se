@@ -386,8 +386,8 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         Plugin plugin = new Plugin();
 
         plugin.setGroupId("org.apache.karaf.tooling");
-        plugin.setArtifactId("features-maven-plugin");
-        plugin.setVersion("2.2.9");
+        plugin.setArtifactId("karaf-maven-plugin");
+        plugin.setVersion("4.2.4");
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
 
@@ -408,7 +408,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         List<PluginExecution> pluginExecutions = new ArrayList<PluginExecution>();
         PluginExecution pluginExecution = new PluginExecution();
         pluginExecution.setId("create-kar");
-        pluginExecution.addGoal("create-kar");
+        pluginExecution.addGoal("kar");
         pluginExecution.setConfiguration(configuration);
 
         pluginExecutions.add(pluginExecution);
