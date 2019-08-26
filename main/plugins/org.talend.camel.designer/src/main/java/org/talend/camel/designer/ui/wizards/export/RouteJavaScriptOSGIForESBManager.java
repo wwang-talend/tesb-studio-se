@@ -56,6 +56,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.repository.constants.BuildJobConstants;
 import org.talend.repository.documentation.ExportFileResource;
 import org.talend.repository.ui.wizards.exportjob.scriptsmanager.esb.DataSourceConfig;
 import org.talend.repository.utils.EmfModelUtils;
@@ -201,15 +202,26 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
     @Override
     protected void generateConfig(ExportFileResource osgiResource, ProcessItem processItem, IProcess process)
             throws IOException {
-        final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
+
+        boolean needBlueprint = true;
+
+        for (String componentName : BuildJobConstants.esbComponents) {
+            if (EmfModelUtils.getComponentByName(processItem, componentName) != null) {
+                needBlueprint = false;
+                break;
+            }
+        }
 
         Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
 
-        TemplateProcessor
-                .processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
-                        collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
+        if (needBlueprint) {
+            final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
 
-        osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
+            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
+                    collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
+
+            osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
+        }
 
         String springContent = null;
         if (processItem instanceof CamelProcessItem) {
