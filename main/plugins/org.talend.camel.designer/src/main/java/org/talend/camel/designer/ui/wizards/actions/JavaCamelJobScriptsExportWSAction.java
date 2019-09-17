@@ -40,6 +40,7 @@ import org.talend.camel.designer.util.CamelFeatureUtil;
 import org.talend.camel.model.CamelRepositoryNodeType;
 import org.talend.camel.model.RouteProcessingExchange;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
@@ -569,7 +570,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
                 List<ProjectReference> projectReferenceList = project.getProjectReferenceList();
 
-                if (projectReferenceList.size() == 0) {
+                if (projectReferenceList.size() == 0 && CommonUIPlugin.isFullyHeadless()) {
                     routeletModelVersion = getArtifactVersion();
                     routeletModelGroupId = getGroupId();
                 }
