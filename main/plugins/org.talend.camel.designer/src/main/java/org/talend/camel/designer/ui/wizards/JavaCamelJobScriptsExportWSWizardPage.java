@@ -55,14 +55,12 @@ import org.talend.camel.designer.ui.wizards.actions.JavaCamelJobScriptsExportWSA
 import org.talend.camel.designer.ui.wizards.actions.JavaCamelJobScriptsExportWithMavenAction;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.runtime.process.IBuildJobHandler;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.repository.build.IBuildResourceParametes;
-import org.talend.core.service.IESBMicroService;
 import org.talend.designer.maven.tools.AggregatorPomsHelper;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
@@ -100,6 +98,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
     private boolean onlyExportDefaultContext;
 
     private boolean exportAsZip;
+
+    private boolean addMavenScript;
 
     protected Button exportAsZipButton;
 
@@ -174,46 +174,26 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                             || destination.equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE);
 
                     if (isMS) {
+                        contextButton.dispose();
+                        addBSButton.dispose();
+                        exportAsZipButton.dispose();
 
-                        contextButton.setEnabled(true);
+                        optionsDockerGroupComposite.dispose();
 
                         if (destination.equals(EXPORTTYPE_SPRING_BOOT)) {
-
                             updateDestinationGroup(false);
-
-                            optionsDockerGroupComposite.dispose();
-
-                            addBSButton.setVisible(true);
-                            addBSButton.setEnabled(true);
-                            exportAsZipButton.setVisible(true);
-                            exportAsZipButton.setEnabled(true);
-
-                            addBSButton.setParent(optionsGroupComposite.getParent());
-                            exportAsZipButton.setParent(optionsGroupComposite.getParent());
-
-                            parent.layout();
-
+                            createOptionsForKar(optionsGroupComposite, optionsGroupFont);
+                            optionsGroupComposite.layout(true, true);
                         } else {
-
                             updateDestinationGroup(true);
-
-                            addBSButton.setVisible(false);
-                            addBSButton.setEnabled(false);
-                            exportAsZipButton.setVisible(false);
-                            exportAsZipButton.setEnabled(false);
-
+                            createOptionsForDocker(optionsGroupComposite, optionsGroupFont);
                             createDockerOptions(parent);
                             restoreWidgetValuesForImage();
-
-                            addBSButton.setParent(optionsDockerGroupComposite.getParent());
-                            exportAsZipButton.setParent(optionsDockerGroupComposite.getParent());
-
-                            parent.layout();
+                            optionsGroupComposite.layout(true, true);
                         }
 
-                    } else {
-                        if(contextButton != null)contextButton.setEnabled(false);
-                        if(exportAsZipButton != null)exportAsZipButton.setEnabled(false);
+                        parent.layout();
+
                     }
 
                     String destinationValue = getDestinationValue();
@@ -248,6 +228,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
     private Text hostText, imageText, tagText;
 
     private Label hostLabel, imageLabel, tagLabel;
+
+    private Font optionsGroupFont;
 
     private void createDockerOptions(Composite parent) {
 
@@ -429,6 +411,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
     @Override
     public void createOptions(final Composite optionsGroup, Font font) {
         optionsGroupComposite = optionsGroup;
+        optionsGroupFont = font;
+
         createOptionsForKar(optionsGroup, font);
         // createOptionForDockerImage(optionsGroup, font);
 
@@ -628,11 +612,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
     }
 
     public boolean isAddMavenScript() {
-        if (addBSButton != null) {
-            return addBSButton.getSelection();
-        }
-
-        return false;
+        return addMavenScript;
     }
 
     @Override
@@ -665,33 +645,20 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
         addBSButton = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
         addBSButton.setText("Add maven script");
+        addBSButton.setSelection(addMavenScript);
         addBSButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-
-
-                exportTypeCombo.notifyListeners(SWT.Selection, null);
-//
-//                if (exportAsZipButton != null) {
-//
-//                    if (addBSButton.getSelection()) {
-//                        exportAsZipButton.setSelection(true);
-//                        exportAsZipButton.setEnabled(false);
-//                    } else {
-//                        exportAsZipButton.setEnabled(true);
-//                        exportAsZipButton.setSelection(false);
-//                    }
-//
-//                }
+                addMavenScript = addBSButton.getSelection();
             }
         });
 
         // TESB-17856: ESB Microservice can be exported only with Default context
         contextButton = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
         contextButton.setText("Only export the default context"); //$NON-NLS-1$
+        contextButton.setSelection(onlyExportDefaultContext);
         contextButton.setFont(font);
-        contextButton.setEnabled(false);
         contextButton.setVisible(PluginChecker.isTIS());
         contextButton.addSelectionListener(new SelectionAdapter() {
 
@@ -703,9 +670,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
         exportAsZipButton = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
         exportAsZipButton.setText("Export as ZIP"); //$NON-NLS-1$
-        exportAsZipButton.setSelection(false);
+        exportAsZipButton.setSelection(exportAsZip);
         exportAsZipButton.setFont(getFont());
-        exportAsZipButton.setEnabled(false);
         exportAsZipButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -713,6 +679,27 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                 boolean selectContext = exportAsZipButton.getSelection();
                 exportAsZip = selectContext;
                 exportTypeCombo.notifyListeners(SWT.Selection, null);
+            }
+        });
+
+        optionsGroupCompositeLayout = (GridData) optionsGroup.getParent().getLayoutData();
+    }
+
+    private void createOptionsForDocker(Composite optionsGroup, Font font) {
+        if (!PluginChecker.isTIS()) {
+            return;
+        }
+
+        // TESB-17856: ESB Microservice can be exported only with Default context
+        contextButton = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
+        contextButton.setText("Only export the default context"); //$NON-NLS-1$
+        contextButton.setFont(font);
+        contextButton.setVisible(PluginChecker.isTIS());
+        contextButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                onlyExportDefaultContext = contextButton.getSelection();
             }
         });
 
@@ -814,7 +801,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         String version = getSelectedJobVersion();
         String destinationKar = getDestinationValue();
         JavaCamelJobScriptsExportWSAction action = null;
-        IRunnableWithProgress actionMS = null;
+
         Map<ExportChoice, Object> exportChoiceMap = getExportChoiceMap();
         boolean needMavenScript = false;
         // exportChoiceMap.containsKey(ExportChoice.needMavenScript) &&
@@ -835,11 +822,8 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
             if (!yes) {
                 return false;
             }
-        }
-
-        IESBMicroService microService = null;
-        if (GlobalServiceRegister.getDefault().isServiceRegistered(IESBMicroService.class)) {
-            microService = (IESBMicroService) GlobalServiceRegister.getDefault().getService(IESBMicroService.class);
+        } else {
+            exportChoiceMap.put(ExportChoice.needAssembly, Boolean.FALSE);
         }
 
         IBuildJobHandler buildJobHandler = null;
