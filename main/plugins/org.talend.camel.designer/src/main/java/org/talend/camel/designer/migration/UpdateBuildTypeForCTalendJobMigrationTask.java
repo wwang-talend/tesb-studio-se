@@ -7,6 +7,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
@@ -57,7 +58,11 @@ public class UpdateBuildTypeForCTalendJobMigrationTask extends AbstractRouteItem
                 }
             }
             if (item != null) {
-                item.getProperty().getAdditionalProperties().put(TalendProcessArgumentConstant.ARG_BUILD_TYPE, "ROUTE");
+                boolean isRouteProcess = ERepositoryObjectType.getType(item.getProperty())
+                        .equals(ERepositoryObjectType.PROCESS_ROUTE);
+                if (isRouteProcess) {
+                    item.getProperty().getAdditionalProperties().put(TalendProcessArgumentConstant.ARG_BUILD_TYPE, "ROUTE");
+                }
                 try {
                     ProxyRepositoryFactory.getInstance().save(itemProject, item, true);
                 } catch (PersistenceException e) {
