@@ -78,9 +78,9 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
     private static final String PROJECT_VERSION = "${project.version}";
 
-	private static final String JOB_FINAL_NAME = "talend.job.finalName";
+    private static final String JOB_FINAL_NAME = "talend.job.finalName";
 
-	private static final String PATH_ROUTES = "resources/templates/karaf/routes/";
+    private static final String PATH_ROUTES = "resources/templates/karaf/routes/";
 
     private Model bundleModel;
 
@@ -124,11 +124,11 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             if (artifactId.startsWith("tdm-camel-")) {
                 containsTdmCamelDependency = true;
             }
-            if(artifactId.equals("logback-classic")) {
-            	logbackClassicDependency = dependencies.get(i);
+            if (artifactId.equals("logback-classic")) {
+                logbackClassicDependency = dependencies.get(i);
             }
-            if(artifactId.equals("logback-core")) {
-            	logbackCoreDependency = dependencies.get(i);
+            if (artifactId.equals("logback-core")) {
+                logbackCoreDependency = dependencies.get(i);
             }
         }
         if (containsTdmCamelDependency && tdmDIDependency != null) {
@@ -138,7 +138,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             bundleModel.getDependencies().remove(logbackClassicDependency);
         }
         if (logbackCoreDependency != null) {
-        	bundleModel.getDependencies().remove(logbackCoreDependency);
+            bundleModel.getDependencies().remove(logbackCoreDependency);
         }
 
         IContainer parent = curPomFile.getParent();
@@ -190,7 +190,8 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             }
             featureModelBuild.addPlugin(addFeaturesMavenPlugin(bundleModel.getProperties().getProperty(JOB_FINAL_NAME)));
 
-            // featureModelBuild.addPlugin(addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
+            // featureModelBuild.addPlugin(addDeployFeatureMavenPlugin(featureModel.getArtifactId(),
+            // featureModel.getVersion(), publishAsSnapshot));
             featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
             featureModelBuild.addPlugin(addSkipMavenCleanPlugin());
             featureModelBuild.addPlugin(addSkipDockerMavenPlugin());
@@ -231,7 +232,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         }
 
         bundleModel.getBuild().addPlugin(addSkipDockerMavenPlugin());
-        
+
         updateBundleMainfest(bundleModel);
 
         PomUtil.savePom(monitor, bundleModel, pomBundle);
@@ -296,7 +297,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                     version = PomIdsHelper.getJobletVersion(property);
                     type = MavenConstants.PACKAGING_POM;
                 }
-                if(property != null) {
+                if (property != null) {
                     buildType = (String) property.getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE);
                 }
 
@@ -543,8 +544,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             }
         }
 
-
-
         plugin.setExecutions(pluginExecutions);
 
         return plugin;
@@ -619,74 +618,78 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         return plugin;
     }
 
-	private Xpp3Dom createInstallFileElement(JobInfo job) {
-		Xpp3Dom file = null;
+    private Xpp3Dom createInstallFileElement(JobInfo job) {
+        Xpp3Dom file = null;
         if (getJobProcessor() != null && getProcessor(job) != null) {
             IPath currentProjectRootDir = getTalendJobJavaProject(getJobProcessor()).getProject().getLocation();
             IPath targetDir = getTalendJobJavaProject(getProcessor(job)).getTargetFolder().getLocation();
             String relativeTargetDir = targetDir.makeRelativeTo(currentProjectRootDir).toString();
 
-            if(!ProjectManager.getInstance().isInCurrentMainProject(job.getProcessItem().getProperty())) {
+            if (!ProjectManager.getInstance().isInCurrentMainProject(job.getProcessItem().getProperty())) {
                 // this job/routelet is from a reference project
-                currentProjectRootDir = new Path(currentProjectRootDir.getDevice()  ,currentProjectRootDir.toString().replaceAll("/\\d+/", "/"));
-                targetDir = new Path(targetDir.getDevice()  ,targetDir.toString().replaceAll("/\\d+/", "/"));
+                currentProjectRootDir = new Path(currentProjectRootDir.getDevice(),
+                        currentProjectRootDir.toString().replaceAll("/\\d+/", "/"));
+                targetDir = new Path(targetDir.getDevice(), targetDir.toString().replaceAll("/\\d+/", "/"));
                 relativeTargetDir = targetDir.makeRelativeTo(currentProjectRootDir).toString();
             }
 
-            IFile jobPom = AggregatorPomsHelper.getItemPomFolder(job.getProcessItem().getProperty()).getFile(TalendMavenConstants.POM_FILE_NAME);
+            IFile jobPom = AggregatorPomsHelper.getItemPomFolder(job.getProcessItem().getProperty())
+                    .getFile(TalendMavenConstants.POM_FILE_NAME);
             if (jobPom.exists()) {
-            	try {
-            		Model jobModel = MODEL_MANAGER.readMavenModel(jobPom);
-            		String  resolvedFinalName = null;
-            		if(jobModel.getProperties().getProperty(JOB_FINAL_NAME) != null ) {
-            			resolvedFinalName = resolveJobFinalName(jobModel.getProperties().getProperty(JOB_FINAL_NAME), jobModel);
-					} else {
-						for(String modelName : jobModel.getModules()) {
-							IFile subPom = AggregatorPomsHelper.getItemPomFolder(job.getProcessItem().getProperty()).getFile(modelName);
-							if (subPom.exists()) {
-								Model subModel = MODEL_MANAGER.readMavenModel(subPom);
-								if(subModel.getProperties().getProperty(JOB_FINAL_NAME) != null) {
-									resolvedFinalName = resolveJobFinalName(subModel.getProperties().getProperty(JOB_FINAL_NAME), subModel);
-									break;
-								}
-							}
-						}
-            		}
-					if (resolvedFinalName == null) {
-						resolvedFinalName = job.getJobName().toLowerCase() + "_"
-								+ PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_");
-					}
-            		
-            		String pathToJar = relativeTargetDir + Path.SEPARATOR +  resolvedFinalName + ".jar";
-            		file = new Xpp3Dom("file");
-            		file.setValue(pathToJar);
-            	} catch (CoreException e) {
-            		e.printStackTrace();
-            	}
+                try {
+                    Model jobModel = MODEL_MANAGER.readMavenModel(jobPom);
+                    String resolvedFinalName = null;
+                    if (jobModel.getProperties().getProperty(JOB_FINAL_NAME) != null) {
+                        resolvedFinalName = resolveJobFinalName(jobModel.getProperties().getProperty(JOB_FINAL_NAME), jobModel);
+                    } else {
+                        for (String modelName : jobModel.getModules()) {
+                            IFile subPom = AggregatorPomsHelper.getItemPomFolder(job.getProcessItem().getProperty())
+                                    .getFile(modelName);
+                            if (subPom.exists()) {
+                                Model subModel = MODEL_MANAGER.readMavenModel(subPom);
+                                if (subModel.getProperties().getProperty(JOB_FINAL_NAME) != null) {
+                                    resolvedFinalName = resolveJobFinalName(subModel.getProperties().getProperty(JOB_FINAL_NAME),
+                                            subModel);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (resolvedFinalName == null) {
+                        resolvedFinalName = job.getJobName().toLowerCase() + "_"
+                                + PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_");
+                    }
+
+                    String pathToJar = relativeTargetDir + Path.SEPARATOR + resolvedFinalName + ".jar";
+                    file = new Xpp3Dom("file");
+                    file.setValue(pathToJar);
+                } catch (CoreException e) {
+                    e.printStackTrace();
+                }
             }
         }
-		return file;
-	}
+        return file;
+    }
 
-	private String resolveJobFinalName(String finalNameWithToken, Model jobModel) {
-		if (finalNameWithToken != null) {
-			Pattern p = Pattern.compile("\\$\\{([^\\}]+)\\}");
-			Matcher m = p.matcher(finalNameWithToken);
-			while (m.find()) {
-				if (PROJECT_VERSION.equals(m.group(0))) {
-					finalNameWithToken = finalNameWithToken.replace(PROJECT_VERSION, jobModel.getVersion());
-				} else {
-					String propertyValue = jobModel.getProperties().getProperty(m.group(1));
-					if (propertyValue != null) {
-						finalNameWithToken = finalNameWithToken.replace(m.group(0), propertyValue);
-					}
-				}
-			}
-		}
-		return finalNameWithToken;
-	}
+    private String resolveJobFinalName(String finalNameWithToken, Model jobModel) {
+        if (finalNameWithToken != null) {
+            Pattern p = Pattern.compile("\\$\\{([^\\}]+)\\}");
+            Matcher m = p.matcher(finalNameWithToken);
+            while (m.find()) {
+                if (PROJECT_VERSION.equals(m.group(0))) {
+                    finalNameWithToken = finalNameWithToken.replace(PROJECT_VERSION, jobModel.getVersion());
+                } else {
+                    String propertyValue = jobModel.getProperties().getProperty(m.group(1));
+                    if (propertyValue != null) {
+                        finalNameWithToken = finalNameWithToken.replace(m.group(0), propertyValue);
+                    }
+                }
+            }
+        }
+        return finalNameWithToken;
+    }
 
-	boolean isRoutelet(JobInfo job) {
+    boolean isRoutelet(JobInfo job) {
         if (job != null && job.getProcessItem() != null) {
             Property p = job.getProcessItem().getProperty();
             if (p != null) {
