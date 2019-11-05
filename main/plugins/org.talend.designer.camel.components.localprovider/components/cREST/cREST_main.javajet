@@ -77,7 +77,9 @@ imports="
                 endpointUrlStudio = "\"/" + endpointUrlStudio.substring(1);
             }
 
-           	endpointUrlStudio = defaultEndpointUrl + "+" + endpointUrlStudio;
+            if (!endpointUrlStudio.contains("context.")) {
+                endpointUrlStudio = defaultEndpointUrl + "+" + endpointUrlStudio;
+            }
         }
 
         boolean isTestContainer = ProcessUtils.isTestContainer(process);
