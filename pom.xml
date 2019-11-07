@@ -35,7 +35,7 @@
     <tesb.version>${maven.compatible.version}</tesb.version>
     
     <mvn-dom4j>mvn:dom4j/dom4j/1.6.1</mvn-dom4j>
-    <jackson.version>2.9.9</jackson.version>
+    <jackson.version>2.10.0</jackson.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
   </properties>
   <repositories>
