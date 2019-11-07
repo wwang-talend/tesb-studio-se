@@ -270,24 +270,30 @@ if (inputConn != null) {
                 genericConsumer_<%=cid%>.setEsbFeatures(esbFeatures_<%=cid%>);
 
                 boolean use_auth_<%=cid%> = <%=useAuth%>;
-                if (use_auth_<%=cid%>) {
-                    genericConsumer_<%=cid%>.setAuthType((String) <%=authType%>);
-                    genericConsumer_<%=cid%>.setUsername(<%=username%>);
-                    <% passwordFieldName = "__AUTH_PASSWORD__"; %>
-                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-                    genericConsumer_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
-                }
+                
+                <%if("true".equals(useAuth)) {%>
+	                if (use_auth_<%=cid%>) {
+	                    genericConsumer_<%=cid%>.setAuthType((String) <%=authType%>);
+	                    genericConsumer_<%=cid%>.setUsername(<%=username%>);
+	                    <% passwordFieldName = "__AUTH_PASSWORD__"; %>
+	                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	                    genericConsumer_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
+	                }
+	            <%}%>
 
                 boolean use_proxy_<%=cid%> = <%=useProxy%>;
-                if (use_proxy_<%=cid%>){
-                    genericConsumer_<%=cid%>.setProxyServer(<%=paramsHelper.getStringParam("__PROXY_HOST__")%>);
-                    genericConsumer_<%=cid%>.setProxyPort(<%=paramsHelper.getStringParam("__PROXY_PORT__")%>);
-                    genericConsumer_<%=cid%>.setProxyUsername(<%=paramsHelper.getStringParam("__PROXY_USERNAME__")%>);
-                    <% passwordFieldName = "__PROXY_PASSWORD__"; %>
-                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-                    genericConsumer_<%=cid%>.setProxyPassword(decryptedPassword_<%=cid%>);
-                }
-
+                
+                <%if("true".equals(useProxy)) {%>
+	                if (use_proxy_<%=cid%>){
+	                    genericConsumer_<%=cid%>.setProxyServer(<%=paramsHelper.getStringParam("__PROXY_HOST__")%>);
+	                    genericConsumer_<%=cid%>.setProxyPort(<%=paramsHelper.getStringParam("__PROXY_PORT__")%>);
+	                    genericConsumer_<%=cid%>.setProxyUsername(<%=paramsHelper.getStringParam("__PROXY_USERNAME__")%>);
+	                    <% passwordFieldName = "__PROXY_PASSWORD__"; %>
+	                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	                    genericConsumer_<%=cid%>.setProxyPassword(decryptedPassword_<%=cid%>);
+	                }
+                <%}%>
+                
                 genericConsumer_<%=cid%>.setConnectionTimeout((long)(<%=connTimeout%> * 1000L));
                 genericConsumer_<%=cid%>.setReceiveTimeout((long)(<%=receiveTimeout%> * 1000L));
                 genericConsumer_<%=cid%>.setAutoRedirect(<%=paramsHelper.getBoolParam("__FOLLOW_REDIRECTS__")%>);
@@ -359,31 +365,38 @@ if (inputConn != null) {
 						    put("useServiceRegistry", <%=useSR%>);
 
                             boolean use_auth_<%=cid%> = <%=useAuth%>;
-                            if (use_auth_<%=cid%> || <%=useSR%>) {
-                            <% passwordFieldName = "__AUTH_PASSWORD__"; %>
-                            <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-                            if (<%=useSR%>) {
-                                put("username", <%=username%>);
-                                put("password", decryptedPassword_<%=cid%>);
-                                <% if (!authorizationRole.isEmpty() && !"\"\"".equals(authorizationRole)) { %>
-                                    put("role", <%=authorizationRole%>);
-                                <% } %>
-                                <% if (useCrypto) { %>
-                                    put("useCrypto", <%=useCrypto%>);
-                                <% } %>
-                            } else if (use_auth_<%=cid%>) {
-                                if ("SAML".equals(<%=authType%>)) {
-                                <% if (useAuthorization) { %>
-                                    put("role", <%=authorizationRole%>);
-                                <% }if (useCrypto) { %>
-                                    put("useCrypto", <%=useCrypto%>);
-                                <% } %>
-                                }
-                                put("esbSecurity", <%=authType%>);
-                                put("username", <%=username%>);
-                                put("password", decryptedPassword_<%=cid%>);
-                               }
-                            }
+                            
+
+							<% if("true".equals(useProxy) || useSR){%>
+	                            if (use_auth_<%=cid%> || <%=useSR%>) {
+	                            <% passwordFieldName = "__AUTH_PASSWORD__"; %>
+	                            <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	                            if (<%=useSR%>) {
+	                                put("username", <%=username%>);
+	                                put("password", decryptedPassword_<%=cid%>);
+	                                <% if (!authorizationRole.isEmpty() && !"\"\"".equals(authorizationRole)) { %>
+	                                    put("role", <%=authorizationRole%>);
+	                                <% } %>
+	                                <% if (useCrypto) { %>
+	                                    put("useCrypto", <%=useCrypto%>);
+	                                <% } %>
+	                            } else if (use_auth_<%=cid%>) {
+	                                if ("SAML".equals(<%=authType%>)) {
+	                                <% if (useAuthorization) { %>
+	                                    put("role", <%=authorizationRole%>);
+	                                <% }if (useCrypto) { %>
+	                                    put("useCrypto", <%=useCrypto%>);
+	                                <% } %>
+	                                }
+	                                put("esbSecurity", <%=authType%>);
+	                                put("username", <%=username%>);
+	                                put("password", decryptedPassword_<%=cid%>);
+	                               }
+	                            }
+							
+							<%}%>
+							
+
                             if (!soapHeaders_<%=cid%>.isEmpty()) {
                                 put("soapHeaders", soapHeaders_<%=cid%>);
                             }
