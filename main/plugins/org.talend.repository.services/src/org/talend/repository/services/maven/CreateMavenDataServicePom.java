@@ -399,7 +399,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         }
 
         plugin.setVersion(talendVersion);
-        plugin.setVersion("7.2.1-SNAPSHOT");
+        plugin.setVersion("7.3.1-SNAPSHOT");
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         Xpp3Dom featuresFile = new Xpp3Dom("featuresFile");
