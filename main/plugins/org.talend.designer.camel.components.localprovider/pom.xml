@@ -12,12 +12,12 @@
   <packaging>eclipse-plugin</packaging>
 
     <properties>
-        <camel.version>2.23.1</camel.version>
-        <activemq.version>5.15.9</activemq.version>
+        <camel.version>2.24.2</camel.version>
+        <activemq.version>5.15.10</activemq.version>
         <!-- camel-groovy -->
         <groovy.version>2.4.6</groovy.version>
         <!-- camel-xstream -->
-        <xstream.version>1.4.10</xstream.version>
+        <xstream.version>1.4.11.1</xstream.version>
         <xpp3.version>1.1.6</xpp3.version>
         <!-- camel-amqp -->
         <qpid-jms-client.version>0.38.0</qpid-jms-client.version>
@@ -60,11 +60,11 @@
         <swagger.version>1.5.21</swagger.version>
         <swagger.ui.version>2.2.0</swagger.ui.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
-        <slf4j-api.version>1.7.26</slf4j-api.version>
+        <slf4j-api.version>1.7.28</slf4j-api.version>
         <reflections.version>0.9.11</reflections.version>
         <guava.version>20.0</guava.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
-        <snakeyaml.version>1.23</snakeyaml.version>
+        <snakeyaml.version>1.24</snakeyaml.version>
         <!-- external deps -->
         <mvn-commons-collections>mvn:commons-collections/commons-collections/3.2.2</mvn-commons-collections>
         <mvn-commons-io>mvn:commons-io/commons-io/2.2</mvn-commons-io>
@@ -73,7 +73,6 @@
         
         <jetty-all.version>9.4.18.v20190429</jetty-all.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
-        <jackson.version>2.9.9</jackson.version>
     </properties>
 
     <dependencies>
