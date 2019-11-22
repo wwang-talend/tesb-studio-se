@@ -323,6 +323,12 @@
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-features-logging</artifactId>
         <version>${cxf.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+			</exclusion>
+		</exclusions>
     </dependency>
 	<!-- ESB Features-->
 	<dependency>
