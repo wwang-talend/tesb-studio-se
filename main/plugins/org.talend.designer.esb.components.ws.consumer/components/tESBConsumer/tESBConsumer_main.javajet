@@ -366,8 +366,7 @@ if (inputConn != null) {
 
                             boolean use_auth_<%=cid%> = <%=useAuth%>;
                             
-
-							<% if("true".equals(useProxy) || useSR){%>
+							<% if("true".equals(useAuth) || useSR){%>
 	                            if (use_auth_<%=cid%> || <%=useSR%>) {
 	                            <% passwordFieldName = "__AUTH_PASSWORD__"; %>
 	                            <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
