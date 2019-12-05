@@ -245,7 +245,6 @@
                 System.setProperty("spring.config.additional-location",argsMap.get("--spring.config.additional-location"));
             }            
             loadConfig(argsMap,"--spring.banner.location","banner.txt");
-            loadConfig(argsMap,"--logging.config","log4j2.xml");
             
             if (argsMap.get("--camel.springboot.typeConversion") == null) {
                 argsMap.put("--camel.springboot.typeConversion", "false");
