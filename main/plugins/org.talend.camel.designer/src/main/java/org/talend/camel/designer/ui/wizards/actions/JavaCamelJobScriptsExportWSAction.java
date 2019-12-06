@@ -569,8 +569,8 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 String routeletModelGroupId = PomIdsHelper.getJobGroupId(referencedRouteletNode.getProperty());
 
                 List<ProjectReference> projectReferenceList = project.getProjectReferenceList();
-
-                if (projectReferenceList.size() == 0 && CommonUIPlugin.isFullyHeadless()) {
+                // Use same Version and GroupId for routelet from route(TESB-27437, TESB-26578, TESB-22521)
+                if (projectReferenceList.size() == 0 || CommonUIPlugin.isFullyHeadless()) {
                     routeletModelVersion = getArtifactVersion();
                     routeletModelGroupId = getGroupId();
                 }
