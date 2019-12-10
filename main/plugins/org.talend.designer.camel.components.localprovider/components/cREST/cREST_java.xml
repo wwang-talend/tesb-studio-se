@@ -288,8 +288,8 @@
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/reflections-0.9.11.jar"
                 REQUIRED_IF="(EXPOSE_SWAGGER_SPEC == 'true')"/>
 
-            <IMPORT MODULE="jackson-dataformat-yaml-2.10.0.jar" MVN="mvn:org.talend.libraries/jackson-dataformat-yaml/6.0.0" NAME="jackson-dataformat-yaml-2.10.0"
-                UrlPath="platform:/plugin/org.talend.libraries.esb/lib/jackson-dataformat-yaml-2.10.0.jar"
+            <IMPORT MODULE="jackson-dataformat-yaml-2.10.1.jar" MVN="mvn:org.talend.libraries/jackson-dataformat-yaml/6.0.0" NAME="jackson-dataformat-yaml-2.10.1"
+                UrlPath="platform:/plugin/org.talend.libraries.esb/lib/jackson-dataformat-yaml-2.10.1.jar"
                 REQUIRED_IF="(EXPOSE_SWAGGER_SPEC == 'true')"/>
 
             <IMPORT MODULE="guava-20.0.jar" MVN="mvn:com.google.guava/guava/20.0" NAME="guava-20.0.jar"
