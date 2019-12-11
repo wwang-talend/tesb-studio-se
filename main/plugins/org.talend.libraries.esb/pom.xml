@@ -307,6 +307,11 @@
 		<artifactId>cxf-rt-rs-service-description</artifactId>
 		<version>${cxf.version}</version>
 	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>${commons-lang3.version}</version>
+	</dependency>
     <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-rs-service-description-swagger</artifactId>
@@ -410,6 +415,10 @@
 			<exclusion>
 				<groupId>commons-lang</groupId>
 				<artifactId>commons-lang</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
 			</exclusion>
 		</exclusions>
 	</dependency>

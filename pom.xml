@@ -33,7 +33,7 @@
     <jettison.version>1.4.0</jettison.version>
     <!--slf4j.version>1.7.9</slf4j.version-->
     <tesb.version>${maven.compatible.version}</tesb.version>
-    
+    <commons-lang3.version>3.9</commons-lang3.version>
     <mvn-dom4j>mvn:dom4j/dom4j/1.6.1</mvn-dom4j>
     <jackson.version>2.10.1</jackson.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
