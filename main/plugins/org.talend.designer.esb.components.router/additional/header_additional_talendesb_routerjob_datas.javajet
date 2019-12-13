@@ -11,6 +11,7 @@
 
 		org.talend.core.model.process.INode
 		org.talend.core.model.process.IProcess
+		org.talend.core.model.process.ElementParameterParser
 	"
 	class="Header_additional"
 %>
@@ -22,6 +23,8 @@ IProcess process = (IProcess) v.get(0);
 boolean jobHasRouteInputComponent = !process.getNodesOfType("tRouteInput").isEmpty();
 boolean jobHasRouteOutputComponent = !process.getNodesOfType("tRouteOutput").isEmpty();
 boolean jobHasRouteFaultComponent = !process.getNodesOfType("tRouteFault").isEmpty();
+
+boolean isLog4jEnabled = ("true").equals(ElementParameterParser.getValue(process, "__LOG4J_ACTIVATE__"));//log4j enable
 
 if (jobHasRouteInputComponent || jobHasRouteOutputComponent || jobHasRouteFaultComponent) {
 
@@ -136,7 +139,9 @@ String cid = node.getUniqueName();
 			while ( ex instanceof TalendException ) {
 				ex = ((TalendException) ex).getException();
 				ex.printStackTrace(System.out);
-				org.apache.log4j.Logger.getRootLogger().error(ex);
+				<%if(isLog4jEnabled){%>
+					log.error(ex);	
+				<%}%>
 			}
 			throw new RuntimeException(ex);
 			
@@ -178,7 +183,9 @@ String cid = node.getUniqueName();
 			try {
 				lifeCycleMonitor.waitForUpState();
 			} catch (InterruptedException e) {
-				org.apache.log4j.Logger.getRootLogger().error("Lifecycle Monitor Exception", e);
+				<%if(isLog4jEnabled){%>
+					log.error("Lifecycle Monitor Exception", e);	
+				<%}%>
 				throw new RuntimeException(e);
 			}
 		} // end synchronized
@@ -197,7 +204,9 @@ String cid = node.getUniqueName();
 			try {
 				lifeCycleMonitor.waitForDownState();
 			} catch (InterruptedException e) {
-				org.apache.log4j.Logger.getRootLogger().error("Lifecycle Monitor Exception", e);
+				<%if(isLog4jEnabled){%>
+					log.error("Lifecycle Monitor Exception", e);	
+				<%}%>
 				throw new RuntimeException(e);
 			}
 		} // end synchronized
