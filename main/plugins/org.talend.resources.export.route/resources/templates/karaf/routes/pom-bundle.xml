@@ -246,7 +246,7 @@
                                 <goal>deploy-file</goal>
                             </goals>
                             <configuration>
-                                <file>${basedir}/src/main/resources/feature/feature.xml</file>
+                                <file>${current.bundle.resources.dir}/feature.xml</file>
                                 <groupId>${project.groupId}</groupId>
                                 <artifactId>${talend.job.name}-feature</artifactId>
                                 <version>${project.version}</version>
