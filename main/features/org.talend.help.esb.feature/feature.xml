@@ -22,9 +22,14 @@
    </url>
 
    <requires>
-      <import feature="org.talend.help.tos.components.feature" version="7.3.1.qualifier"/>
-      <import plugin="org.talend.esb.help"/>
-      <import plugin="org.talend.help"/>
+      <import feature="org.talend.help.di.feature" version="0.0.0" match="greaterOrEqual"/>
    </requires>
+
+   <plugin
+         id="org.talend.esb.help"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
