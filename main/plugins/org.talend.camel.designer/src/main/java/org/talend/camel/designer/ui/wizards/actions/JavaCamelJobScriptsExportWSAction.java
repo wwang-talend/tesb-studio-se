@@ -41,6 +41,7 @@ import org.talend.camel.designer.util.CamelFeatureUtil;
 import org.talend.camel.model.CamelRepositoryNodeType;
 import org.talend.camel.model.RouteProcessingExchange;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -500,6 +501,10 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             jobArtifactVersion +=MavenConstants.SNAPSHOT;
         }else if (jobArtifactVersion.endsWith(MavenConstants.SNAPSHOT) && !isSnapshot){
             jobArtifactVersion = jobArtifactVersion.substring(0, jobArtifactVersion.lastIndexOf(MavenConstants.SNAPSHOT));
+        }
+        // TESB-27587
+        if (CommonUIPlugin.isFullyHeadless()) {
+            jobArtifactVersion = getArtifactVersion();
         }
 
         return jobArtifactVersion;
