@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.model.components.ComponentUtilities;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IConnection;
@@ -16,6 +17,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
+import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.camel.dependencies.core.ext.ExtensionPointsReader;
@@ -145,10 +147,53 @@ public class DependenciesResolver {
      * most of the datas of a node are coming from extension point except the
      * cTalendJob
      */
+    @SuppressWarnings("unchecked")
     private void handleAllNodeTypes(final Collection<NodeType> nodes) {
+
+        ProxyRepositoryFactory factory = ProxyRepositoryFactory.getInstance();
+
         for (NodeType n : nodes) {
-            if (isActivate(n.getElementParameter())) {
-                handleNode(n);
+            String routeletId = ComponentUtilities.getNodePropertyValue(n,
+                    EParameterName.PROCESS_TYPE.getName() + ':' + EParameterName.PROCESS_TYPE_PROCESS.getName());
+            if (null != routeletId) {
+
+                String routeletVersion = ComponentUtilities.getNodePropertyValue(n,
+                        EParameterName.PROCESS_TYPE.getName() + ':' + EParameterName.PROCESS_TYPE_VERSION.getName());
+
+                if (routeletVersion == null) {
+                    routeletVersion = RelationshipItemBuilder.LATEST_VERSION;
+                }
+
+                if (factory != null) {
+                    IRepositoryViewObject found = null;
+
+                    try {
+                        if (RelationshipItemBuilder.LATEST_VERSION.equals(routeletVersion)) {
+                            found = factory.getLastVersion(routeletId);
+                        } else {
+                            for (IRepositoryViewObject repositoryViewObject : factory.getAllVersion(routeletId)) {
+                                if (routeletVersion.equals(repositoryViewObject.getVersion())) {
+                                    found = repositoryViewObject;
+                                    break;
+                                }
+                            }
+                        }
+                    } catch (PersistenceException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (found != null) {
+                        ProcessItem item = (ProcessItem) found.getProperty().getItem();
+                        if (item != null) {
+                            handleAllNodeTypes(item.getProcess().getNode());
+                        }
+                    }
+                }
+
+            } else {
+                if (isActivate(n.getElementParameter())) {
+                    handleNode(n);
+                }
             }
         }
     }
@@ -157,6 +202,13 @@ public class DependenciesResolver {
         for (INode n : nodes) {
             if (n.isActivate()) {
                 handleNode(n);
+
+                // Begin https://jira.talendforge.org/browse/TESB-27172
+                if ("Routelets".equals(n.getComponent().getOriginalFamilyName())) {
+                    handleAllNodes(n.getComponent().getProcess().getGraphicalNodes());
+                }
+                // End https://jira.talendforge.org/browse/TESB-27172
+
                 handleAllConnections(n.getOutgoingConnections());
             }
         }
