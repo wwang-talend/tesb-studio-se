@@ -141,14 +141,9 @@
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-camel-groovy}"
+            name="camel-groovy-alldep-${camel.version}.jar"
             id="camel-groovy"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-groovy}"
-            bundleID="" />
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-groovy-all}"
-            id="groovy-all"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-groovy-all}"
+            uripath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-groovy-alldep-${camel.version}.jar"
             bundleID="" />
 
         <libraryNeededGroup
@@ -156,7 +151,6 @@
                 id="camel-groovy"
                 name="camel-groovy">
             <library id="camel-groovy" />
-            <library id="groovy-all" />
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
