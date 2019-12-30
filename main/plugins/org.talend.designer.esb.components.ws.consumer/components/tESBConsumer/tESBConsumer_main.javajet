@@ -131,7 +131,7 @@ if (inputConn != null) {
     final javax.xml.namespace.QName portName_<%=cid%> = new javax.xml.namespace.QName("<%=portNS%>", "<%=portName%>");
 
 	 final List<java.util.Map<String, String>> customHttpHeaders_<%=cid%> = new java.util.ArrayList<java.util.Map<String, String>>();
-	 final HttpHeadersFeature httpHeadersFeature = new HttpHeadersFeature(customHttpHeaders_<%=cid%>);
+	 final HttpHeadersFeature httpHeadersFeature_<%=cid%> = new HttpHeadersFeature(customHttpHeaders_<%=cid%>);
 	
     try {
         routines.system.Document requestTalendDoc_<%=cid%> = <%=inputConn.getName()%>.payload;
@@ -270,24 +270,30 @@ if (inputConn != null) {
                 genericConsumer_<%=cid%>.setEsbFeatures(esbFeatures_<%=cid%>);
 
                 boolean use_auth_<%=cid%> = <%=useAuth%>;
-                if (use_auth_<%=cid%>) {
-                    genericConsumer_<%=cid%>.setAuthType((String) <%=authType%>);
-                    genericConsumer_<%=cid%>.setUsername(<%=username%>);
-                    <% passwordFieldName = "__AUTH_PASSWORD__"; %>
-                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-                    genericConsumer_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
-                }
+                
+                <%if("true".equals(useAuth)) {%>
+	                if (use_auth_<%=cid%>) {
+	                    genericConsumer_<%=cid%>.setAuthType((String) <%=authType%>);
+	                    genericConsumer_<%=cid%>.setUsername(<%=username%>);
+	                    <% passwordFieldName = "__AUTH_PASSWORD__"; %>
+	                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	                    genericConsumer_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
+	                }
+	            <%}%>
 
                 boolean use_proxy_<%=cid%> = <%=useProxy%>;
-                if (use_proxy_<%=cid%>){
-                    genericConsumer_<%=cid%>.setProxyServer(<%=paramsHelper.getStringParam("__PROXY_HOST__")%>);
-                    genericConsumer_<%=cid%>.setProxyPort(<%=paramsHelper.getStringParam("__PROXY_PORT__")%>);
-                    genericConsumer_<%=cid%>.setProxyUsername(<%=paramsHelper.getStringParam("__PROXY_USERNAME__")%>);
-                    <% passwordFieldName = "__PROXY_PASSWORD__"; %>
-                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-                    genericConsumer_<%=cid%>.setProxyPassword(decryptedPassword_<%=cid%>);
-                }
-
+                
+                <%if("true".equals(useProxy)) {%>
+	                if (use_proxy_<%=cid%>){
+	                    genericConsumer_<%=cid%>.setProxyServer(<%=paramsHelper.getStringParam("__PROXY_HOST__")%>);
+	                    genericConsumer_<%=cid%>.setProxyPort(<%=paramsHelper.getStringParam("__PROXY_PORT__")%>);
+	                    genericConsumer_<%=cid%>.setProxyUsername(<%=paramsHelper.getStringParam("__PROXY_USERNAME__")%>);
+	                    <% passwordFieldName = "__PROXY_PASSWORD__"; %>
+	                    <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	                    genericConsumer_<%=cid%>.setProxyPassword(decryptedPassword_<%=cid%>);
+	                }
+                <%}%>
+                
                 genericConsumer_<%=cid%>.setConnectionTimeout((long)(<%=connTimeout%> * 1000L));
                 genericConsumer_<%=cid%>.setReceiveTimeout((long)(<%=receiveTimeout%> * 1000L));
                 genericConsumer_<%=cid%>.setAutoRedirect(<%=paramsHelper.getBoolParam("__FOLLOW_REDIRECTS__")%>);
@@ -311,13 +317,13 @@ if (inputConn != null) {
                 if (!soapHeaders_<%=cid%>.isEmpty()) {
                     genericConsumer_<%=cid%>.setSoapHeaders(soapHeaders_<%=cid%>);
                 }
-					 esbFeatures_<%=cid%>.add(httpHeadersFeature);
+					 esbFeatures_<%=cid%>.add(httpHeadersFeature_<%=cid%>);
                 responseDoc_<%=cid%> = genericConsumer_<%=cid%>.invoke(requestTalendDoc_<%=cid%>.getDocument());
                 <% if (useBusinessCorrelation || useSR) { %>
                     globalMap.put("<%=cid%>_CORRELATION_ID", genericConsumer_<%=cid%>.getCorrelationID());
                 <% } %>
-                globalMap.put("<%=cid%>_HTTP_HEADERS", httpHeadersFeature.getResponseHeaders());
-                globalMap.put("<%=cid%>_HTTP_RESPONSE_CODE", httpHeadersFeature.getResponseCode());
+                globalMap.put("<%=cid%>_HTTP_HEADERS", httpHeadersFeature_<%=cid%>.getResponseHeaders());
+                globalMap.put("<%=cid%>_HTTP_RESPONSE_CODE", httpHeadersFeature_<%=cid%>.getResponseCode());
             } else {
                 ESBConsumer consumer_<%=cid%> = registry.createConsumer(
                     new ESBEndpointInfo() {
@@ -359,35 +365,41 @@ if (inputConn != null) {
 						    put("useServiceRegistry", <%=useSR%>);
 
                             boolean use_auth_<%=cid%> = <%=useAuth%>;
-                            if (use_auth_<%=cid%> || <%=useSR%>) {
-                            <% passwordFieldName = "__AUTH_PASSWORD__"; %>
-                            <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-                            if (<%=useSR%>) {
-                                put("username", <%=username%>);
-                                put("password", decryptedPassword_<%=cid%>);
-                                <% if (!authorizationRole.isEmpty() && !"\"\"".equals(authorizationRole)) { %>
-                                    put("role", <%=authorizationRole%>);
-                                <% } %>
-                                <% if (useCrypto) { %>
-                                    put("useCrypto", <%=useCrypto%>);
-                                <% } %>
-                            } else if (use_auth_<%=cid%>) {
-                                if ("SAML".equals(<%=authType%>)) {
-                                <% if (useAuthorization) { %>
-                                    put("role", <%=authorizationRole%>);
-                                <% }if (useCrypto) { %>
-                                    put("useCrypto", <%=useCrypto%>);
-                                <% } %>
-                                }
-                                put("esbSecurity", <%=authType%>);
-                                put("username", <%=username%>);
-                                put("password", decryptedPassword_<%=cid%>);
-                               }
-                            }
+                            
+							<% if("true".equals(useAuth) || useSR){%>
+	                            if (use_auth_<%=cid%> || <%=useSR%>) {
+	                            <% passwordFieldName = "__AUTH_PASSWORD__"; %>
+	                            <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	                            if (<%=useSR%>) {
+	                                put("username", <%=username%>);
+	                                put("password", decryptedPassword_<%=cid%>);
+	                                <% if (!authorizationRole.isEmpty() && !"\"\"".equals(authorizationRole)) { %>
+	                                    put("role", <%=authorizationRole%>);
+	                                <% } %>
+	                                <% if (useCrypto) { %>
+	                                    put("useCrypto", <%=useCrypto%>);
+	                                <% } %>
+	                            } else if (use_auth_<%=cid%>) {
+	                                if ("SAML".equals(<%=authType%>)) {
+	                                <% if (useAuthorization) { %>
+	                                    put("role", <%=authorizationRole%>);
+	                                <% }if (useCrypto) { %>
+	                                    put("useCrypto", <%=useCrypto%>);
+	                                <% } %>
+	                                }
+	                                put("esbSecurity", <%=authType%>);
+	                                put("username", <%=username%>);
+	                                put("password", decryptedPassword_<%=cid%>);
+	                               }
+	                            }
+							
+							<%}%>
+							
+
                             if (!soapHeaders_<%=cid%>.isEmpty()) {
                                 put("soapHeaders", soapHeaders_<%=cid%>);
                             }
-							put("httpHeadersFeature", httpHeadersFeature);
+							put("httpHeadersFeature", httpHeadersFeature_<%=cid%>);
                             <% if (authPropagateUP || authPropagateCertificate) { %>
                                 put("securityToken", securityToken_<%=cid%>);
                             <% }
@@ -439,8 +451,8 @@ if (inputConn != null) {
                         throw new RuntimeException("Incompatible consumer response: " + consumerResponse_<%=cid%>.getClass().getName());
                     }
                     
-                    globalMap.put("<%=cid%>_HTTP_HEADERS", httpHeadersFeature.getResponseHeaders());
-               	    globalMap.put("<%=cid%>_HTTP_RESPONSE_CODE", httpHeadersFeature.getResponseCode());
+                    globalMap.put("<%=cid%>_HTTP_HEADERS", httpHeadersFeature_<%=cid%>.getResponseHeaders());
+               	    globalMap.put("<%=cid%>_HTTP_RESPONSE_CODE", httpHeadersFeature_<%=cid%>.getResponseCode());
                 }
             }
             <% if (null != connResponse) {
@@ -490,9 +502,9 @@ if (inputConn != null) {
         <% } %>
     }
     
-    if(httpHeadersFeature!=null){
-    	 globalMap.put("<%=cid%>_HTTP_HEADERS", httpHeadersFeature.getResponseHeaders());
-       globalMap.put("<%=cid%>_HTTP_RESPONSE_CODE",  httpHeadersFeature.getResponseCode());
+    if(httpHeadersFeature_<%=cid%>!=null){
+    	 globalMap.put("<%=cid%>_HTTP_HEADERS", httpHeadersFeature_<%=cid%>.getResponseHeaders());
+       globalMap.put("<%=cid%>_HTTP_RESPONSE_CODE",  httpHeadersFeature_<%=cid%>.getResponseCode());
     }
 
 <% } %>

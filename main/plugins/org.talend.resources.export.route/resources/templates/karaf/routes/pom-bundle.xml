@@ -249,7 +249,7 @@
                             <configuration>
                                 <artifacts>
                                     <artifact>
-                                        <file>${basedir}/src/main/bundle-resources/feature/feature.xml</file>
+                                        <file>${current.bundle.resources.dir}/feature.xml</file>
                                         <type>xml</type>
                                         <classifier>feature</classifier>
                                     </artifact>
