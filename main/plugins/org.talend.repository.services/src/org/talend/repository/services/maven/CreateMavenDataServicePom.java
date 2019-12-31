@@ -210,7 +210,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
         featureModelBuild.addPlugin(addSkipMavenCleanPlugin());
         // maven versioning
-        featureModelBuild.addPlugin(addFeatureHelperMavenPlugin());
+        featureModelBuild.addPlugin(addOsgiHelperMavenPlugin());
         featureModel.setBuild(featureModelBuild);
         featureModel.setParent(parentPom);
         featureModel.setName(displayName + " Feature");
@@ -386,11 +386,11 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         return plugin;
     }
 
-    private Plugin addFeatureHelperMavenPlugin() {
+    private Plugin addOsgiHelperMavenPlugin() {
         Plugin plugin = new Plugin();
 
         plugin.setGroupId("org.talend.ci");
-        plugin.setArtifactId("featurehelper-maven-plugin");
+        plugin.setArtifactId("osgihelper-maven-plugin");
         String talendVersion = VersionUtils.getTalendVersion();
         String productVersion = VersionUtils.getInternalVersion();
         String revision  = StringUtils.substringAfterLast(productVersion, "-");
@@ -399,7 +399,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         }
 
         plugin.setVersion(talendVersion);
-        plugin.setVersion("7.3.1-SNAPSHOT");
+//        plugin.setVersion("7.3.1-SNAPSHOT");
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         Xpp3Dom featuresFile = new Xpp3Dom("featuresFile");

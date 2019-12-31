@@ -24,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.ActivationProperty;
 import org.apache.maven.model.Build;
@@ -44,6 +45,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.talend.camel.designer.ui.editor.RouteProcess;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -185,7 +187,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             featureModelBuild.addPlugin(addFeaturesMavenPlugin(bundleModel.getProperties().getProperty("talend.job.finalName")));
 
             featureModelBuild.addPlugin(addBuildHelperMavenPlugin());
-            featureModelBuild.addPlugin(addFeatureHelperMavenPlugin());
+            featureModelBuild.addPlugin(addOsgiHelperMavenPlugin());
             
             // featureModelBuild.addPlugin(addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
 //            featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
@@ -434,7 +436,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         Plugin plugin = new Plugin();
 
         plugin.setGroupId("org.talend.ci");
-        plugin.setArtifactId("featurehelper-maven-plugin");
+        plugin.setArtifactId("osgihelper-maven-plugin");
         String talendVersion = VersionUtils.getTalendVersion();
         String productVersion = VersionUtils.getInternalVersion();
         String revision  = StringUtils.substringAfterLast(productVersion, "-");
@@ -443,7 +445,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         }
         
         plugin.setVersion(talendVersion);
-        plugin.setVersion("7.3.1-SNAPSHOT");
+//        plugin.setVersion("7.3.1-SNAPSHOT");
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         Xpp3Dom featuresFile = new Xpp3Dom("featuresFile");
