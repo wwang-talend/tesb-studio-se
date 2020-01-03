@@ -30,13 +30,7 @@
 	</extension>
 
     <extension point="org.talend.core.runtime.librariesNeeded">
-
-        <libraryNeeded context="plugin:org.talend.libraries.dom4j-jaxen"
-            name="dom4j-1.6.1.jar"
-            id="dom4j"
-            uripath="platform:/plugin/org.talend.libraries.dom4j-jaxen/lib/dom4j-1.6.1.jar"
-            bundleID="" />
-
+            
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-cxf-core}"
             id="cxf-core"
