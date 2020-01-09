@@ -107,6 +107,8 @@ public class OSGIJavaProcessor extends MavenJavaProcessor {
      */
     @Override
     public void generatePom(int option) {
+        // TESB-27828: Set OSGI type for pom creator
+        getArguments().put(TalendProcessArgumentConstant.ARG_BUILD_TYPE, "OSGI");
         try {
             IRepositoryObject repositoryObject = new RepositoryObject(getProperty());
             IRunnableWithProgress action = new JavaCamelJobScriptsExportWSAction(repositoryObject, getProperty().getVersion(), "",
