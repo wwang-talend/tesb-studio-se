@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.BooleanUtils;
@@ -127,7 +128,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         String jobVersion = PomIdsHelper.getJobVersion(getJobProcessor().getProperty());
         String talendJobVersion = getJobProcessor().getProperty().getVersion();
         String JobType = "Services";
-        String displayName = projectName + " " + artifactId + "-" + jobVersion + " (" + talendJobVersion + "," + JobType + ")";
+        String displayName = projectName + " " + artifactId + "-" + "${project.version}" + " (" + talendJobVersion + "," + JobType + ")";
         pomModel.setGroupId(groupId);
         pomModel.setArtifactId(artifactId);
         pomModel.setVersion(jobVersion);
@@ -208,6 +209,8 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         // addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
         featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
         featureModelBuild.addPlugin(addSkipMavenCleanPlugin());
+        // maven versioning
+        featureModelBuild.addPlugin(addOsgiHelperMavenPlugin());
         featureModel.setBuild(featureModelBuild);
         featureModel.setParent(parentPom);
         featureModel.setName(displayName + " Feature");
@@ -256,8 +259,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         deployFeatureActivation.setProperty(activationProperty2);
         deployFeatureProfile.setActivation(deployFeatureActivation);
         Build deployFeatureBuild = new Build();
-        deployFeatureBuild.addPlugin(
-                addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
+        deployFeatureBuild.addPlugin(addBuildHelperMavenPlugin());
         deployFeatureProfile.setBuild(deployFeatureBuild);
         return deployFeatureProfile;
     }
@@ -350,63 +352,72 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         return plugin;
     }
 
-    private Plugin addDeployFeatureMavenPlugin(String modelArtifactId, String modelVersion, boolean publishAsSnapshot) {
+    private Plugin addBuildHelperMavenPlugin() {
         Plugin plugin = new Plugin();
 
-        plugin.setGroupId("org.apache.maven.plugins");
-        plugin.setArtifactId("maven-deploy-plugin");
-        plugin.setVersion("2.7");
+        plugin.setGroupId("org.codehaus.mojo");
+        plugin.setArtifactId("build-helper-maven-plugin");
+        plugin.setVersion("3.0.0");
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
-
+        Xpp3Dom artifacts = new Xpp3Dom("artifacts");
+        Xpp3Dom artifact = new Xpp3Dom("artifact");
         Xpp3Dom file = new Xpp3Dom("file");
         file.setValue("${basedir}/src/main/resources/feature/feature.xml");
-
-        Xpp3Dom groupId = new Xpp3Dom("groupId");
-        groupId.setValue(model.getGroupId());
-
-        Xpp3Dom artifactId = new Xpp3Dom("artifactId");
-        artifactId.setValue(modelArtifactId);
-
-        Xpp3Dom version = new Xpp3Dom("version");
-        version.setValue(modelVersion);
-
+        Xpp3Dom type = new Xpp3Dom("type");
+        type.setValue("xml");
         Xpp3Dom classifier = new Xpp3Dom("classifier");
-        classifier.setValue("features");
+        classifier.setValue("feature");
 
-        Xpp3Dom packaging = new Xpp3Dom("packaging");
-        packaging.setValue("xml");
-
-        Xpp3Dom repositoryId = new Xpp3Dom("repositoryId");
-        repositoryId.setValue(publishAsSnapshot ? "${project.distributionManagement.snapshotRepository.id}"
-                : "${project.distributionManagement.repository.id}");
-
-        Xpp3Dom url = new Xpp3Dom("url");
-        url.setValue(publishAsSnapshot ? "${project.distributionManagement.snapshotRepository.url}"
-                : "${project.distributionManagement.repository.url}");
-
-        configuration.addChild(file);
-        configuration.addChild(groupId);
-        configuration.addChild(artifactId);
-        configuration.addChild(version);
-        configuration.addChild(classifier);
-        configuration.addChild(packaging);
-        configuration.addChild(repositoryId);
-        configuration.addChild(url);
+        artifact.addChild(file);
+        artifact.addChild(type);
+        artifact.addChild(classifier);
+        artifacts.addChild(artifact);
+        configuration.addChild(artifacts);
 
         List<PluginExecution> pluginExecutions = new ArrayList<PluginExecution>();
         PluginExecution pluginExecution = new PluginExecution();
-        pluginExecution.setId("deploy-file");
-        pluginExecution.setPhase("deploy");
-        pluginExecution.addGoal("deploy-file");
+        pluginExecution.setId("attach-artifacts-feature");
+        pluginExecution.setPhase("package");
+        pluginExecution.addGoal("attach-artifact");
         pluginExecution.setConfiguration(configuration);
+        pluginExecutions.add(pluginExecution);
+        plugin.setExecutions(pluginExecutions); 
+        return plugin;
+    }
 
+    private Plugin addOsgiHelperMavenPlugin() {
+        Plugin plugin = new Plugin();
+
+        plugin.setGroupId("org.talend.ci");
+        plugin.setArtifactId("osgihelper-maven-plugin");
+        String talendVersion = VersionUtils.getTalendVersion();
+        String productVersion = VersionUtils.getInternalVersion();
+        String revision  = StringUtils.substringAfterLast(productVersion, "-");
+        if (revision.equals("SNAPSHOT") || Pattern.matches("M\\d{1}", revision)) { 
+            talendVersion += "-" + revision; //$NON-NLS-1$
+        }
+
+        plugin.setVersion(talendVersion);
+//        plugin.setVersion("7.3.1-SNAPSHOT");
+
+        Xpp3Dom configuration = new Xpp3Dom("configuration");
+        Xpp3Dom featuresFile = new Xpp3Dom("featuresFile");
+        featuresFile.setValue("${basedir}/src/main/resources/feature/feature.xml");
+        configuration.addChild(featuresFile);
+
+        List<PluginExecution> pluginExecutions = new ArrayList<PluginExecution>();
+        PluginExecution pluginExecution = new PluginExecution();
+        pluginExecution.setId("feature-helper");
+        pluginExecution.setPhase("generate-sources");
+        pluginExecution.addGoal("generate");
+        pluginExecution.setConfiguration(configuration);
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
 
         return plugin;
-    }
-
+    } 
+    
     /**
      * Avoid clean control-bundle file in target folde, in case of using mvn clean package, TESB-22296
      *
