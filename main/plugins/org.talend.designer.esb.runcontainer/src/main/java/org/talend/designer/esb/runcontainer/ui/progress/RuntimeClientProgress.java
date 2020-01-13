@@ -82,7 +82,7 @@ public class RuntimeClientProgress extends RuntimeProgress {
     }
 
     /**
-     * Ensure all bundles must be actived/resolved before running script
+     * Ensure all bundles must be activated/resolved before running script
      *
      * @param subMonitor
      */
@@ -92,7 +92,7 @@ public class RuntimeClientProgress extends RuntimeProgress {
         do {
             try {
                 Thread.sleep(1000);
-                subMonitor.subTask(JMXUtil.getBundlesList().length + " bundles have been actived");
+                subMonitor.subTask(JMXUtil.getBundlesList().length + " bundles have been activated");
                 if (JMXUtil.getBundlesList().length < 80) {
                     Thread.sleep(1000);
                     continue;
@@ -104,15 +104,15 @@ public class RuntimeClientProgress extends RuntimeProgress {
                     continue;
                 }
 
-                int actived = 0;
+                int active = 0;
                 Thread.sleep(4000);
                 for (long id : JMXUtil.getBundlesList()) {
                     if ("Active".equals(JMXUtil.getBundleStatus(id))) {
-                        actived++;
+                        active++;
                     }
                 }
-                if (activeCount != actived) {
-                    activeCount = actived;
+                if (activeCount != active) {
+                    activeCount = active;
                     Thread.sleep(1000);
                     continue;
                 } else {
@@ -126,7 +126,7 @@ public class RuntimeClientProgress extends RuntimeProgress {
     }
 
     /**
-     * Ensure all bundles must be actived/resolved before running script
+     * Ensure all bundles must be activated/resolved before running script
      */
     private void waitForActive() {
         boolean allActived = false;

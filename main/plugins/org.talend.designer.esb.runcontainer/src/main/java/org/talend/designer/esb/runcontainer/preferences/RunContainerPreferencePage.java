@@ -120,8 +120,8 @@ public class RunContainerPreferencePage extends FieldLayoutPreferencePage implem
                 "ESB Studio Runtime - Use Local Talend Runtime (OSGi Container)", body);
         addField(useOSGiEditor);
         Label lblNote = new Label(body, SWT.WRAP);
-        lblNote.setText("Note: It will be only taken into account for an ESB Artifact:\n" + "  · A Route (Any Route)\n"
-                + "  · A DataService (SOAP/REST)\n" + "  · A Job contains tRESTClient or tESBConsumer component");
+        lblNote.setText("Note: It will be only taken into account for an ESB Artifact:\n" + "\t- A Route (Any Route)\n"
+                + "\t- A DataService (SOAP/REST)\n" + "\t- A Job containing tRESTClient or tESBConsumer component");
 
         Group groupServer = new Group(body, SWT.NONE);
         groupServer.setText(RunContainerMessages.getString("RunContainerPreferencePage.Group1")); //$NON-NLS-1$
