@@ -146,7 +146,9 @@ public class RouteBundleExportAction extends JobExportAction {
                             FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.META_INF_FOLDER_NAME));
                         } else if (fileResource.getDirectoryName().equals(LIB)) {
 
-                            if (file.getName().matches("^camel-(.*)-alldep-(.*)")) {
+                            if (file.getName().matches("^camel-(.*)-alldep-(.*)")
+                                    || file.getName().matches("^activemq-all-[\\d\\.]*.jar")
+                                    || file.getName().matches("^jms[\\d\\.-]*.jar")) {
                                 continue;
                             }
 
