@@ -47,7 +47,7 @@ public class BeanImportHandler extends ImportRepTypeHandler {
      */
     @Override
     public void afterImportingItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem) {
-
+        ModulesNeededProvider.fireLibrariesChanges();
     }
 
     /*
