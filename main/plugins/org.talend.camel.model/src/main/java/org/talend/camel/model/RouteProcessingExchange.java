@@ -23,9 +23,6 @@ public final class RouteProcessingExchange {
     public static final ThreadLocal<Boolean> isCreatingMicroService = new ThreadLocal<>();
 
     private static final ThreadLocal<Boolean> originalMavenOfflineState = new ThreadLocal<>();
-    
-    // for TESB-27587 
-    public static final ThreadLocal<String> artifactId = new ThreadLocal<>();
 
     public static void setMavenOffline(boolean mavenOffline) {
         Boolean b = originalMavenOfflineState.get();

@@ -247,20 +247,6 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
         String routeName = getArtifactId();
         String routeVersion = getArtifactVersion();
 
-        // FIXME temporary solution for TESB-27587, in case of artivact id is diff with parent route name
-        if (CommonUIPlugin.isFullyHeadless()) {
-            try {
-                String artifactId = RouteProcessingExchange.artifactId.get();
-                if (artifactId == null) {
-                    RouteProcessingExchange.artifactId.set(routeName);
-                    // getProcessItem().getProperty().setLabel(routeName);
-                } else {
-                    routeName = RouteProcessingExchange.artifactId.get();
-                }
-            } catch (Exception e) {
-                throw new InvocationTargetException(e);
-            }
-        }
         // FIXME temporary solution, should be replaced by proper handling
         // of MicroService vs. KAR build.
         boolean isCreatingMicroService = false;
