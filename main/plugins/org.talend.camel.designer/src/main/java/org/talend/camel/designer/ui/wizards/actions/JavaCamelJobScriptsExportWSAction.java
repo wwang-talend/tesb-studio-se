@@ -652,22 +652,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             }
             packages = packages + packageName;
         }
-        final String IMPORT_PACKAGE_KEY = "Import-Package";
-        if (process.getProperty().getAdditionalProperties().containsKey(IMPORT_PACKAGE_KEY)) {
-            Object o = process.getProperty().getAdditionalProperties().get(IMPORT_PACKAGE_KEY);
-            if (o == null) {
-                subjobImportPackages.put(process.getProperty().getId(), packages);
-            } else if (o instanceof String) {
-                String s = (String)o;
-                if (s.isEmpty()) {
-                    subjobImportPackages.put(process.getProperty().getId(), packages);
-                } else {
-                    subjobImportPackages.put(process.getProperty().getId(), s + "," + packages);
-                }
-            }
-        } else {
-            subjobImportPackages.put(process.getProperty().getId(), packages);
-        }
+        subjobImportPackages.put(process.getProperty().getId(), packages);
     }
 
 
@@ -705,7 +690,9 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
         talendJobManager.setArtifactId(getArtifactId());
         talendJobManager.setArtifactVersion(getArtifactVersion());
         RepositoryNode node = new RepositoryNode(object, null, ENodeType.REPOSITORY_ELEMENT);
-        node.getObject().getProperty().setVersion(jobVersion);
+        if (!jobVersion.equals(node.getObject().getProperty().getVersion())) {
+    	    node.getObject().getProperty().setVersion(jobVersion);
+    	}
         JobExportAction action = new RouteBundleExportAction(Collections.singletonList(node), jobVersion, bundleVersion,
                 talendJobManager, getTempDir(), "Job");
         action.run(monitor);
