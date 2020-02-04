@@ -57,6 +57,94 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-activemq-all}"
             bundleID="" />
 
+       <libraryNeededGroup
+                description="activemq-all"
+                id="activemq-all"
+                name="activemq-all">
+            <library id="slf4j-api" />
+            <library id="geronimo-jms_1.1_spec" />
+            <library id="geronimo-j2ee-management_1.1_spec" />
+            <library id="geronimo-jta_1.0.1B_spec" />
+            <library id="commons-logging" />
+            <library id="hawtbuf" />
+            <library id="xbean-spring" />
+			<library id="commons-pool2" />
+            <group id="aws-jackson" />
+            <group id="activemq" />
+        </libraryNeededGroup>
+
+       <libraryNeededGroup
+                description="activemq"
+                id="activemq"
+                name="activemq">
+            <library id="activemq-spring" />
+            <library id="activemq-broker" />
+            <library id="activemq-client" />
+            <library id="activemq-openwire-legacy" />
+            <library id="activemq-pool" />
+            <library id="activemq-jms-pool" />
+        </libraryNeededGroup>
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-activemq-spring}"
+            id="activemq-spring"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-spring}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-activemq-broker}"
+            id="activemq-broker"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-broker}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-activemq-client}"
+            id="activemq-client"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-client}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-activemq-openwire-legacy}"
+            id="activemq-openwire-legacy"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-openwire-legacy}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-activemq-pool}"
+            id="activemq-pool"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-pool}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-activemq-jms-pool}"
+            id="activemq-jms-pool"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-jms-pool}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-geronimo-j2ee-management_1.1_spec}"
+            id="geronimo-j2ee-management_1.1_spec"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-geronimo-j2ee-management_1.1_spec}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-geronimo-jta_1.0.1B_spec}"
+            id="geronimo-jta_1.0.1B_spec"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-geronimo-jta_1.0.1B_spec}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-xbean-spring}"
+            id="xbean-spring"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-xbean-spring}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-commons-pool2}"
+            id="commons-pool2"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-commons-pool2}"
+            bundleID="" />
+
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-camel-core}"
             id="camel-core"
@@ -74,6 +162,7 @@
                 name="camel-core">
             <library id="camel-core" />
             <library id="jakarta.xml.soap-api" />
+            <library id="javax.activation-1.2.0" />
             <group id="slf4j" />
         </libraryNeededGroup>
 
@@ -141,14 +230,9 @@
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-camel-groovy}"
+            name="camel-groovy-alldep-${camel.version}.jar"
             id="camel-groovy"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-groovy}"
-            bundleID="" />
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-groovy-all}"
-            id="groovy-all"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-groovy-all}"
+            uripath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-groovy-alldep-${camel.version}.jar"
             bundleID="" />
 
         <libraryNeededGroup
@@ -156,7 +240,6 @@
                 id="camel-groovy"
                 name="camel-groovy">
             <library id="camel-groovy" />
-            <library id="groovy-all" />
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
@@ -529,8 +612,17 @@
            </library>
            <library
                  id="org.hamcrest.core_1.3.0.v20180420-1519.jar">
-           </library>                                       
+           </library>
+           <library
+                 id="hamcrest-all">
+           </library>
         </libraryNeededGroup>
+        <libraryNeeded
+                context="plugin:org.talend.designer.camel.components.localprovider"
+                id="hamcrest-all"
+                name="${tesb-hamcrest-all}"
+                uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-hamcrest-all}">
+        </libraryNeeded>
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
               id="camel-test-spring"

@@ -90,7 +90,7 @@
 
 	<CODEGENERATION>
 		<IMPORTS>
-            <IMPORT MODULE="dom4j" MVN="${mvn-dom4j}" REQUIRED="true" />
+            <IMPORT MODULE="dom4j-${dom4j.version}.jar" MVN="mvn:org.dom4j/dom4j/${dom4j.version}" REQUIRED="true" />
             <IMPORT MODULE_GROUP="cxf-core" REQUIRED="true" />
             <IMPORT MODULE_GROUP="cxf-rt-frontend-jaxws" REQUIRED="true" />
             <IMPORT MODULE_GROUP="cxf-rt-transports-http-jetty" REQUIRED="true" />

@@ -7,5 +7,4 @@
   <requires>
     <import feature="org.talend.camel.core.feature" version="0.0.0" match="greaterOrEqual"/>
   </requires>
-  <plugin id="org.talend.esb.help" download-size="0" install-size="0" version="0.0.0"/>
 </feature>

@@ -317,12 +317,22 @@
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>annotations</artifactId>
             </exclusion>
+			<exclusion>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+			</exclusion>
         </exclusions>
     </dependency>
     <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-features-logging</artifactId>
         <version>${cxf.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+			</exclusion>
+		</exclusions>
     </dependency>
 	<!-- ESB Features-->
 	<dependency>
@@ -404,6 +414,10 @@
 			<exclusion>
 				<groupId>commons-lang</groupId>
 				<artifactId>commons-lang</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
 			</exclusion>
 		</exclusions>
 	</dependency>
@@ -514,5 +528,11 @@
         <artifactId>org.apache.servicemix.specs.jaxws-api-2.2</artifactId>
         <version>2.9.0</version>
     </dependency>
+    
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
   </dependencies>
 </project>

@@ -270,22 +270,26 @@ try {
 	factoryBean_<%=cid%>.setTransportId("http://cxf.apache.org/transports/http");
 
 	boolean use_auth_<%=cid%> = <%=useAuth%>;
-	if (use_auth_<%=cid%> && "SAML".equals(<%=authType%>)) {
-		if (!inOSGi) {
-			throw new IllegalArgumentException("SAML based security scenarios are not supported in Studio (standalone)");
+	
+	<% if("true".equals(useAuth)){%>
+		if (use_auth_<%=cid%> && "SAML".equals(<%=authType%>)) {
+			if (!inOSGi) {
+				throw new IllegalArgumentException("SAML based security scenarios are not supported in Studio (standalone)");
+			}
+			// set SAML Token authentication
+			<% passwordFieldName = "__AUTH_PASSWORD__"; %>
+			<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	
+			org.apache.cxf.ws.security.trust.STSClient stsClient =
+				org.talend.esb.security.saml.STSClientUtils.createSTSClient(factoryBean_<%=cid%>.getBus(),
+					<%=ElementParameterParser.getValue(node, "__AUTH_USERNAME__")%>, decryptedPassword_<%=cid%>);
+			<% if ("true".equals(ElementParameterParser.getValue(node, "__NEED_AUTHORIZATION__"))) { %>
+				org.talend.esb.security.saml.STSClientUtils.applyAuthorization(stsClient, <%=ElementParameterParser.getValue(node, "__ROLE__")%>);
+			<% } %>
+			org.talend.esb.security.saml.SAMLRESTUtils.configureClient(factoryBean_<%=cid%>, stsClient);
 		}
-		// set SAML Token authentication
-		<% passwordFieldName = "__AUTH_PASSWORD__"; %>
-		<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
 
-		org.apache.cxf.ws.security.trust.STSClient stsClient =
-			org.talend.esb.security.saml.STSClientUtils.createSTSClient(factoryBean_<%=cid%>.getBus(),
-				<%=ElementParameterParser.getValue(node, "__AUTH_USERNAME__")%>, decryptedPassword_<%=cid%>);
-		<% if ("true".equals(ElementParameterParser.getValue(node, "__NEED_AUTHORIZATION__"))) { %>
-			org.talend.esb.security.saml.STSClientUtils.applyAuthorization(stsClient, <%=ElementParameterParser.getValue(node, "__ROLE__")%>);
-		<% } %>
-		org.talend.esb.security.saml.SAMLRESTUtils.configureClient(factoryBean_<%=cid%>, stsClient);
-	}
+	<%}%>
 
 	org.apache.cxf.jaxrs.client.WebClient webClient_<%=cid%> = factoryBean_<%=cid%>.createWebClient();
 
@@ -310,41 +314,47 @@ try {
 
 	<% } %>
 
-	if (use_auth_<%=cid%> && "BASIC".equals(<%=authType%>)) {
-		// set BASIC auth
-		<% passwordFieldName = "__AUTH_PASSWORD__"; %>
-		<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-
-		org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_<%=cid%> = new org.apache.cxf.configuration.security.AuthorizationPolicy();
-			authPolicy_<%=cid%>.setAuthorizationType("Basic");
+	<% if("true".equals(useAuth)){%>
+	
+			if (use_auth_<%=cid%> && "BASIC".equals(<%=authType%>)) {
+			// set BASIC auth
+			<% passwordFieldName = "__AUTH_PASSWORD__"; %>
+			<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	
+			org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_<%=cid%> = new org.apache.cxf.configuration.security.AuthorizationPolicy();
+				authPolicy_<%=cid%>.setAuthorizationType("Basic");
+				authPolicy_<%=cid%>.setUserName(<%=paramsHelper.getStringParam("__AUTH_USERNAME__")%>);
+				authPolicy_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
+			conduit_<%=cid%>.setAuthorization(authPolicy_<%=cid%>);
+		} else if (use_auth_<%=cid%> && "HTTP Digest".equals(<%=authType%>)) {
+			// set Digest auth
+			<% passwordFieldName = "__AUTH_PASSWORD__"; %>
+			<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	
+			org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_<%=cid%> = new org.apache.cxf.configuration.security.AuthorizationPolicy();
+			authPolicy_<%=cid%>.setAuthorizationType("Digest");
 			authPolicy_<%=cid%>.setUserName(<%=paramsHelper.getStringParam("__AUTH_USERNAME__")%>);
 			authPolicy_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
-		conduit_<%=cid%>.setAuthorization(authPolicy_<%=cid%>);
-	} else if (use_auth_<%=cid%> && "HTTP Digest".equals(<%=authType%>)) {
-		// set Digest auth
-		<% passwordFieldName = "__AUTH_PASSWORD__"; %>
-		<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-
-		org.apache.cxf.configuration.security.AuthorizationPolicy authPolicy_<%=cid%> = new org.apache.cxf.configuration.security.AuthorizationPolicy();
-		authPolicy_<%=cid%>.setAuthorizationType("Digest");
-		authPolicy_<%=cid%>.setUserName(<%=paramsHelper.getStringParam("__AUTH_USERNAME__")%>);
-		authPolicy_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
-		conduit_<%=cid%>.setAuthorization(authPolicy_<%=cid%>);
-	}
+			conduit_<%=cid%>.setAuthorization(authPolicy_<%=cid%>);
+		}
+	
+	<%}%>
 
 	if (!inOSGi) {
 		conduit_<%=cid%>.getClient().setReceiveTimeout((long)(<%=paramsHelper.getStringParam("__RECEIVE_TIMEOUT__")%> * 1000L));
 		conduit_<%=cid%>.getClient().setConnectionTimeout((long)(<%=paramsHelper.getStringParam("__CONNECTION_TIMEOUT__")%> * 1000L));
 		boolean use_proxy_<%=cid%> = <%=useProxy%>;
-		if (use_proxy_<%=cid %>) {
-			<% passwordFieldName = "__PROXY_PASSWORD__"; %>
-			<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-
-			conduit_<%=cid%>.getClient().setProxyServer(<%=paramsHelper.getStringParam("__PROXY_HOST__")%>);
-			conduit_<%=cid%>.getClient().setProxyServerPort(Integer.valueOf(<%=paramsHelper.getStringParam("__PROXY_PORT__")%>));
-			conduit_<%=cid%>.getProxyAuthorization().setUserName(<%=paramsHelper.getStringParam("__PROXY_USERNAME__")%>);
-			conduit_<%=cid%>.getProxyAuthorization().setPassword(decryptedPassword_<%=cid%>);
-		}
+		<% if("true".equals(useProxy)){%>
+			if (use_proxy_<%=cid %>) {
+				<% passwordFieldName = "__PROXY_PASSWORD__"; %>
+				<%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	
+				conduit_<%=cid%>.getClient().setProxyServer(<%=paramsHelper.getStringParam("__PROXY_HOST__")%>);
+				conduit_<%=cid%>.getClient().setProxyServerPort(Integer.valueOf(<%=paramsHelper.getStringParam("__PROXY_PORT__")%>));
+				conduit_<%=cid%>.getProxyAuthorization().setUserName(<%=paramsHelper.getStringParam("__PROXY_USERNAME__")%>);
+				conduit_<%=cid%>.getProxyAuthorization().setPassword(decryptedPassword_<%=cid%>);
+			}
+		<%}%>
 	}
 	<%
 	/*tSetKeystore-TESB-22406*/
@@ -389,31 +399,35 @@ try {
 		webClient_<%=cid%>.header("Authorization", "Bearer " + <%=paramsHelper.getStringParam("__AUTH_BEARER_TOKEN__")%>);
 	}
 	
-	if (use_auth_<%=cid%> && "OIDC_PASSWORD_GRANT".equals(<%=authType%>)) {
-
-        <% passwordFieldName = "__AUTH_PASSWORD__"; %>
-        <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
-
-        String username_<%=cid%> = <%=paramsHelper.getStringParam("__AUTH_USERNAME__")%>;
-        String password_<%=cid%> = decryptedPassword_<%=cid%>;
-
-        String bearerHeader_<%=cid%> = null;
-
-        try {
-			if (!inOSGi) {
-				org.springframework.context.support.ClassPathXmlApplicationContext context_<%=cid%> =
-					new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/tesb/oidc-context.xml");
-				org.talend.esb.security.oidc.OidcConfiguration oidcConfiguration_<%=cid%> = context_<%=cid%>.getBean(org.talend.esb.security.oidc.OidcConfiguration.class);
-				bearerHeader_<%=cid%> = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_<%=cid%>, password_<%=cid%>, oidcConfiguration_<%=cid%>);
-			}else{
-				bearerHeader_<%=cid%> = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_<%=cid%>, password_<%=cid%>);
-			}
-		} catch (Exception ex) {
-            throw new javax.ws.rs.WebApplicationException("Failed to get OIDC access token: ", ex);
-        }
-
-		webClient_<%=cid%>.header("Authorization", bearerHeader_<%=cid%>);
-	}
+	<%if("true".equals(useAuth)){%>
+	
+		if (use_auth_<%=cid%> && "OIDC_PASSWORD_GRANT".equals(<%=authType%>)) {
+	
+	        <% passwordFieldName = "__AUTH_PASSWORD__"; %>
+	        <%@ include file="@{org.talend.designer.components.localprovider}/components/templates/password.javajet"%>
+	
+	        String username_<%=cid%> = <%=paramsHelper.getStringParam("__AUTH_USERNAME__")%>;
+	        String password_<%=cid%> = decryptedPassword_<%=cid%>;
+	
+	        String bearerHeader_<%=cid%> = null;
+	
+	        try {
+				if (!inOSGi) {
+					org.springframework.context.support.ClassPathXmlApplicationContext context_<%=cid%> =
+						new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/tesb/oidc-context.xml");
+					org.talend.esb.security.oidc.OidcConfiguration oidcConfiguration_<%=cid%> = context_<%=cid%>.getBean(org.talend.esb.security.oidc.OidcConfiguration.class);
+					bearerHeader_<%=cid%> = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_<%=cid%>, password_<%=cid%>, oidcConfiguration_<%=cid%>);
+				}else{
+					bearerHeader_<%=cid%> = org.talend.esb.security.oidc.OidcClientUtils.oidcClientBearer(username_<%=cid%>, password_<%=cid%>);
+				}
+			} catch (Exception ex) {
+	            throw new javax.ws.rs.WebApplicationException("Failed to get OIDC access token: ", ex);
+	        }
+	
+			webClient_<%=cid%>.header("Authorization", bearerHeader_<%=cid%>);
+		}
+	
+	<%}%>
     
 	// if FORM request then capture query parameters into Form, otherwise set them as queries
 	<% List<Map<String, String>> queries = paramsHelper.getObjectParam("__QUERY__");

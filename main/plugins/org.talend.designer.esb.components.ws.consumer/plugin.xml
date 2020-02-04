@@ -30,13 +30,7 @@
 	</extension>
 
     <extension point="org.talend.core.runtime.librariesNeeded">
-
-        <libraryNeeded context="plugin:org.talend.libraries.dom4j-jaxen"
-            name="dom4j-1.6.1.jar"
-            id="dom4j"
-            uripath="platform:/plugin/org.talend.libraries.dom4j-jaxen/lib/dom4j-1.6.1.jar"
-            bundleID="" />
-
+            
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-cxf-core}"
             id="cxf-core"
@@ -204,7 +198,7 @@
         <!-- ${tesb-commons-logging} -->
         <libraryNeeded context="plugin:org.apache.commons.logging"
             name="org.apache.commons.logging_1.2.0.v20180409-1502.jar"
-            id="commons-logging"
+            id="commons-logging" mvn_uri="mvn:commons-logging/commons-logging/1.2.0"
             uripath="platform:/base/plugins/org.apache.commons.logging_1.2.0.v20180409-1502.jar"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
@@ -378,24 +372,12 @@
             id="slf4j-api"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/slf4j-api-1.7.26.jar"
             bundleID="" />
-        <libraryNeeded context="plugin:org.talend.libraries.slf4j"
-            name="slf4j-log4j12-1.7.5.jar"
-            id="slf4j-log4j12"
-            uripath="platform:/plugin/org.talend.libraries.slf4j/lib/slf4j-log4j12-1.7.5.jar"
-            bundleID="" />
-        <libraryNeeded context="plugin:org.apache.log4j"
-            name="org.apache.log4j_1.2.15.v201012070815.jar"
-            id="log4j"
-            uripath="platform:/base/plugins/org.apache.log4j_1.2.15.v201012070815.jar"
-            bundleID="" />
 
         <libraryNeededGroup
                 description="slf4j"
                 id="slf4j"
                 name="slf4j">
             <library id="slf4j-api" />
-            <library id="slf4j-log4j12" />
-            <library id="log4j" />
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.libraries.esb"
@@ -613,7 +595,6 @@
             id="zookeeper"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-zookeeper}"
             bundleID="" />
-        <!-- TODO: log4j -->
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-cxf-rt-features-clustering}"
             id="cxf-rt-features-clustering"

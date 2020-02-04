@@ -23,7 +23,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -796,12 +795,13 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
     @Override
     public boolean finish() {
 
-        IProgressMonitor monitor = new NullProgressMonitor();
-
         String version = getSelectedJobVersion();
         String destinationKar = getDestinationValue();
         JavaCamelJobScriptsExportWSAction action = null;
 
+        IRunnableWithProgress buildJobHandlerAction = null;
+        IRunnableWithProgress actionMS = null;
+      
         Map<ExportChoice, Object> exportChoiceMap = getExportChoiceMap();
         boolean needMavenScript = false;
         // exportChoiceMap.containsKey(ExportChoice.needMavenScript) &&
@@ -825,8 +825,6 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         } else {
             exportChoiceMap.put(ExportChoice.needAssembly, Boolean.FALSE);
         }
-
-        IBuildJobHandler buildJobHandler = null;
 
         if (exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT)
                 || exportTypeCombo.getText().equals(EXPORTTYPE_SPRING_BOOT_DOCKER_IMAGE)) {
@@ -863,19 +861,38 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
                 exportChoiceMap.put(ExportChoice.esbExportType, "kar");
 
-                buildJobHandler = BuildJobFactory.createBuildJobHandler(getProcessItem(), getContextName(), version,
-                        exportChoiceMap, "ROUTE");
+                buildJobHandlerAction = new IRunnableWithProgress() {
 
-                Map<String, Object> prepareParams = new HashMap<String, Object>();
-                prepareParams.put(IBuildResourceParametes.OPTION_ITEMS, true);
-                prepareParams.put(IBuildResourceParametes.OPTION_ITEMS_DEPENDENCIES, true);
+                    @Override
+                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-                try {
-                    buildJobHandler.prepare(monitor, prepareParams);
-                } catch (Exception e) {
-                    MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
-                    return false;
-                }
+                        IBuildJobHandler buildJobHandler  = BuildJobFactory.createBuildJobHandler(getProcessItem(), getContextName(), version,
+                                            exportChoiceMap, "ROUTE");
+
+                        Map<String, Object> prepareParams = new HashMap<String, Object>();
+                        prepareParams.put(IBuildResourceParametes.OPTION_ITEMS, true);
+                        prepareParams.put(IBuildResourceParametes.OPTION_ITEMS_DEPENDENCIES, true);
+
+                        try {
+                              buildJobHandler.prepare(monitor, prepareParams);
+                              buildJobHandler.build(monitor);
+
+                              IFile targetFile = buildJobHandler.getJobTargetFile();
+
+                              if (targetFile != null && targetFile.exists()) {
+                                  try {
+                                      FilesUtils.copyFile(targetFile.getLocation().toFile(), new File(getDestinationValue()));
+                                  } catch (IOException e) {
+                                      e.printStackTrace();
+                                  }
+                              }
+
+                          } catch (Exception e) {
+                              MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
+                          }
+
+                    }
+                };
 
                 action = new JavaCamelJobScriptsExportWSAction(nodes[0], version, destinationKar, false);
 
@@ -883,24 +900,12 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
             }
 
             try {
-                getContainer().run(false, true, action);
-
-                buildJobHandler.build(monitor);
+            	getContainer().run(false, true, action);
+                getContainer().run(false, true, buildJobHandlerAction);
             } catch (Exception e) {
                 MessageBoxExceptionHandler.process(e.getCause(), getShell());
                 return false;
             }
-
-            IFile targetFile = buildJobHandler.getJobTargetFile();
-
-            if (targetFile != null && targetFile.exists()) {
-                try {
-                    FilesUtils.copyFile(targetFile.getLocation().toFile(), new File(getDestinationValue()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
         }
 
         return true;
