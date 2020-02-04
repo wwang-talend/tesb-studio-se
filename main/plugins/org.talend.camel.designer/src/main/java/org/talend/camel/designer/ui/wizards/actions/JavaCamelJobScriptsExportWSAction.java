@@ -30,6 +30,7 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.maven.model.Dependency;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -43,6 +44,8 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.runtime.CommonUIPlugin;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
@@ -56,6 +59,7 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.runtime.maven.MavenConstants;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.IBuildJobHandler;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.process.LastGenerationInfo;
@@ -64,6 +68,7 @@ import org.talend.designer.core.model.components.EParameterName;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.maven.utils.PomIdsHelper;
+import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.publish.core.models.BundleModel;
 import org.talend.designer.publish.core.models.FeatureModel;
 import org.talend.designer.publish.core.models.FeaturesModel;
@@ -573,6 +578,23 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 if (projectReferenceList.size() == 0 || CommonUIPlugin.isFullyHeadless()) {
                     routeletModelVersion = getArtifactVersion();
                     routeletModelGroupId = getGroupId();
+                } else {
+                    if (StringUtils.endsWith(PomIdsHelper.getJobVersion(routeProcess.getProperty()),
+                            MavenUrlHelper.VERSION_SNAPSHOT)) {
+                        routeletModelVersion = StringUtils.endsWith(routeletModelVersion, MavenUrlHelper.VERSION_SNAPSHOT)
+                                ? routeletModelVersion
+                                : routeletModelVersion + "-" + MavenUrlHelper.VERSION_SNAPSHOT;
+
+                        ILibraryManagerService localLibraryManager = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                                .getService(ILibraryManagerService.class);
+
+                        Dependency d = new Dependency();
+                        d.setArtifactId(routeletBundleName);
+                        d.setGroupId(routeletModelGroupId);
+                        d.setVersion(routeletModelVersion);
+
+                        localLibraryManager.deploy(routeletFile.toURI(), PomUtil.generateMvnUrl(d), new NullProgressMonitor());
+                    }
                 }
 
                 BundleModel routeletModel =
