@@ -114,7 +114,6 @@ public class ServicesPlugin extends AbstractUIPlugin {
                             } catch (Exception ex) {
                                 ExceptionHandler.process(ex);
                             }
-                            break;
                         }
                     }
                 }
