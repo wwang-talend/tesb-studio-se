@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.filesystem.EFS;
@@ -26,15 +29,14 @@ import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.impl.ProcessItemImpl;
 import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.runtime.process.TalendProcessOptionConstants;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.maven.model.TalendMavenConstants;
 import org.talend.designer.maven.tools.AggregatorPomsHelper;
-import org.talend.designer.runprocess.java.TalendJavaProjectManager;
 import org.talend.repository.documentation.ERepositoryActionName;
-import org.talend.repository.model.migration.AutoUpdateRelationsMigrationTask;
 import org.talend.repository.services.model.services.ServiceItem;
 import org.talend.repository.utils.EsbConfigUtils;
 
@@ -45,6 +47,10 @@ public class ServicesPlugin extends AbstractUIPlugin {
 
     // The shared instance
     private static ServicesPlugin plugin;
+
+    private static final String TESB_PROVIDER_REQUEST = "tESBProviderRequest";
+
+    private static final String TESB_PROVIDER_RESPONSE = "tESBProviderResponse";
 
     /*
      * (non-Javadoc)
@@ -67,7 +73,6 @@ public class ServicesPlugin extends AbstractUIPlugin {
             @Override
             public void propertyChange(PropertyChangeEvent event) {
                 String propertyName = event.getPropertyName();
-                Object oldValue = event.getOldValue();
                 Object newValue = event.getNewValue();
                 if (propertyName.equals(ERepositoryActionName.IMPORT.getName())) {
                     caseImport(propertyName, newValue);
@@ -86,34 +91,34 @@ public class ServicesPlugin extends AbstractUIPlugin {
     protected void caseImport(String propertyName, Object newValue) {
         if (newValue instanceof Set) {
             Set<Item> importItems = (Set<Item>) newValue;
-            // run it again, to update all relations for service and operation nodes
-            // @see org.talend.repository.services.relation.ServiceRelationshipHandler
-            AutoUpdateRelationsMigrationTask task = new AutoUpdateRelationsMigrationTask();
+            boolean includeServiceItem = false;
             for (Item item : importItems) {
-                task.execute(item);
                 if (item instanceof ServiceItem) {
-                    // generate pom again, in case of the job was not be imported.
-                    TalendJavaProjectManager.generatePom(item, TalendProcessOptionConstants.GENERATE_NO_CODEGEN);
-                } else if (item instanceof ProcessItem) {
-                    Property property = item.getProperty();
-                    if (property != null) {
-                        List<Relation> relations = RelationshipItemBuilder.getInstance().getItemsRelatedTo(property.getId(),
-                                property.getVersion(), RelationshipItemBuilder.JOB_RELATION);
-                        for (Relation relation : relations) {
-                            if (RelationshipItemBuilder.SERVICES_RELATION.equals(relation.getType())) {
-                                IFile jobPom = AggregatorPomsHelper.getItemPomFolder(property)
-                                        .getFile(TalendMavenConstants.POM_FILE_NAME);
-                                try {
+                    includeServiceItem = true;
+                    break;
+                }
+            }
+            if (includeServiceItem) {
+                for (Item item : importItems) {
+                    if (ProcessItemImpl.class == item.getClass()) {
+                        ProcessItemImpl processItem = (ProcessItemImpl) item;
+                        if (isDataServiceJob(processItem)) {
+                            mergeServiceJobRelation(processItem);
+                            try {
+                                Property property = processItem.getProperty();
+                                if (property != null) {
+                                    IFile jobPom = AggregatorPomsHelper.getItemPomFolder(property)
+                                            .getFile(TalendMavenConstants.POM_FILE_NAME);
                                     AggregatorPomsHelper.removeFromParentModules(jobPom);
-                                } catch (Exception ex) {
-                                    ExceptionHandler.process(ex);
                                 }
+                            } catch (Exception ex) {
+                                ExceptionHandler.process(ex);
                             }
+                            break;
                         }
                     }
                 }
             }
-            RelationshipItemBuilder.getInstance().saveRelations();
         }
     }
 
@@ -193,5 +198,33 @@ public class ServicesPlugin extends AbstractUIPlugin {
                 }
             }
         }
+    }
+
+    private boolean isDataServiceJob(ProcessItem processItem) {
+        for (NodeType node : (Collection<NodeType>) processItem.getProcess().getNode()) {
+            if (TESB_PROVIDER_REQUEST.equals(node.getComponentName()) || TESB_PROVIDER_RESPONSE.equals(node.getComponentName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void mergeServiceJobRelation(ProcessItem item) {
+        Set<Relation> relationSet = new HashSet<Relation>();
+        Relation addedRelation = new Relation();
+        addedRelation.setId(item.getProperty().getId());
+        addedRelation.setType(RelationshipItemBuilder.SERVICES_RELATION);
+        addedRelation.setVersion(item.getProperty().getVersion());
+        relationSet.add(addedRelation);
+
+        Map<Relation, Set<Relation>> merge = new HashMap<Relation, Set<Relation>>();
+        Relation processRelation = new Relation();
+        processRelation.setId(item.getProperty().getId());
+        processRelation.setType(RelationshipItemBuilder.JOB_RELATION);
+        processRelation.setVersion(item.getProperty().getVersion());
+
+        merge.put(processRelation, relationSet);
+
+        RelationshipItemBuilder.mergeRelationship(RelationshipItemBuilder.getInstance().getCurrentProjectItemsRelations(), merge);
     }
 }
