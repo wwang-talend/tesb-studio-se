@@ -112,6 +112,8 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
     private int tracePort;
 
     private Map<IRepositoryViewObject, Map<String, File>> buildArtifactsMap = new HashMap<>();
+    
+    private static final ThreadLocal<String> RouteArtifactId = new ThreadLocal<>();
 
     /*
      * Contains manifest Import-Package entries for subjobs used by cTalendJob components
@@ -249,6 +251,20 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
         String groupId = getGroupId();
         String routeName = getArtifactId();
         String routeVersion = getArtifactVersion();
+
+        // FIXME temporary solution for TESB-27587, in case of artivact id is diff with parent route name
+        if (CommonUIPlugin.isFullyHeadless()) {
+            try {
+                String artifactId = RouteArtifactId.get();
+                if (artifactId == null) {
+                    RouteArtifactId.set(routeName);
+                    // getProcessItem().getProperty().setLabel(routeName);
+                } else {
+                    routeName = RouteArtifactId.get();
+                }
+            } catch (Exception e) {
+            }
+        }
 
         // FIXME temporary solution, should be replaced by proper handling
         // of MicroService vs. KAR build.
@@ -506,9 +522,12 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
         if (!jobArtifactVersion.endsWith(MavenConstants.SNAPSHOT) && isSnapshot) {
             jobArtifactVersion += MavenConstants.SNAPSHOT;
-        } else if (jobArtifactVersion.endsWith(MavenConstants.SNAPSHOT) && !isSnapshot) {
-            jobArtifactVersion =
-                    jobArtifactVersion.substring(0, jobArtifactVersion.lastIndexOf(MavenConstants.SNAPSHOT));
+        }else if (jobArtifactVersion.endsWith(MavenConstants.SNAPSHOT) && !isSnapshot){
+            jobArtifactVersion = jobArtifactVersion.substring(0, jobArtifactVersion.lastIndexOf(MavenConstants.SNAPSHOT));
+        }
+        // TESB-27587
+        if (CommonUIPlugin.isFullyHeadless()) {
+            jobArtifactVersion = getArtifactVersion();
         }
 
         return jobArtifactVersion;
@@ -674,8 +693,24 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             }
             packages = packages + packageName;
         }
-        subjobImportPackages.put(process.getProperty().getId(), packages);
+        final String IMPORT_PACKAGE_KEY = "Import-Package";
+        if (process.getProperty().getAdditionalProperties().containsKey(IMPORT_PACKAGE_KEY)) {
+            Object o = process.getProperty().getAdditionalProperties().get(IMPORT_PACKAGE_KEY);
+            if (o == null) {
+                subjobImportPackages.put(process.getProperty().getId(), packages);
+            } else if (o instanceof String) {
+                String s = (String)o;
+                if (s.isEmpty()) {
+                    subjobImportPackages.put(process.getProperty().getId(), packages);
+                } else {
+                    subjobImportPackages.put(process.getProperty().getId(), s + "," + packages);
+                }
+            }
+        } else {
+            subjobImportPackages.put(process.getProperty().getId(), packages);
+        }
     }
+
 
     private void exportRouteBundle(IRepositoryViewObject object, File filePath, String version, String bundleName,
             String bundleSymbolicName, String bundleVersion, String idSuffix, Collection<String> routelets,
