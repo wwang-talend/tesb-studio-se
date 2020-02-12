@@ -27,7 +27,6 @@ import org.osgi.framework.BundleContext;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.impl.ProcessItemImpl;
 import org.talend.core.model.relationship.Relation;
@@ -83,8 +82,6 @@ public class ServicesPlugin extends AbstractUIPlugin {
     }
 
     /**
-     * DOC yyan Comment method "caseImport".
-     * 
      * @param propertyName
      * @param newValue
      */
@@ -99,23 +96,16 @@ public class ServicesPlugin extends AbstractUIPlugin {
                 }
             }
             if (includeServiceItem) {
+                boolean needSave = false;
                 for (Item item : importItems) {
-                    if (ProcessItemImpl.class == item.getClass()) {
-                        ProcessItemImpl processItem = (ProcessItemImpl) item;
-                        if (isDataServiceJob(processItem)) {
-                            mergeServiceJobRelation(processItem);
-                            try {
-                                Property property = processItem.getProperty();
-                                if (property != null) {
-                                    IFile jobPom = AggregatorPomsHelper.getItemPomFolder(property)
-                                            .getFile(TalendMavenConstants.POM_FILE_NAME);
-                                    AggregatorPomsHelper.removeFromParentModules(jobPom);
-                                }
-                            } catch (Exception ex) {
-                                ExceptionHandler.process(ex);
-                            }
-                        }
+                    if (isDataServiceJob(item)) {
+                        createServiceRelation(item, false);
+                        needSave = true;
+                        removeFromParentModules(item);
                     }
+                }
+                if (needSave) {
+                    RelationshipItemBuilder.getInstance().saveRelations();
                 }
             }
         }
@@ -199,16 +189,20 @@ public class ServicesPlugin extends AbstractUIPlugin {
         }
     }
 
-    private boolean isDataServiceJob(ProcessItem processItem) {
-        for (NodeType node : (Collection<NodeType>) processItem.getProcess().getNode()) {
-            if (TESB_PROVIDER_REQUEST.equals(node.getComponentName()) || TESB_PROVIDER_RESPONSE.equals(node.getComponentName())) {
-                return true;
+    private boolean isDataServiceJob(Item item) {
+        if (ProcessItemImpl.class == item.getClass()) {
+            ProcessItemImpl processItem = (ProcessItemImpl) item;
+            for (NodeType node : (Collection<NodeType>) processItem.getProcess().getNode()) {
+                if (TESB_PROVIDER_REQUEST.equals(node.getComponentName())
+                        || TESB_PROVIDER_RESPONSE.equals(node.getComponentName())) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    private void mergeServiceJobRelation(ProcessItem item) {
+    private void createServiceRelation(Item item, boolean saveProject) {
         Set<Relation> relationSet = new HashSet<Relation>();
         Relation addedRelation = new Relation();
         addedRelation.setId(item.getProperty().getId());
@@ -225,5 +219,22 @@ public class ServicesPlugin extends AbstractUIPlugin {
         merge.put(processRelation, relationSet);
 
         RelationshipItemBuilder.mergeRelationship(RelationshipItemBuilder.getInstance().getCurrentProjectItemsRelations(), merge);
+
+        if (saveProject) {
+            RelationshipItemBuilder.getInstance().saveRelations();
+        }
+    }
+
+    private void removeFromParentModules(Item item) {
+        // remove from parant pom
+        try {
+            Property property = item.getProperty();
+            if (property != null) {
+                IFile jobPom = AggregatorPomsHelper.getItemPomFolder(property).getFile(TalendMavenConstants.POM_FILE_NAME);
+                AggregatorPomsHelper.removeFromParentModules(jobPom);
+            }
+        } catch (Exception ex) {
+            ExceptionHandler.process(ex);
+        }
     }
 }
