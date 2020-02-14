@@ -186,7 +186,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
             featureModelBuild.addPlugin(addFeaturesMavenPlugin(bundleModel.getProperties().getProperty("talend.job.finalName")));
 
-            featureModelBuild.addPlugin(addBuildHelperMavenPlugin());
             featureModelBuild.addPlugin(addOsgiHelperMavenPlugin());
             
             // featureModelBuild.addPlugin(addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
@@ -307,9 +306,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                     needOSGIProcessor = false;
                 }
 
-                Dependency d = PomUtil.createDependency(groupId,
-                        ("OSGI".equals(buildType) || needOSGIProcessor) && isJob(jobInfo) ? artifactId + "-bundle" : artifactId,
-                        version, type);
+				Dependency d = PomUtil.createDependency(groupId, artifactId, version, type);
                 dependencies.add(d);
             }
         }
@@ -397,40 +394,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         return plugin;
     }
-    private Plugin addBuildHelperMavenPlugin() {
-        Plugin plugin = new Plugin();
-
-        plugin.setGroupId("org.codehaus.mojo");
-        plugin.setArtifactId("build-helper-maven-plugin");
-        plugin.setVersion("3.0.0");
-
-        Xpp3Dom configuration = new Xpp3Dom("configuration");
-        Xpp3Dom artifacts = new Xpp3Dom("artifacts");
-        Xpp3Dom artifact = new Xpp3Dom("artifact");
-        Xpp3Dom file = new Xpp3Dom("file");
-        file.setValue(PATH_FEATURE);
-        Xpp3Dom type = new Xpp3Dom("type");
-        type.setValue("xml");
-        Xpp3Dom classifier = new Xpp3Dom("classifier");
-        classifier.setValue("feature");
-
-        artifact.addChild(file);
-        artifact.addChild(type);
-        artifact.addChild(classifier);
-        artifacts.addChild(artifact);
-        configuration.addChild(artifacts);
-
-        List<PluginExecution> pluginExecutions = new ArrayList<PluginExecution>();
-        PluginExecution pluginExecution = new PluginExecution();
-        pluginExecution.setId("attach-artifacts-feature");
-        pluginExecution.setPhase("package");
-        pluginExecution.addGoal("attach-artifact");
-        pluginExecution.setConfiguration(configuration);
-        pluginExecutions.add(pluginExecution);
-        plugin.setExecutions(pluginExecutions);
-
-        return plugin;
-    } 
     
     private Plugin addOsgiHelperMavenPlugin() {
         Plugin plugin = new Plugin();
@@ -445,7 +408,6 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         }
         
         plugin.setVersion(talendVersion);
-//        plugin.setVersion("7.3.1-SNAPSHOT");
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         Xpp3Dom featuresFile = new Xpp3Dom("featuresFile");
