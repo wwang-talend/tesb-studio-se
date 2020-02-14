@@ -226,40 +226,5 @@
                 <microservice.running.configs.dir>${current.resources.dir}/</microservice.running.configs.dir>
             </properties>
         </profile>
-        <profile>
-          <id>deploy-nexus</id>
-          <activation>
-            <property>
-              <name>altDeploymentRepository</name>
-            </property>
-          </activation>
-          <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <executions>
-                        <execution>
-                            <id>attach-artifacts-feature</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>attach-artifact</goal>
-                            </goals>
-                            <configuration>
-                                <artifacts>
-                                    <artifact>
-                                        <file>${current.bundle.resources.dir}/feature.xml</file>
-                                        <type>xml</type>
-                                        <classifier>feature</classifier>
-                                    </artifact>
-                                </artifacts>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-          </build>
-        </profile>
     </profiles>
 </project>

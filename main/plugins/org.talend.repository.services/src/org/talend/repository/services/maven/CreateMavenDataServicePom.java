@@ -207,7 +207,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         featureModelBuild.addPlugin(addSkipDockerMavenPlugin());
         // featureModelBuild.addPlugin(
         // addDeployFeatureMavenPlugin(featureModel.getArtifactId(), featureModel.getVersion(), publishAsSnapshot));
-        featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
+//        featureModelBuild.addPlugin(addSkipDeployFeatureMavenPlugin());
         featureModelBuild.addPlugin(addSkipMavenCleanPlugin());
         // maven versioning
         featureModelBuild.addPlugin(addOsgiHelperMavenPlugin());
@@ -221,8 +221,6 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         featureModel.addProperty("talend.job.version", model.getProperties().getProperty("talend.job.version"));
         featureModel.addProperty("talend.product.version", VersionUtils.getVersion());
         featureModel.addProperty("talend.job.finalName", featureModel.getArtifactId() + "-" + featureModel.getVersion()); // DemoService-feature-0.1.0
-
-        featureModel.addProfile(addProfileForNexus(publishAsSnapshot, featureModel));
 
         PomUtil.savePom(monitor, featureModel, feature);
 
@@ -245,23 +243,6 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         PomUtil.savePom(monitor, controlBundleModel, controlBundle);
 
         afterCreate(monitor);
-    }
-
-    /**
-     * DOC enable depoly feature.xml in nexus in feature pom, skip when publish to cloud.
-     */
-    private Profile addProfileForNexus(boolean publishAsSnapshot, Model featureModel) {
-        Profile deployFeatureProfile = new Profile();
-        deployFeatureProfile.setId("deploy-nexus");
-        Activation deployFeatureActivation = new Activation();
-        ActivationProperty activationProperty2 = new ActivationProperty();
-        activationProperty2.setName("altDeploymentRepository");
-        deployFeatureActivation.setProperty(activationProperty2);
-        deployFeatureProfile.setActivation(deployFeatureActivation);
-        Build deployFeatureBuild = new Build();
-        deployFeatureBuild.addPlugin(addBuildHelperMavenPlugin());
-        deployFeatureProfile.setBuild(deployFeatureBuild);
-        return deployFeatureProfile;
     }
 
     /**
@@ -352,40 +333,6 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         return plugin;
     }
 
-    private Plugin addBuildHelperMavenPlugin() {
-        Plugin plugin = new Plugin();
-
-        plugin.setGroupId("org.codehaus.mojo");
-        plugin.setArtifactId("build-helper-maven-plugin");
-        plugin.setVersion("3.0.0");
-
-        Xpp3Dom configuration = new Xpp3Dom("configuration");
-        Xpp3Dom artifacts = new Xpp3Dom("artifacts");
-        Xpp3Dom artifact = new Xpp3Dom("artifact");
-        Xpp3Dom file = new Xpp3Dom("file");
-        file.setValue("${basedir}/src/main/resources/feature/feature.xml");
-        Xpp3Dom type = new Xpp3Dom("type");
-        type.setValue("xml");
-        Xpp3Dom classifier = new Xpp3Dom("classifier");
-        classifier.setValue("feature");
-
-        artifact.addChild(file);
-        artifact.addChild(type);
-        artifact.addChild(classifier);
-        artifacts.addChild(artifact);
-        configuration.addChild(artifacts);
-
-        List<PluginExecution> pluginExecutions = new ArrayList<PluginExecution>();
-        PluginExecution pluginExecution = new PluginExecution();
-        pluginExecution.setId("attach-artifacts-feature");
-        pluginExecution.setPhase("package");
-        pluginExecution.addGoal("attach-artifact");
-        pluginExecution.setConfiguration(configuration);
-        pluginExecutions.add(pluginExecution);
-        plugin.setExecutions(pluginExecutions); 
-        return plugin;
-    }
-
     private Plugin addOsgiHelperMavenPlugin() {
         Plugin plugin = new Plugin();
 
@@ -399,7 +346,6 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         }
 
         plugin.setVersion(talendVersion);
-//        plugin.setVersion("7.3.1-SNAPSHOT");
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         Xpp3Dom featuresFile = new Xpp3Dom("featuresFile");
