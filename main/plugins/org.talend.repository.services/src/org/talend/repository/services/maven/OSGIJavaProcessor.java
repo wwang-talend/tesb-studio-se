@@ -33,6 +33,7 @@ import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.publish.core.models.BundleModel;
 import org.talend.designer.publish.core.models.FeaturesModel;
 import org.talend.designer.runprocess.ProcessorException;
+import org.talend.designer.runprocess.ProcessorUtilities;
 import org.talend.designer.runprocess.maven.MavenJavaProcessor;
 import org.talend.repository.utils.JobContextUtils;
 
@@ -108,7 +109,9 @@ public class OSGIJavaProcessor extends MavenJavaProcessor {
     @Override
     public void generatePom(int option) {
         // TESB-27828: Set OSGI type for pom creator
-        getArguments().put(TalendProcessArgumentConstant.ARG_BUILD_TYPE, "OSGI");
+    	if(ProcessorUtilities.isExportAsOSGI()) {
+    		getArguments().put(TalendProcessArgumentConstant.ARG_BUILD_TYPE, "OSGI");
+    	}
         try {
             IRepositoryObject repositoryObject = new RepositoryObject(getProperty());
             IRunnableWithProgress action = new JavaCamelJobScriptsExportWSAction(repositoryObject, getProperty().getVersion(), "",
