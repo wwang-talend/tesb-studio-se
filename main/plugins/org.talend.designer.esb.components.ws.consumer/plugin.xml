@@ -607,6 +607,7 @@
                 name="locator">
             <library id="locator" />
             <group id="slf4j" />
+            <library id="camel-core" />
             <library id="zookeeper" />
             <library id="cxf-rt-features-clustering" />
             <library id="pax-cdi-api" />
