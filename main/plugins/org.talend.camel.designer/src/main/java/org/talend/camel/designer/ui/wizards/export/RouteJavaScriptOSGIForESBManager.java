@@ -149,7 +149,7 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
         return getPackageName(processItem) + PACKAGE_SEPARATOR + processItem.getProperty().getLabel();
     }
 
-
+    @Override
     protected Collection<String> getRoutinesPaths() {
         final Collection<String> include = new ArrayList<String>();
         include.add(USER_BEANS_PATH);
@@ -215,22 +215,22 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
     protected void addOsgiDependencies(Analyzer analyzer, ExportFileResource libResource, ProcessItem processItem)
             throws IOException {
 
-        // Add subjob import packages to be handled by dependencies resolver
-        if (subjobImportPackages != null && subjobImportPackages.containsKey(processItem.getProperty().getId())) {
-            processItem.getProperty().getAdditionalProperties()
-                          .put("Import-Package", subjobImportPackages.get(processItem.getProperty().getId()));
-            subjobImportPackages.remove(processItem.getProperty().getId());
-        }
-
         final DependenciesResolver resolver = new DependenciesResolver(processItem);
-        //exportPackage.append(getPackageName(processItem));
-        // Add Route Resource Export packages
-        // http://jira.talendforge.org/browse/TESB-6227
 
         // add manifest items
         analyzer.setProperty(Analyzer.REQUIRE_BUNDLE, resolver.getManifestRequireBundle(MANIFEST_ITEM_SEPARATOR));
-        analyzer.setProperty(Analyzer.IMPORT_PACKAGE,
-            resolver.getManifestImportPackage(MANIFEST_ITEM_SEPARATOR) + ",*;resolution:=optional"); //$NON-NLS-1$
+
+        StringBuilder manifestImportPackage = new StringBuilder();
+        if (subjobImportPackages != null && subjobImportPackages.containsKey(processItem.getProperty().getId())) {
+            // Add subjob import packages
+            manifestImportPackage.append(subjobImportPackages.get(processItem.getProperty().getId()));
+            manifestImportPackage.append(MANIFEST_ITEM_SEPARATOR);
+        }
+        manifestImportPackage
+                .append(resolver.getManifestImportPackage(MANIFEST_ITEM_SEPARATOR))
+                .append(",*;resolution:=optional"); //$NON-NLS-1$
+
+        analyzer.setProperty(Analyzer.IMPORT_PACKAGE, manifestImportPackage.toString());
         analyzer.setProperty(Analyzer.EXPORT_PACKAGE, resolver.getManifestExportPackage(MANIFEST_ITEM_SEPARATOR));
 
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
