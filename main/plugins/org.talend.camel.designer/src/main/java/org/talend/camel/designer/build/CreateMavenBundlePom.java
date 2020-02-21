@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -231,6 +232,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             bundleModel.setBuild(new Build());
         }
 
+        bundleModel.getBuild().addPlugin(addAssemblyMavenPlugin());
         bundleModel.getBuild().addPlugin(addSkipDockerMavenPlugin());
         
         updateBundleMainfest(bundleModel);
@@ -242,6 +244,52 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         parent.refreshLocal(IResource.DEPTH_ONE, monitor);
 
         afterCreate(monitor);
+    }
+
+    private Plugin addAssemblyMavenPlugin() {
+        Plugin plugin = new Plugin();
+
+        plugin.setArtifactId("maven-assembly-plugin");
+
+
+        Xpp3Dom phase = new Xpp3Dom("phase");
+        phase.setValue("package");
+        Xpp3Dom goal = new Xpp3Dom("goal");
+        phase.setValue("single");
+        Xpp3Dom goals = new Xpp3Dom("goals");
+        goals.addChild(goal);
+
+        Xpp3Dom descriptor = new Xpp3Dom("descriptor");
+        descriptor.setValue("${basedir}/src/main/assemblies/assembly.xml");
+        Xpp3Dom descriptors = new Xpp3Dom("descriptors");
+        descriptors.addChild(descriptor);
+        Xpp3Dom tarLongFileMode = new Xpp3Dom("tarLongFileMode");
+        tarLongFileMode.setValue("gnu");
+        Xpp3Dom appendAssemblyId = new Xpp3Dom("appendAssemblyId");
+        appendAssemblyId.setValue("false");
+        Xpp3Dom finalName = new Xpp3Dom("finalName");
+        finalName.setValue("${talend.job.name}-bundle-${project.version}");
+        Xpp3Dom manifestFile = new Xpp3Dom("manifestFile");
+        manifestFile.setValue("${current.bundle.resources.dir}/META-INF/MANIFEST.MF");
+        Xpp3Dom archive = new Xpp3Dom("archive");
+        archive.addChild(manifestFile);
+        Xpp3Dom configuration = new Xpp3Dom("configuration");
+        configuration.addChild(descriptors);
+        configuration.addChild(tarLongFileMode);
+        configuration.addChild(appendAssemblyId);
+        configuration.addChild(finalName);
+        configuration.addChild(archive);
+        
+        PluginExecution pluginExecution = new PluginExecution();
+        pluginExecution.setPhase("package");
+        pluginExecution.setGoals(Arrays.asList("single"));
+        pluginExecution.setConfiguration(configuration);
+
+        List<PluginExecution> pluginExecutions = new ArrayList<PluginExecution>();
+        pluginExecutions.add(pluginExecution);
+
+        plugin.setExecutions(pluginExecutions);
+        return plugin;
     }
 
     protected void updateBundleMainfest(Model bundleModel) {
