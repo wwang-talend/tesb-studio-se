@@ -457,9 +457,9 @@
             bundleID="" />
         <!-- ${tesb-bcprov-jdk15on} -->
         <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="bcprov-jdk15on-1.60.jar"
+            name="${tesb-bcprov-jdk15on}"
             id="bcprov-jdk15on"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/bcprov-jdk15on-1.60.jar"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-bcprov-jdk15on}"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-opensaml-xmlsec-impl}"
