@@ -1076,7 +1076,7 @@
                  id="camel-saxon">
            </library>
            <library
-                 id="org.apache.servicemix.bundles.saxon">
+                 id="Saxon-HE">
            </library>
         </libraryNeededGroup>
         <libraryNeeded
