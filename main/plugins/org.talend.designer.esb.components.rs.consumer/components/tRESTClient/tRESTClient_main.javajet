@@ -249,6 +249,7 @@ try {
 			new org.apache.cxf.jaxrs.provider.json.JSONProvider();
 		jsonProvider_<%=cid%>.setIgnoreNamespaces(true);
 		jsonProvider_<%=cid%>.setAttributesToElements(true);
+		jsonProvider_<%=cid%>.setSerializeAsArray(true);
 	<%
 		String wrapJsonResponseProperty = paramsHelper.getStringParam("__WRAP_JSON_RESPONSE__");
 		boolean wrapJsonResponse = wrapJsonResponseProperty == null ? true : Boolean.valueOf(wrapJsonResponseProperty);
