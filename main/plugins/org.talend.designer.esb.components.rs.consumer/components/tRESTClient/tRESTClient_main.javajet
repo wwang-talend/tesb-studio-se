@@ -251,6 +251,12 @@ try {
 		jsonProvider_<%=cid%>.setAttributesToElements(true);
 		jsonProvider_<%=cid%>.setSerializeAsArray(true);
 	<%
+		String jsonKey = paramsHelper.getStringParam("__ARRAY_KEYS__")
+		List<String> arrayKeys = new java.util.ArrayList();
+		arrayKeys.add(jsonKey);
+	%>
+		jsonProvider_<%=cid%>.setArrayKeys(arrayKeys);
+	<%
 		String wrapJsonResponseProperty = paramsHelper.getStringParam("__WRAP_JSON_RESPONSE__");
 		boolean wrapJsonResponse = wrapJsonResponseProperty == null ? true : Boolean.valueOf(wrapJsonResponseProperty);
 	%>
