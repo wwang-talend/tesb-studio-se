@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
@@ -111,7 +112,7 @@ public class CamelTalendEditor extends AbstractTalendEditor {
 
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
 
-            List<? extends INode> graphicalNodes = this.getProcess().getGraphicalNodes();
+            List<? extends INode> graphicalNodes = new CopyOnWriteArrayList<>(this.getProcess().getGraphicalNodes());
             for (INode node : graphicalNodes) {
                 if (node.getComponent().getName().equals("cConfig")){
                     List<Map<String,String>> jars = (List) node.getElementParameter("DRIVER_JAR").getValue();
