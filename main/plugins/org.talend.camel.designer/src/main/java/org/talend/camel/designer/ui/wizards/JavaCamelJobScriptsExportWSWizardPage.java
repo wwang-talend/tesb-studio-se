@@ -658,6 +658,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         contextButton.setText("Only export the default context"); //$NON-NLS-1$
         contextButton.setSelection(onlyExportDefaultContext);
         contextButton.setFont(font);
+        contextButton.setEnabled(false);
         contextButton.setVisible(PluginChecker.isTIS());
         contextButton.addSelectionListener(new SelectionAdapter() {
 
@@ -671,6 +672,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         exportAsZipButton.setText("Export as ZIP"); //$NON-NLS-1$
         exportAsZipButton.setSelection(exportAsZip);
         exportAsZipButton.setFont(getFont());
+        exportAsZipButton.setEnabled(false);
         exportAsZipButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
