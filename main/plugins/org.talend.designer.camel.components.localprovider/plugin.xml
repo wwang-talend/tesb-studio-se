@@ -74,6 +74,7 @@
                 name="camel-core">
             <library id="camel-core" />
             <library id="jakarta.xml.soap-api" />
+            <library id="javax.activation-1.2.0" />
             <group id="slf4j" />
         </libraryNeededGroup>
 
