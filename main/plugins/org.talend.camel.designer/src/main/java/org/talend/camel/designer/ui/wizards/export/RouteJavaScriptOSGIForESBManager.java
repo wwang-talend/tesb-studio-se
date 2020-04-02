@@ -82,7 +82,13 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
 
     private static final String CAMEL_SPRING_NSURI = "http://camel.apache.org/schema/spring"; //$NON-NLS-1$
 
+    private static final String CAMEL_CXF_NSURI = "http://camel.apache.org/schema/cxf"; //$NON-NLS-1$
+
     private static final String CAMEL_BLUEPRINT_NSURI = "http://camel.apache.org/schema/blueprint"; //$NON-NLS-1$
+
+    private static final String CAMEL_BLUEPRINT_CXF_NSURI = "http://camel.apache.org/schema/blueprint/cxf";
+
+    private static final String SPRING_BEANS_NSURI = "http://www.springframework.org/schema/beans";
 
     private static final boolean CONVERT_SPRING_IMPORT = isNotNegated(CONVERT_SPRING_IMPORT_PROPERTY);
 
@@ -340,6 +346,7 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             }
 
             Namespace springCamelNsp = Namespace.get("camel", CAMEL_SPRING_NSURI);
+            Namespace springCamelCxfNsp = Namespace.get("cxf", CAMEL_CXF_NSURI);
             boolean addCamel = springCamelNsp.equals(root.getNamespaceForPrefix("camel"));
             formatSchemaLocation(root, convertToBP, addCamel);
 
@@ -371,12 +378,33 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
                         root.remove(springCamelNsp);
                         root.add(blueprintCamelNsp);
                     }
+
+                    Namespace blueprintCamelCxfNsp = Namespace.get("cxf", CAMEL_BLUEPRINT_CXF_NSURI);
+                    moveNamespace(root, springCamelCxfNsp, blueprintCamelCxfNsp);
+                    if (springCamelCxfNsp.equals(root.getNamespaceForPrefix("cxf"))) {
+                        root.remove(springCamelCxfNsp);
+                        root.add(blueprintCamelCxfNsp);
+                    }
+
                     Namespace springCamelDefNsp = Namespace.get(CAMEL_SPRING_NSURI);
                     Namespace blueprintCamelDefNsp = Namespace.get(CAMEL_BLUEPRINT_NSURI);
                     for (Iterator<?> i = root.elementIterator("camelContext"); i.hasNext();) {
                         Element cc = (Element) i.next();
                         if (springCamelDefNsp.equals(cc.getNamespace())) {
                             moveNamespace(cc, springCamelDefNsp, blueprintCamelDefNsp);
+                        }
+                    }
+
+                    Namespace springBeansNsp = Namespace.get(SPRING_BEANS_NSURI);
+                    for (Iterator<?> iter = root.selectNodes("//*[name() = 'ref']").iterator(); iter.hasNext();) {
+                        Element ref = (Element) iter.next();
+                        if (springBeansNsp.equals(ref.getNamespace())) {
+                            Attribute refBean = ref.attribute("bean");
+                            if (refBean != null) {
+                                ref.setQName(QName.get(ref.getName(), "bp", BLUEPRINT_NSURI));
+                                ref.addAttribute("component-id", refBean.getValue());
+                                ref.remove(refBean);
+                            }
                         }
                     }
                 }
