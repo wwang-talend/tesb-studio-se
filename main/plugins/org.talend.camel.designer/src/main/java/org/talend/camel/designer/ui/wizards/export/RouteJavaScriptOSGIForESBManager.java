@@ -88,6 +88,8 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
 
     private static final String CAMEL_BLUEPRINT_CXF_NSURI = "http://camel.apache.org/schema/blueprint/cxf"; //$NON-NLS-1$
 
+    private static final String SPRING_BEANS_NSURI = "http://www.springframework.org/schema/beans";
+
     private static final boolean CONVERT_SPRING_IMPORT = isNotNegated(CONVERT_SPRING_IMPORT_PROPERTY);
 
     private static final boolean CONVERT_CAMEL_CONTEXT = isNotNegated(CONVERT_CAMEL_CONTEXT_PROPERTY);
@@ -392,6 +394,20 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
                             moveNamespace(cc, springCamelDefNsp, blueprintCamelDefNsp);
                         }
                     }
+
+                    Namespace springBeansNsp = Namespace.get(SPRING_BEANS_NSURI);
+                    for (Iterator<?> iter = root.selectNodes("//*[name() = 'ref']").iterator(); iter.hasNext();) {
+                        Element ref = (Element) iter.next();
+                        if (springBeansNsp.equals(ref.getNamespace())) {
+                            Attribute refBean = ref.attribute("bean");
+                            if (refBean != null) {
+                                ref.setQName(QName.get(ref.getName(), "bp", BLUEPRINT_NSURI));
+                                ref.addAttribute("component-id", refBean.getValue());
+                                ref.remove(refBean);
+                            }
+                        }
+                    }
+
                 }
             }
 
