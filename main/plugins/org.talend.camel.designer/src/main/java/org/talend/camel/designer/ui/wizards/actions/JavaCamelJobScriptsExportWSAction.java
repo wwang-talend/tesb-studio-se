@@ -577,26 +577,49 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 // TESB-27979, if routelet is in the same project with route
                 boolean inMainProject = ProjectManager.getInstance().isInMainProject(project, routeletProcess);
                 // Use same Version and GroupId for routelet from route(TESB-27437, TESB-26578, TESB-22521)
+                ILibraryManagerService localLibraryManager = (ILibraryManagerService) GlobalServiceRegister.getDefault()
+                        .getService(ILibraryManagerService.class);
                 if (projectReferenceList.size() == 0 || CommonUIPlugin.isFullyHeadless() || inMainProject) {
                     Dependency d = new Dependency();
                     d.setArtifactId(routeletBundleName);
                     d.setGroupId(routeletModelGroupId);
                     d.setVersion(getArtifactVersion());
 
+                    String p = PomUtil.getAbsArtifactPath(PomUtil.convertToArtifact(d));
+
                     if (PomUtil.isAvailable(d)) {
+
+                        if (!StringUtils.equals(getGroupId(), routeletModelGroupId)) {
+
+                            Dependency needToInstallDependency = new Dependency();
+                            needToInstallDependency.setArtifactId(routeletBundleName);
+                            needToInstallDependency.setGroupId(getGroupId());
+                            needToInstallDependency.setVersion(getArtifactVersion());
+
+                            if (!PomUtil.isAvailable(needToInstallDependency)) {
+
+                                String filePath = PomUtil.getAbsArtifactPath(PomUtil.convertToArtifact(d));
+
+                                File file = new File(filePath);
+
+                                if (file.exists()) {
+                                    localLibraryManager.deploy(file.toURI(), PomUtil.generateMvnUrl(needToInstallDependency),
+                                            new NullProgressMonitor());
+                                }
+                            }
+                        }
+
                         routeletModelVersion = getArtifactVersion();
                     }
-
+                    
                     routeletModelGroupId = getGroupId();
+
                 } else {
                     if (StringUtils.endsWith(PomIdsHelper.getJobVersion(routeProcess.getProperty()),
                             MavenUrlHelper.VERSION_SNAPSHOT)) {
                         routeletModelVersion = StringUtils.endsWith(routeletModelVersion, MavenUrlHelper.VERSION_SNAPSHOT)
                                 ? routeletModelVersion
                                 : routeletModelVersion + "-" + MavenUrlHelper.VERSION_SNAPSHOT;
-
-                        ILibraryManagerService localLibraryManager = (ILibraryManagerService) GlobalServiceRegister.getDefault()
-                                .getService(ILibraryManagerService.class);
 
                         Dependency d = new Dependency();
                         d.setArtifactId(routeletBundleName);

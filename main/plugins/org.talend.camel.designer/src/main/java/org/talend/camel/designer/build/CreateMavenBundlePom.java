@@ -507,8 +507,13 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                         String pathToJar = "OSGI".equals(buildType)
                                 ? relativeTargetDir + Path.SEPARATOR + subjob.getJobName() + "-bundle-"
                                         + PomIdsHelper.getJobVersion(subjob.getProcessItem().getProperty()) + ".jar"
-                                : relativeTargetDir + Path.SEPARATOR + subjob.getJobName().toLowerCase() + "_"
-                                        + PomIdsHelper.getJobVersion(subjob).replaceAll("\\.", "_") + ".jar";
+                                : relativeTargetDir + Path.SEPARATOR
+                                        + (isRoutelet(subjob) ? (subjob.getJobName() + "-")
+                                                : (subjob.getJobName().toLowerCase()) + "_")
+                                        + (isRoutelet(subjob)
+                                                ? (PomIdsHelper.getJobVersion(subjob.getProcessItem().getProperty()))
+                                                : (PomIdsHelper.getJobVersion(subjob).replaceAll("\\.", "_")))
+                                        + ".jar";
                         subjobFile.setValue(pathToJar);
                         addFile = true;
                     }
@@ -520,7 +525,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
                         Xpp3Dom subjobConfiguration = new Xpp3Dom("configuration");
                         Xpp3Dom subjobGroupId = new Xpp3Dom("groupId");
-                        subjobGroupId.setValue(PomIdsHelper.getJobGroupId(subjob.getProcessItem().getProperty()));
+                        subjobGroupId.setValue(bundleModel.getGroupId());
                         Xpp3Dom subjobArtifactId = new Xpp3Dom("artifactId");
                         subjobArtifactId.setValue(bundleModel.getArtifactId() + "_" + subjob.getJobName());
                         Xpp3Dom subjobVersion = new Xpp3Dom("version");
