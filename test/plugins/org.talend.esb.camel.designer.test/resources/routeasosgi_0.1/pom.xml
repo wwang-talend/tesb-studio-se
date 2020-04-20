@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.example.test_nologin</groupId>
     <artifactId>code.Master</artifactId>
-    <version>7.2.1</version>
+    <version>7.4.1</version>
     <relativePath>../../../</relativePath>
   </parent>
   <groupId>org.example.test_nologin.route</groupId>
@@ -51,7 +51,7 @@
     <dependency>
       <groupId>org.example.test_nologin.code</groupId>
       <artifactId>routines</artifactId>
-      <version>7.2.1</version>
+      <version>7.4.1</version>
     </dependency>
   </dependencies>
   <build />
