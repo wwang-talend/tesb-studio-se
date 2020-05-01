@@ -36,6 +36,7 @@ import org.talend.core.ui.properties.tab.IDynamicProperty;
 import org.talend.core.utils.TalendQuoteUtils;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.librariesmanager.utils.DownloadModuleRunnable;
+import org.talend.librariesmanager.ui.LibManagerUiPlugin;
 
 public class SyncNexusButtonController extends ConfigOptionController {
 
@@ -85,7 +86,7 @@ public class SyncNexusButtonController extends ConfigOptionController {
             }
 
             tableViewerCreator.refresh();
-
+            LibManagerUiPlugin.getDefault().getLibrariesService().checkLibraries();
             return null;
         }
         return null;
