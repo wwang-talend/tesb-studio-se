@@ -26,9 +26,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.general.ModuleToInstall;
 import org.talend.core.model.process.IElementParameter;
@@ -87,10 +85,14 @@ public class SyncNexusButtonController extends ConfigOptionController {
             }
 
             tableViewerCreator.refresh();
-            ILibraryManagerService librairesManagerService = (ILibraryManagerService) GlobalServiceRegister.getDefault().getService(
-                    ILibraryManagerService.class);
-            librairesManagerService.clearCache();
-            CorePlugin.getDefault().getLibrariesService().syncLibraries();
+
+            ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault()
+                 .getService(ILibrariesService.class);
+            if (librariesService != null) {
+                 librariesService.syncLibraries();
+                 librariesService.checkLibraries();
+            }
+
             return null;
         }
         return null;
