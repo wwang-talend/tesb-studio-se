@@ -86,13 +86,6 @@ public class SyncNexusButtonController extends ConfigOptionController {
 
             tableViewerCreator.refresh();
 
-            ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault()
-                 .getService(ILibrariesService.class);
-            if (librariesService != null) {
-                 librariesService.syncLibraries();
-                 librariesService.checkLibraries();
-            }
-
             return null;
         }
         return null;
@@ -202,6 +195,13 @@ public class SyncNexusButtonController extends ConfigOptionController {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
+                        }
+
+                        ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault()
+                             .getService(ILibrariesService.class);
+                        if (librariesService != null) {
+                             librariesService.syncLibraries();
+                             librariesService.checkLibraries();
                         }
 
                         monitor.subTask("Finished syncing " + jn + " from " + nexusServerBean.getServer());
