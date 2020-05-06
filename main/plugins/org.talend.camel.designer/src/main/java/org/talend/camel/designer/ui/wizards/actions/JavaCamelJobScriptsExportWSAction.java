@@ -247,6 +247,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
         this.monitor = monitor;
         String groupId = getGroupId();
         String routeName = getArtifactId();
+        String artifactIdPom = getArtifactId();
         String routeVersion = getArtifactVersion();
 
         // FIXME temporary solution for TESB-27587, in case of artivact id is diff with parent route name
@@ -289,7 +290,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             return;
         }
 
-        featuresModel = new FeaturesModel(groupId, routeName, routeVersion);
+        featuresModel = new FeaturesModel(groupId, artifactIdPom, routeVersion);
         try {
             File routeFile;
             try {
@@ -299,7 +300,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 throw new InvocationTargetException(e);
             }
 
-            BundleModel routeModel = new BundleModel(groupId, routeName, routeVersion, routeFile);
+            BundleModel routeModel = new BundleModel(groupId, artifactIdPom, routeVersion, routeFile);
             final ProcessItem routeProcess = (ProcessItem) routeObject.getProperty().getItem();
 
             if (featuresModel.addBundle(routeModel)) {
@@ -308,9 +309,9 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 featuresModel.setConfigName(routeObject.getLabel());
                 featuresModel.setContexts(JobContextUtils.getContextsMap(routeProcess));
 
-                exportAllReferenceJobs(routeName, routeProcess);
+                exportAllReferenceJobs(artifactIdPom, routeProcess);
                 final Set<String> routelets = new HashSet<>();
-                exportAllReferenceRoutelets(routeName, routeProcess, routelets);
+                exportAllReferenceRoutelets(artifactIdPom, routeProcess, routelets);
 
                 exportRouteBundle(routeObject, routeFile, version, null, null, bundleVersion, null, routelets, null);
             }
