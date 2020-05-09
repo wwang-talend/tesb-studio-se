@@ -28,7 +28,8 @@
 		org.talend.core.model.metadata.types.JavaType
 		
 		org.talend.core.model.utils.NodeUtil
-
+		org.talend.core.model.utils.JavaResourcesHelper
+		org.talend.core.model.process.ProcessUtils
 		java.io.UnsupportedEncodingException
 		java.net.URLEncoder
 	"
@@ -38,7 +39,13 @@
 CodeGeneratorArgument codeGenArgument = (CodeGeneratorArgument) argument;
 Vector v = (Vector) codeGenArgument.getArgument();
 IProcess process = (IProcess) v.get(0);
-
+String jobFolderName = "";
+IProcess baseProcess = ProcessUtils.getTestContainerBaseProcess(process);
+if (baseProcess != null) {
+	jobFolderName = JavaResourcesHelper.getJobFolderName(baseProcess.getName(), baseProcess.getVersion()) + '/';
+}
+jobFolderName = jobFolderName + JavaResourcesHelper.getJobFolderName(process.getName(), process.getVersion());
+String jobClassPackageFolder = codeGenArgument.getCurrentProjectName().toLowerCase() + '/' + jobFolderName;
 boolean exportTypeSpringBoot = org.talend.designer.runprocess.ProcessorUtilities.isExportJobAsMicroService();
 
 List<? extends INode> httpRequestComponentsList = process.getNodesOfType("tRESTRequest");
@@ -1607,6 +1614,33 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			server.stop();
 			server.destroy();
 			// System.out.println("REST service [endpoint: " + endpointUrl + "] unpublished");
+		}
+	}
+	
+	public static class ContextBean {
+		public static String getContext(String context, String contextName) throws Exception {
+			java.util.Properties defaultProps = new java.util.Properties();
+			java.io.InputStream inContext = DemoREST.class.getClassLoader()
+					.getResourceAsStream(<%=jobClassPackageFolder%>/contexts/" + context + ".properties");
+			if (inContext == null) {
+				inContext = DemoREST.class.getClassLoader()
+						.getResourceAsStream("config/contexts/" + context + ".properties");
+			}
+			defaultProps.load(inContext);
+			inContext.close();
+			
+			String contextExpression = contextName;
+			java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("context.([\\w]+)");
+			java.util.regex.Matcher matcher = pattern.matcher(contextName);
+	        while (matcher.find()) {
+	        	contextExpression = contextExpression.replaceAll(matcher.group(0), "\""+defaultProps.getProperty(matcher.group(1))+"\"");
+	        }
+	        log.info("Process context expression "+contextExpression);
+	        javax.script.ScriptEngineManager manager = new javax.script.ScriptEngineManager();
+	        javax.script.ScriptEngine engine = manager.getEngineByName("js");
+	        Object result = engine.eval(contextExpression);
+			
+			return result.toString();
 		}
 	}
 }
