@@ -1628,7 +1628,7 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			final String prefix = isExpression ? "\"" : "";
 			java.util.Properties defaultProps = new java.util.Properties();
 			java.io.InputStream inContext = DemoREST.class.getClassLoader()
-					.getResourceAsStream("newdemo/demorest_0_1/contexts/" + context + ".properties");
+					.getResourceAsStream("<%=jobClassPackageFolder%>/contexts/" + context + ".properties");
 			if (inContext == null) {
 				inContext = DemoREST.class.getClassLoader()
 						.getResourceAsStream("config/contexts/" + context + ".properties");
