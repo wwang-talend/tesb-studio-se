@@ -1616,34 +1616,44 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			// System.out.println("REST service [endpoint: " + endpointUrl + "] unpublished");
 		}
 	}
-	
+}	
+<%
+}
+%>
 	public static class ContextBean {
-		public static String getContext(String context, String contextName) throws Exception {
+		static String evaluate(String context, String contextExpression)
+				throws IOException, javax.script.ScriptException {
+			log.info("Process context expression " + contextExpression);
+			boolean isExpression = contextExpression.contains("+") || contextExpression.contains("(");
+			final String prefix = isExpression ? "\"" : "";
 			java.util.Properties defaultProps = new java.util.Properties();
 			java.io.InputStream inContext = DemoREST.class.getClassLoader()
-					.getResourceAsStream(<%=jobClassPackageFolder%>/contexts/" + context + ".properties");
+					.getResourceAsStream("newdemo/demorest_0_1/contexts/" + context + ".properties");
 			if (inContext == null) {
 				inContext = DemoREST.class.getClassLoader()
 						.getResourceAsStream("config/contexts/" + context + ".properties");
 			}
 			defaultProps.load(inContext);
 			inContext.close();
-			
-			String contextExpression = contextName;
 			java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("context.([\\w]+)");
-			java.util.regex.Matcher matcher = pattern.matcher(contextName);
-	        while (matcher.find()) {
-	        	contextExpression = contextExpression.replaceAll(matcher.group(0), "\""+defaultProps.getProperty(matcher.group(1))+"\"");
-	        }
-	        log.info("Process context expression "+contextExpression);
-	        javax.script.ScriptEngineManager manager = new javax.script.ScriptEngineManager();
-	        javax.script.ScriptEngine engine = manager.getEngineByName("js");
-	        Object result = engine.eval(contextExpression);
-			
-			return result.toString();
+			java.util.regex.Matcher matcher = pattern.matcher(contextExpression);
+
+			while (matcher.find()) {
+				contextExpression = contextExpression.replaceAll(matcher.group(0),
+						prefix + defaultProps.getProperty(matcher.group(1)) + prefix);
+			}
+			return isExpression ? evaluateContextExpression(contextExpression) : contextExpression;
+		}
+		
+		public static String evaluateContextExpression(String expression) throws javax.script.ScriptException {
+			javax.script.ScriptEngineManager manager = new javax.script.ScriptEngineManager();
+			javax.script.ScriptEngine engine = manager.getEngineByName("nashorn");
+			// Add some import for Java
+			expression = expression.replaceAll("System.getProperty", "java.lang.System.getProperty");
+			return engine.eval(expression).toString();
+		}
+		
+		public static String getContext(String context, String contextName) throws Exception {
+			return contextName.contains("context.") ? evaluate(context, contextName) : contextName;
 		}
 	}
-}
-<%
-}
-%>
