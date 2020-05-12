@@ -292,6 +292,9 @@ try {
 	// set request path
 	webClient_<%=cid%>.path(<%=paramsHelper.getStringParam("__PATH__")%>);
 
+	org.apache.cxf.jaxrs.client.ClientConfiguration clientConfig_<%=cid%> = org.apache.cxf.jaxrs.client.WebClient.getConfig(webClient_<%=cid%>);
+	org.apache.cxf.transport.http.HTTPConduit conduit_<%=cid%> = clientConfig_<%=cid%>.getHttpConduit();
+
     if (clientConfig_<%=cid%>.getEndpoint() != null) {
 		org.apache.cxf.service.model.EndpointInfo endpointInfo_<%=cid%> = clientConfig_<%=cid%>.getEndpoint().getEndpointInfo();
 		if(endpointInfo_<%=cid%> != null) {
