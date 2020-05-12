@@ -80,6 +80,7 @@ imports="
             if (!endpointUrlStudio.contains("context.")) {
                 endpointUrlStudio = defaultEndpointUrl + "+" + endpointUrlStudio;
             }
+			endpointUrlStudio = "getCXFRSEndpointAddress(" + endpointUrlStudio + ")";
         }
 
         boolean isTestContainer = ProcessUtils.isTestContainer(process);
