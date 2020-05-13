@@ -2573,13 +2573,18 @@ if (isProvider) {
                 }
 %>
 <%
-                if ("true".equals(ElementParameterParser.getValue(node, "__SERVICE_LOCATOR__"))) {
+				boolean ignoreSLStudio = !Boolean.valueOf(System.getProperty("ignoreSLStudio"));
+				if ("true".equals(ElementParameterParser.getValue(node, "__SERVICE_LOCATOR__"))) {
+					if(ignoreSLStudio) {
 %>
-                if(inMS || inOSGi) {
+					if(inMS || inOSGi) {
+<%
+					}
+%>				
 					factory_<%=cid%>.setServiceName(new javax.xml.namespace.QName(
                         <%=ElementParameterParser.getValue(node, "__SERVICE_NAMESPACE__")%>,
                         <%=ElementParameterParser.getValue(node, "__SERVICE_NAME__")%>));
-
+				
 
 <%
                         if (!isProvider) {
@@ -2626,8 +2631,12 @@ if (isProvider) {
 					}
 %>
                         factory_<%=cid%>.getFeatures().add(locatorFeature_<%=cid%>);
-				}
 <%
+					if(ignoreSLStudio) {
+%>
+					}
+<%
+					}
                 } else if (!isProvider) {
 %>
                     // {baseUri}cREST
@@ -2690,19 +2699,27 @@ if (isProvider) {
                         public void configure(org.apache.cxf.jaxrs.AbstractJAXRSFactoryBean factoryBean) {
                             <%
                                 if ("true".equals(ElementParameterParser.getValue(node, "__SERVICE_LOCATOR__"))) {
+									if(ignoreSLStudio) {
                             %>
-								if(inMS || inOSGi) {
-                                    // Locator
+									if(inMS || inOSGi) {
+							<%
+									} //end ignoreSLStudio
+							%>
+                                    // SL
                                     factoryBean.setServiceName(new javax.xml.namespace.QName(
                                                                     <%=ElementParameterParser.getValue(node, "__SERVICE_NAMESPACE__")%>,
                                                                     <%=ElementParameterParser.getValue(node, "__SERVICE_NAME__")%>));
-								}
                             <%
                                     if (!isProvider)  {
                             %>
                                     factoryBean.setAddress("locator://rest"); // is ignored by Camel
                             <%
                                     }
+									if(ignoreSLStudio) {
+							%>
+									}
+							<%
+									}  //end if(ignoreSLStudio)
                                 }
                             %>
                         }
