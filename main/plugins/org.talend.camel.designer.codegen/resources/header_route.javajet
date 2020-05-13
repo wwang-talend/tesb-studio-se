@@ -2575,7 +2575,8 @@ if (isProvider) {
 <%
                 if ("true".equals(ElementParameterParser.getValue(node, "__SERVICE_LOCATOR__"))) {
 %>
-                    factory_<%=cid%>.setServiceName(new javax.xml.namespace.QName(
+                if(inMS || inOSGi) {
+					factory_<%=cid%>.setServiceName(new javax.xml.namespace.QName(
                         <%=ElementParameterParser.getValue(node, "__SERVICE_NAMESPACE__")%>,
                         <%=ElementParameterParser.getValue(node, "__SERVICE_NAME__")%>));
 
@@ -2625,6 +2626,7 @@ if (isProvider) {
 					}
 %>
                         factory_<%=cid%>.getFeatures().add(locatorFeature_<%=cid%>);
+				}
 <%
                 } else if (!isProvider) {
 %>
@@ -2689,10 +2691,12 @@ if (isProvider) {
                             <%
                                 if ("true".equals(ElementParameterParser.getValue(node, "__SERVICE_LOCATOR__"))) {
                             %>
+								if(inMS || inOSGi) {
                                     // Locator
                                     factoryBean.setServiceName(new javax.xml.namespace.QName(
                                                                     <%=ElementParameterParser.getValue(node, "__SERVICE_NAMESPACE__")%>,
                                                                     <%=ElementParameterParser.getValue(node, "__SERVICE_NAME__")%>));
+								}
                             <%
                                     if (!isProvider)  {
                             %>
