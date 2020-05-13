@@ -46,6 +46,8 @@ if (baseProcess != null) {
 }
 jobFolderName = jobFolderName + JavaResourcesHelper.getJobFolderName(process.getName(), process.getVersion());
 String jobClassPackageFolder = codeGenArgument.getCurrentProjectName().toLowerCase() + '/' + jobFolderName;
+boolean isTestContainer=ProcessUtils.isTestContainer(process);
+String className = isTestContainer ? process.getName() + "Test" : process.getName();
 boolean exportTypeSpringBoot = org.talend.designer.runprocess.ProcessorUtilities.isExportJobAsMicroService();
 
 List<? extends INode> httpRequestComponentsList = process.getNodesOfType("tRESTRequest");
@@ -1638,10 +1640,10 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			boolean isExpression = contextExpression.contains("+") || contextExpression.contains("(");
 			final String prefix = isExpression ? "\"" : "";
 			java.util.Properties defaultProps = new java.util.Properties();
-			java.io.InputStream inContext = DemoREST.class.getClassLoader()
+			java.io.InputStream inContext = <%=className %>.class.getClassLoader()
 					.getResourceAsStream("<%=jobClassPackageFolder%>/contexts/" + context + ".properties");
 			if (inContext == null) {
-				inContext = DemoREST.class.getClassLoader()
+				inContext = <%=className %>.class.getClassLoader()
 						.getResourceAsStream("config/contexts/" + context + ".properties");
 			}
 			defaultProps.load(inContext);
