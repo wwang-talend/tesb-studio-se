@@ -46,6 +46,8 @@ if (baseProcess != null) {
 }
 jobFolderName = jobFolderName + JavaResourcesHelper.getJobFolderName(process.getName(), process.getVersion());
 String jobClassPackageFolder = codeGenArgument.getCurrentProjectName().toLowerCase() + '/' + jobFolderName;
+boolean isTestContainer=ProcessUtils.isTestContainer(process);
+String className = isTestContainer ? process.getName() + "Test" : process.getName();
 boolean exportTypeSpringBoot = org.talend.designer.runprocess.ProcessorUtilities.isExportJobAsMicroService();
 
 List<? extends INode> httpRequestComponentsList = process.getNodesOfType("tRESTRequest");
@@ -1516,19 +1518,27 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 					new java.util.ArrayList<org.apache.cxf.feature.Feature>() : sf.getFeatures();
 
 			<% if (Boolean.valueOf(ElementParameterParser.getValue(node,"__SERVICE_LOCATOR__"))) { %>
-				
+				<% 
+				boolean ignoreSLStudio = !Boolean.valueOf(System.getProperty("ignoreSLStudio"));
+				if (ignoreSLStudio) { 
+				%>
+				if(inOSGi){
+				<% } %>
 				sf.setServiceName(new javax.xml.namespace.QName(
 						<%=ElementParameterParser.getValue(node,"__SERVICE_NAMESPACE__")%>,
 						<%=ElementParameterParser.getValue(node,"__SERVICE_NAME__")%>));
 						
 				org.talend.esb.servicelocator.cxf.LocatorFeature slFeature = null;
-		
-				if(!inOSGi){
+				<% if (ignoreSLStudio) { %>
+					slFeature = routines.system.BundleUtils.getService(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
+				<% } else { %>
+				if(inOSGi){
+					slFeature = routines.system.BundleUtils.getService(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
+		        }else{
 			    	org.springframework.context.support.ClassPathXmlApplicationContext context_ = new org.springframework.context.support.ClassPathXmlApplicationContext(new String[] { "META-INF/tesb/locator/beans.xml" });
 			    	slFeature = (org.talend.esb.servicelocator.cxf.LocatorFeature) context_.getBean(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
-		        }else{  
-					slFeature = routines.system.BundleUtils.getService(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
-		        }
+		        }				
+				<% } %>
 
 				<% List<Map<String, String>> customProperties = (List<Map<String,String>>)
 						ElementParameterParser.getObjectValue(node, "__SERVICE_LOCATOR_CUSTOM_PROPERTIES__"); %>
@@ -1542,6 +1552,9 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 				<% } %>
 
 				features.add(slFeature);
+				<% if (ignoreSLStudio) { %>
+				}
+				<% } %>
 			<% } %>
 
 			<% if (Boolean.valueOf(ElementParameterParser.getValue(node,"__SERVICE_ACTIVITY_MONITOR__"))) { %>
@@ -1627,10 +1640,10 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			boolean isExpression = contextExpression.contains("+") || contextExpression.contains("(");
 			final String prefix = isExpression ? "\"" : "";
 			java.util.Properties defaultProps = new java.util.Properties();
-			java.io.InputStream inContext = DemoREST.class.getClassLoader()
+			java.io.InputStream inContext = <%=className %>.class.getClassLoader()
 					.getResourceAsStream("<%=jobClassPackageFolder%>/contexts/" + context + ".properties");
 			if (inContext == null) {
-				inContext = DemoREST.class.getClassLoader()
+				inContext = <%=className %>.class.getClassLoader()
 						.getResourceAsStream("config/contexts/" + context + ".properties");
 			}
 			defaultProps.load(inContext);
