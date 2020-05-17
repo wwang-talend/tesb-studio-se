@@ -1198,7 +1198,7 @@ final Map<String, String> contentTypes = new java.util.HashMap<String, String>()
 %>
     public String getCXFRSEndpointAddress(String endpointUrl) {
         
-		if (inOSGi) {
+		if (inOSGi || inMS) {
 		
             if (endpointUrl != null && !endpointUrl.trim().isEmpty() && !endpointUrl.contains("://")) {
 			
