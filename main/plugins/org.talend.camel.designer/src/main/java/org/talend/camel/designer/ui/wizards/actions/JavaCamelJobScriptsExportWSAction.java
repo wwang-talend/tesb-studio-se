@@ -46,6 +46,8 @@ import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.general.ModuleStatusProvider;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
@@ -579,17 +581,25 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 // Use same Version and GroupId for routelet from route(TESB-27437, TESB-26578, TESB-22521)
                 ILibraryManagerService localLibraryManager = (ILibraryManagerService) GlobalServiceRegister.getDefault()
                         .getService(ILibraryManagerService.class);
+
                 if (projectReferenceList.size() == 0 || CommonUIPlugin.isFullyHeadless() || inMainProject) {
                     Dependency d = new Dependency();
-                    d.setArtifactId(routeletBundleName);
                     d.setGroupId(routeletModelGroupId);
-                    d.setVersion(getArtifactVersion());
+                    d.setArtifactId(routeletName);
+                    d.setVersion(routeletModelVersion);
 
-                    String p = PomUtil.getAbsArtifactPath(PomUtil.convertToArtifact(d));
+                    String mvnURI = PomUtil.generateMvnUrl(d);
+
+                    ELibraryInstallStatus status = ModuleStatusProvider.getDeployStatus(mvnURI);
+
+                    if (status == ELibraryInstallStatus.NOT_DEPLOYED) {
+                        ModuleStatusProvider.putDeployStatus(mvnURI, ELibraryInstallStatus.NOT_INSTALLED);
+                    }
 
                     if (PomUtil.isAvailable(d)) {
 
-                        if (!StringUtils.equals(getGroupId(), routeletModelGroupId)) {
+                        if (!StringUtils.equals(getGroupId(), routeletModelGroupId)
+                                || !StringUtils.equals(getArtifactVersion(), routeletModelVersion)) {
 
                             Dependency needToInstallDependency = new Dependency();
                             needToInstallDependency.setArtifactId(routeletBundleName);
