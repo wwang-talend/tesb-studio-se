@@ -1636,7 +1636,6 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 	public static class ContextBean {
 		static String evaluate(String context, String contextExpression)
 				throws IOException, javax.script.ScriptException {
-			log.info("Process context expression " + contextExpression);
 			boolean isExpression = contextExpression.contains("+") || contextExpression.contains("(");
 			final String prefix = isExpression ? "\"" : "";
 			java.util.Properties defaultProps = new java.util.Properties();
