@@ -87,6 +87,16 @@ public class OSGIJavaProcessor extends MavenJavaProcessor {
                 e.printStackTrace();
             }
         }
+
+        IFile talendManagementWebSecurityAutoConfiguration = srcFolder
+                .getFile("TalendManagementWebSecurityAutoConfiguration.java");
+        if (talendManagementWebSecurityAutoConfiguration.exists()) {
+            try {
+                talendManagementWebSecurityAutoConfiguration.delete(true, monitor);
+            } catch (CoreException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
