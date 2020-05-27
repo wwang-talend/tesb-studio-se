@@ -15,7 +15,9 @@ package org.talend.camel.designer.runprocess.maven;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -28,6 +30,7 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.repository.seeker.RepositorySeekerManager;
 import org.talend.core.repository.utils.ItemResourceUtil;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
@@ -84,6 +87,22 @@ public class BundleJavaProcessor extends MavenJavaProcessor {
     @Override
     public void generateCode(boolean statistics, boolean trace, boolean javaProperties, int option) throws ProcessorException {
         super.generateCode(statistics, trace, javaProperties, option);
+
+        IProgressMonitor monitor = new NullProgressMonitor();
+
+        // Delete microservice launcher for OSGi type running in studio
+        String packageFolder = JavaResourcesHelper.getJobClassPackageFolder(property.getItem(), true);
+        IFolder srcFolder = getTalendJavaProject().getSrcSubFolder(null, packageFolder);
+
+        IFile talendManagementWebSecurityAutoConfiguration = srcFolder
+                .getFile("TalendManagementWebSecurityAutoConfiguration.java");
+        if (talendManagementWebSecurityAutoConfiguration.exists()) {
+            try {
+                talendManagementWebSecurityAutoConfiguration.delete(true, monitor);
+            } catch (CoreException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /*
