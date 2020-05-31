@@ -1423,7 +1423,6 @@ static class CxfPayloadProvider implements javax.ws.rs.ext.MessageBodyWriter<org
                 <%}%>
 
             }
-
 <%
             } if(hasCXFComponent){
 %>
