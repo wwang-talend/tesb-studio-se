@@ -1281,7 +1281,6 @@ static class CxfPayloadProvider implements javax.ws.rs.ext.MessageBodyWriter<org
             boolean hasCXFRegistryProvider = false;
             boolean hasCXFRegistryConsumer = false;
             boolean hasCXFSAMLPropagateConsumer = false;
-            boolean hasMSBasicAuthentication = false;
 
             List<INode> allCxfNodes = new ArrayList<INode>();
             allCxfNodes.addAll(process.getNodesOfType("cSOAP"));
@@ -1355,9 +1354,6 @@ static class CxfPayloadProvider implements javax.ws.rs.ext.MessageBodyWriter<org
                         }
                     }
                 }
-                if("BASIC".equals(securityType) && isProvider && exportTypeSpringBoot) {
-                    hasMSBasicAuthentication = true;
-                }
             }
 
         if(hasCXFSAMLPropagateConsumer){
@@ -1426,26 +1422,6 @@ static class CxfPayloadProvider implements javax.ws.rs.ext.MessageBodyWriter<org
                     return new org.apache.cxf.bus.spring.SpringBus();
                 <%}%>
 
-            }
-
-<%
-            } if(hasMSBasicAuthentication) {
-%>
-            @org.springframework.beans.factory.annotation.Autowired
-            HttpBasicSecurityConfiguration httpBasicSecurityConfiguration;
-
-            @org.springframework.context.annotation.Configuration
-            @org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-            public class HttpBasicSecurityConfiguration extends org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter {
-
-                 @org.springframework.beans.factory.annotation.Autowired
-                 public void configureGlobal(org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder auth) {
-                      try {
-                            auth.inMemoryAuthentication().withUser("tadmin").password("{noop}tadmin").roles("USER");
-                      } catch (Exception e) {
-                            log.info("Authentication failed", e);
-                      }
-                 }
             }
 
 <%
