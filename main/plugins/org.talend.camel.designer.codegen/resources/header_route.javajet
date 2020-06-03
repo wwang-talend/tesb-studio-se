@@ -2513,7 +2513,7 @@ if (isProvider) {
                         if ("BASIC".equals(ElementParameterParser.getValue(node, "__SECURITY_TYPE__"))) {
 %>
                             cf_<%=cid%>.setUsername(<%=ElementParameterParser.getValue(node, "__USERNAME__")%>);
-                            cf_<%=cid%>.setPassword(decryptedPassword_<%=cid%>);
+                            cf_<%=cid%>.setPassword(routines.system.PasswordEncryptUtil.decryptPassword(decryptedPassword_<%=cid%>));
 <%
                         } else if ("SAML".equals(ElementParameterParser.getValue(node, "__SECURITY_TYPE__"))) {
 %>
