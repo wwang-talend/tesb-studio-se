@@ -52,7 +52,7 @@
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-xmlschema-core}"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="jakarta.xml.bind-api-2.3.2"
+            name="jakarta.xml.bind-api-2.3.2.jar"
             id="jakarta.xml.bind-api"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.bind-api-2.3.2.jar"
             bundleID="" />
