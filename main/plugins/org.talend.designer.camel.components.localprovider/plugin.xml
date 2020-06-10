@@ -151,7 +151,7 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-core}"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="jakarta.xml.soap-api-1.4.1"
+            name="jakarta.xml.soap-api-1.4.1.jar"
             id="jakarta.xml.soap-api"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.soap-api-1.4.1.jar"
             bundleID="" />
@@ -182,7 +182,7 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-spring-tx}"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="geronimo-ws-metadata_2.0_spec-1.1.3"
+            name="geronimo-ws-metadata_2.0_spec-1.1.3.jar"
             id="geronimo-ws-metadata"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/geronimo-ws-metadata_2.0_spec-1.1.3.jar"
             bundleID="" />
