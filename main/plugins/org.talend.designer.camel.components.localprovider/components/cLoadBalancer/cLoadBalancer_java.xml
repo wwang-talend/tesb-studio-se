@@ -51,18 +51,18 @@
 	<PARAMETER NAME="EXPRESSION" FIELD="TEXT"  NUM_ROW="10" REQUIRED="true" SHOW_IF="(STRATEGY == 'STICKY') AND (LANGUAGES != 'CORRELATION')" >
         <DEFAULT>""</DEFAULT>
     </PARAMETER>
-    <PARAMETER NAME="USE_NAMESPACES" FIELD="CHECK" SHOW_IF="(LANGUAGES=='XPATH')"
+    <PARAMETER NAME="USE_NAMESPACES" FIELD="CHECK" SHOW_IF="(LANGUAGES == 'xpath')"
         REQUIRED="true" NUM_ROW="17">
         <DEFAULT>false</DEFAULT>
     </PARAMETER>
     <PARAMETER NAME="NAMESPACES" FIELD="TABLE" NUM_ROW="18" NB_LINES="5"
-        REQUIRED="true" SHOW_IF="(LANGUAGES=='XPATH') AND (USE_NAMESPACES == 'true')" >
+        REQUIRED="true" SHOW_IF="(LANGUAGES == 'xpath') AND (USE_NAMESPACES == 'true')" >
         <ITEMS>
             <ITEM NAME="PREFIX" VALUE="" />
             <ITEM NAME="URI" VALUE="" />
         </ITEMS>
     </PARAMETER>
-    <PARAMETER NAME="WARNING" FIELD="LABEL" NUM_ROW="19" SHOW_IF="(LANGUAGES=='XPATH') AND (USE_NAMESPACES == 'true')">
+    <PARAMETER NAME="WARNING" FIELD="LABEL" NUM_ROW="19" SHOW_IF="(LANGUAGES == 'xpath') AND (USE_NAMESPACES == 'true')">
         <DEFAULT>*Note: For Bean Language, the Expression should be a qualified class name without quotes.
                  *Note: For None Language, the Value should be a full expression, instead of a plain text.
                  *Note: For XPath Language, the Namespaces will be used automatically if it's checked.</DEFAULT>
@@ -129,14 +129,14 @@
 
 	<CODEGENERATION>
         <IMPORTS>
-            <IMPORT MODULE_GROUP="camel-groovy" REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'GROOVY')" />
-            <IMPORT MODULE_GROUP="camel-jsonpath-alldep" REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'JSONPATH')" />
-            <IMPORT MODULE_GROUP="camel-saxon-alldep" REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'XQUERY')" />
+            <IMPORT MODULE_GROUP="camel-groovy" REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'groovy')" />
+            <IMPORT MODULE_GROUP="camel-jsonpath-alldep" REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'jsonpath')" />
+            <IMPORT MODULE_GROUP="camel-saxon-alldep" REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'xquery')" />
             <!-- camel-script -->
             <IMPORT NAME="camel-script"
                     MODULE="camel-script-${camel.version}.jar" MVN="${mvn-camel-script}"
                     UrlPath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-script-${camel.version}.jar"
-                    REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'JAVASCRIPT')" />
+                    REQUIRED_IF="(STRATEGY == 'STICKY') AND (LANGUAGES == 'javascript')" />
             <IMPORT MODULE="jakarta.xml.soap-api-1.4.1.jar" MVN="mvn:org.talend.libraries/jakarta.xml.soap-api/1.4.1" NAME="jakarta.xml.soap-api-1.4.1"
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.soap-api-1.4.1.jar"
                 REQUIRED="true"/>
