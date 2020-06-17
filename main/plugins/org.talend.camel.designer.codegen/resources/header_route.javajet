@@ -486,6 +486,21 @@ public class <%=className%> extends org.apache.camel.builder.RouteBuilder implem
 
     @org.springframework.beans.factory.annotation.Autowired
     org.springframework.core.env.Environment env;
+    
+    @org.springframework.context.annotation.Bean
+	io.prometheus.client.CollectorRegistry metricRegistry() {
+        try {
+        	new io.prometheus.jmx.BuildInfoCollector().register();
+			new io.prometheus.jmx.JmxCollector(new org.springframework.core.io.ClassPathResource("config/jmx-prometheus.yaml").getInputStream()).register();
+		} catch (javax.management.MalformedObjectNameException e) {
+			e.printStackTrace();
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+        
+        return io.prometheus.client.CollectorRegistry.defaultRegistry;
+    }
+    
 <%
     }else {
 %>
