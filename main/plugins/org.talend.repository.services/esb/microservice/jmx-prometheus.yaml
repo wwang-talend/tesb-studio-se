@@ -1,6 +1,5 @@
 ---
 startDelaySeconds: 0
-hostPort: localhost:1099
 username:
 password:
 ssl: false
