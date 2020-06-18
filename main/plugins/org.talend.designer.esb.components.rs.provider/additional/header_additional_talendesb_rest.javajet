@@ -1520,7 +1520,7 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			<% if (Boolean.valueOf(ElementParameterParser.getValue(node,"__SERVICE_LOCATOR__"))) { %>
 				<% 
 				boolean ignoreSLStudio = !Boolean.valueOf(System.getProperty("ignoreSLStudio"));
-				if (ignoreSLStudio) { 
+				if (ignoreSLStudio && !exportTypeSpringBoot) { 
 				%>
 				if(inOSGi){
 				<% } %>
@@ -1530,13 +1530,19 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 						
 				org.talend.esb.servicelocator.cxf.LocatorFeature slFeature = null;
 				<% if (ignoreSLStudio) { %>
-					slFeature = routines.system.BundleUtils.getService(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
+					<% if(exportTypeSpringBoot) { %>
+				    	org.springframework.context.support.ClassPathXmlApplicationContext context_ = new org.springframework.context.support.ClassPathXmlApplicationContext(new String[] { "META-INF/tesb/locator/beans.xml" });
+				    	slFeature = (org.talend.esb.servicelocator.cxf.LocatorFeature) context_.getBean(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
+					<% } else { %>
+						slFeature = routines.system.BundleUtils.getService(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
+					<% } %>
 				<% } else { %>
 				if(inOSGi){
 					slFeature = routines.system.BundleUtils.getService(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
 		        }else{
 			    	org.springframework.context.support.ClassPathXmlApplicationContext context_ = new org.springframework.context.support.ClassPathXmlApplicationContext(new String[] { "META-INF/tesb/locator/beans.xml" });
 			    	slFeature = (org.talend.esb.servicelocator.cxf.LocatorFeature) context_.getBean(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
+
 		        }				
 				<% } %>
 
@@ -1552,7 +1558,7 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 				<% } %>
 
 				features.add(slFeature);
-				<% if (ignoreSLStudio) { %>
+				<% if (ignoreSLStudio && !exportTypeSpringBoot ) { %>
 				}
 				<% } %>
 			<% } %>
