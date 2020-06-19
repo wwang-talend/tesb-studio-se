@@ -303,6 +303,7 @@ try {
 
 	// set connection properties
 	org.apache.cxf.jaxrs.client.ClientConfiguration clientConfig_<%=cid%> = org.apache.cxf.jaxrs.client.WebClient.getConfig(webClient_<%=cid%>);
+	org.apache.cxf.transport.http.auth.HttpAuthSupplier httpAuthSupplerHttpConduit = null;
 	org.apache.cxf.transport.http.HTTPConduit conduit_<%=cid%> = clientConfig_<%=cid%>.getHttpConduit();
 
     if (clientConfig_<%=cid%>.getEndpoint() != null) {
