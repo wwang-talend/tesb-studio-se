@@ -301,7 +301,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 final Set<String> routelets = new HashSet<>();
                 exportAllReferenceRoutelets(routeName, routeProcess, routelets);
 
-                exportRouteBundle(routeObject, routeFile, version, null, null, bundleVersion, null, routelets, null);
+                exportRouteBundle(routeObject, routeFile, version, null, null, routeVersion, null, routelets, null);
             }
 
             try {
