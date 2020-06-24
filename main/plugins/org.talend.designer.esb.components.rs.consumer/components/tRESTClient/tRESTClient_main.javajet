@@ -527,7 +527,7 @@ try {
                 <%
                 boolean needResponse = false;
                 IProcess process = node.getProcess();
-			    List<? extends INode> graphicalNodes = process.getGraphicalNodes();
+                List<? extends INode> graphicalNodes = process.getGraphicalNodes();
                     for (INode graphicalNode : graphicalNodes) {
                         if ("tRESTResponse".equals(graphicalNode.getComponent().getName()) ) {
                            needResponse=true;
