@@ -644,6 +644,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                         new BundleModel(routeletModelGroupId, routeletBundleName, routeletModelVersion, routeletFile);
 
                 if (featuresModel.addBundle(routeletModel)) {
+                    String routeletBundleVersion = getArtifactVersion();
                     exportRouteBundle(referencedRouteletNode, routeletFile, routeletVersion, routeletBundleName,
                             routeletBundleSymbolicName, routeletBundleVersion, idSuffix, null,
                             EmfModelUtils
