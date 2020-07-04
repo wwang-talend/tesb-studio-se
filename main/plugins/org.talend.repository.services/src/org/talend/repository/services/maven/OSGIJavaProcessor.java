@@ -124,7 +124,12 @@ public class OSGIJavaProcessor extends MavenJavaProcessor {
     	}
         try {
             IRepositoryObject repositoryObject = new RepositoryObject(getProperty());
-            IRunnableWithProgress action = new JavaCamelJobScriptsExportWSAction(repositoryObject, getProperty().getVersion(), "",
+            String version = getProperty().getVersion();
+            if (getProperty().getAdditionalProperties() != null &&
+                getProperty().getAdditionalProperties().containsKey("USER_VERSION")) {
+                version = (String) getProperty().getAdditionalProperties().get("USER_VERSION");
+            }
+            IRunnableWithProgress action = new JavaCamelJobScriptsExportWSAction(repositoryObject, version, "",
                     false);
             action.run(new NullProgressMonitor());
         } catch (Exception e) {
