@@ -109,12 +109,13 @@ public class CamelTalendEditor extends AbstractTalendEditor {
 
         ArtifactRepositoryBean nexusServerBean = TalendLibsServerManager.getInstance().getCustomNexusServer();
 
-
         if (GlobalServiceRegister.getDefault().isServiceRegistered(ILibrariesService.class)) {
 
             List<? extends INode> graphicalNodes = new CopyOnWriteArrayList<>(this.getProcess().getGraphicalNodes());
+          
             for (INode node : graphicalNodes) {
-                if (node.getComponent().getName().equals("cConfig")){
+
+                if (node.getComponent().getName().equals("cConfig")) {
                     List<Map<String,String>> jars = (List) node.getElementParameter("DRIVER_JAR").getValue();
                     if (jars == null || jars.isEmpty()) {
                         continue;
@@ -141,7 +142,6 @@ public class CamelTalendEditor extends AbstractTalendEditor {
                 }
             }
         }
-
     }
 
     private class RunnableWithProgress implements IRunnableWithProgress {
