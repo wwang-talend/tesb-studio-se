@@ -301,7 +301,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 final Set<String> routelets = new HashSet<>();
                 exportAllReferenceRoutelets(routeName, routeProcess, routelets);
 
-                exportRouteBundle(routeObject, routeFile, version, null, null, bundleVersion, null, routelets, null);
+                exportRouteBundle(routeObject, routeFile, version, null, null, routeVersion, null, routelets, null);
             }
 
             try {
@@ -644,8 +644,9 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                         new BundleModel(routeletModelGroupId, routeletBundleName, routeletModelVersion, routeletFile);
 
                 if (featuresModel.addBundle(routeletModel)) {
+                    String routeletBundleVersion = getArtifactVersion();
                     exportRouteBundle(referencedRouteletNode, routeletFile, routeletVersion, routeletBundleName,
-                            routeletBundleSymbolicName, bundleVersion, idSuffix, null,
+                            routeletBundleSymbolicName, routeletBundleVersion, idSuffix, null,
                             EmfModelUtils
                                     .findElementParameterByName(EParameterName.PROCESS_TYPE.getName() + ':'
                                             + EParameterName.PROCESS_TYPE_CONTEXT.getName(), node)
