@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.camel.designer.codegen.partgen;
 
+import org.apache.commons.lang.StringUtils;
 import org.talend.camel.designer.codegen.util.NodeUtil;
 import org.talend.core.model.process.INode;
 import org.talend.designer.codegen.exception.CodeGeneratorException;
@@ -19,7 +20,13 @@ import org.talend.designer.codegen.exception.CodeGeneratorException;
 public class EndpointIdGenerator implements PartGenerator<INode> {
 
     private static final String getNodeId(INode node) {
-        return node.getProcess().getName() + '_' + node.getUniqueName();
+        String label = "";
+        String labelValue = String.valueOf(node.getElementParameter("LABEL").getValue());
+        if (!StringUtils.equals("__UNIQUE_NAME__", labelValue)) {
+            label = '_' + labelValue;
+        }
+
+        return node.getProcess().getName() + '_' + node.getUniqueName() + label;
     }
 
     @Override

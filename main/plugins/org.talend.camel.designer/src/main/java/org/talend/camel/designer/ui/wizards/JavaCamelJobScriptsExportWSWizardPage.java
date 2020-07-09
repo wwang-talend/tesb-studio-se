@@ -98,9 +98,13 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
     private boolean exportAsZip;
 
+    private boolean enablePrometheusMetricsEndpoint;
+
     private boolean addMavenScript;
 
     protected Button exportAsZipButton;
+
+    protected Button enablePrometheusMetricsEndpointButton;
 
     protected Combo exportTypeCombo;
 
@@ -176,6 +180,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                         contextButton.dispose();
                         addBSButton.dispose();
                         exportAsZipButton.dispose();
+                        enablePrometheusMetricsEndpointButton.dispose();
 
                         optionsDockerGroupComposite.dispose();
 
@@ -635,6 +640,10 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
         exportChoiceMap.put(ExportChoice.onlyDefautContext, onlyExportDefaultContext);
 
+        if (enablePrometheusMetricsEndpoint) {
+            exportChoiceMap.put(ExportChoice.esbMetrics, enablePrometheusMetricsEndpoint);
+        }
+
         exportChoiceMap.put(ExportChoice.binaries, true);
 
         return exportChoiceMap;
@@ -681,6 +690,19 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                 boolean selectContext = exportAsZipButton.getSelection();
                 exportAsZip = selectContext;
                 exportTypeCombo.notifyListeners(SWT.Selection, null);
+            }
+        });
+
+        enablePrometheusMetricsEndpointButton = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
+        enablePrometheusMetricsEndpointButton.setText("Enable Prometheus metrics endpoint"); //$NON-NLS-1$
+        enablePrometheusMetricsEndpointButton.setSelection(enablePrometheusMetricsEndpoint);
+        enablePrometheusMetricsEndpointButton.setFont(getFont());
+        enablePrometheusMetricsEndpointButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                boolean selectContext = enablePrometheusMetricsEndpointButton.getSelection();
+                enablePrometheusMetricsEndpoint = selectContext;
             }
         });
 
