@@ -463,7 +463,7 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
                 }
                 useSAM |= nodeUseSAM;
 
-                useSL |= EmfModelUtils.computeCheckElementValue("ENABLE_SL", node) //$NON-NLS-1$
+                useSL = EmfModelUtils.computeCheckElementValue("ENABLE_SL", node) //$NON-NLS-1$
                         || EmfModelUtils.computeCheckElementValue("SERVICE_LOCATOR", node);
 
                 if (consumerNodes.contains(ElementParameterParser.getUNIQUENAME(node))) {
