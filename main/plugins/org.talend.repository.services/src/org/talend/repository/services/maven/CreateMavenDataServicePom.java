@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.BooleanUtils;
@@ -34,6 +33,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
+import org.talend.commons.utils.MojoType;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Project;
@@ -337,9 +337,9 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
     private Plugin addOsgiHelperMavenPlugin() {
         Plugin plugin = new Plugin();
 
-        plugin.setGroupId("org.talend.ci");
-        plugin.setArtifactId("osgihelper-maven-plugin");
-        plugin.setVersion(VersionUtils.getMojoVersion("osgihelper.version"));
+        plugin.setGroupId(TalendMavenConstants.DEFAULT_CI_GROUP_ID);
+        plugin.setArtifactId(MojoType.OSGI_HELPER.getArtifactId());
+        plugin.setVersion(VersionUtils.getMojoVersion(MojoType.OSGI_HELPER));
 
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         Xpp3Dom featuresFile = new Xpp3Dom("featuresFile");
