@@ -314,7 +314,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 exportAllReferenceJobs(routeName, routeProcess);
                 final Set<String> routelets = new HashSet<>();
                 exportAllReferenceRoutelets(routeName, routeProcess, routelets);
-
+                routeVersion = routeVersion.replace("-", ".");
                 exportRouteBundle(routeObject, routeFile, version, null, null, routeVersion, null, routelets, null);
             }
 
@@ -623,6 +623,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
                 if (featuresModel.addBundle(routeletModel)) {
                     String routeletBundleVersion = getArtifactVersion();
+                    routeletBundleVersion = routeletBundleVersion.replace("-", ".");
                     exportRouteBundle(referencedRouteletNode, routeletFile, routeletVersion, routeletBundleName,
                             routeletBundleSymbolicName, routeletBundleVersion, idSuffix, null,
                             EmfModelUtils
