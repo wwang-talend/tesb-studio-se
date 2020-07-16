@@ -506,9 +506,11 @@ public class <%=className%> extends org.apache.camel.builder.RouteBuilder implem
             boolean hasPooledConnectionFactory = Boolean.parseBoolean(ElementParameterParser.getValue(node, "__AMQ_POOL__").trim());
 			if (hasPooledConnectionFactory) {
                 String cid = node.getUniqueName();
-<%
-    private org.apache.activemq.pool.PooledConnectionFactory pooledConnectionFactory_<%=cid%>;
 %>
+
+    private org.apache.activemq.pool.PooledConnectionFactory pooledConnectionFactory_<%=cid%>;
+
+<%
             }
         }
     }
@@ -2255,11 +2257,12 @@ if (isProvider) {
             boolean hasPooledConnectionFactory = Boolean.parseBoolean(ElementParameterParser.getValue(node, "__AMQ_POOL__").trim());
 			if (hasPooledConnectionFactory) {
                 String cid = node.getUniqueName();
-<%
+%>
+
                 if (null != pooledConnectionFactory_<%=cid%>) {
                     pooledConnectionFactory_<%=cid%>.clear();
 	            }
-%>
+<%
             }
         }
     }
