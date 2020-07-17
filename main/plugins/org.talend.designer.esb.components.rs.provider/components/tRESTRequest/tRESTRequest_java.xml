@@ -220,6 +220,12 @@
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/swagger-models-${swagger.version}.jar"
                 REQUIRED="true"/>
 
+            <IMPORT NAME="swagger-ui"
+                    MODULE="swagger-ui-6.4.0.jar"
+                    MVN="mvn:org.talend.libraries/swagger-ui/6.4.0"
+                    UrlPath="platform:/plugin/org.talend.libraries.swagger/lib/swagger-ui-6.4.0.jar"
+                    REQUIRED="true"/>
+
 			<IMPORT NAME="commons-lang3" MODULE="commons-lang3-${commons-lang3.version}.jar" MVN="mvn:org.apache.commons/commons-lang3/${commons-lang3.version}" REQUIRED="true"/>
 
             <IMPORT MODULE="slf4j-api-${slf4j-api.version}.jar" MVN="mvn:org.slf4j/slf4j-api/${slf4j-api.version}" NAME="slf4j-api-${slf4j-api.version}"
