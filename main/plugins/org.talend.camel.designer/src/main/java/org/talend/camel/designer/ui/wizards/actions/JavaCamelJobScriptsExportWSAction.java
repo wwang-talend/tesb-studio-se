@@ -808,7 +808,14 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
     }
 
     protected Map<ExportChoice, Object> getExportChoiceMap() {
-        Map<ExportChoice, Object> exportChoiceMap = new EnumMap<ExportChoice, Object>(ExportChoice.class);
+
+        Map<ExportChoice, Object> exportChoiceMap = null;
+
+        if (manager.getExportChoice() != null) {
+            exportChoiceMap = manager.getExportChoice();
+        } else {
+            exportChoiceMap = new EnumMap<ExportChoice, Object>(ExportChoice.class);
+        }
 
         exportChoiceMap.put(ExportChoice.esbExportType, "kar");
         exportChoiceMap.put(ExportChoice.needJobItem, false);
