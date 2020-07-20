@@ -500,6 +500,22 @@ public class <%=className%> extends org.apache.camel.builder.RouteBuilder implem
 
 	private static Object arguments;
 
+<%
+    for (INode node : graphicalNodes) {
+        if ("cMQConnectionFactory".equals(node.getComponent().getName())) {
+            boolean hasPooledConnectionFactory = Boolean.parseBoolean(ElementParameterParser.getValue(node, "__AMQ_POOL__").trim());
+			if (hasPooledConnectionFactory) {
+                String cid = node.getUniqueName();
+%>
+
+    private org.apache.activemq.pool.PooledConnectionFactory pooledConnectionFactory_<%=cid%>;
+
+<%
+            }
+        }
+    }
+%>
+
 	public void setArguments(Object arguments) {
 		this.inOSGi = true;
 		<%=className%>.arguments = arguments;
@@ -2234,6 +2250,26 @@ if (isProvider) {
                 doConfig();
             }
 
+            public void destroy() {
+<%
+    for (INode node : graphicalNodes) {
+        if ("cMQConnectionFactory".equals(node.getComponent().getName())) {
+            boolean hasPooledConnectionFactory = Boolean.parseBoolean(ElementParameterParser.getValue(node, "__AMQ_POOL__").trim());
+			if (hasPooledConnectionFactory) {
+                String cid = node.getUniqueName();
+%>
+
+                if (null != pooledConnectionFactory_<%=cid%>) {
+                    pooledConnectionFactory_<%=cid%>.clear();
+	            }
+<%
+            }
+        }
+    }
+%>
+
+            }
+
             public void doConfig() throws java.lang.Exception {
                 final /*org.apache.camel.model.Model*/CamelContext camelContext = getContext();
 
@@ -2874,7 +2910,7 @@ if (isProvider) {
                             amq_pool_expiry_timeout = amq_pool_expiry_timeout.substring(0, amq_pool_expiry_timeout.length() - 1);
                         }
 %>
-                        org.apache.activemq.pool.PooledConnectionFactory pooledConnectionFactory_<%=cid%>
+                        pooledConnectionFactory_<%=cid%>
                             = new org.apache.activemq.pool.PooledConnectionFactory();
                         pooledConnectionFactory_<%=cid%>.setConnectionFactory(jmsConnectionFactory_<%=cid%>);
                         pooledConnectionFactory_<%=cid%>.setExpiryTimeout(Long.valueOf(<%=amq_pool_expiry_timeout%>));
