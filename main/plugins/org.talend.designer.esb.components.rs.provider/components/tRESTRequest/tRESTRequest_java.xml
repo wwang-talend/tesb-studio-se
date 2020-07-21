@@ -206,6 +206,12 @@
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/swagger-models-${swagger.version}.jar"
                 REQUIRED="true"/>
 
+            <IMPORT NAME="swagger-ui"
+                    MODULE="swagger-ui-6.4.0.jar"
+                    MVN="mvn:org.talend.libraries/swagger-ui/6.4.0"
+                    UrlPath="platform:/plugin/org.talend.libraries.swagger/lib/swagger-ui-6.4.0.jar"
+                    REQUIRED="true"/>
+
             <IMPORT MODULE="commons-lang3-${commons-lang3.version}.jar" MVN="mvn:org.talend.libraries/commons-lang3/6.0.0" NAME="commons-lang3-${commons-lang3.version}"
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/commons-lang3-${commons-lang3.version}.jar"
                 REQUIRED="true"/>
