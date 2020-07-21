@@ -14,7 +14,6 @@ public class ServiceSetting {
 	private String wsdlLocation;
 	private Function function;
 	private Definition definition;
-	private boolean hasRpcOperation;
 	private String port;
 	private IRepositoryViewObject resourceNode;
 
@@ -53,14 +52,6 @@ public class ServiceSetting {
 	
 	public String getCompressedAndEncodedWSDL() throws IOException, WSDLException {
 		return CompressAndEncodeTool.compressAndEncode(definition);
-	}
-
-	public void setHasRcpOperation(boolean hasRpcOperation) {
-		this.hasRpcOperation = hasRpcOperation;
-	}
-
-	public boolean hasRpcOperation() {
-		return hasRpcOperation;
 	}
 
 	public String getPort() {
