@@ -131,8 +131,19 @@ imports="
         if(argName.startsWith("\"") && argName.endsWith("\"") && argName.length() >= 2) {
 			argName = argName.substring(1, argName.length() - 1);
 		}
-		builder.addParam(argName, argValue);
-		builderRT.addParam(argName, argValue);
+        if(argName.equals("providers")) {
+        	if(argValue.startsWith("\"") && argValue.endsWith("\"") && argValue.length() >= 2){
+        		argValue = argValue.replaceFirst("\"","");
+	        	builder.addParam(argName, "\"#providers," + argValue);
+	        	builderRT.addParam(argName, "\"#providers," + argValue);
+        	}else{
+        		builder.addParam(argName, argValue);
+        		builderRT.addParam(argName, argValue);
+        	}
+        }else{
+        	builder.addParam(argName, argValue);
+        	builderRT.addParam(argName, argValue);
+        }
     }
 
    	builder.setComponent("cxfrs://");
