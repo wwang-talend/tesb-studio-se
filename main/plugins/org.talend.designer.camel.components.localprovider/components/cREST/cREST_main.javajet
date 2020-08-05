@@ -27,6 +27,8 @@ imports="
 
     boolean isProvider = node.getIncomingConnections().isEmpty();
 
+	boolean skipUnmarshalling = false;
+
     boolean hasOidcClientAuthentication = "true".equals(ElementParameterParser.getValue(node, "__ENABLE_SECURITY__"))
                                               && "OIDC".equals(ElementParameterParser.getValue(node, "__SECURITY_TYPE__"))
                                               && !node.getIncomingConnections().isEmpty();
@@ -44,19 +46,19 @@ imports="
 <%
     String endpointUrlRT = ElementParameterParser.getValue(node, "__URL__");
     String endpointUrlStudio = endpointUrlRT;
-	
+
 	String defaultUri = (String) System.getProperties().get("restServiceDefaultUri");
 
     if(isProvider) {
 
         if (endpointUrlRT != null && !endpointUrlRT.trim().isEmpty() && !endpointUrlRT.contains("://")) {
-		
+
             if (endpointUrlRT.startsWith("\"/services")) {
                 endpointUrlRT = endpointUrlRT.replaceFirst("/services","");
             }
             endpointUrlRT = "getCXFRSEndpointAddress(" + endpointUrlRT + ")";
         }
-        
+
         if (defaultUri != null && defaultUri.endsWith("/")) {
             defaultUri = defaultUri.substring(0, defaultUri.length() - 1);
         }
@@ -97,7 +99,7 @@ imports="
         routeFolderName = routeFolderName + JavaResourcesHelper.getJobFolderName(process.getName(), process.getVersion());
 
         String packageName = codeGenArgument.getCurrentProjectName().toLowerCase() + "." + routeFolderName;
-        
+
         String serviceClass = ("MANUAL".equals(ElementParameterParser.getValue(node, "__SERVICE_TYPE__")))
                         ? (packageName + "." + className +"$Service_" + cid) : ElementParameterParser.getValue(node, "__RESOURCE_CLASS__");
         builder.addParam("resourceClasses", "\"" + serviceClass + "\"");
@@ -137,6 +139,9 @@ imports="
         String argValue = map.get("VALUE").trim();
         if(argName.startsWith("\"") && argName.endsWith("\"") && argName.length() >= 2) {
             argName = argName.substring(1, argName.length() - 1);
+        }
+        if (argName.equals("skipUnmarshalling") && argValue.equals("\"true\"")) {
+            skipUnmarshalling = true;
         }
         builder.addParam(argName, argValue);
         builderRT.addParam(argName, argValue);
@@ -204,6 +209,7 @@ imports="
             })
 <% } %>
         .inOut(inOSGi?<%=uriRT%>:<%=uriStudio%>)
+<%  if (!skipUnmarshalling) { %>
         .unmarshal(new  org.apache.camel.spi.DataFormat() {
             public java.lang.Object unmarshal(org.apache.camel.Exchange exchange, java.io.InputStream is) throws java.lang.Exception {
             java.lang.Object b = exchange.getOut().getBody();
@@ -241,6 +247,7 @@ imports="
         public void marshal(org.apache.camel.Exchange exchange, Object o, java.io.OutputStream os)
                     throws Exception {}
         })
+<% } %>
 <%
         if (responseClass.regionMatches(true, responseClass.length() - "InputStream.class".length(), "InputStream.class", 0, "InputStream.class".length())) {
 %>
