@@ -69,17 +69,12 @@ public class WebServiceUIPresenter implements WsdlFieldListener, ServicePortSele
         currentSetting.setWsdlLocation(TalendQuoteUtils.addQuotes(wsdlLocationTemp));
         currentSetting.setDefinition(definition);
         List<Function> functionsAvailable = new ArrayList<Function>();
-        boolean hasRpcOperation = false;
         for (ServiceInfo serviceInfo : ComponentBuilder.buildModel(definition)) {
-            if (serviceInfo.isHasRpcOperation()) {
-                hasRpcOperation = true;
-            }
             for (OperationInfo oper : serviceInfo.getOperations()) {
                 Function f = new Function(serviceInfo, oper);
                 functionsAvailable.add(f);
             }
         }
-        currentSetting.setHasRcpOperation(hasRpcOperation);
 
         portFunctionsMap = new LinkedHashMap<String, List<Function>>();
         for (Function f : functionsAvailable) {
@@ -132,9 +127,6 @@ public class WebServiceUIPresenter implements WsdlFieldListener, ServicePortSele
         };
         try {
             webServiceUI.runWithProgress(retrieveData);
-            if (currentSetting.hasRpcOperation()) {
-                webServiceUI.setErrorMessage(Messages.getString("WebServiceUI.NotSupportRpc"));
-            }
 
             final List<String> ports = new ArrayList<String>(portFunctionsMap.keySet());
             portTableModel.addAll(ports);

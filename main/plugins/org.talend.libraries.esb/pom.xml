@@ -534,10 +534,16 @@
         <version>2.9.0</version>
     </dependency>
     
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-spring</artifactId>
-            <version>${activemq.version}</version>
-        </dependency>
+	<dependency>
+		<groupId>org.apache.activemq</groupId>
+		<artifactId>activemq-camel</artifactId>
+		<version>${activemq.version}</version>
+	</dependency>
+	  
+	<dependency>
+		<groupId>org.apache.activemq</groupId>
+		<artifactId>activemq-spring</artifactId>
+		<version>${activemq.version}</version>
+	</dependency>
   </dependencies>
 </project>
