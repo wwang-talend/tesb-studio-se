@@ -55,7 +55,7 @@
         <lz4-version>1.2.0</lz4-version>
         <!-- camel-jsonpath -->
         <json-path-version>2.1.0</json-path-version>
-        <json-smart-version>2.2.1</json-smart-version>
+        <json-smart-action-version>2.3</json-smart-action-version>
         <accessors-smart-version>1.1</accessors-smart-version>
         <asm-version>5.0.3</asm-version>
         <!-- swagger dependencies -->
@@ -561,7 +561,7 @@
         <dependency>
             <groupId>net.minidev</groupId>
             <artifactId>json-smart</artifactId>
-            <version>${json-smart-version}</version>
+            <version>${json-smart-action-version}</version>
         </dependency>
         <dependency>
             <groupId>net.minidev</groupId>
