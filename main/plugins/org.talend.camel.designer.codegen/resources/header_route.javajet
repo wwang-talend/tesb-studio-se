@@ -162,6 +162,8 @@ package <%= packageName %>;
         boolean isRoutelet = ((IProcess2) process).getProperty().getItem().getClass().getName().endsWith("RouteletProcessItemImpl");
 
         boolean hasCSoapOrCRest = false;
+        
+        boolean isEnableMetrics = false; 
 
         for (INode node : graphicalNodes) {
         	if ("cSOAP".equals(node.getComponent().getName()) || "cREST".equals(node.getComponent().getName())) {
@@ -170,6 +172,12 @@ package <%= packageName %>;
         }
 
         if(exportTypeSpringBoot){
+        	try{
+        		isEnableMetrics = Boolean.valueOf(process.getClass().getDeclaredMethod("isEnableMetrics").invoke(process).toString());
+        	}catch(Exception e){
+        		
+        	}
+        	
  %>
 
 
@@ -486,6 +494,25 @@ public class <%=className%> extends org.apache.camel.builder.RouteBuilder implem
 
     @org.springframework.beans.factory.annotation.Autowired
     org.springframework.core.env.Environment env;
+    
+    <% if(isEnableMetrics) { %>
+    
+    @org.springframework.context.annotation.Bean
+	io.prometheus.client.CollectorRegistry metricRegistry() {
+        try {
+        	new io.prometheus.jmx.BuildInfoCollector().register();
+			new io.prometheus.jmx.JmxCollector(new org.springframework.core.io.ClassPathResource("config/jmx-prometheus.yaml").getInputStream()).register();
+		} catch (javax.management.MalformedObjectNameException e) {
+			e.printStackTrace();
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		}
+        
+        return io.prometheus.client.CollectorRegistry.defaultRegistry;
+    }
+    
+    <% } %>
+    
 <%
     }else {
 %>
