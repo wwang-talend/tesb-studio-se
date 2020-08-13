@@ -984,7 +984,7 @@
                  id="json-path">
            </library>
            <library
-                 id="json-smart">
+                 id="json-smart-action">
            </library>
            <library
                  id="accessors-smart">
@@ -1007,9 +1007,9 @@
         </libraryNeeded>
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
-              id="json-smart"
-              name="${tesb-json-smart}"
-              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-json-smart}">
+              id="json-smart-action"
+              name="${tesb-json-smart-action}"
+              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-json-smart-action}">
         </libraryNeeded>
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
