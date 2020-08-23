@@ -1093,6 +1093,7 @@
               uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-saxon}">
         </libraryNeeded>
         <libraryNeeded
+              context="plugin:org.talend.designer.camel.components.localprovider"
               id="saxon-he"
               name="${tesb-Saxon-HE}"
               uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-Saxon-HE}"
