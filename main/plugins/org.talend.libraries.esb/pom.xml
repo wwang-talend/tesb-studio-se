@@ -321,6 +321,10 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 			</exclusion>
+			<exclusion>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+			</exclusion>
         </exclusions>
     </dependency>
     <dependency>
@@ -539,11 +543,16 @@
 		<artifactId>activemq-camel</artifactId>
 		<version>${activemq.version}</version>
 	</dependency>
-	  
-	<dependency>
-		<groupId>org.apache.activemq</groupId>
-		<artifactId>activemq-spring</artifactId>
-		<version>${activemq.version}</version>
-	</dependency>
+    <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-spring</artifactId>
+        <version>${activemq.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+			</exclusion>
+		</exclusions>
+    </dependency>
   </dependencies>
 </project>
