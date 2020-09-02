@@ -27,7 +27,7 @@ imports="
 
     boolean isProvider = node.getIncomingConnections().isEmpty();
 
-	boolean skipUnmarshalling = false;
+    boolean skipUnmarshalling = false;
 
     boolean hasOidcClientAuthentication = "true".equals(ElementParameterParser.getValue(node, "__ENABLE_SECURITY__"))
                                               && "OIDC".equals(ElementParameterParser.getValue(node, "__SECURITY_TYPE__"))
@@ -47,7 +47,11 @@ imports="
     String endpointUrlRT = ElementParameterParser.getValue(node, "__URL__");
     String endpointUrlStudio = endpointUrlRT;
 
-	String defaultUri = (String) System.getProperties().get("restServiceDefaultUri");
+    String defaultUri = (String) System.getProperties().get("restServiceDefaultUri");
+
+    if ("true".equals(ElementParameterParser.getValue(node, "__SKIP_UNMARSHALLING__"))) {
+        skipUnmarshalling = true;
+    }
 
     if(isProvider) {
 
@@ -82,7 +86,7 @@ imports="
             if (!endpointUrlStudio.contains("context.")) {
                 endpointUrlStudio = defaultEndpointUrl + "+" + endpointUrlStudio;
             }
-			endpointUrlStudio = "getCXFRSEndpointAddress(" + endpointUrlStudio + ")";
+            endpointUrlStudio = "getCXFRSEndpointAddress(" + endpointUrlStudio + ")";
         }
 
         boolean isTestContainer = ProcessUtils.isTestContainer(process);
@@ -140,11 +144,20 @@ imports="
         if(argName.startsWith("\"") && argName.endsWith("\"") && argName.length() >= 2) {
             argName = argName.substring(1, argName.length() - 1);
         }
-        if (argName.equals("skipUnmarshalling") && argValue.equals("\"true\"")) {
-            skipUnmarshalling = true;
+
+        if(argName.equals("providers")) {
+            if(argValue.startsWith("\"") && argValue.endsWith("\"") && argValue.length() >= 2){
+                argValue = argValue.replaceFirst("\"","");
+                builder.addParam(argName, "\"#providers," + argValue);
+                builderRT.addParam(argName, "\"#providers," + argValue);
+            }else{
+                builder.addParam(argName, argValue);
+                builderRT.addParam(argName, argValue);
+            }
+        }else{
+            builder.addParam(argName, argValue);
+            builderRT.addParam(argName, argValue);
         }
-        builder.addParam(argName, argValue);
-        builderRT.addParam(argName, argValue);
     }
 
     builder.setComponent("cxfrs://");
