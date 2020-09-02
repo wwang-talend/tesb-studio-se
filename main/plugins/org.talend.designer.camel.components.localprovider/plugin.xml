@@ -80,6 +80,7 @@
             <library id="activemq-spring" />
             <library id="activemq-broker" />
             <library id="activemq-client" />
+            <library id="activemq-camel" />
             <library id="activemq-openwire-legacy" />
             <library id="activemq-pool" />
             <library id="activemq-jms-pool" />
@@ -101,6 +102,12 @@
             name="${tesb-activemq-client}"
             id="activemq-client"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-client}"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="${tesb-activemq-camel}"
+            id="activemq-camel"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-camel}"
             bundleID="" />
 
         <libraryNeeded context="plugin:org.talend.libraries.esb"
@@ -977,7 +984,7 @@
                  id="json-path">
            </library>
            <library
-                 id="json-smart">
+                 id="json-smart-action">
            </library>
            <library
                  id="accessors-smart">
@@ -1000,9 +1007,9 @@
         </libraryNeeded>
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
-              id="json-smart"
-              name="${tesb-json-smart}"
-              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-json-smart}">
+              id="json-smart-action"
+              name="${tesb-json-smart-action}"
+              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-json-smart-action}">
         </libraryNeeded>
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
@@ -1025,7 +1032,7 @@
                  id="camel-saxon">
            </library>
            <library
-                 id="org.apache.servicemix.bundles.saxon">
+                 id="saxon-he">
            </library>
         </libraryNeededGroup>
         <libraryNeeded
@@ -1036,11 +1043,11 @@
         </libraryNeeded>
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
-              id="org.apache.servicemix.bundles.saxon"
-              name="${tesb-org.apache.servicemix.bundles.saxon}"
-              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-org.apache.servicemix.bundles.saxon}"
-			  bundleID="" />
-        
+              id="saxon-he"
+              name="${tesb-Saxon-HE}"
+              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-Saxon-HE}"
+              bundleID="" />
+
         <libraryNeededGroup
               description="camel-kafka-alldep"
               id="camel-kafka-alldep"
