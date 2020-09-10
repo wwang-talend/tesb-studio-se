@@ -59,6 +59,7 @@ if (!node.getElementParameter("USE_PROXY").isContextMode()) {
 boolean isSLEnable = paramsHelper.getBoolParam("__SERVICE_LOCATOR__");
 boolean isSAMEnable = paramsHelper.getBoolParam("__SERVICE_ACTIVITY_MONITOR__");
 boolean useBusinessCorrelation = paramsHelper.getBoolParam("__USE_BUSINESS_CORRELATION__");
+String typeConverter = paramsHelper.getStringParam("__TYPE_CONVERTER__");
 
 /*GENERATE CODE*/
 //clear connection row data
@@ -250,6 +251,9 @@ try {
 			new org.apache.cxf.jaxrs.provider.json.JSONProvider();
 		jsonProvider_<%=cid%>.setIgnoreNamespaces(true);
 		jsonProvider_<%=cid%>.setAttributesToElements(true);
+	<% if ("Simple".equals(typeConverter)) { %>
+		jsonProvider_<%=cid%>.setTypeConverter(new org.codehaus.jettison.mapped.SimpleConverter());
+    <% } %>
 	<% if (("POST".equals(method) || "PUT".equals(method) || "PATCH".equals(method)) && "application/json".equals(contentType)) { %>
 		jsonProvider_<%=cid%>.setSerializeAsArray(true);
 		List<String> arrayKeys = new java.util.ArrayList<String>(java.util.Arrays.asList(<%=paramsHelper.getStringParam("__ARRAY_KEYS__")%>.split(" ")));
