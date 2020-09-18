@@ -5,14 +5,14 @@
   <parent>
     <groupId>org.example.test_nologin</groupId>
     <artifactId>code.Master</artifactId>
-    <version>7.2.1</version>
+    <version>7.3.1</version>
     <relativePath>../../../</relativePath>
   </parent>
   <groupId>org.example.test_nologin.route</groupId>
   <artifactId>RouteAsOSGI-Kar</artifactId>
   <version>0.1.0</version>
   <packaging>pom</packaging>
-  <name>TEST_NOLOGIN RouteAsOSGI-0.1.0 (0.1,Routes) Kar</name>
+  <name>TEST_NOLOGIN RouteAsOSGI-${project.version} (0.1,Routes) Kar</name>
   <modules>
     <module>pom-bundle.xml</module>
     <module>pom-feature.xml</module>
@@ -21,37 +21,52 @@
     <dependency>
       <groupId>org.talend.libraries</groupId>
       <artifactId>camel-core-2.24.2</artifactId>
-      <version>6.0.0-SNAPSHOT</version>
+      <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.talend.libraries</groupId>
       <artifactId>camel-spring-2.24.2</artifactId>
-      <version>6.0.0-SNAPSHOT</version>
+      <version>6.0.0</version>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.12.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.12.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.12.1</version>
     </dependency>
     <dependency>
       <groupId>org.talend.libraries</groupId>
       <artifactId>spring-beans-5.1.4.RELEASE</artifactId>
-      <version>6.0.0-SNAPSHOT</version>
+      <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.talend.libraries</groupId>
       <artifactId>spring-context-5.1.4.RELEASE</artifactId>
-      <version>6.0.0-SNAPSHOT</version>
+      <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.talend.libraries</groupId>
       <artifactId>spring-core-5.1.4.RELEASE</artifactId>
-      <version>6.0.0-SNAPSHOT</version>
+      <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.example.test_nologin.code</groupId>
       <artifactId>routines</artifactId>
-      <version>7.2.1</version>
+      <version>7.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.example.test_nologin.bean</groupId>
+      <artifactId>beans</artifactId>
+      <version>7.3.1</version>
     </dependency>
   </dependencies>
   <build />
