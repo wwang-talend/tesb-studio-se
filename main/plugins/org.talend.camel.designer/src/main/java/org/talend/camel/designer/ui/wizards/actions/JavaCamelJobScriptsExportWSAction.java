@@ -91,6 +91,8 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
     private static final Properties FEATURE_MODULES = createFeatureModules();
 
+    private static final String BUILD_FROM_COMMANDLINE_GROUP = "BUILD_FROM_COMMANDLINE_GROUP";
+
     private IProgressMonitor monitor;
 
     protected final IRepositoryViewObject routeObject;
@@ -491,8 +493,12 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             }
             String jobArtifactVersion = buildArtifactVersionForReferencedJob(routeProcess, jobId);
             String jobBundleVersion = bundleVersion;
-            BundleModel jobModel = new BundleModel(PomIdsHelper.getJobGroupId(repositoryObject.getProperty()),
-                    jobBundleName, jobArtifactVersion, jobFile);
+            String jobGroup = (String) routeProcess.getProperty().getAdditionalProperties().get(BUILD_FROM_COMMANDLINE_GROUP);
+
+            if(jobGroup == null) {
+                jobGroup = PomIdsHelper.getJobGroupId(repositoryObject.getProperty());
+            }
+            BundleModel jobModel = new BundleModel(jobGroup, jobBundleName, jobArtifactVersion, jobFile);
 
             if (featuresModel.getBundles().contains(jobModel)) {
                 featuresModel.getBundles().remove(jobModel);
@@ -808,7 +814,14 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
     }
 
     protected Map<ExportChoice, Object> getExportChoiceMap() {
-        Map<ExportChoice, Object> exportChoiceMap = new EnumMap<ExportChoice, Object>(ExportChoice.class);
+
+        Map<ExportChoice, Object> exportChoiceMap = null;
+
+        if (manager.getExportChoice() != null) {
+            exportChoiceMap = manager.getExportChoice();
+        } else {
+            exportChoiceMap = new EnumMap<ExportChoice, Object>(ExportChoice.class);
+        }
 
         exportChoiceMap.put(ExportChoice.esbExportType, "kar");
         exportChoiceMap.put(ExportChoice.needJobItem, false);

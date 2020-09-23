@@ -98,9 +98,13 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
     private boolean exportAsZip;
 
+    private boolean enablePrometheusMetricsEndpoint;
+
     private boolean addMavenScript;
 
     protected Button exportAsZipButton;
+
+    protected Button enablePrometheusMetricsEndpointButton;
 
     protected Combo exportTypeCombo;
 
@@ -176,6 +180,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                         contextButton.dispose();
                         addBSButton.dispose();
                         exportAsZipButton.dispose();
+                        enablePrometheusMetricsEndpointButton.dispose();
 
                         optionsDockerGroupComposite.dispose();
 
@@ -635,6 +640,10 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
         exportChoiceMap.put(ExportChoice.onlyDefautContext, onlyExportDefaultContext);
 
+        if (enablePrometheusMetricsEndpoint) {
+            exportChoiceMap.put(ExportChoice.esbMetrics, enablePrometheusMetricsEndpoint);
+        }
+
         exportChoiceMap.put(ExportChoice.binaries, true);
 
         return exportChoiceMap;
@@ -684,6 +693,23 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
             }
         });
 
+        if ("ROUTE_MICROSERVICE".equals(
+                getProcessItem().getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE))) {
+
+            enablePrometheusMetricsEndpointButton = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
+            enablePrometheusMetricsEndpointButton.setText("Enable Prometheus metrics endpoint"); //$NON-NLS-1$
+            enablePrometheusMetricsEndpointButton.setSelection(enablePrometheusMetricsEndpoint);
+            enablePrometheusMetricsEndpointButton.setFont(getFont());
+            enablePrometheusMetricsEndpointButton.addSelectionListener(new SelectionAdapter() {
+
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    boolean selectContext = enablePrometheusMetricsEndpointButton.getSelection();
+                    enablePrometheusMetricsEndpoint = selectContext;
+                }
+            });
+        }
+
         optionsGroupCompositeLayout = (GridData) optionsGroup.getParent().getLayoutData();
     }
 
@@ -702,6 +728,19 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
             @Override
             public void widgetSelected(SelectionEvent e) {
                 onlyExportDefaultContext = contextButton.getSelection();
+            }
+        });
+
+        enablePrometheusMetricsEndpointButton = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
+        enablePrometheusMetricsEndpointButton.setText("Enable Prometheus metrics endpoint"); //$NON-NLS-1$
+        enablePrometheusMetricsEndpointButton.setSelection(enablePrometheusMetricsEndpoint);
+        enablePrometheusMetricsEndpointButton.setFont(getFont());
+        enablePrometheusMetricsEndpointButton.addSelectionListener(new SelectionAdapter() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                boolean selectContext = enablePrometheusMetricsEndpointButton.getSelection();
+                enablePrometheusMetricsEndpoint = selectContext;
             }
         });
 
@@ -939,6 +978,11 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         exportChoiceMap.put(ExportChoice.launcherName, JobScriptsManager.UNIX_ENVIRONMENT);
 
         exportChoiceMap.put(ExportChoice.binaries, true);
+
+        if (enablePrometheusMetricsEndpoint) {
+            exportChoiceMap.put(ExportChoice.esbMetrics, enablePrometheusMetricsEndpoint);
+        }
+
 //        exportChoiceMap.put(ExportChoice.needSystemRoutine, Boolean.TRUE);
 //        exportChoiceMap.put(ExportChoice.needUserRoutine, Boolean.TRUE);
 //        exportChoiceMap.put(ExportChoice.needTalendLibraries, Boolean.TRUE);
