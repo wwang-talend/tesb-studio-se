@@ -93,6 +93,8 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
     private static final Properties FEATURE_MODULES = createFeatureModules();
 
+    private static final String BUILD_FROM_COMMANDLINE_GROUP = "BUILD_FROM_COMMANDLINE_GROUP";
+
     private IProgressMonitor monitor;
 
     protected final IRepositoryViewObject routeObject;
@@ -477,8 +479,12 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             }
             String jobArtifactVersion = buildArtifactVersionForReferencedJob(routeProcess, jobId);
             String jobBundleVersion = bundleVersion;
-            BundleModel jobModel = new BundleModel(PomIdsHelper.getJobGroupId(repositoryObject.getProperty()),
-                    jobBundleName, jobArtifactVersion, jobFile);
+            String jobGroup = (String) routeProcess.getProperty().getAdditionalProperties().get(BUILD_FROM_COMMANDLINE_GROUP);
+
+            if(jobGroup == null) {
+                jobGroup = PomIdsHelper.getJobGroupId(repositoryObject.getProperty());
+            }
+            BundleModel jobModel = new BundleModel(jobGroup, jobBundleName, jobArtifactVersion, jobFile);
 
             if (featuresModel.getBundles().contains(jobModel)) {
                 featuresModel.getBundles().remove(jobModel);
