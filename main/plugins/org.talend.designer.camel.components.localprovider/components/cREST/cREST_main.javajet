@@ -27,6 +27,8 @@ imports="
 
     boolean isProvider = node.getIncomingConnections().isEmpty();
 
+    boolean skipUnmarshalling = false;
+
     boolean hasOidcClientAuthentication = "true".equals(ElementParameterParser.getValue(node, "__ENABLE_SECURITY__"))
                                               && "OIDC".equals(ElementParameterParser.getValue(node, "__SECURITY_TYPE__"))
                                               && !node.getIncomingConnections().isEmpty();
@@ -46,6 +48,10 @@ imports="
     String endpointUrlStudio = endpointUrlRT;
 	
 	String defaultUri = (String) System.getProperties().get("restServiceDefaultUri");
+
+    if ("true".equals(ElementParameterParser.getValue(node, "__SKIP_UNMARSHALLING__"))) {
+        skipUnmarshalling = true;
+    }
 
     if(isProvider) {
 
@@ -216,6 +222,7 @@ imports="
             })
 <% } %>
         .inOut(inOSGi?<%=uriRT%>:<%=uriStudio%>)
+<%  if (!skipUnmarshalling) { %>
         .unmarshal(new  org.apache.camel.spi.DataFormat() {
             public java.lang.Object unmarshal(org.apache.camel.Exchange exchange, java.io.InputStream is) throws java.lang.Exception {
             java.lang.Object b = exchange.getOut().getBody();
@@ -253,6 +260,7 @@ imports="
         public void marshal(org.apache.camel.Exchange exchange, Object o, java.io.OutputStream os)
                     throws Exception {}
         })
+<% } %>
 <%
         if (responseClass.regionMatches(true, responseClass.length() - "InputStream.class".length(), "InputStream.class", 0, "InputStream.class".length())) {
 %>
