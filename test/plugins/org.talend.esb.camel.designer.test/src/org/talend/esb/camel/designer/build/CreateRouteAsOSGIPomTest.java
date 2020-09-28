@@ -118,6 +118,13 @@ public class CreateRouteAsOSGIPomTest {
         return new CreateMavenBundlePom(processor, pomFile);
     }
 
+    private String getBaseVersionFile(String filepath) {
+        if (System.getProperty("java.version") != null && System.getProperty("java.version").startsWith("11")) {
+            return filepath.replace(TalendMavenConstants.XML_EXT, "-java11" + TalendMavenConstants.XML_EXT);
+        }
+        return filepath;
+    }
+
     private void compareGeneratedFileWithReference(IProject genProject, String refProjectPath, String filepath)
             throws IOException, CoreException {
         File genFile = genProject.getFile(filepath).getLocation().toFile();
@@ -125,7 +132,7 @@ public class CreateRouteAsOSGIPomTest {
         Bundle b = Platform.getBundle("org.talend.esb.camel.designer.test");
         assertNotNull("Test  bundle cannot be loaded.", b);
 
-        String path = FileLocator.toFileURL(b.getEntry("resources/" + refProjectPath + filepath)).getFile();
+        String path = FileLocator.toFileURL(b.getEntry("resources/" + refProjectPath + getBaseVersionFile(filepath))).getFile();
         File refFile = Paths.get(path).normalize().toFile();
 
         assertTrue("Generated '" + genFile + "' file does not exists.", genFile.exists());
