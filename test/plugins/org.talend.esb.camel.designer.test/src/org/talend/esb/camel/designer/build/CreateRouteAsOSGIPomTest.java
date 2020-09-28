@@ -132,7 +132,16 @@ public class CreateRouteAsOSGIPomTest {
         Bundle b = Platform.getBundle("org.talend.esb.camel.designer.test");
         assertNotNull("Test  bundle cannot be loaded.", b);
 
-        String path = FileLocator.toFileURL(b.getEntry("resources/" + refProjectPath + getBaseVersionFile(filepath))).getFile();
+        String path = "";
+        String fileName = "";
+
+        try {
+            fileName = "resources/" + refProjectPath + getBaseVersionFile(filepath);
+            path = FileLocator.toFileURL(b.getEntry(fileName)).getFile();
+        } catch (Exception e) {
+            throw new RuntimeException(fileName, e);
+        }
+
         File refFile = Paths.get(path).normalize().toFile();
 
         assertTrue("Generated '" + genFile + "' file does not exists.", genFile.exists());
