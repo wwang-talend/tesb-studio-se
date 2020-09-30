@@ -14,43 +14,43 @@
   <packaging>pom</packaging>
   <name>TEST_NOLOGIN RouteAsOSGI-${project.version} (0.1,Routes) Feature</name>
   <properties>
-    <item.name>@ItemName@</item.name>
-    <bundle.config.export.service>@BundleConfigExportService@</bundle.config.export.service>
-    <bundle.config.bundle.classpath>@BundleConfigBundleClasspath@</bundle.config.bundle.classpath>
-    <talend.job.name>RouteAsOSGI</talend.job.name>
-    <current.test.resources.dir>${basedir}/src/test/resources</current.test.resources.dir>
-    <current.resources.dir>${basedir}/src/main/ext-resources</current.resources.dir>
-    <talend.project.name>TEST_NOLOGIN</talend.project.name>
-    <maven.build.timestamp.format>yyyy-MM-dd HHmmssSSS</maven.build.timestamp.format>
-    <bundle.config.export.package>@BundleConfigExportPackage@</bundle.config.export.package>
-    <talend.project.id>0</talend.project.id>
-    <provided.lib.path>${current.bundle.resources.dir}/provided-lib</provided.lib.path>
-    <current.int-resources.dir>${basedir}/src/main/resources</current.int-resources.dir>
-    <talend.job.applyContextToChildren>false</talend.job.applyContextToChildren>
-    <talend.product.version>7.3.1.20200214_0837.UT</talend.product.version>
-    <output.resources.dir>${talend.job.name}/src/main/resources</output.resources.dir>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <current.bundle.resources.dir>${basedir}/src/main/bundle-resources</current.bundle.resources.dir>
-    <talend.routine.groupid>org.example.test_nologin.code</talend.routine.groupid>
-    <talend.job.folder></talend.job.folder>
-    <bundle.config.import.package>@BundleConfigImportPackage@</bundle.config.import.package>
-    <talend.job.id>routeasosgi_Item_ID</talend.job.id>
-    <talend.project.name.lowercase>test_nologin</talend.project.name.lowercase>
-    <talend.job.finalName>routeasosgi_0_1</talend.job.finalName>
-    <lib.path>${resources.path}/lib</lib.path>
-    <project.distribution-management.repository.id>${project.distributionManagement.repository.id}</project.distribution-management.repository.id>
-    <talend.job.version>0.1</talend.job.version>
-    <project.distribution-management.repository.url>${project.distributionManagement.repository.url}</project.distribution-management.repository.url>
-    <talend.job.path>test_nologin</talend.job.path>
-    <talend.job.context>Test</talend.job.context>
-    <talend.job.stat>true</talend.job.stat>
-    <talend.pigudf.groupid>org.example.test_nologin.pigudf</talend.pigudf.groupid>
-    <talend.job.framework></talend.job.framework>
-    <talend.job.jvmargs>-Xms256M -Xmx1024M -Dfile.encoding=UTF-8 </talend.job.jvmargs>
     <talend.job.type>Standard</talend.job.type>
-    <item.project.name>@ItemProjectName@</item.project.name>
-    <resources.path>${basedir}/src/main/resources</resources.path>
+    <talend.pigudf.groupid>org.example.test_nologin.pigudf</talend.pigudf.groupid>
+    <bundle.config.import.package>@BundleConfigImportPackage@</bundle.config.import.package>
+    <lib.path>${resources.path}/lib</lib.path>
+    <talend.job.folder></talend.job.folder>
+    <talend.job.context>Test</talend.job.context>
+    <talend.job.path>test_nologin</talend.job.path>
+    <project.distribution-management.repository.id>${project.distributionManagement.repository.id}</project.distribution-management.repository.id>
     <cloud.publisher.skip>false</cloud.publisher.skip>
+    <resources.path>${basedir}/src/main/resources</resources.path>
+    <item.project.name>@ItemProjectName@</item.project.name>
+    <bundle.config.export.package>@BundleConfigExportPackage@</bundle.config.export.package>
+    <talend.job.stat>true</talend.job.stat>
+    <item.name>@ItemName@</item.name>
+    <talend.job.jvmargs>-Xms256M -Xmx1024M -Dfile.encoding=UTF-8 </talend.job.jvmargs>
+    <talend.job.id>routeasosgi_Item_ID</talend.job.id>
+    <talend.job.version>0.1</talend.job.version>
+    <talend.job.framework></talend.job.framework>
+    <talend.routine.groupid>org.example.test_nologin.code</talend.routine.groupid>
+    <current.int-resources.dir>${basedir}/src/main/resources</current.int-resources.dir>
+    <current.resources.dir>${basedir}/src/main/ext-resources</current.resources.dir>
+    <talend.project.name.lowercase>test_nologin</talend.project.name.lowercase>
+    <talend.project.id>0</talend.project.id>
+    <talend.job.applyContextToChildren>false</talend.job.applyContextToChildren>
+    <output.resources.dir>${talend.job.name}/src/main/resources</output.resources.dir>
+    <maven.build.timestamp.format>yyyy-MM-dd HHmmssSSS</maven.build.timestamp.format>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <talend.product.version>7.3.1.20200214_0837.UT</talend.product.version>
+    <talend.project.name>TEST_NOLOGIN</talend.project.name>
+    <current.test.resources.dir>${basedir}/src/test/resources</current.test.resources.dir>
+    <project.distribution-management.repository.url>${project.distributionManagement.repository.url}</project.distribution-management.repository.url>
+    <current.bundle.resources.dir>${basedir}/src/main/bundle-resources</current.bundle.resources.dir>
+    <talend.job.name>RouteAsOSGI</talend.job.name>
+    <bundle.config.bundle.classpath>@BundleConfigBundleClasspath@</bundle.config.bundle.classpath>
+    <provided.lib.path>${current.bundle.resources.dir}/provided-lib</provided.lib.path>
+    <bundle.config.export.service>@BundleConfigExportService@</bundle.config.export.service>
+    <talend.job.finalName>routeasosgi_0_1</talend.job.finalName>
   </properties>
   <build>
     <plugins>
