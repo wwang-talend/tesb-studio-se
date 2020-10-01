@@ -514,29 +514,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
     }
 
     private String buildArtifactVersionForReferencedJob(ProcessItem routeProcess, String jobId) {
-        boolean isSnapshot = BooleanUtils
-                .toBoolean((String) routeProcess
-                        .getProperty()
-                        .getAdditionalProperties()
-                        .get(MavenConstants.NAME_PUBLISH_AS_SNAPSHOT));
-
-        String jobArtifactVersion = getJobProcessItemVersion(jobId);
-
-        if (jobArtifactVersion == null || jobArtifactVersion.isEmpty()) {
-            return "";
-        }
-
-        if (!jobArtifactVersion.endsWith(MavenConstants.SNAPSHOT) && isSnapshot) {
-            jobArtifactVersion += MavenConstants.SNAPSHOT;
-        }else if (jobArtifactVersion.endsWith(MavenConstants.SNAPSHOT) && !isSnapshot){
-            jobArtifactVersion = jobArtifactVersion.substring(0, jobArtifactVersion.lastIndexOf(MavenConstants.SNAPSHOT));
-        }
-        // TESB-27587
-        if (CommonUIPlugin.isFullyHeadless()) {
-            jobArtifactVersion = getArtifactVersion();
-        }
-
-        return jobArtifactVersion;
+        return getArtifactVersion();
     }
 
     @SuppressWarnings("unchecked")
