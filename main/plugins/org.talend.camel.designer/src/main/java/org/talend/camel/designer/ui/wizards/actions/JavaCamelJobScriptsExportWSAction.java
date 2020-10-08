@@ -496,7 +496,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             String jobGroup = (String) routeProcess.getProperty().getAdditionalProperties().get(BUILD_FROM_COMMANDLINE_GROUP);
 
             if(jobGroup == null) {
-            	jobGroup = PomIdsHelper.getJobGroupId(repositoryObject.getProperty());
+            	jobGroup = PomIdsHelper.getJobGroupId(routeProcess.getProperty());
             }
             BundleModel jobModel = new BundleModel(jobGroup, jobBundleName, jobArtifactVersion, jobFile);
 
