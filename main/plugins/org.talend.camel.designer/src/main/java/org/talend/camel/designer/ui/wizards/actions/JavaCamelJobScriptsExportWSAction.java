@@ -492,7 +492,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 throw new InvocationTargetException(e);
             }
             String jobBundleVersion = buildBundleVersionForReferencedJob(routeProcess, jobId);
-            String jobArtifactVersion = PomIdsHelper.getCustomJobVersion(routeProcess.getProperty());
+            String jobArtifactVersion = jobBundleVersion;
             String jobGroup = (String) routeProcess.getProperty().getAdditionalProperties().get(BUILD_FROM_COMMANDLINE_GROUP);
 
             if(jobGroup == null) {
@@ -506,7 +506,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
             if (featuresModel.addBundle(jobModel)) {
                 exportRouteUsedJobBundle(repositoryObject, jobFile, jobVersion, jobBundleName, jobBundleSymbolicName,
-                        jobBundleVersion, getArtifactId(), version, jobContext);
+                        jobArtifactVersion.replace("-", "."), getArtifactId(), version, jobContext);
             }
         }
 
