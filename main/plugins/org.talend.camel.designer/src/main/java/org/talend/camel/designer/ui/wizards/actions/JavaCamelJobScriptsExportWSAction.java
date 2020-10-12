@@ -491,14 +491,14 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             } catch (IOException e) {
                 throw new InvocationTargetException(e);
             }
-            String jobArtifactVersion = buildArtifactVersionForReferencedJob(routeProcess, jobId);
-            String jobBundleVersion = bundleVersion;
+            String jobBundleVersion = buildBundleVersionForReferencedJob(routeProcess, jobId);
+            String jobArtifactVersion = PomIdsHelper.getCustomJobVersion(routeProcess.getProperty());
             String jobGroup = (String) routeProcess.getProperty().getAdditionalProperties().get(BUILD_FROM_COMMANDLINE_GROUP);
 
             if(jobGroup == null) {
             	jobGroup = PomIdsHelper.getJobGroupId(routeProcess.getProperty());
             }
-            BundleModel jobModel = new BundleModel(jobGroup, jobBundleName, jobArtifactVersion, jobFile);
+            BundleModel jobModel = new BundleModel(jobGroup, jobBundleName, jobBundleVersion, jobFile);
 
             if (featuresModel.getBundles().contains(jobModel)) {
                 featuresModel.getBundles().remove(jobModel);
@@ -513,7 +513,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
         addJobPackageToOsgiImport(routeProcess, jobPackageNames);
     }
 
-    private String buildArtifactVersionForReferencedJob(ProcessItem routeProcess, String jobId) {
+    private String buildBundleVersionForReferencedJob(ProcessItem routeProcess, String jobId) {
         return getArtifactVersion();
     }
 
