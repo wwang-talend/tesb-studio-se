@@ -492,7 +492,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                 throw new InvocationTargetException(e);
             }
             String jobBundleVersion = buildBundleVersionForReferencedJob(routeProcess, jobId);
-            String jobArtifactVersion = PomIdsHelper.getCustomJobVersion(routeProcess.getProperty());
+            String jobArtifactVersion = jobBundleVersion;
             String jobGroup = (String) routeProcess.getProperty().getAdditionalProperties().get(BUILD_FROM_COMMANDLINE_GROUP);
 
             if(jobGroup == null) {
