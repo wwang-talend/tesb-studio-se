@@ -58,6 +58,7 @@ if (!node.getElementParameter("USE_PROXY").isContextMode()) {
 boolean isSLEnable = paramsHelper.getBoolParam("__SERVICE_LOCATOR__");
 boolean isSAMEnable = paramsHelper.getBoolParam("__SERVICE_ACTIVITY_MONITOR__");
 boolean useBusinessCorrelation = paramsHelper.getBoolParam("__USE_BUSINESS_CORRELATION__");
+boolean useMapTypeInformation = paramsHelper.getBoolParam("__USE_MAP_TYPE_INFORMATION__");
 
 /*GENERATE CODE*/
 //clear connection row data
@@ -76,23 +77,25 @@ for (IConnection conn : dataOutputs) {
        } else {
            %>java.util. Collection<? extends String><%
        }
-} else { 
+} else {
        if ("GET".equals(method)) {
            %>Object<%
        }else {
-           %>javax.ws.rs.core.Response<% 
-       }  
+           %>javax.ws.rs.core.Response<%
+       }
 }%> responseDoc_<%=cid%> = null;
 
 try {
 	// request body
 	org.dom4j.Document requestDoc_<%=cid%> = null;
+	java.util.Map<String,java.lang.Object> formData_<%=cid%> = null;
 	String requestString_<%=cid%> = null;
 <%	if (null != inputConn) {
 		IMetadataColumn inputConnBodyColumn = inputConn.getMetadataTable().getColumn("body");
 		if (null != inputConnBodyColumn && "id_Document".equals(inputConnBodyColumn.getTalendType())) { %>
 			if (null != <%=inputConn.getName()%>.body) {
 				requestDoc_<%=cid%> = <%=inputConn.getName()%>.body.getDocument();
+				formData_<%=cid%> = <%=inputConn.getName()%>.formData;
 			}
 <%		}
 		IMetadataColumn inputConnStringColumn = inputConn.getMetadataTable().getColumn("string");
@@ -142,13 +145,13 @@ try {
 			<%=paramsHelper.getStringParam("__SERVICE_NAME__")%>));
 
 		org.talend.esb.servicelocator.cxf.LocatorFeature feature_<%=cid%> = null;
-		
+
 		if(!inOSGi){
 	    	feature_<%=cid%> = (org.talend.esb.servicelocator.cxf.LocatorFeature) new org.springframework.context.support.ClassPathXmlApplicationContext(new String[] { "META-INF/tesb/locator/beans.xml" }).getBean(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
         }else{
         	feature_<%=cid%> = routines.system.BundleUtils.getService(org.talend.esb.servicelocator.cxf.LocatorFeature.class);
         }
-		
+
 		<% List<Map<String, String>> customProperties = (List<Map<String,String>>) ElementParameterParser.getObjectValue(node,"__SERVICE_LOCATOR_CUSTOM_PROPERTIES__");
 		if (!customProperties.isEmpty()) { %>
 			java.util.Map<String, String> slCustomProps_<%=cid%> = new java.util.HashMap<String, String>();
@@ -186,11 +189,11 @@ try {
 			<% for (Entry<String,String> prop : samCustomProperties) { %>
 				samCustomProps_<%=cid%>.put(<%=prop.getKey()%>, <%=prop.getValue()%>);
 			<% } %>
-			
+
 			if(factoryBean_<%=cid%>.getProperties() == null){
 				factoryBean_<%=cid%>.setProperties(new java.util.HashMap<String,Object>());
 			}
-			
+
 			factoryBean_<%=cid%>.getProperties().put(org.talend.esb.sam.agent.feature.EventFeature.SAM_PROPERTIES, samCustomProps_<%=cid%>);
 		<% } %>
 		features_<%=cid%>.add(samEventFeature_<%=cid%>);
@@ -389,7 +392,7 @@ try {
 		// set oAuth2 bearer token
 		webClient_<%=cid%>.header("Authorization", "Bearer " + <%=paramsHelper.getStringParam("__AUTH_BEARER_TOKEN__")%>);
 	}
-	
+
 	if (use_auth_<%=cid%> && "OIDC_PASSWORD_GRANT".equals(<%=authType%>)) {
 
         <% passwordFieldName = "__AUTH_PASSWORD__"; %>
@@ -415,7 +418,7 @@ try {
 
 		webClient_<%=cid%>.header("Authorization", bearerHeader_<%=cid%>);
 	}
-    
+
 	// if FORM request then capture query parameters into Form, otherwise set them as queries
 	<% List<Map<String, String>> queries = paramsHelper.getObjectParam("__QUERY__");
 		if ("application/x-www-form-urlencoded".equals(contentType) && !"GET".equals(method) && !"DELETE".equals(method)) { %>
@@ -430,16 +433,35 @@ try {
 		<% } %>
 	<% } %>
 
+	<% if (useMapTypeInformation) { %>
+		// set Accept-Type
+        com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        String json_<%=cid%> = null;
+
+        try {
+            json_<%=cid%> = objectMapper.writeValueAsString(formData_<%=cid%>);
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+            e.printStackTrace();
+        }
+	<% } %>
 
 	try {
 		// start send request
 		<% if ("GET".equals(method)) { %>
 			responseDoc_<%=cid%> = webClient_<%=cid%>.get<%if (MULTIPART_MIXED.equals(acceptType)) {%>Collection<%}%>(responseClass_<%=cid%>);
 		<% } else if ("POST".equals(method)) { %>
-			<%if (MULTIPART_MIXED.equals(acceptType)) { %>
-				responseDoc_<%=cid%> = webClient_<%=cid%>.postObjectGetCollection(requestBody_<%=cid%>, responseClass_<%=cid%>);
-			<% } else { %>
-				responseDoc_<%=cid%> = webClient_<%=cid%>.post(requestBody_<%=cid%>);
+		    <% if (useMapTypeInformation) { %>
+                <%if (MULTIPART_MIXED.equals(acceptType)) { %>
+                    responseDoc_<%=cid%> = webClient_<%=cid%>.postObjectGetCollection(json_<%=cid%>, responseClass_<%=cid%>);
+                <% } else { %>
+                    responseDoc_<%=cid%> = webClient_<%=cid%>.post(json_<%=cid%>);
+                <% } %>
+            <% } else { %>
+                <%if (MULTIPART_MIXED.equals(acceptType)) { %>
+                    responseDoc_<%=cid%> = webClient_<%=cid%>.postObjectGetCollection(requestBody_<%=cid%>, responseClass_<%=cid%>);
+                <% } else { %>
+                    responseDoc_<%=cid%> = webClient_<%=cid%>.post(requestBody_<%=cid%>);
+                <% } %>
 			<% } %>
 		<% } else if ("PUT".equals(method)) { %>
 			responseDoc_<%=cid%> = webClient_<%=cid%>.put(requestBody_<%=cid%>);
@@ -496,7 +518,7 @@ try {
 				globalMap.put("<%=cid%>_CORRELATION_ID", webClient_<%=cid%>.getResponse().getHeaders().get("CorrelationID").get(0));
 			}
 			<% } %>
-			
+
 			<% if (!MULTIPART_MIXED.equals(acceptType) && !"GET".equals(method)) { %>
 			// handle "oneway" for PUT, POST and PATCH with empty response payload
 			if (webClientResponseStatus_<%=cid%> == 202 && responseObj_<%=cid%> == null){

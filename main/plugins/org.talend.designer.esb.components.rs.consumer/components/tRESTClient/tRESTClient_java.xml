@@ -159,7 +159,7 @@
 				SHOW_IF="USE_BUSINESS_CORRELATION == 'true'">
 			<DEFAULT>""</DEFAULT>
 		</PARAMETER>
-		
+
 		<PARAMETER NAME="CHECK_SERVER_IDENTITY" FIELD="CHECK" NUM_ROW="75">
             <DEFAULT>true</DEFAULT>
         </PARAMETER>
@@ -170,8 +170,8 @@
 	</PARAMETERS>
 
 	<ADVANCED_PARAMETERS>
-	
-	
+
+
 		<PARAMETER NAME="LOG_MESSAGES" FIELD="CHECK" REQUIRED="true" NUM_ROW="10">
 			<DEFAULT>false</DEFAULT>
 		</PARAMETER>
@@ -183,11 +183,11 @@
 				SHOW_IF="FOLLOW_REDIRECTS == 'true'">
 			<DEFAULT>false</DEFAULT>
 		</PARAMETER>
-		
+
         <PARAMETER NAME="ENABLE_WEBCLIENT_OPERATION_REPORTING" FIELD="CHECK" REQUIRED="false" NUM_ROW="25">
             <DEFAULT>true</DEFAULT>
         </PARAMETER>
-        
+
 		<PARAMETER NAME="CONVERT_RESPONSE_TO_DOM" FIELD="CHECK" REQUIRED="true" NUM_ROW="30"
 				NOT_SHOW_IF="ACCEPT_TYPE == 'ANY'">
 			<DEFAULT>true</DEFAULT>
@@ -202,6 +202,10 @@
 		</PARAMETER>
 		<PARAMETER NAME="CONVERT_TYPES_TO_STRINGS" FIELD="CHECK" REQUIRED="true" NUM_ROW="41"
 				SHOW_IF="((ACCEPT_TYPE == 'JSON') OR (ACCEPT_TYPE == 'ANY') OR (CONTENT_TYPE == 'JSON'))">
+			<DEFAULT>false</DEFAULT>
+		</PARAMETER>
+		<PARAMETER NAME="USE_MAP_TYPE_INFORMATION" FIELD="CHECK" REQUIRED="true" NUM_ROW="42"
+				   SHOW_IF="((#LINK@CONNECTOR.IN.ANY &gt; '0') AND ((ACCEPT_TYPE == 'JSON') OR (ACCEPT_TYPE == 'ANY') OR (CONTENT_TYPE == 'JSON')))">
 			<DEFAULT>false</DEFAULT>
 		</PARAMETER>
 		<PARAMETER NAME="HEADERS" FIELD="TABLE" NB_LINES="4" NUM_ROW="50">
@@ -275,7 +279,7 @@
 			<IMPORT MODULE_GROUP="security-common" REQUIRED="true" />
 
 			<IMPORT MODULE_GROUP="spring-context" REQUIRED="true" />
-            
+
 			<IMPORT MODULE_GROUP="esb-java-11-group" REQUIRED="true" />
 
 			<IMPORT MODULE_GROUP="locator"
@@ -286,6 +290,10 @@
 
 			<IMPORT MODULE_GROUP="correlationid-policy"
 					REQUIRED_IF="USE_BUSINESS_CORRELATION == 'true'" />
+
+            <IMPORT NAME="jackson-databind-2.9.9.jar" MODULE="jackson-databind-2.9.9.jar" MVN="mvn:com.fasterxml.jackson.core/jackson-databind/2.9.9" REQUIRED="true"/>
+            <IMPORT NAME="jackson-core-2.9.9.jar" MODULE="jackson-core-2.9.9.jar" MVN="mvn:com.fasterxml.jackson.core/jackson-core/2.9.9" REQUIRED="true"/>
+            <IMPORT NAME="jackson-annotations-2.9.0.jar" MODULE="jackson-annotations-2.9.0.jar" MVN="mvn:com.fasterxml.jackson.core/jackson-annotations/2.9.0" REQUIRED="true"/>
 
 		</IMPORTS>
 	</CODEGENERATION>
