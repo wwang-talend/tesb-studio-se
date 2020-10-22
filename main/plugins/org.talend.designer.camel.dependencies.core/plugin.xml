@@ -126,9 +126,9 @@
 
         <component componentName="cHttp">
             <importPackage
-                name="org.apache.camel.component.http,
-                    org.apache.commons.httpclient.protocol,
-                    org.apache.commons.httpclient.params"
+                name="org.apache.camel.component.http4,
+                    org.apache.http.client.protocol,
+                    org.apache.http.client.params"
             />
         </component>
 

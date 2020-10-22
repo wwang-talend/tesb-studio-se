@@ -143,7 +143,7 @@
             <IMPORT MODULE_GROUP="camel-core" REQUIRED="true" />
             <IMPORT MODULE_GROUP="camel-spring" REQUIRED="true" />
 
-            <IMPORT MODULE_GROUP="camel-http" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel-http4" REQUIRED="true" />
             <IMPORT MODULE_GROUP="camel-jetty" REQUIRED_IF="SERVER=='true'" />
             
             <IMPORT NAME="commons-codec-1.6.jar" MODULE="commons-codec-1.6.jar"
