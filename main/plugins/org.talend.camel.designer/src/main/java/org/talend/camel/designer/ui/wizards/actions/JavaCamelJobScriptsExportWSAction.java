@@ -67,6 +67,7 @@ import org.talend.core.runtime.repository.build.IBuildResourceParametes;
 import org.talend.designer.core.model.components.EParameterName;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.maven.utils.JobUtils;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.publish.core.models.BundleModel;
@@ -397,8 +398,18 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             ITalendProcessJavaProject talendProcessJavaProject =
                     runProcessService.getTalendJobJavaProject(repoObject.getProperty());
 
+            String bundleVersion = null;
+            if (JobUtils.isRoute(repoObject.getProperty()) && routeObject!= null) {
+                bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
+            }
+
             for (Map.Entry<String, File> e1 : m.entrySet()) {
                 String extension = e1.getKey();
+
+                if (extension!= null && extension.equalsIgnoreCase("jar") && bundleVersion != null) {
+                    extension = "-"+bundleVersion + "." + extension;
+                }
+
                 File destination = e1.getValue();
 
                 List<File> fileList = new ArrayList<File>();
