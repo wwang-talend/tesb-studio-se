@@ -234,6 +234,7 @@
             <group id="cxf-rt-frontend-jaxws" />
             <group id="cxf-rt-rs-client" />
             <group id="cxf-rt-transports-http-jetty" />
+            <group id="cxf-rt-features-clustering" />
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"

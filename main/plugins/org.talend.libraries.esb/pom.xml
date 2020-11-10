@@ -402,6 +402,10 @@
 				<groupId>wsdl4j</groupId>
 				<artifactId>wsdl4j</artifactId>
 			</exclusion>
+			<exclusion>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-features-clustering</artifactId>
+			</exclusion>
 		</exclusions>
 	</dependency>
 	<dependency>
