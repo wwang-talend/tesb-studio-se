@@ -221,7 +221,13 @@
             name="${tesb-camel-http-common}"
             id="camel-http-common"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-http-common}"
-            bundleID="" />    
+            bundleID="" />
+        <libraryNeeded
+            context="plugin:org.talend.libraries.apache.cxf"
+            id="cxf-rt-features-clustering"
+            name="${tesb-cxf-rt-features-clustering}"
+            uripath="platform:/plugin/org.talend.libraries.apache.cxf/lib/${tesb-cxf-rt-features-clustering}"
+            bundleID="" />
 
         <libraryNeededGroup
                 description="camel-cxf"
@@ -230,11 +236,11 @@
             <library id="camel-cxf" />
             <library id="camel-cxf-transport" />
             <library id="camel-http-common" />
+            <library id="cxf-rt-features-clustering" />
             <group id="cxf-core" />
             <group id="cxf-rt-frontend-jaxws" />
             <group id="cxf-rt-rs-client" />
             <group id="cxf-rt-transports-http-jetty" />
-            <group id="cxf-rt-features-clustering" />
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
