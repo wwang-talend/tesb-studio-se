@@ -403,11 +403,13 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
             String bundleVersion = null;
             if (JobUtils.isJob(repoObject.getProperty())) {
-                 IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
+                IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
                 if (process != null && ProcessUtils.isChildRouteProcess(process)) {
                     bundleVersion = PomIdsHelper.getJobVersion(repoObject.getProperty());
                 }
-            }
+            } else if (JobUtils.isRoute(repoObject.getProperty()) && routeObject!= null) {
+                bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
+            }  
 
             for (Map.Entry<String, File> e1 : m.entrySet()) {
                 String extension = e1.getKey();
