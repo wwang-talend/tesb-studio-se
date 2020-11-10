@@ -47,10 +47,12 @@ import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.Project;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -58,6 +60,7 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.IBuildJobHandler;
@@ -399,9 +402,14 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                     runProcessService.getTalendJobJavaProject(repoObject.getProperty());
 
             String bundleVersion = null;
-            if (JobUtils.isRoute(repoObject.getProperty()) && routeObject!= null) {
+            if (JobUtils.isJob(repoObject.getProperty())) {
+                IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
+                if (process != null && ProcessUtils.isChildRouteProcess(process)) {
+                    bundleVersion = PomIdsHelper.getJobVersion(repoObject.getProperty());
+                }
+            } else if (JobUtils.isRoute(repoObject.getProperty()) && routeObject!= null) {
                 bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
-            }
+            }  
 
             for (Map.Entry<String, File> e1 : m.entrySet()) {
                 String extension = e1.getKey();
