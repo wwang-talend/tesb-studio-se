@@ -52,6 +52,7 @@ import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.ProjectReference;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -401,20 +402,22 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                     runProcessService.getTalendJobJavaProject(repoObject.getProperty());
 
             String bundleVersion = null;
-            if (JobUtils.isJob(repoObject.getProperty())) {
-                 IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
-                if (process != null && routeObject!= null && ProcessUtils.isChildRouteProcess(process)) {
+            if (repoObject != null && JobUtils.isJob(repoObject.getProperty())) {
+                IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
+                if (process != null && ProcessUtils.isChildRouteProcess(process)) {
                     bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
                 }
-            }
-            
+            } else if (repoObject != null && JobUtils.isRoute(repoObject.getProperty()) && routeObject!= null) {
+                bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
+            }  
+
             for (Map.Entry<String, File> e1 : m.entrySet()) {
                 String extension = e1.getKey();
-                
+
                 if (extension!= null && extension.equalsIgnoreCase("jar") && bundleVersion != null) {
                     extension = "-"+bundleVersion + "." + extension;
                 }
-                
+
                 File destination = e1.getValue();
 
                 List<File> fileList = new ArrayList<File>();
