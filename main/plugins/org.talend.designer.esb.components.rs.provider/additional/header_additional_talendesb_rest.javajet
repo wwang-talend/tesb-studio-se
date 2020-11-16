@@ -1431,6 +1431,8 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 	
 	boolean inOSGi = routines.system.BundleUtils.inOSGi();
 	
+	private java.util.Map<String, Object> valueMap;
+	
 	public org.apache.cxf.endpoint.Server getServer(){
 		return server;
 	}
@@ -1471,6 +1473,16 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 				jsonProvider.setWrapperName("root");
 			<% } %>
 
+			jsonProvider.setTypeConverter(new org.codehaus.jettison.mapped.TypeConverter() {
+				public Object convertToJSONPrimitive(String text) {
+					for (java.util.Map.Entry<String, Object> value : valueMap.entrySet()) {
+						if (text.equals(String.valueOf(value.getValue()))) {
+							return value.getValue();
+						}
+					}
+					return text;
+				}
+			});
 			<% if (Boolean.valueOf(ElementParameterParser.getValue(node,"__CONVERT_JSON_VALUES_TO_STRING__"))) { %>
 				jsonProvider.setConvertTypesToStrings(true);
 			<% } else { %>
@@ -1587,6 +1599,10 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			server.destroy();
 			// System.out.println("REST service [endpoint: " + endpointUrl + "] unpublished");
 		}
+	}
+	
+	public void setValueMap(java.util.Map<String, Object> valueMap) {
+		this.valueMap = valueMap;
 	}
 }
 <%
