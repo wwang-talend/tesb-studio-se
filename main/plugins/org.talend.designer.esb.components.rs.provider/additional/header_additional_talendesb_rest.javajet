@@ -1503,14 +1503,14 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 				jsonProvider.setWrapperName("root");
 			<% } %>
 
-			jsonProvider.setTypeConverter(new org.codehaus.jettison.mapped.TypeConverter() {
+			jsonProvider.setTypeConverter(new org.codehaus.jettison.mapped.DefaultConverter() {
 				public Object convertToJSONPrimitive(String text) {
 					for (java.util.Map.Entry<String, Object> value : valueMap.entrySet()) {
 						if (text.equals(String.valueOf(value.getValue()))) {
 							return value.getValue();
 						}
 					}
-					return text;
+					return super.convertToJSONPrimitive(text);
 				}
 			});
 			<% if (Boolean.valueOf(ElementParameterParser.getValue(node,"__CONVERT_JSON_VALUES_TO_STRING__"))) { %>
