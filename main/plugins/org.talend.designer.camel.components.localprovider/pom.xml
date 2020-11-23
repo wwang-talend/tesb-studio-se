@@ -59,7 +59,7 @@
         <asm-version>5.0.3</asm-version>
         <!-- swagger dependencies -->
         <swagger.version>1.5.21</swagger.version>
-        <swagger.ui.version>2.2.0</swagger.ui.version>
+        <swagger.ui.version>2.2.10</swagger.ui.version>
         <slf4j-api.version>1.7.26</slf4j-api.version>
         <reflections.version>0.9.11</reflections.version>
         <guava.version>20.0</guava.version>
