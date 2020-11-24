@@ -161,7 +161,7 @@ public class RouteBundleExportAction extends JobExportAction {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.SPRING_FOLDER_NAME));
                             } else if (relativePath.startsWith(FileConstants.TALEND_FOLDER_NAME)) {
                                 FilesUtils.copyFile(file, getTemporaryBundleResource(file, FileConstants.TALEND_FOLDER_NAME));
-                            } else if (relativePath.startsWith("MAVEN-INF")) {
+                            } else if (relativePath.startsWith(FileConstants.MAVEN_FOLDER_NAME)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, relativePath));
                             }
                         }
