@@ -221,7 +221,7 @@
             name="${tesb-camel-http-common}"
             id="camel-http-common"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-http-common}"
-            bundleID="" />    
+            bundleID="" />
 
         <libraryNeededGroup
                 description="camel-cxf"
