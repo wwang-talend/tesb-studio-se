@@ -49,7 +49,6 @@ import org.talend.core.ILibraryManagerService;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.general.ModuleStatusProvider;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.ProcessItem;
@@ -61,7 +60,6 @@ import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.repository.constants.FileConstants;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
-import org.talend.core.runtime.CoreRuntimePlugin;
 import org.talend.core.runtime.maven.MavenConstants;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.IBuildJobHandler;
@@ -71,7 +69,6 @@ import org.talend.core.runtime.repository.build.IBuildResourceParametes;
 import org.talend.designer.core.model.components.EParameterName;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.designer.maven.utils.JobUtils;
 import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.publish.core.models.BundleModel;
@@ -385,22 +382,9 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
 
             ITalendProcessJavaProject talendProcessJavaProject =
                     runProcessService.getTalendJobJavaProject(repoObject.getProperty());
-            
-            String bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
-            if (JobUtils.isJob(repoObject.getProperty())) {
-                IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
-               if (process != null && ProcessUtils.isChildRouteProcess(process)) {
-                   bundleVersion = PomIdsHelper.getJobVersion(repoObject.getProperty());
-               }
-            }
 
             for (Map.Entry<String, File> e1 : m.entrySet()) {
                 String extension = e1.getKey();
-                
-                if (extension!= null && extension.equalsIgnoreCase("jar") && bundleVersion != null) {
-                    extension = "-"+bundleVersion + "." + extension;
-                }
-                
                 File destination = e1.getValue();
 
                 List<File> fileList = new ArrayList<File>();
