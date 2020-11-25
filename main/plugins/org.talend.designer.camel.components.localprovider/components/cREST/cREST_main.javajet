@@ -79,10 +79,10 @@ imports="
 
         } else if (!endpointUrlStudio.contains("://")) { // relative or context variable
 
-			// ^(?!.*\\.).*$ not start with "xxx."
-			// ^(?!\\/).*$ not start with "/xxx"
+			// ^(?!.*\\.).*$ not start with xxx.
+			// ^(?!\"\\/).*$ not start with "/xxx"
 
-            if (endpointUrlStudio.matches("^(?!.*\\.).*$") && endpointUrlStudio.matches("^(?!\\/).*$")) {
+            if (endpointUrlStudio.matches("^(?!.*\\.).*$") && endpointUrlStudio.matches("^(?!\"\\/).*$")) {
                 endpointUrlStudio = "\"/" + endpointUrlStudio.substring(1);
             }
 
