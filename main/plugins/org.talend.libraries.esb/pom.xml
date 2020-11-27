@@ -542,6 +542,16 @@
 		<groupId>org.apache.activemq</groupId>
 		<artifactId>activemq-camel</artifactId>
 		<version>${activemq.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jms</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+			</exclusion>
+		</exclusions>
 	</dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
