@@ -721,6 +721,89 @@
             <group id="cxf-rt-ws-security" />
         </libraryNeededGroup>
 
+        <!-- Java 11 missing jars begin-->
+        <libraryNeededGroup
+                description="esb-java-11-group"
+                id="esb-java-11-group"
+                name="esb-java-11-group">
+            <library id="istack-commons-runtime-3.0.8" />
+            <library id="jakarta.xml.bind-api-2.3.2" />
+            <library id="jakarta.xml.soap-api-1.4.1" />
+            <library id="javax.activation-1.2.0" />
+            <library id="javax.annotation-api-1.3" />
+            <library id="jaxb-runtime-2.3.2" />
+            <library id="istack-commons-runtime-3.0.8" />
+            <library id="stax-ex-1.8.1" />
+            <library id="txw2-2.3.2" />
+            <library id="jakarta.jws-api-1.1.1" />
+            <library id="org.apache.servicemix.specs.jaxws-api-2.2-2.9.0" />
+        </libraryNeededGroup>
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="istack-commons-runtime-3.0.8.jar"
+                       id="istack-commons-runtime-3.0.8"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/istack-commons-runtime-3.0.8.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="jakarta.xml.bind-api-2.3.2.jar"
+                       id="jakarta.xml.bind-api-2.3.2"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.bind-api-2.3.2.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="jakarta.xml.soap-api-1.4.1.jar"
+                       id="jakarta.xml.soap-api-1.4.1"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.soap-api-1.4.1.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="javax.activation-1.2.0.jar"
+                       id="javax.activation-1.2.0"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/javax.activation-1.2.0.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="javax.annotation-api-1.3.jar"
+                       id="javax.annotation-api-1.3"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/javax.annotation-api-1.3.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="jaxb-runtime-2.3.2.jar"
+                       id="jaxb-runtime-2.3.2"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/jaxb-runtime-2.3.2.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="istack-commons-runtime-3.0.8.jar"
+                       id="istack-commons-runtime-3.0.8"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/istack-commons-runtime-3.0.8.jar"
+                       bundleID="" />
+        <!-- libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="org.apache.servicemix.bundles.saaj-impl-1.5.1_1.jar"
+            id="org.apache.servicemix.bundles.saaj-impl-1.5.1_1"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/org.apache.servicemix.bundles.saaj-impl-1.5.1_1.jar"
+            bundleID="" / -->
+        <!-- libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="org.apache.servicemix.bundles.xerces-2.12.0_1.jar"
+            id="org.apache.servicemix.bundles.xerces-2.12.0_1"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/org.apache.servicemix.bundles.xerces-2.12.0_1.jar"
+            bundleID="" / -->
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="stax-ex-1.8.1.jar"
+                       id="stax-ex-1.8.1"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/stax-ex-1.8.1.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="txw2-2.3.2.jar"
+                       id="txw2-2.3.2"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/txw2-2.3.2.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="jakarta.jws-api-1.1.1.jar"
+                       id="jakarta.jws-api-1.1.1"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.jws-api-1.1.1.jar"
+                       bundleID="" />
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
+                       name="org.apache.servicemix.specs.jaxws-api-2.2-2.9.0.jar"
+                       id="org.apache.servicemix.specs.jaxws-api-2.2-2.9.0"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/org.apache.servicemix.specs.jaxws-api-2.2-2.9.0.jar"
+                       bundleID="" />
+        <!-- Java 11 missing jars end-->
     </extension>
 
 </plugin>
