@@ -632,7 +632,7 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
                             needToInstallDependency.setGroupId(getGroupId());
                             needToInstallDependency.setVersion(getArtifactVersion());
 
-                            if (!PomUtil.isAvailable(needToInstallDependency)) {
+                            if (!PomUtil.isAvailable(needToInstallDependency) || routeletFile.length() == 0) {
 
                                 String filePath = PomUtil.getAbsArtifactPath(PomUtil.convertToArtifact(d));
 
