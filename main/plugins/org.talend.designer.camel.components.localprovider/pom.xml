@@ -12,18 +12,18 @@
   <packaging>eclipse-plugin</packaging>
 
     <properties>
-        <camel.version>2.24.2</camel.version>
-        <camel.mqtt.version>2.24.2.tesb1</camel.mqtt.version>
-        <camel.wmq.version>${camel.version}.1</camel.wmq.version>
+        <camel.version>2.25.2</camel.version>
+        <camel.mqtt.version>${camel.version}.tesb1</camel.mqtt.version>
+        <camel.wmq.version>${camel.version}</camel.wmq.version>
         <!-- camel-groovy -->
         <groovy.version>2.4.8</groovy.version>
         <!-- camel-xstream -->
-        <xstream.version>1.4.11.1</xstream.version>
+        <xstream.version>1.4.14</xstream.version>
         <xpp3.version>1.1.6</xpp3.version>
         <!-- camel-amqp -->
         <qpid-jms-client.version>0.38.0</qpid-jms-client.version>
         <qpid-proton-j.version>0.30.0</qpid-proton-j.version>
-        <io-netty.version>4.1.42.Final</io-netty.version>
+        <io-netty.version>4.1.48.Final</io-netty.version>
         <geronimo-jms.version>1.1.1</geronimo-jms.version>
         <geronimo-j2ee-management.version>1.0.1</geronimo-j2ee-management.version>
         <!-- camel-mqtt -->
@@ -31,8 +31,8 @@
         <hawtbuf.version>1.10</hawtbuf.version>
         <hawtdispatch.version>1.21</hawtdispatch.version>
         <!-- camel-ftp -->
-        <jsch.version>0.1.53</jsch.version>
-        <commons-net.version>3.3</commons-net.version>
+        <jsch.version>0.1.55</jsch.version>
+        <commons-net.version>3.6</commons-net.version>
         <!-- camel-flatpack -->
         <flatpack.version>3.4.3</flatpack.version>
         <jdom.version>1.1.3</jdom.version>
@@ -50,9 +50,9 @@
         <hawtdb-version>1.6</hawtdb-version>
         <Saxon-HE-version>9.7.0-21</Saxon-HE-version>
         <!-- camel-kafka -->
-        <kafka-clients-version>0.11.0.2</kafka-clients-version>
-        <snappy-java-version>1.1.1.7</snappy-java-version>
-        <lz4-version>1.2.0</lz4-version>
+        <kafka-clients-version>2.1.1</kafka-clients-version>
+        <snappy-java-version>1.1.4</snappy-java-version>
+        <lz4-version>1.5.0</lz4-version>
         <!-- camel-jsonpath -->
         <json-path-version>2.1.0</json-path-version>
         <json-smart-action-version>2.3</json-smart-action-version>
@@ -60,7 +60,7 @@
         <asm-version>5.0.3</asm-version>
         <!-- swagger dependencies -->
         <swagger.version>1.5.21</swagger.version>
-        <swagger.ui.version>2.2.0</swagger.ui.version>
+        <swagger.ui.version>2.2.10</swagger.ui.version>
         <slf4j-api.version>1.7.26</slf4j-api.version>
         <reflections.version>0.9.11</reflections.version>
         <guava.version>20.0</guava.version>
@@ -603,8 +603,8 @@
             <version>${snappy-java-version}</version>
         </dependency>
         <dependency>
-            <groupId>net.jpountz.lz4</groupId>
-            <artifactId>lz4</artifactId>
+            <groupId>org.lz4</groupId>
+            <artifactId>lz4-java</artifactId>
             <version>${lz4-version}</version>
         </dependency>
 
