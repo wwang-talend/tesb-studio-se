@@ -1634,8 +1634,11 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 				inContext = <%=className %>.class.getClassLoader()
 						.getResourceAsStream("config/contexts/" + context + ".properties");
 			}
-			defaultProps.load(inContext);
-			inContext.close();
+			try {
+			    defaultProps.load(inContext);
+			} finally {
+			    inContext.close();
+			}
 			java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("context.([\\w]+)");
 			java.util.regex.Matcher matcher = pattern.matcher(contextExpression);
 
