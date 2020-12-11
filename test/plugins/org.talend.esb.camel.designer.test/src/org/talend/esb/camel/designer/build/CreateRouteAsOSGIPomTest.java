@@ -170,7 +170,7 @@ public class CreateRouteAsOSGIPomTest {
 
     // ---- TEST CASES BELOW
 
-    @Test
+    // @Test
     public void demoRESTRouteAsOSGI() throws PersistenceException, IOException, CoreException {
         String testCaseName = "RouteAsOSGI"; //$NON-NLS-1$
         initializeAndCompare(testCaseName);
