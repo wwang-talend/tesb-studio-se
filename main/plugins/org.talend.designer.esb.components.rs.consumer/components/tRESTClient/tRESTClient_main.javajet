@@ -589,19 +589,6 @@ try {
             // handle "oneway" for PUT, POST and PATCH with empty response payload
             if (webClientResponseStatus_<%=cid%> == 202 && responseObj_<%=cid%> == null){
                     <%=connResponseName%>.string = "";
-                <%
-                boolean needResponse = false;
-                IProcess process = node.getProcess();
-                List<? extends INode> graphicalNodes = process.getGraphicalNodes();
-                    for (INode graphicalNode : graphicalNodes) {
-                        if ("tRESTResponse".equals(graphicalNode.getComponent().getName()) ) {
-                           needResponse=true;
-                        }
-                    }
-                if(!needResponse) {
-                %>
-                    return;
-                <% } %>
             }
             <% } %>
 		<% } %>
