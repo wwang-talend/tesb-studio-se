@@ -1111,10 +1111,12 @@ public class ESBService implements IESBService {
     public boolean isSOAPServiceProvider(Item item) {
         if (item instanceof ProcessItem) {
             ProcessType process = ((ProcessItem) item).getProcess();
-            for (Object node : process.getNode()) {
-                NodeType nodeType = (NodeType) node;
-                if (PROVIDER_REQUEST.equals(nodeType.getComponentName())) {
-                    return true;
+            if (process != null) {
+                for (Object node : process.getNode()) {
+                    NodeType nodeType = (NodeType) node;
+                    if (PROVIDER_REQUEST.equals(nodeType.getComponentName())) {
+                        return true;
+                    }
                 }
             }
         }
