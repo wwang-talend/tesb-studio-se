@@ -262,6 +262,10 @@
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.bind-api-2.3.2.jar"
                 REQUIRED="true"/>
 
+			<IMPORT MODULE="org.osgi.service.cm-1.6.0.jar" MVN="mvn:org.talend.libraries/org.osgi.service.cm/1.6.0" NAME="org.osgi.service.cm-1.6.0.jar"
+					UrlPath="platform:/plugin/org.talend.libraries.esb/lib/org.osgi.service.cm-1.6.0.jar"
+					REQUIRED="true"/>
+
             <IMPORT MODULE_GROUP="security-common" REQUIRED="true" />
 			
 			<IMPORT MODULE_GROUP="spring-context"  REQUIRED="true" />
