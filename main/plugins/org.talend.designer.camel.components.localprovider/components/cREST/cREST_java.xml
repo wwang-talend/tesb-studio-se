@@ -255,9 +255,9 @@
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/swagger-annotations-1.5.24.jar"
                 REQUIRED_IF="(EXPOSE_SWAGGER_SPEC == 'true')"/>
 
-            <IMPORT MODULE="cxf-rt-rs-service-description-swagger-3.3.4.jar" MVN="mvn:org.talend.libraries/cxf-rt-rs-service-description-swagger/6.0.0"
-                NAME="cxf-rt-rs-service-description-swagger-3.3.4"
-                UrlPath="platform:/plugin/org.talend.libraries.esb/lib/cxf-rt-rs-service-description-swagger-3.3.4.jar"
+            <IMPORT MODULE="cxf-rt-rs-service-description-swagger-3.3.7.jar" MVN="mvn:org.talend.libraries/cxf-rt-rs-service-description-swagger/6.0.0"
+                NAME="cxf-rt-rs-service-description-swagger-3.3.7"
+                UrlPath="platform:/plugin/org.talend.libraries.esb/lib/cxf-rt-rs-service-description-swagger-3.3.7.jar"
                 REQUIRED_IF="(EXPOSE_SWAGGER_SPEC == 'true')"/>
 
             <IMPORT MODULE="cxf-rt-rs-service-description-common-openapi-3.3.4.jar" MVN="mvn:org.talend.libraries/cxf-rt-rs-service-description-common-openapi/6.0.0"
@@ -268,6 +268,7 @@
             <IMPORT MODULE="cxf-rt-rs-service-description-swagger-ui-3.3.4.jar" MVN="mvn:org.talend.libraries/cxf-rt-rs-service-description-swagger-ui/6.0.0"
                 NAME="cxf-rt-rs-service-description-swagger-ui-3.3.4"
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/cxf-rt-rs-service-description-swagger-ui-3.3.4.jar"
+
                 REQUIRED="true"/>
 
             <IMPORT MODULE="swagger-jaxrs-1.5.24.jar" MVN="mvn:org.talend.libraries/swagger-jaxrs/6.0.0" NAME="swagger-jaxrs-1.5.24"
@@ -296,8 +297,8 @@
                 UrlPath="platform:/plugin/org.talend.libraries.esb/lib/jackson-dataformat-yaml-2.10.1.jar"
                 REQUIRED_IF="(EXPOSE_SWAGGER_SPEC == 'true')"/>
 
-            <IMPORT MODULE="guava-20.0.jar" MVN="mvn:com.google.guava/guava/20.0" NAME="guava-20.0.jar"
-                UrlPath="platform:/plugin/org.talend.libraries.esb/lib/guava-20.0.jar"
+            <IMPORT MODULE="guava-30.0-jre.jar" MVN="mvn:com.google.guava/guava/30.0-jre" NAME="guava-30.0-jre.jar"
+                UrlPath="platform:/plugin/org.talend.libraries.esb/lib/guava-30.0-jre.jar"
                 REQUIRED_IF="(EXPOSE_SWAGGER_SPEC == 'true')"/>
 
             <IMPORT MODULE="validation-api-2.0.1.Final.jar" MVN="mvn:org.talend.libraries/validation-api/6.0.0" NAME="validation-api-2.0.1.Final"
