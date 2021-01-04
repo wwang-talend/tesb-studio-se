@@ -515,6 +515,7 @@ try {
 
 
 			globalMap.put("<%=cid%>_HEADERS", webClient_<%=cid%>.getResponse().getHeaders());
+			globalMap.put("<%=cid%>_COOKIES", webClient_<%=cid%>.getResponse().getCookies());
 			<% if (useBusinessCorrelation) { %>
 			if (null != webClient_<%=cid%>.getResponse().getHeaders().get("CorrelationID")) {
 				globalMap.put("<%=cid%>_CORRELATION_ID", webClient_<%=cid%>.getResponse().getHeaders().get("CorrelationID").get(0));
@@ -542,6 +543,7 @@ try {
 			<%=connFaultName%>.errorMessage = errorMessage_<%=cid%>;
 
 			globalMap.put("<%=cid%>_HEADERS", ex_<%=cid%>.getResponse().getHeaders());
+			globalMap.put("<%=cid%>_COOKIES", ex_<%=cid%>.getResponse().getCookies());
 			<% if (useBusinessCorrelation) { %>
 			if (null != webClient_<%=cid%>.getResponse().getHeaders().get("CorrelationID")) {
 				globalMap.put("<%=cid%>_CORRELATION_ID", webClient_<%=cid%>.getResponse().getHeaders().get("CorrelationID").get(0));
