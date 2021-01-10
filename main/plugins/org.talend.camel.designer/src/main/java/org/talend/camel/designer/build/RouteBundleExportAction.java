@@ -49,9 +49,8 @@ import org.talend.repository.ui.wizards.exportjob.scriptsmanager.JobScriptsManag
 /**
  * DOC sunchaoqun  class global comment. Detailled comment
  * <br/>
- *
+ * <p>
  * $Id$
- *
  */
 public class RouteBundleExportAction extends JobExportAction {
 
@@ -76,7 +75,7 @@ public class RouteBundleExportAction extends JobExportAction {
      * @param type
      */
     public RouteBundleExportAction(List<? extends IRepositoryNode> nodes, String jobVersion, String bundleVersion,
-            JobScriptsManager manager, String directoryName, String type) {
+                                   JobScriptsManager manager, String directoryName, String type) {
         super(nodes, jobVersion, bundleVersion, manager, directoryName, type);
         this.nodes = nodes;
         this.runProcessService = CorePlugin.getDefault().getRunProcessService();
@@ -103,8 +102,8 @@ public class RouteBundleExportAction extends JobExportAction {
 
         return null;
     }
-	
-	private File getTemporaryBundleResource(File realFile, String relatedPath) {
+
+    private File getTemporaryBundleResource(File realFile, String relatedPath) {
 
         if (nodes != null && nodes.size() > 0) {
             ITalendProcessJavaProject talendProcessJavaProject = runProcessService
@@ -174,7 +173,7 @@ public class RouteBundleExportAction extends JobExportAction {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.BLUEPRINT_FOLDER_NAME));
                             } else if (FileConstants.SPRING_FOLDER_NAME.equals(relativePath)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.SPRING_FOLDER_NAME));
-							} else if (relativePath.startsWith(FileConstants.TALEND_FOLDER_NAME)) {
+                            } else if (relativePath.startsWith(FileConstants.TALEND_FOLDER_NAME)) {
                                 FilesUtils.copyFile(file, getTemporaryBundleResource(file, FileConstants.TALEND_FOLDER_NAME));
                             } else if (relativePath.startsWith(FileConstants.MAVEN_FOLDER_NAME)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, relativePath));
