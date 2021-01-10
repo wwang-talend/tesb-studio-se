@@ -49,7 +49,7 @@ import org.talend.repository.ui.wizards.exportjob.scriptsmanager.JobScriptsManag
 /**
  * DOC sunchaoqun  class global comment. Detailled comment
  * <br/>
- * <p>
+ * 
  * $Id$
  */
 public class RouteBundleExportAction extends JobExportAction {
@@ -75,7 +75,7 @@ public class RouteBundleExportAction extends JobExportAction {
      * @param type
      */
     public RouteBundleExportAction(List<? extends IRepositoryNode> nodes, String jobVersion, String bundleVersion,
-                                   JobScriptsManager manager, String directoryName, String type) {
+            JobScriptsManager manager, String directoryName, String type) {
         super(nodes, jobVersion, bundleVersion, manager, directoryName, type);
         this.nodes = nodes;
         this.runProcessService = CorePlugin.getDefault().getRunProcessService();
