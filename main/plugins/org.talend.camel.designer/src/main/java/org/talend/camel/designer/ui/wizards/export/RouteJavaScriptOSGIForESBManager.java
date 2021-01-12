@@ -140,7 +140,7 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             }
         }
 
-        addRoutinesResources(processes, libResource);
+        // addRoutinesResources(processes, libResource);
         return libResource;
     }
 
@@ -209,6 +209,9 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
     protected void generateConfig(ExportFileResource osgiResource, ProcessItem processItem, IProcess process)
             throws IOException {
 
+        long l = System.currentTimeMillis();
+        System.out.println("------------------------> 1.7.1 " + (System.currentTimeMillis() - l));
+
         boolean needBlueprint = true;
 
         for (String componentName : BuildJobConstants.esbComponents) {
@@ -218,21 +221,29 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             }
         }
 
+        System.out.println("------------------------> 1.7.2 " + (System.currentTimeMillis() - l));
+
         Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
+        System.out.println("------------------------> 1.7.2.1 " + (System.currentTimeMillis() - l));
 
         if (needBlueprint) {
             final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
 
-            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
-                    collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
+            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", collectRouteInfo, targetFile,
+                    getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
+
+            System.out.println("------------------------> 1.7.2.2 " + (System.currentTimeMillis() - l));
 
             osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
         }
+
+        System.out.println("------------------------> 1.7.3 " + (System.currentTimeMillis() - l));
 
         String springContent = null;
         if (processItem instanceof CamelProcessItem) {
             springContent = ((CamelProcessItem) processItem).getSpringContent();
         }
+        System.out.println("------------------------> 1.7.4 " + (System.currentTimeMillis() - l));
 
         if (springContent != null && springContent.length() > 0) {
             String springTargetFilePath = collectRouteInfo.get("name").toString().toLowerCase() + ".xml"; //$NON-NLS-1$
@@ -240,6 +251,7 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             handleSpringXml(springTargetFilePath, processItem, springContentInputStream, osgiResource, true,
                     CONVERT_SPRING_IMPORT);
         }
+        System.out.println("------------------------> 1.7.5 " + (System.currentTimeMillis() - l));
     }
 
     @Override
