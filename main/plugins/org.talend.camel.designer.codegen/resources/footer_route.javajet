@@ -161,9 +161,8 @@
     %>
     
         private java.util.Dictionary<String, String> loadHttpConduitProperties(String configName) {
-            java.io.InputStream is = getConfigLocation(configName);
             Properties properties = new Properties();
-            try {
+            try (java.io.InputStream is = getConfigLocation(configName)) {
                 properties.load(is);
             } catch (Exception e) {
                 throw new RuntimeException("Cannot load the properties", e);
@@ -613,8 +612,11 @@ if (isTestContainer) {
                     java.io.InputStream inContext = <%=className %>.class.getClassLoader().getResourceAsStream("<%=JavaResourcesHelper.getJobClassPackageFolder(process) %>/contexts/"+contextName+".properties");
 
                     if (inContext!=null) {
-                        context.load(inContext);
-                        inContext.close();
+                        try {
+                            context.load(inContext);
+                        } finally {
+                            inContext.close();
+                        }
                     }else{
                         //print info and job continue to run, for case: context_param is not empty.
                         System.err.println("Could not find the context " + contextName);
