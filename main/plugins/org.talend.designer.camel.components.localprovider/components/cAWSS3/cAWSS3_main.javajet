@@ -115,6 +115,7 @@ imports="
         for (Map<String, String> map : messageHeaders) {
             String header = map.get("MESSAGE_HEADER");
             String value = map.get("MESSAGE_HEADER_VALUE");
+
             String valueTrim = value.trim();
 			int valueLen = valueTrim.length();
 			final int CAMEL_EXPRESSION_MIN_LENGTH = 5;
@@ -153,8 +154,9 @@ imports="
                 sb1.append(value);
                 sb1.append("))");
             }
-        }
 
+        }
+        
         if (("true".equals(useMessageHeadersUserDefined)) && (userDefinedHeaders.size()>0)) {
             sb1.append(".setHeader(\"");
             sb1.append("CamelAwsS3Headers");
