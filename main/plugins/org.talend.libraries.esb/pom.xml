@@ -577,5 +577,11 @@
         <artifactId>guava</artifactId>
         <version>30.0-jre</version>
     </dependency>
+    
+    <dependency>
+	    <groupId>org.osgi</groupId>
+	    <artifactId>org.osgi.service.cm</artifactId>
+	    <version>1.6.0</version>
+    </dependency>
   </dependencies>
 </project>

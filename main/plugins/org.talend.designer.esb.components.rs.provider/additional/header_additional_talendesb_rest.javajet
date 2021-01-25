@@ -1660,6 +1660,22 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			return engine.eval(expression).toString();
 		}
 		
+		public static String getContext(String context, String contextName, org.osgi.service.cm.ConfigurationAdmin configAdmin, String jobName) throws Exception {
+	
+			String currentContext = null;
+		
+			try {
+				java.util.Dictionary<String, Object> jobProperties =
+					configAdmin.getConfiguration(jobName.substring(jobName.lastIndexOf(".") + 1)).getProperties();
+		
+				currentContext = (String)jobProperties.get("context");
+			} catch(java.lang.Exception e) {
+				currentContext = null;
+			}
+		
+			return contextName.contains("context.") ? evaluate(currentContext == null ? context : currentContext, contextName) : contextName;
+		}
+		
 		public static String getContext(String context, String contextName) throws Exception {
 			return contextName.contains("context.") ? evaluate(context, contextName) : contextName;
 		}
