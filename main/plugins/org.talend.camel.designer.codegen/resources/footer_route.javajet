@@ -614,10 +614,12 @@ if (isTestContainer) {
                     if (inContext!=null) {
                         try {
                             context.load(inContext);
-							if (null != getContext().hasComponent("routelet_props")) {
-								org.apache.camel.component.properties.PropertiesComponent props = getContext().getComponent("routelet_props", org.apache.camel.component.properties.PropertiesComponent.class);
+					
+							if (null != getContext().hasComponent("<%=className %>_properties")) {
+								org.apache.camel.component.properties.PropertiesComponent props = getContext().getComponent("<%=className %>_properties", org.apache.camel.component.properties.PropertiesComponent.class);
 								context.putAll(props.getOverrideProperties());
 							}
+							
                         } finally {
                             inContext.close();
                         }
