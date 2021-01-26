@@ -80,8 +80,8 @@ public class CLASS {
 						
 	            	}
 	            	code.append(instanceName +".setArguments(overwriteContext_"+instanceName+");\n");
-					code.append(instanceName +"_props.setOverrideProperties(overwriteContext_" + instanceName + ");\n");
-					code.append("camelContext.addComponent(\"" + instanceName + "_properties\", " + instanceName +"_props);\n\n");
+			code.append(instanceName +"_props.setOverrideProperties(overwriteContext_" + instanceName + ");\n");
+			code.append("camelContext.addComponent(\"" + instanceName + "_properties\", " + instanceName +"_props);\n\n");
 
 	            }
 
