@@ -37,6 +37,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.talend.camel.core.model.camelProperties.CamelProcessItem;
+import org.talend.camel.core.model.camelProperties.RouteletProcessItem;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -1039,11 +1040,12 @@ public class ESBService implements IESBService {
             if (property.getItem() instanceof CamelProcessItem) {
                 // Case of a route
                 return GROUP_ID_ROUTE_SUFFIX;
-
+            } else if (property.getItem() instanceof RouteletProcessItem) {
+            	// Case of a routelet
+                return GROUP_ID_ROUTE_SUFFIX;
             } else if (property.getItem() instanceof ServiceItem) {
                 // case of a service
                 return GROUP_ID_SERVICE_SUFFIX;
-
             } else if (property.getItem() instanceof ProcessItem) {
                 // case of a job with a tRESTRequest component (considered as a service)
                 ProcessItem item = (ProcessItem) property.getItem();
