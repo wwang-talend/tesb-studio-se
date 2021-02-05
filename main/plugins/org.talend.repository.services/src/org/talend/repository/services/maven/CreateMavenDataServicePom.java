@@ -22,6 +22,7 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.ActivationProperty;
 import org.apache.maven.model.Build;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.apache.maven.model.Plugin;
@@ -327,7 +328,14 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         pluginExecution.setId("create-kar");
         pluginExecution.addGoal("kar");
         pluginExecution.setConfiguration(configuration);
+        
+        Dependency dependency = new Dependency();
+        dependency.setGroupId("org.apache.maven.shared");
+        dependency.setArtifactId("maven-shared-utils");
+        dependency.setVersion("3.3.3");
 
+        plugin.addDependency(dependency);
+        
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
 
