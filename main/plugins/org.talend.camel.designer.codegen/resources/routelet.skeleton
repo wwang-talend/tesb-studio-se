@@ -53,7 +53,7 @@ public class CLASS {
 	            final String routeletClass = org.talend.core.model.utils.RouteUtil.resolveClassName(routelet);
 	            final String instanceName = routeletClass.substring(routeletClass.lastIndexOf('.')+1);
 	            code.append(routeletClass +" "+ instanceName +"=new "+ routeletClass+ "();\n");
-				code.append("org.apache.camel.component.properties.PropertiesComponent "+ instanceName +"_props = new org.apache.camel.component.properties.PropertiesComponent();\n");
+		    code.append("org.apache.camel.component.properties.PropertiesComponent "+ instanceName +"_props = new org.apache.camel.component.properties.PropertiesComponent();\n");
 	            if(useRoute){
 	            	if(!routeContextCodeGenerated && !exportTypeSpringBoot){
 	            		routeContextCodeGenerated=true;
@@ -79,8 +79,8 @@ public class CLASS {
 	            		code.append("overwriteContext_"+instanceName+".put(\""+map.get("Parameters")+"\", "+map.get("Values")+");\n"); 
 	            	}
 	            	code.append(instanceName +".setArguments(overwriteContext_"+instanceName+");\n");
-					code.append(instanceName +"_props.setOverrideProperties(overwriteContext_" + instanceName + ");\n");
-					code.append("camelContext.addComponent(\"" + instanceName + "_properties\", " + instanceName +"_props);\n\n");
+			code.append(instanceName +"_props.setOverrideProperties(overwriteContext_" + instanceName + ");\n");
+			code.append("camelContext.addComponent(\"" + instanceName + "_properties\", " + instanceName +"_props);\n\n");
 	            }
 
 	            if (exportTypeSpringBoot) code.append("camelContext.addRoutes("+instanceName+");");
