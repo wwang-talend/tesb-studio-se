@@ -83,9 +83,16 @@ public class BeanImportHandler extends ImportRepTypeHandler {
                     IMPORTType importType = (IMPORTType) imp;
 
                     String impName = importType.getMODULE().substring(importType.getMODULE().lastIndexOf('-') + 1);
-                    if (StringUtils.startsWith(importType.getMODULE(), camelCxfPrefix) && "TESB.jar".equals(impName)) {
-                        importType.setMODULE(camelCxfPrefix + camelVersionSubString);
-                        importType.setMVN("mvn:org.talend.libraries/" + camelCxfPrefix + camelVersion + "/6.0.0-SNAPSHOT/jar");
+                    if (StringUtils.startsWith(importType.getMODULE(), camelCxfPrefix)) {
+                        if("TESB.jar".equals(impName)) {
+                            importType.setMODULE(camelCxfPrefix + camelVersionSubString);
+                            importType.setMVN("mvn:org.talend.libraries/" + camelCxfPrefix + camelVersion + "/6.0.0-SNAPSHOT/jar");;;
+                        }
+                        String mvnURI = importType.getMVN();
+                        if (mvnURI != null) {
+                            mvnURI = mvnURI.replace("/6.0.0-SNAPSHOT", "/6.0.0");
+                            importType.setMVN(mvnURI);
+                        }
                     }
                 }
 
