@@ -2310,6 +2310,13 @@ if (isProvider) {
                 ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(compositeRegistry);
 
                 <%
+                    if(process.getNodesOfType("cSOAP").size() > 0){
+                %>
+                    System.setProperty("javax.net.ssl.keyStore", "config/clientstore-conduits.jks");
+                    System.setProperty("javax.net.ssl.keyStorePassword", "cspass");
+                <%}%>
+
+                <%
                 	if(process.getNodesOfType("cREST").size() > 0){
                 %>
 
