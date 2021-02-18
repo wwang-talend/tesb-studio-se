@@ -2313,7 +2313,7 @@ if (isProvider) {
                     <%
                         if(process.getNodesOfType("cSOAP").size() > 0){
                     %>
-                        String keyStore = System.ge                                                             tProperty("javax.net.ssl.keyStore");
+                        String keyStore = System.getProperty("javax.net.ssl.keyStore");
                         String keyStorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
 
                         if (keyStore == null) {
