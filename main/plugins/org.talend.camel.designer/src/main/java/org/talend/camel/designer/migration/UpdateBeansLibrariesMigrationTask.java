@@ -38,28 +38,22 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.ui.component.ComponentsFactoryProvider;
-import org.talend.designer.core.model.utils.emf.component.ComponentFactory;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
-import org.talend.librariesmanager.model.ModulesNeededProvider;
 
 /**
  * Update core libraries version to default for beans, should run before login
  *
  */
-public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrationTask {
+public class UpdateBeansLibrariesMigrationTask extends AbstractItemMigrationTask {
 
-    private static final String CAMEL_CXF_PREFIX = "camel-cxf-";
-
-    private static final String camelPrefix = "camel-core-";
-
-    private static String camelVersionSubString;
+    private static final String camelPrefix = "camel-";
 
     private static String camelVersion;
 
     @Override
     public List<ERepositoryObjectType> getTypes() {
         List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
-        toReturn.add(ERepositoryObjectType.BEANS);
+        toReturn.add(ERepositoryObjectType.valueOf("Beans"));
         return toReturn;
     }
 
@@ -76,14 +70,14 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
                 IComponent component = ComponentsFactoryProvider.getInstance().get("cTimer", "CAMEL");
                 for (ModuleNeeded mn : component.getModulesNeeded()) {
                     if (mn.getModuleName().startsWith(camelPrefix)) {
-                        camelVersionSubString = mn.getModuleName().substring(camelPrefix.length());
-                        camelVersion = camelVersionSubString.substring(0, camelVersionSubString.lastIndexOf(".jar"));
+                        String moduleName = mn.getModuleName();
+                        camelVersion = moduleName.substring(moduleName.lastIndexOf("-") + 1, moduleName.lastIndexOf("."));
                         break;
                     }
                 }
             }
             BeanItem beanItem = (BeanItem) item;
-            addModulesNeededForBeans(beanItem);
+            upgradeModulesNeededForBeans(beanItem);
             try {
                 ProxyRepositoryFactory.getInstance().save(beanItem);
             } catch (PersistenceException e) {
@@ -96,62 +90,22 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
         }
     }
 
-    private void addModulesNeededForBeans(BeanItem beanItem) {
-        List<ModuleNeeded> modulesNeededForBeans = ModulesNeededProvider.getModulesNeededForBeans();
+    private void upgradeModulesNeededForBeans(BeanItem beanItem) {
         EList imports = beanItem.getImports();
 
         for (Object imp : imports) {
-
             if (imp instanceof IMPORTType) {
                 IMPORTType importType = (IMPORTType) imp;
 
-                String impName = importType.getMODULE().substring(importType.getMODULE().lastIndexOf('-') + 1);
-                if (StringUtils.startsWith(importType.getMODULE(), CAMEL_CXF_PREFIX) && "TESB.jar".equals(impName)) {
-                    importType.setMODULE(CAMEL_CXF_PREFIX + camelVersionSubString);
-                    importType.setMVN("mvn:org.talend.libraries/" + CAMEL_CXF_PREFIX + camelVersion + "/6.0.0-SNAPSHOT/jar");
-                }
-            }
-
-            for (ModuleNeeded defaultNeed : modulesNeededForBeans) {
-                String moduleName = defaultNeed.getId();
-
-                if (imp instanceof IMPORTType) {
-                    IMPORTType importType = (IMPORTType) imp;
-
-                    if (importType.getMODULE().indexOf('-') > 0) {
-                        String impName = importType.getMODULE().substring(0, importType.getMODULE().lastIndexOf('-'));
-                        if (moduleName.equals(impName) && !importType.getMODULE().equals(defaultNeed.getModuleName())) {
-                            importType.setMODULE(defaultNeed.getModuleName());
-                            importType.setMESSAGE(defaultNeed.getInformationMsg());
-                            importType.setMVN(defaultNeed.getMavenUri());
-                        }
+                String fullName = importType.getMODULE();
+                String version = fullName.substring(fullName.lastIndexOf('-') + 1, fullName.lastIndexOf("."));
+                if (version != null && !version.equals(camelVersion)) {
+                    if (StringUtils.startsWith(fullName, camelPrefix)) {
+                        importType.setMODULE(fullName.replaceAll(version, camelVersion));
+                        importType.setMVN(importType.getMVN().replaceAll(version, camelVersion));
                     }
                 }
             }
         }
-
-        List<IMPORTType> missingModels = new ArrayList<IMPORTType>();
-        for (ModuleNeeded model : modulesNeededForBeans) {
-            boolean found = false;
-            for (Object imp : imports) {
-                if (imp instanceof IMPORTType) {
-                    IMPORTType importType = (IMPORTType) imp;
-                    if (importType.getMODULE().equals(model.getModuleName())) {
-                        found = true;
-                        break;
-                    }
-                }
-            }
-            if (!found) {
-                IMPORTType importType = ComponentFactory.eINSTANCE.createIMPORTType();
-                importType.setMODULE(model.getModuleName());
-                importType.setMESSAGE(model.getInformationMsg());
-                importType.setREQUIRED(model.isRequired());
-                importType.setMVN(model.getMavenUri());
-                missingModels.add(importType);
-            }
-        }
-        imports.addAll(missingModels);
-
     }
 }
