@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Version: 7.4.1.qualifier
+Bundle-SymbolicName: org.talend.libraries.esb.camel3;singleton:=true
+Bundle-ActivationPolicy: lazy
+Eclipse-BundleShape: dir
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
