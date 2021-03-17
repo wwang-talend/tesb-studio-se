@@ -165,6 +165,8 @@ package <%= packageName %>;
  <%
         boolean exportTypeSpringBoot = process.getClass().getName().endsWith("MicroServiceProcess");
         boolean isRoutelet = ((IProcess2) process).getProperty().getItem().getClass().getName().endsWith("RouteletProcessItemImpl");
+        
+        boolean camel3 = boolean camel3 = ProcessUtils.isCamel3(process);
 
         boolean hasCSoapOrCRest = false;
         
@@ -2306,12 +2308,19 @@ if (isProvider) {
 
             public void doConfig() throws java.lang.Exception {
                 final /*org.apache.camel.model.Model*/CamelContext camelContext = getContext();
+                
+                <%if(camel3){%>
+					final org.apache.camel.support.SimpleRegistry registry = new org.apache.camel.support.SimpleRegistry();
+					final org.apache.camel.support.DefaultRegistry compositeRegistry = new org.apache.camel.support.DefaultRegistry();
+					compositeRegistry.bind("CamelContextRegistry",camelContext.getRegistry());
+					compositeRegistry.bind("SimpleRegistry",registry);
+                <%}else{%>
+	                final org.apache.camel.impl.SimpleRegistry registry = new org.apache.camel.impl.SimpleRegistry();
+	                final org.apache.camel.impl.CompositeRegistry compositeRegistry = new org.apache.camel.impl.CompositeRegistry();    
+	                compositeRegistry.addRegistry(camelContext.getRegistry());
+	                compositeRegistry.addRegistry(registry);            
+                <%}%>
 
-                final org.apache.camel.impl.SimpleRegistry registry = new org.apache.camel.impl.SimpleRegistry();
-                final org.apache.camel.impl.CompositeRegistry compositeRegistry =
-                    new org.apache.camel.impl.CompositeRegistry();
-                compositeRegistry.addRegistry(camelContext.getRegistry());
-                compositeRegistry.addRegistry(registry);
                 ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(compositeRegistry);
 
                 <%if(exportTypeSpringBoot){%>
