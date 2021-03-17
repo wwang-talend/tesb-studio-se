@@ -1248,5 +1248,195 @@
             uripath="platform:/plugin/org.talend.libraries.esb/lib/org.apache.servicemix.specs.jaxws-api-2.2-2.9.0.jar"
             bundleID="" />
         <!-- Java 11 missing jars end-->
+        
+
+        <!-- Camel 3 Dependencies Begin -->
+        
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-core-3.8.0.jar"
+            id="camel3-core"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-core-model-3.8.0.jar"
+            id="camel3-core-model"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-model-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core-model/3.8.0"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-core-engine-3.8.0.jar"
+            id="camel3-core-engine"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-engine-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core-engine/3.8.0"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-core-languages-3.8.0.jar"
+            id="camel3-core-languages"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-languages-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core-languages/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-core-reifier-3.8.0.jar"
+            id="camel3-core-reifier"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-reifier-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core-reifier/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-core-processor-3.8.0.jar"
+            id="camel3-core-processor"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-processor-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core-processor/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-support-3.8.0.jar"
+            id="camel3-support"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-support-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-support/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-util-3.8.0.jar"
+            id="camel3-util"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-util-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-util/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-base-3.8.0.jar"
+            id="camel3-base"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-base-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-base/3.8.0"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-base-engine-3.8.0.jar"
+            id="camel3-base-engine"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-base-engine-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-base-engine/3.8.0"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-api-3.8.0.jar"
+            id="camel3-api"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-api-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-api/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-main-3.8.0.jar"
+            id="camel3-main"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-main-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-main/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-management-3.8.0.jar"
+            id="camel3-management"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-management-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-management/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-management-api-3.8.0.jar"
+            id="camel3-management-api"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-management-api-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-management-api/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.apache.cxf"
+            name="jakarta.ws.rs-api-2.1.6.jar"
+            id="jakarta.ws.rs-api"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.ws.rs-api-2.1.6.jar"
+            mvn_uri="mvn:jakarta.ws.rs/jakarta.ws.rs-api/2.1.6"
+            bundleID="" />
+
+        <libraryNeededGroup
+                description="camel3-core"
+                id="camel3-core"
+                name="camel3-core">
+                
+            <library id="camel3-core" />
+            <library id="camel3-core-model" />
+            <library id="camel3-core-engine" />
+            <library id="camel3-core-languages" />
+            <library id="camel3-core-reifier" />
+            <library id="camel3-core-processor" />
+            
+            <library id="camel3-base" />
+            <library id="camel3-base-engine" />
+            <library id="camel3-support" />
+            <library id="camel3-util" />
+            <library id="camel3-api" />
+            <library id="camel3-main" />
+            <library id="camel3-management" />
+            <library id="camel3-management-api" />
+            
+            <library id="jakarta.xml.soap-api" />
+            <library id="jakarta.ws.rs-api" />
+            <library id="javax.activation-1.2.0" />
+            <group id="slf4j" />
+        </libraryNeededGroup>
+        
+       <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-spring-3.8.0.jar"
+            id="camel3-spring"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-spring-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-spring/3.8.0"
+            bundleID="" />
+            
+       <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-blueprint-3.8.0.jar"
+            id="camel3-blueprint"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-blueprint-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel.karaf/camel-blueprint/3.8.0"
+            bundleID="" />
+
+        <libraryNeededGroup
+                description="camel3-spring"
+                id="camel3-spring"
+                name="camel3-spring">
+            <library id="camel3-spring" />
+            <library id="camel3-blueprint" />
+            <group id="spring-context" />
+            <library id="spring-tx" />
+            <library id="spring-osgi-core" />
+            <library id="org.eclipse.osgi" />
+            <library id="geronimo-ws-metadata"/>
+        </libraryNeededGroup>
+        
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-cxf-3.8.0.jar"
+            id="camel3-cxf"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-cxf-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-cxf/3.8.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-cxf-transport-3.8.0.jar"
+            id="camel3-cxf-transport"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-cxf-transport-3.8.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-cxf-transport/3.8.0"
+            bundleID="" />
+            
+        <libraryNeededGroup
+                description="camel-cxf"
+                id="camel3-cxf"
+                name="camel3-cxf">
+            <library id="camel3-cxf" />
+            <library id="camel3-cxf-transport" />
+            <group id="cxf-core" />
+            <group id="cxf-rt-frontend-jaxws" />
+            <group id="cxf-rt-rs-client" />
+            <group id="cxf-rt-transports-http-jetty" />
+        </libraryNeededGroup>
+        
+        <!-- Camel 3 Dependencies end -->
   </extension>
 </plugin>
