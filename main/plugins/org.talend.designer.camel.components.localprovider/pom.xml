@@ -90,6 +90,12 @@
             <type>pom</type>
         </dependency>
         <dependency>
+            <groupId>org.talend.studio</groupId>
+            <artifactId>org.talend.libraries.esb.camel3</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
             <groupId>org.talend.camel</groupId>
             <artifactId>camel-talendjob</artifactId>
             <version>${tesb.version}</version>
