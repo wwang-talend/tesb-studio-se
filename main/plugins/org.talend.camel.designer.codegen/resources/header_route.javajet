@@ -2284,7 +2284,25 @@ if (isProvider) {
             public void configure() throws java.lang.Exception {
                 doConfig();
             }
-
+<%if(camel3){%>
+            private class SimpleRegistry extends org.apache.camel.support.SimpleRegistry {
+                private static final long serialVersionUID = 1L;
+                public void put(String key, Object value) {
+                    Map<Class<?>, Object> m = new HashMap<Class<?>, Object>();
+                        m.put(Object.class, value);
+                        super.put(key, m);
+                }
+                public Object get(String key) {
+                    Map<Class<?>, Object> o = super.get(key);
+                    if (o != null) {
+                        for (Map.Entry<Class<?>, Object> e : o.entrySet()) {
+                            return e.getValue();
+                        }
+                    }
+                    return null;
+                }
+            }
+<%}%>
             public void destroy() {
 <%
     for (INode node : graphicalNodes) {
@@ -2310,7 +2328,7 @@ if (isProvider) {
                 final /*org.apache.camel.model.Model*/CamelContext camelContext = getContext();
                 
                 <%if(camel3){%>
-					final org.apache.camel.support.SimpleRegistry registry = new org.apache.camel.support.SimpleRegistry();
+					final SimpleRegistry registry = new SimpleRegistry();
 					final org.apache.camel.support.DefaultRegistry compositeRegistry = new org.apache.camel.support.DefaultRegistry();
 					compositeRegistry.bind("CamelContextRegistry",camelContext.getRegistry());
 					compositeRegistry.bind("SimpleRegistry",registry);
