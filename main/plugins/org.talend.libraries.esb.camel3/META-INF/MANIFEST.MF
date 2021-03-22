@@ -1,6 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-Name: ESB Camel3 Library Plug-in
 Bundle-Version: 7.4.1.qualifier
+Bundle-Vendor: .Talend SA.
 Bundle-SymbolicName: org.talend.libraries.esb.camel3;singleton:=true
 Bundle-ActivationPolicy: lazy
 Eclipse-BundleShape: dir
