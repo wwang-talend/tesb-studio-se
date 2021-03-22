@@ -42,6 +42,7 @@ import org.talend.repository.utils.EsbConfigUtils;
 public class ServicesPlugin extends AbstractUIPlugin {
 
     private static final String CLIENTSTORE_CONDUITS_JKS = "clientstore-conduits.jks";
+    private static final String CONDUITS_PORT_NAME = "org.apache.cxf.http.conduits-PortName.cfg";
 
 	// The plug-in ID
     public static final String PLUGIN_ID = "org.talend.repository.services"; //$NON-NLS-1$
@@ -189,6 +190,9 @@ public class ServicesPlugin extends AbstractUIPlugin {
                     try {
 	                    IFileStore clientStoreConduits = esbConfigFileStore.getChild(CLIENTSTORE_CONDUITS_JKS);
 	                    clientStoreConduits.copy(esbConfigsTargetFolder.getChild("microservice" + "/" + CLIENTSTORE_CONDUITS_JKS), EFS.OVERWRITE, null);
+
+                        IFileStore conduitsPortName = esbConfigFileStore.getChild(CONDUITS_PORT_NAME);
+                        conduitsPortName.copy(esbConfigsTargetFolder.getChild("microservice" + "/" + CONDUITS_PORT_NAME), EFS.OVERWRITE, null);
                     } catch(CoreException e) {
                     	// ignore to do not overwrite possible user changes in configuration files
                     }
