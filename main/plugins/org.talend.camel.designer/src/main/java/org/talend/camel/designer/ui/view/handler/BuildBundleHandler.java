@@ -99,7 +99,7 @@ public class BuildBundleHandler extends BuildJobHandler {
         Property jobProperty = processItem.getProperty();
         boolean needLauncher = exportChoice.get(ExportChoice.needLauncher) != null;
         boolean needAssembly = exportChoice.get(ExportChoice.needAssembly) != null;
-        String jobName = JavaResourcesHelper.getJobJarName(jobProperty.getLabel(), jobProperty.getVersion())
+        String jobName = JavaResourcesHelper.getJobJarName(jobProperty)
                 + ((needLauncher && needAssembly) ? ".zip" : ".kar");
         IFolder targetFolder = talendProcessJavaProject.getTargetFolder();
         try {
