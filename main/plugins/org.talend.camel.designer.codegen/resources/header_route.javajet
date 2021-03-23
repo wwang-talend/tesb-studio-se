@@ -2833,7 +2833,7 @@ if (isProvider) {
                                : new java.util.ArrayList<org.apache.cxf.interceptor.Interceptor<? extends org.apache.cxf.message.Message>>());
                 registry.put("properties_<%=cid%>", <%=fbn%>.getProperties() != null ? <%=fbn%>.getProperties() : new java.util.HashMap<String, Object>());
 		<%
-		String endpointConfigurerClassName = (isCamel3)? "CxfRsConfigurer": "CxfRsEndpointConfigurer";
+		String endpointConfigurerClassName = (camel3)? "CxfRsConfigurer": "CxfRsEndpointConfigurer";
 		%>
                 registry.put("endpointConfigurer_<%=cid%>", new org.apache.camel.component.cxf.jaxrs.<%=endpointConfigurerClassName%>() {
                         @Override
