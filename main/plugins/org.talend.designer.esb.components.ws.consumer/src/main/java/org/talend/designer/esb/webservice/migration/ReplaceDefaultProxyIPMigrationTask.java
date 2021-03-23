@@ -46,11 +46,9 @@ public class ReplaceDefaultProxyIPMigrationTask extends AbstractJobMigrationTask
                         .<IComponentConversion> asList(new IComponentConversion() {
 
                             public void transform(NodeType node) {
-                                ElementParameterType wrongName = ComponentUtilities.getNodeProperty(node, "UES_PROXY");
                                 ElementParameterType useProxy = ComponentUtilities.getNodeProperty(node, "USE_PROXY");
 
                                 if (useProxy == null) {//$NON-NLS-1$
-                                    //if no "option/checkbox" => no change (to not break any user job already working)
                                     return;
                                 }
 
