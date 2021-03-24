@@ -319,9 +319,9 @@
 
     <CODEGENERATION>
         <IMPORTS>
-            <IMPORT MODULE_GROUP="camel-core" REQUIRED="true" />
-            <IMPORT MODULE_GROUP="camel-spring" REQUIRED="true" />
-            <IMPORT MODULE_GROUP="camel-jms" REQUIRED="true"/>
+            <IMPORT MODULE_GROUP="camel3-core" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel3-spring" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel3-jms" REQUIRED="true"/>
             <!-- IMPORT MODULE_GROUP="camel-wmq-alldep" REQUIRED_IF="(MQ_TYPE == 'WMQ_N')" / -->
 
             <IMPORT MODULE_GROUP="activemq-all"
@@ -339,10 +339,10 @@
             <IMPORT MODULE="javax.jms-api"
                     REQUIRED_IF="(MQ_TYPE == 'AMQP') OR (MQ_TYPE == 'ACTIVEMQ')" />
 
-            <IMPORT MODULE_GROUP="camel-amqp"
+            <IMPORT MODULE_GROUP="camel3-amqp"
                     REQUIRED_IF="(MQ_TYPE == 'AMQP')" />
                     
-            <IMPORT MODULE_GROUP="camel-mqtt"
+            <IMPORT MODULE_GROUP="camel3-mqtt"
                     REQUIRED_IF="(MQ_TYPE == 'MQTT')" />
 
             <IMPORT NAME="javax.transaction" MODULE="javax.transaction_1.1.1.v201105210645.jar" 

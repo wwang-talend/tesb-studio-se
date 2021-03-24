@@ -312,8 +312,8 @@
 
 	<CODEGENERATION>
 		<IMPORTS>
-            <IMPORT MODULE_GROUP="camel-core" REQUIRED="true" />
-            <IMPORT MODULE_GROUP="camel-spring" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel3-core" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel3-spring" REQUIRED="true" />
             <IMPORT MODULE_GROUP="camel-jsonpath-alldep" REQUIRED_IF="HOTLIBS.LIBPATH IN ['JSONPATH']" />
             <IMPORT MODULE_GROUP="camel-saxon-alldep" REQUIRED_IF="HOTLIBS.LIBPATH IN ['SAXON']" />
             <!-- additional deps which excluded by camel-shape build -->
@@ -331,7 +331,7 @@
 			<IMPORT MODULE="camel-ahc-ws-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-ahc-ws-alldep-${camel.version}/6.0.0"  NAME="talend-camel-ahcws"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-ahc-ws-alldep-${camel.version}.jar" 
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['AHC-WS']" />
-            <IMPORT MODULE_GROUP="camel-amqp"
+            <IMPORT MODULE_GROUP="camel3-amqp"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['AMQP']" />
 			<IMPORT MODULE="camel-apns-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-apns-alldep-${camel.version}/6.0.0"  NAME="talend-camel-apns"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-apns-alldep-${camel.version}.jar"
@@ -405,7 +405,7 @@
 			<IMPORT MODULE="camel-csv-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-csv-alldep-${camel.version}/6.0.0"  NAME="talend-camel-csv"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-csv-alldep-${camel.version}.jar"
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['CSV']" />
-            <IMPORT MODULE_GROUP="camel-cxf"
+            <IMPORT MODULE_GROUP="camel3-cxf"
                     REQUIRED_IF="(HOTLIBS.LIBPATH IN ['CXF']) OR (HOTLIBS.LIBPATH IN ['CXF_BUNDLE'])" />
 			<IMPORT MODULE="camel-disruptor-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-disruptor-alldep-${camel.version}/6.0.0"  NAME="talend-camel-disruptor"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-disruptor-alldep-${camel.version}.jar"
@@ -440,7 +440,7 @@
 			<IMPORT MODULE="camel-facebook-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-facebook-alldep-${camel.version}/6.0.0"  NAME="talend-camel-facebook"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-facebook-alldep-${camel.version}.jar"
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['FACEBOOK']" />
-            <IMPORT MODULE_GROUP="camel-flatpack"
+            <IMPORT MODULE_GROUP="camel3-flatpack"
                 REQUIRED_IF="HOTLIBS.LIBPATH IN ['FLATPACK']" />
 			<IMPORT MODULE="camel-fop-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-fop-alldep-${camel.version}/6.0.0"  NAME="talend-camel-fop"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-fop-alldep-${camel.version}.jar"
@@ -448,7 +448,7 @@
 			<IMPORT MODULE="camel-freemarker-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-freemarker-alldep-${camel.version}/6.0.0"  NAME="talend-camel-freemarker"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-freemarker-alldep-${camel.version}.jar"
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['FREEMARKER']" />
-            <IMPORT MODULE_GROUP="camel-ftp"
+            <IMPORT MODULE_GROUP="camel3-ftp"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['FTP']" />
 			<IMPORT MODULE="camel-gae-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-gae-alldep-${camel.version}/6.0.0"  NAME="talend-camel-gae"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-gae-alldep-${camel.version}.jar"
@@ -474,7 +474,7 @@
 			<IMPORT MODULE="camel-gora-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-gora-alldep-${camel.version}/6.0.0"  NAME="talend-camel-gora"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-gora-alldep-${camel.version}.jar"
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['GORA']" />
-            <IMPORT MODULE_GROUP="camel-groovy"
+            <IMPORT MODULE_GROUP="camel3-groovy"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['GROOVY']" />
 			<IMPORT MODULE="camel-gson-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-gson-alldep-${camel.version}/6.0.0"  NAME="talend-camel-gson"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-gson-alldep-${camel.version}.jar"
@@ -543,7 +543,7 @@
             <IMPORT MODULE="camel-jdbc-${camel.version}.jar" MVN="${mvn-camel-jdbc}" NAME="camel-jdbc"
                     UrlPath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-jdbc-${camel.version}.jar"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['JDBC']" BundleID="" />
-            <IMPORT MODULE_GROUP="camel-jetty"
+            <IMPORT MODULE_GROUP="camel3-jetty"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['JETTY']" />
 			<IMPORT MODULE="camel-jgroups-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-jgroups-alldep-${camel.version}/6.0.0"  NAME="talend-camel-jgroups"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-jgroups-alldep-${camel.version}.jar"
@@ -607,7 +607,7 @@
 			<IMPORT MODULE="camel-lucene-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-lucene-alldep-${camel.version}/6.0.0"  NAME="talend-camel-lucene"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-lucene-alldep-${camel.version}.jar"
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['LUCENE']" />
-            <IMPORT MODULE_GROUP="camel-mail"
+            <IMPORT MODULE_GROUP="camel3-mail"
                 REQUIRED_IF="HOTLIBS.LIBPATH IN ['MAIL']" />
 			<IMPORT MODULE="camel-metrics-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-metrics-alldep-${camel.version}/6.0.0"  NAME="talend-camel-metrics"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-metrics-alldep-${camel.version}.jar"
@@ -624,7 +624,7 @@
             <IMPORT MODULE="camel-mongodb-gridfs-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-mongodb-gridfs-alldep-${camel.version}/6.0.0"  NAME="talend-camel-mongodb-gridfs"
                 UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-mongodb-gridfs-alldep-${camel.version}.jar"
                 REQUIRED_IF="HOTLIBS.LIBPATH IN ['MONGODB-GRIDFS']" />				
-            <IMPORT MODULE_GROUP="camel-mqtt"
+            <IMPORT MODULE_GROUP="camel3-mqtt"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['MQTT']" />
 			<IMPORT MODULE="camel-msv-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-msv-alldep-${camel.version}/6.0.0"  NAME="talend-camel-msv"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-msv-alldep-${camel.version}.jar"
@@ -719,10 +719,10 @@
 			<IMPORT MODULE="camel-scr-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-scr-alldep-${camel.version}/6.0.0"  NAME="talend-camel-scr"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-scr-alldep-${camel.version}.jar"
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['SCR']" />
-            <IMPORT MODULE="camel-script-${camel.version}.jar" MVN="${mvn-camel-script}" NAME="camel-script"
+            <IMPORT MODULE="camel3-script-${camel.version}.jar" MVN="${mvn-camel-script}" NAME="camel-script"
                     UrlPath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-script-${camel.version}.jar"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['SCRIPT']" />
-            <IMPORT MODULE_GROUP="camel-servlet"
+            <IMPORT MODULE_GROUP="camel3-servlet"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['SERVLET']" />
             <IMPORT MODULE="camel-servletlistener-${camel.version}.jar" MVN="${mvn-camel-servletlistener}" NAME="camel-servletlistener"
                     UrlPath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-servletlistener-${camel.version}.jar"
@@ -841,7 +841,7 @@
 			<IMPORT MODULE="camel-xmpp-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-xmpp-alldep-${camel.version}/6.0.0"  NAME="talend-camel-xmpp"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-xmpp-alldep-${camel.version}.jar"
 				REQUIRED_IF="HOTLIBS.LIBPATH IN ['XMPP']" />
-            <IMPORT MODULE_GROUP="camel-xstream"
+            <IMPORT MODULE_GROUP="camel3-xstream"
                     REQUIRED_IF="HOTLIBS.LIBPATH IN ['XSTREAM']" />
 			<IMPORT MODULE="camel-yammer-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-yammer-alldep-${camel.version}/6.0.0"  NAME="talend-camel-yammer"
 				UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-yammer-alldep-${camel.version}.jar"
