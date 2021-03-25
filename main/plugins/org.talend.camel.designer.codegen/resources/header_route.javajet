@@ -2315,7 +2315,7 @@ if (isProvider) {
 		private static final long serialVersionUID = 1L;
 
 		public void put(String k, Object v) {
-			super.bind(k, v);
+			super.bind(k, (v == null) ? Object.class: v.getClass(), v);
 		}
 		
 		public Object get(String k) {
@@ -2361,7 +2361,7 @@ if (isProvider) {
 	                final org.apache.camel.impl.CompositeRegistry compositeRegistry = new org.apache.camel.impl.CompositeRegistry();    
 	                compositeRegistry.addRegistry(camelContext.getRegistry());
 	                compositeRegistry.addRegistry(registry);
-			((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(registry);
+	                ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(compositeRegistry);
                 <%}%>
 
                 
@@ -2832,9 +2832,9 @@ if (isProvider) {
                 registry.put("outInterceptors_<%=cid%>", <%=fbn%>.getOutInterceptors() != null ? <%=fbn%>.getOutInterceptors()
                                : new java.util.ArrayList<org.apache.cxf.interceptor.Interceptor<? extends org.apache.cxf.message.Message>>());
                 registry.put("properties_<%=cid%>", <%=fbn%>.getProperties() != null ? <%=fbn%>.getProperties() : new java.util.HashMap<String, Object>());
-		<%
-		String endpointConfigurerClassName = (camel3)? "CxfRsConfigurer": "CxfRsEndpointConfigurer";
-		%>
+                <%
+                    String endpointConfigurerClassName = (camel3)? "CxfRsConfigurer": "CxfRsEndpointConfigurer";
+                %>
                 registry.put("endpointConfigurer_<%=cid%>", new org.apache.camel.component.cxf.jaxrs.<%=endpointConfigurerClassName%>() {
                         @Override
                         public void configure(org.apache.cxf.jaxrs.AbstractJAXRSFactoryBean factoryBean) {
@@ -3775,10 +3775,10 @@ if (isProvider) {
         List<Map<String, String>> namespaceValues = (List<Map<String,String>>)ElementParameterParser.getObjectValue(node, "__NAMESPACES__");
         if (!namespaceValues.isEmpty()) {
 %>
-        org.apache.camel.builder.xml.Namespaces <%=cid%>ns =
+        <%=(camel3)? "org.apache.camel.support.builder.Namespaces": "org.apache.camel.builder.xml.Namespaces"%> <%=cid%>ns =
 <%
 
-            String ns = "new org.apache.camel.builder.xml.Namespaces";
+            String ns = (camel3)? "new org.apache.camel.support.builder.Namespaces": "new org.apache.camel.builder.xml.Namespaces";
             for(Map<String, String> m: namespaceValues){
                 String pre = m.get("PREFIX");
                 String uri = m.get("URI");
