@@ -96,8 +96,8 @@
 
 	<CODEGENERATION>
 		<IMPORTS>
-            <IMPORT MODULE_GROUP="camel3-core" REQUIRED="true" />
-            <IMPORT MODULE_GROUP="camel3-spring" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel-core" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel-spring" REQUIRED="true" />
 		</IMPORTS>
 	</CODEGENERATION>
 
