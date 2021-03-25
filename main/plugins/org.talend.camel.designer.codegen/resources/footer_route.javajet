@@ -56,14 +56,16 @@
     private void run() throws java.lang.Exception {
         main = new org.apache.camel.main.Main() {
 
-            protected CamelContext createContext() {
+            protected CamelContext createCamelContext() {
                 final org.apache.camel.impl.DefaultCamelContext camelContext =
 <%
                 if (hasSpring) {
 %>
                     new org.apache.camel.spring.SpringCamelContext(
                         new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/spring/<%=className.toLowerCase()%>.xml"));
+				camelContext.setRegistry(registry);
                 camelContext.setName("<%=className %>");
+                camelContext.setupManagement(null);
                 // add notifier
                 java.util.Collection<org.apache.camel.management.JmxNotificationEventNotifier> jmxEventNotifiers = camelContext
                         .getRegistry().findByType(
