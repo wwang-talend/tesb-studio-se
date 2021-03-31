@@ -2285,46 +2285,24 @@ if (isProvider) {
                 doConfig();
             }
 <%if(camel3){%>
-//	private class SimpleRegistry extends org.apache.camel.support.SimpleRegistry {
-//		private static final long serialVersionUID = 1L;
-//
-//		public void put(String k, Object v) {
-//			Map<Class<?>, Object> m = new HashMap<Class<?>, Object>();
-//			m.put(Object.class, v);
-//			super.put(k, m);
-//		}
-//
-//		public void put(String k, Object v, Class<?> c) {
-//			Map<Class<?>, Object> m = new HashMap<Class<?>, Object>();
-//			m.put(c, v);
-//			super.put(k, m);
-//		}
-//
-//		public Object get(String k) {
-//			Map<Class<?>, Object> o = super.get(k);
-//			if (o != null) {
-//				for (Map.Entry<Class<?>, Object> e : o.entrySet()) {
-//					return e.getValue();
-//				}
-//			}
-//			return null;
-//		}
-//	}
+	private class DefaultRegistry {
 	
-	private class DefaultRegistry extends org.apache.camel.support.DefaultRegistry {
-		private static final long serialVersionUID = 1L;
+		private org.apache.camel.spi.Registry registry = null;
+		
+		public DefaultRegistry(org.apache.camel.spi.Registry registry){
+			this.registry = registry;
+		}
 
 		public void put(String k, Object v) {
-			super.bind(k, (v == null) ? Object.class: v.getClass(), v);
+			registry.bind(k, (v == null) ? Object.class: v.getClass(), v);
 		}
 		
 		public Object get(String k) {
-			return super.lookupByName(k);
+			return registry.lookupByName(k);
 		}
 
 	}
 <%}%>
-
             public void destroy() {
 <%
     for (INode node : graphicalNodes) {
@@ -2350,15 +2328,20 @@ if (isProvider) {
                 final /*org.apache.camel.model.Model*/CamelContext camelContext = getContext();
                 
                 <%if(camel3){%>
-					//final SimpleRegistry registry = new SimpleRegistry();
-					final DefaultRegistry registry = new DefaultRegistry();
-					registry.setCamelContext(camelContext);
-					//compositeRegistry.bind("CamelContextRegistry",camelContext.getRegistry());
-					//compositeRegistry.bind("SimpleRegistry",registry);
-					((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(registry);
+					camelContext.setDebugging(true);
+					camelContext.setBacklogTracing(true);
+			        org.apache.camel.spi.Registry realRegistry = camelContext.getRegistry();
+			        
+			        if (realRegistry == null) {
+			            realRegistry = new org.apache.camel.support.DefaultRegistry();
+			        }
+			        
+			        DefaultRegistry registry = new DefaultRegistry(realRegistry);
+			        
+			        ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(realRegistry);
                 <%}else{%>
 	                final org.apache.camel.impl.SimpleRegistry registry = new org.apache.camel.impl.SimpleRegistry();
-	                final org.apache.camel.impl.CompositeRegistry compositeRegistry = new org.apache.camel.impl.CompositeRegistry();    
+	                final org.apache.camel.impl.CompositeRegistry compositeRegistry = new org.apache.camel.impl.CompositeRegistry();
 	                compositeRegistry.addRegistry(camelContext.getRegistry());
 	                compositeRegistry.addRegistry(registry);
 	                ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(compositeRegistry);
@@ -2389,7 +2372,7 @@ if (isProvider) {
 	                java.util.List<Object> providers = new java.util.ArrayList<Object>();
 			        providers.add(new com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider());
 			        providers.add(new com.fasterxml.jackson.jaxrs.xml.JacksonJaxbXMLProvider());
-	                registry.put("providers", providers);
+					registry.put("providers", providers);
 
                 <%}%>
 
@@ -2820,7 +2803,7 @@ if (isProvider) {
 <%
                 String fbn = isProvider ? "sf_" + cid : "cf_" + cid;
 %>
-                java.util.List<Object> providers_<%=cid%> = (java.util.List<Object>)registry.get("providers");
+				java.util.List<Object> providers_<%=cid%> = (java.util.List<Object>)registry.get("providers");
                 if (providers_<%=cid%> == null) {
                     providers_<%=cid%> = new java.util.ArrayList<Object>();
                 }
