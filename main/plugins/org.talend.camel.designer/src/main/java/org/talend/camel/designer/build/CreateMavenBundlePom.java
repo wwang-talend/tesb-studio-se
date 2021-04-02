@@ -372,7 +372,13 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         plugin.setGroupId("org.apache.karaf.tooling");
         plugin.setArtifactId("karaf-maven-plugin");
         plugin.setVersion("4.2.7");
-
+        List<Dependency> dependencies = new ArrayList<Dependency>();
+        Dependency dependency = new Dependency();
+        dependency.setArtifactId("jaxb-impl");
+        dependency.setGroupId("com.sun.xml.bind");
+        dependency.setVersion("2.1.13");
+        dependencies.add(dependency);
+        plugin.setDependencies(dependencies);
         Xpp3Dom configuration = new Xpp3Dom("configuration");
 
         Xpp3Dom finalName = new Xpp3Dom("finalName");
