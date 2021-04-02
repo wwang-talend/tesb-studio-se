@@ -372,12 +372,18 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         plugin.setGroupId("org.apache.karaf.tooling");
         plugin.setArtifactId("karaf-maven-plugin");
         plugin.setVersion("4.2.7");
+        // fix jar conflict
         List<Dependency> dependencies = new ArrayList<Dependency>();
-        Dependency dependency = new Dependency();
-        dependency.setArtifactId("jaxb-impl");
-        dependency.setGroupId("com.sun.xml.bind");
-        dependency.setVersion("2.1.13");
-        dependencies.add(dependency);
+        Dependency jaxbDependency = new Dependency();
+        jaxbDependency.setArtifactId("jaxb-impl");
+        jaxbDependency.setGroupId("com.sun.xml.bind");
+        jaxbDependency.setVersion("2.1.13");
+        Dependency xbeanDependency = new Dependency();
+        xbeanDependency.setArtifactId("xbean-finder-shaded");
+        xbeanDependency.setGroupId("org.apache.xbean");
+        xbeanDependency.setVersion("4.18");
+        dependencies.add(jaxbDependency);
+        dependencies.add(xbeanDependency);
         plugin.setDependencies(dependencies);
         Xpp3Dom configuration = new Xpp3Dom("configuration");
 
