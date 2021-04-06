@@ -40,21 +40,4 @@ public class RouteImportHandler extends ImportRepTypeHandler {
         return super.copyReferenceFiles(resManager, selectedItemRecord);
     }
 
-    @Override
-    public List<ImportItem> findRelatedImportItems(IProgressMonitor monitor, ResourcesManager resManager, ImportItem importItem,
-            ImportItem[] allImportImportItems) throws Exception {
-
-        // to fix cTalendJob issue TESB-21780, we need toimport job first before route, to launch
-        // UpdateBuildTypeForCTalendJobMigrationTask
-        List<ImportItem> jobImportItems = new ArrayList<ImportItem>();
-        for (ImportItem item : allImportImportItems) {
-            if (!item.isImported()) {
-                if (item.getType() == ERepositoryObjectType.PROCESS) {
-                    jobImportItems.add(item);
-                }
-            }
-        }
-        return jobImportItems.size() > 0 ? jobImportItems
-                : super.findRelatedImportItems(monitor, resManager, importItem, allImportImportItems);
-    }
 }
