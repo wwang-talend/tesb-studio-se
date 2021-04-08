@@ -141,7 +141,12 @@
         <plugins>
           <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
-        	<dependencies>
+            <dependencies>
+	            <dependency>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-compress</artifactId>
+					<version>1.19</version>
+				</dependency>
 				<dependency>
 					<groupId>commons-codec</groupId>
 					<artifactId>commons-codec</artifactId>
