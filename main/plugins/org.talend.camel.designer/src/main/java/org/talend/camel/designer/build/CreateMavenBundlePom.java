@@ -47,6 +47,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.process.JobInfo;
+import org.talend.core.model.process.ProcessUtils;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -328,9 +329,14 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                 String buildType = null;
                 if (!jobInfo.isJoblet()) {
                     property = jobInfo.getProcessItem().getProperty();
-                    groupId = PomIdsHelper.getJobGroupId(property);
+                    if (isJob(jobInfo) && ProcessUtils.isChildRouteProcess(getProcessor(jobInfo).getProcess()))  {
+                        groupId = PomIdsHelper.getJobGroupId(getJobProcessor().getProperty());     
+                        version = PomIdsHelper.getJobVersion(getJobProcessor().getProperty());
+                    }else {
+                        groupId = PomIdsHelper.getJobGroupId(property);     
+                        version = PomIdsHelper.getJobVersion(property);                    	
+                    }
                     artifactId = PomIdsHelper.getJobArtifactId(jobInfo);
-                    version = PomIdsHelper.getJobVersion(property);
                     // try to get the pom version of children job and load from the pom file.
                     String childPomFileName = PomUtil.getPomFileName(jobInfo.getJobName(), jobInfo.getJobVersion());
                     IProject codeProject = getJobProcessor().getCodeProject();
@@ -686,18 +692,24 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         plugin.setArtifactId("maven-install-plugin");
         plugin.setVersion("2.5.1");
 
-        String jobVersion = PomIdsHelper.getJobVersion(job);
-
         Xpp3Dom configuration = new Xpp3Dom("configuration");
 
         Xpp3Dom groupId = new Xpp3Dom("groupId");
-        groupId.setValue(PomIdsHelper.getJobGroupId(job.getProcessItem().getProperty()));
+        if (isJob(job) && ProcessUtils.isChildRouteProcess(getProcessor(job).getProcess()))  {
+            groupId.setValue(PomIdsHelper.getJobGroupId(getJobProcessor().getProperty())); 
+        } else {
+            groupId.setValue(PomIdsHelper.getJobGroupId(job.getProcessItem().getProperty())); // bundleModel.getGroupId()
+        }
 
         Xpp3Dom artifactId = new Xpp3Dom("artifactId");
         artifactId.setValue(bundleModel.getArtifactId() + "_" + job.getJobName());
 
         Xpp3Dom version = new Xpp3Dom("version");
-        version.setValue(PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()));
+        if (isJob(job) && ProcessUtils.isChildRouteProcess(getProcessor(job).getProcess()))  {
+            version.setValue(PomIdsHelper.getJobVersion(getJobProcessor().getProperty()));  	
+        } else {
+            version.setValue(PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()));
+        }
 
         Xpp3Dom packaging = new Xpp3Dom("packaging");
         packaging.setValue("jar");
@@ -728,11 +740,18 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                         .get(TalendProcessArgumentConstant.ARG_BUILD_TYPE);
             }
             
-            String pathToJar = "OSGI".equals(buildType)
-                    ? relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
-                            + PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()) + ".jar"
-                    : relativeTargetDir + Path.SEPARATOR + job.getJobName().toLowerCase() + "_"
-                            + PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_") + ".jar";
+            String pathToJar = null;
+            
+            if ("OSGI".equals(buildType) && isJob(job) && ProcessUtils.isChildRouteProcess(getProcessor(job).getProcess()))  {
+                pathToJar = relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
+                                + PomIdsHelper.getJobVersion(getJobProcessor().getProperty()) + ".jar";
+            } else {
+                pathToJar = "OSGI".equals(buildType)
+                        ? relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
+                                + PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()) + ".jar"
+                        : relativeTargetDir + Path.SEPARATOR + job.getJobName().toLowerCase() + "_"
+                                + PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_") + ".jar";            }
+
             
             file.setValue(pathToJar);
             addFile = true;
