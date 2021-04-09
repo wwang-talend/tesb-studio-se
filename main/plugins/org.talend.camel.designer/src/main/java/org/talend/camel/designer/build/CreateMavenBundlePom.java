@@ -740,11 +740,21 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
                         .get(TalendProcessArgumentConstant.ARG_BUILD_TYPE);
             }
             
-            String pathToJar = "OSGI".equals(buildType)
-                    ? relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
-                            + PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()) + ".jar"
-                    : relativeTargetDir + Path.SEPARATOR + job.getJobName().toLowerCase() + "_"
-                            + PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_") + ".jar";
+            String pathToJar = null;
+            
+            if (isJob(job) && ProcessUtils.isChildRouteProcess(getProcessor(job).getProcess()))  {
+                pathToJar = "OSGI".equals(buildType)
+                        ? relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
+                                + PomIdsHelper.getJobVersion(getJobProcessor().getProperty()) + ".jar"
+                        : relativeTargetDir + Path.SEPARATOR + job.getJobName().toLowerCase() + "_"
+                                + PomIdsHelper.getJobVersion(getJobProcessor().getProperty()).replaceAll("\\.", "_") + ".jar";
+            } else {
+                pathToJar = "OSGI".equals(buildType)
+                        ? relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
+                                + PomIdsHelper.getJobVersion(job.getProcessItem().getProperty()) + ".jar"
+                        : relativeTargetDir + Path.SEPARATOR + job.getJobName().toLowerCase() + "_"
+                                + PomIdsHelper.getJobVersion(job).replaceAll("\\.", "_") + ".jar";            }
+
             
             file.setValue(pathToJar);
             addFile = true;
