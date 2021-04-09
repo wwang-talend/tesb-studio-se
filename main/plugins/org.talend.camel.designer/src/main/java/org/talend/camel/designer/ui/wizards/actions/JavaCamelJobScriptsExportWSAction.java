@@ -65,6 +65,7 @@ import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.IBuildJobHandler;
 import org.talend.core.runtime.process.ITalendProcessJavaProject;
 import org.talend.core.runtime.process.LastGenerationInfo;
+import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.runtime.repository.build.IBuildResourceParametes;
 import org.talend.designer.core.model.components.EParameterName;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
@@ -400,7 +401,8 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             String bundleVersion = null;
             if (repoObject != null && JobUtils.isJob(repoObject.getProperty())) {
                 IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
-                if (process != null && ProcessUtils.isChildRouteProcess(process)) {
+                if (process != null && ProcessUtils.isChildRouteProcess(process)
+                		&& "OSGI".equals(routeObject.getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE))) {
                     bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
                 }
             } 
