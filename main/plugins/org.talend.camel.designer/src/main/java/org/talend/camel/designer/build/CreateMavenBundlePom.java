@@ -742,12 +742,9 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
             
             String pathToJar = null;
             
-            if (isJob(job) && ProcessUtils.isChildRouteProcess(getProcessor(job).getProcess()))  {
-                pathToJar = "OSGI".equals(buildType)
-                        ? relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
-                                + PomIdsHelper.getJobVersion(getJobProcessor().getProperty()) + ".jar"
-                        : relativeTargetDir + Path.SEPARATOR + job.getJobName().toLowerCase() + "_"
-                                + PomIdsHelper.getJobVersion(getJobProcessor().getProperty()).replaceAll("\\.", "_") + ".jar";
+            if ("OSGI".equals(buildType) && isJob(job) && ProcessUtils.isChildRouteProcess(getProcessor(job).getProcess()))  {
+                pathToJar = relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
+                                + PomIdsHelper.getJobVersion(getJobProcessor().getProperty()) + ".jar";
             } else {
                 pathToJar = "OSGI".equals(buildType)
                         ? relativeTargetDir + Path.SEPARATOR + job.getJobName() + "-bundle-"
