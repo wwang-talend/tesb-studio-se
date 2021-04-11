@@ -382,8 +382,13 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         xbeanDependency.setArtifactId("xbean-finder-shaded");
         xbeanDependency.setGroupId("org.apache.xbean");
         xbeanDependency.setVersion("4.18");
+        Dependency httpclientDep = new Dependency();
+        httpclientDep.setGroupId("org.apache.httpcomponents");
+        httpclientDep.setArtifactId("httpclient");
+        httpclientDep.setVersion("4.5.13");
         dependencies.add(jaxbDependency);
         dependencies.add(xbeanDependency);
+        dependencies.add(httpclientDep);
         plugin.setDependencies(dependencies);
         Xpp3Dom configuration = new Xpp3Dom("configuration");
 
