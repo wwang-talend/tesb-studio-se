@@ -395,15 +395,23 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         pluginExecution.addGoal("kar");
         pluginExecution.setConfiguration(configuration);
 
-        Dependency dependency = new Dependency();
-        dependency.setGroupId("org.apache.maven.shared");
-        dependency.setArtifactId("maven-shared-utils");
-        dependency.setVersion("3.3.3");
-
-        plugin.addDependency(dependency);
-
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
+
+        List<Dependency> dependencies = new ArrayList<Dependency>();
+        Dependency mavensharedDep = new Dependency();
+        mavensharedDep.setGroupId("org.apache.maven.shared");
+        mavensharedDep.setArtifactId("maven-shared-utils");
+        mavensharedDep.setVersion("3.3.3");
+
+        Dependency httpclientDep = new Dependency();
+        httpclientDep.setGroupId("org.apache.httpcomponents");
+        httpclientDep.setArtifactId("httpclient");
+        httpclientDep.setVersion("4.5.13");
+
+        dependencies.add(mavensharedDep);
+        dependencies.add(httpclientDep);
+        plugin.setDependencies(dependencies);
 
         return plugin;
     }
