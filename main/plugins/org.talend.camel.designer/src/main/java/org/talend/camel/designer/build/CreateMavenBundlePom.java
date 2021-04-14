@@ -409,8 +409,14 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         httpclientDep.setArtifactId("httpclient");
         httpclientDep.setVersion("4.5.13");
 
+        Dependency httpcoreDep = new Dependency();
+        httpcoreDep.setGroupId("org.apache.httpcomponents");
+        httpcoreDep.setArtifactId("httpcore");
+        httpcoreDep.setVersion("4.4.10");
+
         dependencies.add(mavensharedDep);
         dependencies.add(httpclientDep);
+        dependencies.add(httpcoreDep);
         plugin.setDependencies(dependencies);
 
         return plugin;
