@@ -402,7 +402,8 @@ public class JavaCamelJobScriptsExportWSAction implements IRunnableWithProgress 
             if (repoObject != null && JobUtils.isJob(repoObject.getProperty())) {
                 IProcess process = CoreRuntimePlugin.getInstance().getDesignerCoreService().getProcessFromItem(repoObject.getProperty().getItem());
                 if (process != null && ProcessUtils.isChildRouteProcess(process)
-                		&& "OSGI".equals(routeObject.getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE))) {
+                		&& ("OSGI".equals(routeObject.getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE))
+                				|| "OSGI".equals(repoObject.getProperty().getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE)))) {
                     bundleVersion = PomIdsHelper.getJobVersion(routeObject.getProperty());
                 }
             } 
