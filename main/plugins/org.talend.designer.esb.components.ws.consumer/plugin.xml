@@ -405,10 +405,10 @@
             id="xmlsec"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-xmlsec}"
             bundleID="" />
-        <libraryNeeded context="plugin:org.apache.commons.codec"
-            name="org.apache.commons.codec_1.6.0.v201305230611.jar"
+        <libraryNeeded context="plugin:org.talend.libraries.apache.common"
+            name="commons-codec-1.15.jar"
             id="commons-codec-1.15"
-            uripath="platform:/base/plugins/org.apache.commons.codec_1.6.0.v201305230611.jar"
+            uripath="platform:/plugin/org.talend.libraries.apache.common/lib/commons-codec-1.15.jar"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-opensaml-saml-impl}"
