@@ -146,9 +146,9 @@
             <IMPORT MODULE_GROUP="camel-http" REQUIRED="true" />
             <IMPORT MODULE_GROUP="camel-jetty" REQUIRED_IF="SERVER=='true'" />
             
-            <IMPORT NAME="commons-codec-1.6.jar" MODULE="commons-codec-1.6.jar"
-                MVN="mvn:org.talend.libraries/commons-codec-1.6/6.0.0"
-                UrlPath="platform:/plugin/org.talend.libraries.apache.common/lib/commons-codec-1.6.jar"
+            <IMPORT NAME="commons-codec-1.15.jar" MODULE="commons-codec-1.15.jar"
+                MVN="mvn:org.talend.libraries/commons-codec-1.15/6.0.0"
+                UrlPath="platform:/plugin/org.talend.libraries.apache.common/lib/commons-codec-1.15.jar"
                 REQUIRED="true" />            
 		</IMPORTS>
 	</CODEGENERATION>
