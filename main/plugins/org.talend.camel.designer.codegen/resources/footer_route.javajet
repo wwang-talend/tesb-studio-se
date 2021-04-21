@@ -2,6 +2,7 @@
 	package="org.talend.designer.codegen.translators" 
 	imports="
 		org.talend.core.model.process.IProcess
+		org.talend.core.model.process.IProcess2
 		org.talend.designer.codegen.config.CodeGeneratorArgument
 		java.util.Vector
 		java.util.List
@@ -37,6 +38,8 @@
     if(process.getClass().getName().endsWith("MicroServiceProcess")){
         exportTypeSpringBoot = true;
     }
+    
+    boolean camel3 = ProcessUtils.isCamel3(process);
 
 %>
 	}
@@ -53,13 +56,14 @@
     private void run() throws java.lang.Exception {
         main = new org.apache.camel.main.Main() {
 
-            protected CamelContext createContext() {
+            protected CamelContext createCamelContext() {
                 final org.apache.camel.impl.DefaultCamelContext camelContext =
 <%
                 if (hasSpring) {
 %>
                     new org.apache.camel.spring.SpringCamelContext(
                         new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/spring/<%=className.toLowerCase()%>.xml"));
+				camelContext.setRegistry(registry);
                 camelContext.setName("<%=className %>");
                 // add notifier
                 java.util.Collection<org.apache.camel.management.JmxNotificationEventNotifier> jmxEventNotifiers = camelContext
@@ -109,20 +113,39 @@
                 for (String connection : targetNodeToConnectionMap.values()) {
                     runStat.updateStatOnConnection(connection, routines.system.RunStat.BEGIN, 0);
                 }
-                camelContext.addInterceptStrategy(new org.apache.camel.spi.InterceptStrategy() {
-                    public org.apache.camel.Processor wrapProcessorInInterceptors(CamelContext context, final org.apache.camel.model.ProcessorDefinition<?> node,
-                        final org.apache.camel.Processor target, org.apache.camel.Processor nextTarget) throws Exception {
-                        return new org.apache.camel.processor.DelegateAsyncProcessor(target) {
-                            public boolean process(org.apache.camel.Exchange exchange, org.apache.camel.AsyncCallback callback) {
-                                final String connection = targetNodeToConnectionMap.get(node.getId());
-                                if (null != connection) {
-                                    runStat.updateStatOnConnection(targetNodeToConnectionMap.get(node.getId()), routines.system.RunStat.RUNNING, 1);
-                                }
-                                return super.process(exchange, callback);
-                            }
-                        };
-                    }
-                });
+                
+                <%if(camel3){%>
+					camelContext.addInterceptStrategy(new org.apache.camel.spi.InterceptStrategy() {
+						@Override
+						public org.apache.camel.Processor wrapProcessorInInterceptors(CamelContext context, org.apache.camel.NamedNode definition, org.apache.camel.Processor target, org.apache.camel.Processor nextTarget) throws Exception {
+							return new org.apache.camel.support.processor.DelegateAsyncProcessor(target) {
+								public boolean process(org.apache.camel.Exchange exchange, org.apache.camel.AsyncCallback callback) {
+									final String connection = targetNodeToConnectionMap.get(definition.getId());
+									if (null != connection) {
+										runStat.updateStatOnConnection(targetNodeToConnectionMap.get(definition.getId()),routines.system.RunStat.RUNNING, 1);
+									}
+									return super.process(exchange, callback);
+								}
+							};
+						}
+					});
+                <%}else{%>
+	                camelContext.addInterceptStrategy(new org.apache.camel.spi.InterceptStrategy() {
+	                    public org.apache.camel.Processor wrapProcessorInInterceptors(CamelContext context, final org.apache.camel.model.ProcessorDefinition<?> node,
+	                        final org.apache.camel.Processor target, org.apache.camel.Processor nextTarget) throws Exception {
+	                        return new org.apache.camel.processor.DelegateAsyncProcessor(target) {
+	                            public boolean process(org.apache.camel.Exchange exchange, org.apache.camel.AsyncCallback callback) {
+	                                final String connection = targetNodeToConnectionMap.get(node.getId());
+	                                if (null != connection) {
+	                                    runStat.updateStatOnConnection(targetNodeToConnectionMap.get(node.getId()), routines.system.RunStat.RUNNING, 1);
+	                                }
+	                                return super.process(exchange, callback);
+	                            }
+	                        };
+	                    }
+	                });
+                <%}%>
+                
 <%
 } //if stats
 %>
@@ -131,7 +154,13 @@
         };
 
         //add route
-        main.addRouteBuilder(<%=isTestContainer ? "this.createRouteBuilder()" : "this" %>);
+        
+        <%if(camel3){%>
+			main.bind("main", this);
+        <%}else{%>
+			main.addRouteBuilder(<%=isTestContainer ? "this.createRouteBuilder()" : "this" %>);
+        <%}%>
+		
 		<%
 				if(hasRouteletComponent(process)){
 		%>
@@ -615,8 +644,14 @@ if (isTestContainer) {
                         try {
                             context.load(inContext);
 				if (null != getContext().hasComponent("<%=className %>_properties")) {
-					org.apache.camel.component.properties.PropertiesComponent props = getContext().getComponent("<%=className %>_properties", org.apache.camel.component.properties.PropertiesComponent.class);
-					context.putAll(props.getOverrideProperties());
+				
+					<%if(camel3){%>
+                        org.apache.camel.component.properties.PropertiesComponent props = (org.apache.camel.component.properties.PropertiesComponent) getContext().getComponent("TestR_properties");
+	                <%}else{%>
+						org.apache.camel.component.properties.PropertiesComponent props = getContext().getComponent("<%=className %>_properties", org.apache.camel.component.properties.PropertiesComponent.class);          
+	                <%}%>
+	                
+	                	context.putAll(props.getOverrideProperties());
 				}
                         } finally {
                             inContext.close();
