@@ -138,6 +138,7 @@
     <module>main/plugins/org.talend.designer.esb.components.ws.provider</module>
     <module>main/plugins/org.talend.designer.esb.routines</module>
     <module>main/plugins/org.talend.libraries.esb</module>
+    <module>main/plugins/org.talend.libraries.esb.camel3</module> 
     <module>main/plugins/org.talend.rcp.branding.esbstandard</module>
     <module>main/plugins/org.talend.repository.services</module>
     <module>main/plugins/org.talend.repository.view.route</module>
