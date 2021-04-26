@@ -19,9 +19,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IProcess;
@@ -32,6 +36,8 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryViewObject;
 import org.talend.core.model.utils.JavaResourcesHelper;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.TalendProcessOptionConstants;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.core.model.components.EParameterName;
@@ -233,14 +239,37 @@ public final class CamelFeatureUtil {
 	 * @param featuresModel
 	 */
     public static void addFeatureAndBundles(ProcessItem routeProcess, FeaturesModel featuresModel) {
+
+        Project project = ProjectManager.getInstance().getCurrentProject();
+
         IDesignerCoreService designerService = RepositoryPlugin.getDefault().getDesignerCoreService();
+
         IProcess process = designerService.getProcessFromProcessItem(routeProcess, false);
 
         Collection<FeatureModel> features = new HashSet<FeatureModel>();
         for (String lib : process.getNeededLibraries(TalendProcessOptionConstants.MODULES_WITH_CHILDREN)) {
             Collection<FeatureModel> featureModel = computeFeature(getNameWithoutVersion(lib));
             if (featureModel != null) {
-                features.addAll(featureModel);
+
+                if (project != null && project.isCamel3()) {
+                    ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault()
+                            .getService(ILibrariesService.class);
+
+                    List<ModuleNeeded> mns = librariesService.getModuleNeeded("camel3-core", true);
+                    Set<String> artifactIdList = new HashSet<>();
+                    for (ModuleNeeded mn : mns) {
+                        MavenArtifact mavenArtifact = MavenUrlHelper.parseMvnUrl(mn.getMavenUri());
+                        artifactIdList.add(mavenArtifact.getArtifactId());
+                    }
+
+                    for (FeatureModel fm : featureModel) {
+                        if (!artifactIdList.contains(fm.getArtifactId())) {
+                            features.add(fm);
+                        }
+                    }
+                } else {
+                    features.addAll(featureModel);
+                }
             }
         }
 
