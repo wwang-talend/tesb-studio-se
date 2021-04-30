@@ -43,9 +43,9 @@
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-cxf-core}"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="${tesb-woodstox-core-asl}"
+            name="woodstox-core-asl-4.4.1.jar"
             id="woodstox-core-asl"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-woodstox-core-asl}"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/woodstox-core-asl-4.4.1.jar"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-stax2-api}"
