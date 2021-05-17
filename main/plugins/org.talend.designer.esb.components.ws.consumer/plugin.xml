@@ -27,6 +27,14 @@
 			breaks="5.1.1"
 			version="5.1.2"
 			beforeLogon="false" />
+		<projecttask
+			id="org.talend.designer.esb.webservice.migration.ReplaceDefaultProxyIPMigrationTask"
+			class="org.talend.designer.esb.webservice.migration.ReplaceDefaultProxyIPMigrationTask"
+			name="ReplaceDefaultProxyIPMigrationTask"
+			description="Replace the default proxy IP to 127.0.0.1"
+			breaks="7.3.0"
+			version="7.3.1"
+			beforeLogon="false" />
 	</extension>
 
     <extension point="org.talend.core.runtime.librariesNeeded">
@@ -255,14 +263,14 @@
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.apache.httpcomponents.httpclient"
-            name="org.apache.httpcomponents.httpclient_4.5.5.jar"
+            name="org.apache.httpcomponents.httpclient_4.5.13.jar"
             id="httpclient"
-            uripath="platform:/base/plugins/org.apache.httpcomponents.httpclient_4.5.5.v20180409-1525.jar"
+            uripath="platform:/plugin/org.talend.libraries.apache.http/lib/httpclient-4.5.13.jar"
             bundleID="" />
         <libraryNeeded context="plugin:org.apache.httpcomponents.httpcore"
-            name="org.apache.httpcomponents.httpcore_4.4.9.jar"
+            name="org.apache.httpcomponents.httpcore_4.4.6.jar"
             id="httpcore"
-            uripath="platform:/base/plugins/org.apache.httpcomponents.httpcore_4.4.9.v20180409-1525.jar"
+            uripath="platform:/plugin/org.talend.libraries.apache.http/lib/httpcore-4.4.6.jar"
             bundleID="" />
 
         <libraryNeededGroup
@@ -271,7 +279,7 @@
                 name="httpclient">
             <library id="httpclient" />
             <library id="httpcore" />
-            <library id="commons-codec-1.6" />
+            <library id="commons-codec-1.15" />
             <library id="commons-logging" />
         </libraryNeededGroup>
 
@@ -411,10 +419,10 @@
             id="xmlsec"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-xmlsec}"
             bundleID="" />
-        <libraryNeeded context="plugin:org.apache.commons.codec"
-            name="org.apache.commons.codec_1.6.0.v201305230611.jar"
-            id="commons-codec-1.6"
-            uripath="platform:/base/plugins/org.apache.commons.codec_1.6.0.v201305230611.jar"
+        <libraryNeeded context="plugin:org.talend.libraries.apache.common"
+            name="commons-codec-1.15.jar"
+            id="commons-codec-1.15"
+            uripath="platform:/plugin/org.talend.libraries.apache.common/lib/commons-codec-1.15.jar"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-opensaml-saml-impl}"
@@ -560,7 +568,7 @@
             <library id="cxf-rt-security" />
             <library id="wss4j-ws-security-common" />
             <library id="xmlsec" />
-            <library id="commons-codec-1.6" />
+            <library id="commons-codec-1.15" />
             <library id="opensaml-saml-impl" />
             <library id="opensaml-profile-api" />
             <library id="opensaml-core" />

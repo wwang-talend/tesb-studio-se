@@ -197,8 +197,12 @@ public class CamelRepositoryContentHandler extends AbstractResourceRepositoryCon
     @Override
     public void addNode(ERepositoryObjectType type, RepositoryNode recBinNode, IRepositoryViewObject repositoryObject,
             RepositoryNode node) {
+        if (type != ERepositoryObjectType.BEANSJAR
+                || repositoryObject.getRepositoryObjectType() != ERepositoryObjectType.BEANSJAR) {
+            return;
+        }
         Property property = repositoryObject.getProperty();
-        if (type != ERepositoryObjectType.BEANSJAR || !(property.getItem() instanceof BeansJarItem)) {
+        if (property == null) {
             return;
         }
         try {
