@@ -527,9 +527,13 @@
 	<dependency>
 		<groupId>org.talend.camel</groupId>
 		<artifactId>camel-talendjob</artifactId>
-		<version>${tesb.version}</version>
+		<version>7.4.2-SNAPSHOT</version>
 	</dependency>	
-	
+	<dependency>
+		<groupId>org.talend.camel</groupId>
+		<artifactId>camel-talendjob</artifactId>
+		<version>${tesb.version}</version>
+	</dependency>
 	<!-- Scala -->
     <dependency>
       <groupId>org.scala-lang</groupId>

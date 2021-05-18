@@ -1542,8 +1542,8 @@
         <libraryNeeded
               context="plugin:org.talend.libraries.esb"
               id="camel3-talendjob"
-              name="camel-talendjob-7.4.1-SNAPSHOT.jar"
-              uripath="platform:/plugin/org.talend.libraries.esb/lib/camel-talendjob-7.4.1-SNAPSHOT.jar">
+              name="camel-talendjob-7.4.2-SNAPSHOT.jar"
+              uripath="platform:/plugin/org.talend.libraries.esb/lib/camel-talendjob-7.4.2-SNAPSHOT.jar">
         </libraryNeeded>
             
         <libraryNeeded
