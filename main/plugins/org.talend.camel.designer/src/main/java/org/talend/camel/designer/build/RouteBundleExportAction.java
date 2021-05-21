@@ -31,6 +31,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.camel.designer.ui.wizards.export.RouteDedicatedJobManager;
 import org.talend.camel.designer.ui.wizards.export.RouteJavaScriptOSGIForESBManager;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -164,6 +165,8 @@ public class RouteBundleExportAction extends JobExportAction {
                             } else if (relativePath.startsWith(FileConstants.MAVEN_FOLDER_NAME)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, relativePath));
                             }
+                        } else if (fileResource.getDirectoryName().equals(JavaUtils.JAVA_XML_MAPPING)) {
+                        	FilesUtils.copyFile(file, getTemporaryStoreFile(file, JavaUtils.JAVA_XML_MAPPING));
                         }
 
                     } catch (Exception e) {
