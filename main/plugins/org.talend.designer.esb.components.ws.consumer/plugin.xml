@@ -5,7 +5,7 @@
 		<ComponentsProvider
 			id="org.talend.esb.tooling.component.provider.ESBComponentsProvider"
 			class="org.talend.esb.tooling.component.provider.ESBComponentsProvider"
-			folderName="tesb" />
+			folderName="components" />
 	</extension>
 	<extension point="org.talend.designer.codegen.additional_jetfile">
 		<jetProvider
