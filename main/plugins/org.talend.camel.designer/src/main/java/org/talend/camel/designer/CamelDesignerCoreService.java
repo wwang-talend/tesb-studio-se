@@ -14,6 +14,7 @@ package org.talend.camel.designer;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.dom4j.Element;
@@ -181,8 +182,8 @@ public class CamelDesignerCoreService implements ICamelDesignerCoreService {
     }
 
     @Override
-    public Collection<String> getUnselectDependenciesBundle(ProcessItem processItem) {
-        Collection<String> unSelectedBundles = new ArrayList();
+    public Map<String, Boolean> getUnselectDependenciesBundle(ProcessItem processItem) {
+       Map<String, Boolean> unSelectedBundles = new HashMap<String, Boolean>();
 
         DependenciesResolver resolver = new DependenciesResolver(processItem);
 
@@ -190,9 +191,9 @@ public class CamelDesignerCoreService implements ICamelDesignerCoreService {
         Collection<BundleClasspath> userBundleClasspaths = DependenciesCoreUtil.getStoredBundleClasspaths(additionProperties);
         Collection<BundleClasspath> bundleClasspaths = resolver.getBundleClasspaths();
         for (BundleClasspath bc : bundleClasspaths) {
-
+        	 
             if (!userBundleClasspaths.contains(bc)) {
-                unSelectedBundles.add(bc.getName());
+            	unSelectedBundles.put(bc.getName(), bc.isBuiltIn());
             }
         }
 
