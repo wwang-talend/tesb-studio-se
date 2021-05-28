@@ -23,9 +23,9 @@ package org.talend.camel.designer.build;
 
 import java.io.File;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -123,7 +123,7 @@ public class RouteBundleExportAction extends JobExportAction {
     @Override
     protected void doArchiveExport(IProgressMonitor monitor, List<ExportFileResource> resourcesToExport) {
 
-    	Map<String, Boolean> unSelectedBundles = new HashMap<String, Boolean>();
+    	Collection<String> unSelectedBundles = new ArrayList<String>();
 
         if (resourcesToExport.size() > 0) {
             FilesUtils.emptyFolder(getTemporaryStoreFile(new File(""), LIB));
@@ -159,17 +159,18 @@ public class RouteBundleExportAction extends JobExportAction {
                                 continue;
                             }
 
-                            boolean exist = false;
-                            for (String name : unSelectedBundles.keySet()) {
-                                if (name.equals(file.getName())) {
-                                    exist = true;
-                                }
-                            }
+							if (unSelectedBundles.size() > 0) {
+								boolean exist = false;
+								for (String name : unSelectedBundles) {
+									if (name.equals(file.getName())) {
+										exist = true;
+									}
+								}
 
-                            if (!exist && unSelectedBundles.get(file.getName())) {//??????
-                                FilesUtils.copyFile(file, getTemporaryStoreFile(file, LIB));
-                            }
-
+								if (!exist) {
+									FilesUtils.copyFile(file, getTemporaryStoreFile(file, LIB));
+								}
+							}
                         } else if (fileResource.getDirectoryName().equals("")) {
                             if (FileConstants.BLUEPRINT_FOLDER_NAME.equals(relativePath)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.BLUEPRINT_FOLDER_NAME));

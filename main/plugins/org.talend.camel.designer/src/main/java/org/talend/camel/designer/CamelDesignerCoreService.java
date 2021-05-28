@@ -182,8 +182,8 @@ public class CamelDesignerCoreService implements ICamelDesignerCoreService {
     }
 
     @Override
-    public Map<String, Boolean> getUnselectDependenciesBundle(ProcessItem processItem) {
-       Map<String, Boolean> unSelectedBundles = new HashMap<String, Boolean>();
+    public Collection<String> getUnselectDependenciesBundle(ProcessItem processItem) {
+    	Collection<String> unSelectedBundles = new ArrayList<String>();
 
         DependenciesResolver resolver = new DependenciesResolver(processItem);
 
@@ -192,11 +192,10 @@ public class CamelDesignerCoreService implements ICamelDesignerCoreService {
         Collection<BundleClasspath> bundleClasspaths = resolver.getBundleClasspaths();
         for (BundleClasspath bc : bundleClasspaths) {
         	 
-            if (!userBundleClasspaths.contains(bc)) {
-            	unSelectedBundles.put(bc.getName(), bc.isBuiltIn());
+            if (!userBundleClasspaths.contains(bc) && bc.isBuiltIn()) {
+            	unSelectedBundles.add(bc.getName());
             }
         }
-
         return unSelectedBundles;
     }
 
