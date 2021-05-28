@@ -1682,6 +1682,17 @@
         </libraryNeededGroup>
 
         <libraryNeededGroup
+                description="camel-jetty"
+                id="camel3-jetty"
+                name="camel3-jetty">
+            <library id="camel3-http-common" />
+            <library id="camel3-jetty-common" />
+            <library id="camel3-jetty" />
+            <library id="jetty-all" />
+            <group id="camel3-core" />
+        </libraryNeededGroup>
+
+        <libraryNeededGroup
                 description="camel-cxf"
                 id="camel3-cxf"
                 name="camel3-cxf">
