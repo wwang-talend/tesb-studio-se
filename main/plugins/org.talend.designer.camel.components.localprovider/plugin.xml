@@ -305,12 +305,6 @@
             id="camel-http"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-http}"
             bundleID="" />
-        <!-- ${tesb-commons-httpclient} -->
-        <libraryNeeded context="plugin:org.apache.commons.httpclient"
-            name="commons-httpclient-3.1.jar"
-            id="commons-httpclient"
-            mvn_uri="mvn:commons-httpclient/commons-httpclient/3.1"
-            bundleID="" />
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
 			name="${tesb-camel-http-common}"
 			id="camel-http-common"
@@ -329,7 +323,6 @@
                 name="camel-http">
             <library id="camel-http" />
             <library id="javax.servlet-api" />
-            <library id="commons-httpclient" />
             <library id="commons-logging" />
             <library id="commons-codec" />
             <library id="camel-http-common" />
