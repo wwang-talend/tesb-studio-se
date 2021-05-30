@@ -37,6 +37,8 @@ import org.talend.core.model.migration.AbstractItemMigrationTask;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.designer.core.model.utils.emf.component.ComponentFactory;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
@@ -75,10 +77,19 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
             if (camelVersion == null) {
                 IComponent component = ComponentsFactoryProvider.getInstance().get("cTimer", "CAMEL");
                 for (ModuleNeeded mn : component.getModulesNeeded()) {
-                    if (mn.getModuleName().startsWith(camelPrefix)) {
-                        camelVersionSubString = mn.getModuleName().substring(camelPrefix.length());
-                        camelVersion = camelVersionSubString.substring(0, camelVersionSubString.lastIndexOf(".jar"));
-                        break;
+                    MavenArtifact ma = MavenUrlHelper.parseMvnUrl(mn.getMavenUri());
+                    if (ma != null) {
+                        if (StringUtils.equals(camelPrefix, ma.getArtifactId() + "-")) {
+                            camelVersionSubString = mn.getModuleName().substring(camelPrefix.length());
+                            camelVersion = ma.getVersion();
+                            break;
+                        }
+                    } else {
+                        if (mn.getModuleName().startsWith(camelPrefix)) {
+                            camelVersionSubString = mn.getModuleName().substring(camelPrefix.length());
+                            camelVersion = camelVersionSubString.substring(0, camelVersionSubString.lastIndexOf(".jar"));
+                            break;
+                        }
                     }
                 }
             }
@@ -130,13 +141,16 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
             }
         }
 
+        String VERSION_PATTERN = "-([0-9]+)(.([0-9]+)?)(.([0-9]+)?)";
+        
         List<IMPORTType> missingModels = new ArrayList<IMPORTType>();
         for (ModuleNeeded model : modulesNeededForBeans) {
             boolean found = false;
             for (Object imp : imports) {
                 if (imp instanceof IMPORTType) {
                     IMPORTType importType = (IMPORTType) imp;
-                    if (importType.getMODULE().equals(model.getModuleName())) {
+                    if (StringUtils.equals(importType.getMODULE().replaceAll(VERSION_PATTERN, ""),
+                            model.getModuleName().replaceAll(VERSION_PATTERN, ""))) {
                         found = true;
                         break;
                     }

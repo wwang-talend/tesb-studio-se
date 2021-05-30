@@ -132,8 +132,9 @@ imports="
     builder.addParam("properties", "\"#properties_" + cid + "\"");
     builderRT.addParam("properties", "\"#properties_" + cid + "\"");
 
-    builder.addParam("cxfRsEndpointConfigurer", "\"#endpointConfigurer_" + cid + "\"");
-    builderRT.addParam("cxfRsEndpointConfigurer", "\"#endpointConfigurer_" + cid + "\"");
+    String cxfRsConfigurerName=ProcessUtils.isCamel3(process)?"cxfRsConfigurer":"cxfRsEndpointConfigurer";
+    builder.addParam(cxfRsConfigurerName, "\"#endpointConfigurer_" + cid + "\"");
+    builderRT.addParam(cxfRsConfigurerName, "\"#endpointConfigurer_" + cid + "\"");
 
     builder.addParam("providers", "\"#providers\"");
     builderRT.addParam("providers", "\"#providers\"");
@@ -263,6 +264,12 @@ imports="
         }
         public void marshal(org.apache.camel.Exchange exchange, Object o, java.io.OutputStream os)
                     throws Exception {}
+        <%if(ProcessUtils.isCamel3(process)){%>
+            @Override
+            public void start() {}
+            @Override
+            public void stop() {}
+        <% } %>
         })
 <% } %>
 <%

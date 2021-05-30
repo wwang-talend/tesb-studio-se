@@ -56,13 +56,14 @@
     private void run() throws java.lang.Exception {
         main = new org.apache.camel.main.Main() {
 
-            protected CamelContext createContext() {
+            protected CamelContext createCamelContext() {
                 final org.apache.camel.impl.DefaultCamelContext camelContext =
 <%
                 if (hasSpring) {
 %>
                     new org.apache.camel.spring.SpringCamelContext(
                         new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/spring/<%=className.toLowerCase()%>.xml"));
+				camelContext.setRegistry(registry);
                 camelContext.setName("<%=className %>");
                 // add notifier
                 java.util.Collection<org.apache.camel.management.JmxNotificationEventNotifier> jmxEventNotifiers = camelContext
@@ -157,7 +158,7 @@
         <%if(camel3){%>
 			main.bind("main", this);
         <%}else{%>
-			main.addRouteBuilder(<%=isTestContainer ? "this.createRouteBuilder()" : "this" %>);               
+			main.addRouteBuilder(<%=isTestContainer ? "this.createRouteBuilder()" : "this" %>);
         <%}%>
 		
 		<%

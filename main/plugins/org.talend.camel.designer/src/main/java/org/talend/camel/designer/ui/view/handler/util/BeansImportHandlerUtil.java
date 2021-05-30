@@ -20,6 +20,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.runtime.maven.MavenArtifact;
+import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.designer.core.model.utils.emf.component.ComponentFactory;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
@@ -46,12 +48,23 @@ public class BeansImportHandlerUtil {
         String camelVersionSubString = "";
         String camelVersion = "";
         String camelPrefix = "camel-core-";
+        String camelCxfPrefix = "camel-cxf-";
+        String VERSION_PATTERN = "-([0-9]+)(.([0-9]+)?)(.([0-9]+)?)";
 
         for (ModuleNeeded mn : component.getModulesNeeded()) {
-            if (mn.getModuleName().startsWith(camelPrefix)) {
-                camelVersionSubString = mn.getModuleName().substring(camelPrefix.length());
-                camelVersion = camelVersionSubString.substring(0, camelVersionSubString.lastIndexOf(".jar"));
-                break;
+            MavenArtifact ma = MavenUrlHelper.parseMvnUrl(mn.getMavenUri());
+            if (ma != null) {
+                if (StringUtils.equals(camelPrefix, ma.getArtifactId() + "-")) {
+                    camelVersionSubString = mn.getModuleName().substring(camelPrefix.length());
+                    camelVersion = ma.getVersion();
+                    break;
+                }
+            } else {
+                if (mn.getModuleName().startsWith(camelPrefix)) {
+                    camelVersionSubString = mn.getModuleName().substring(camelPrefix.length());
+                    camelVersion = camelVersionSubString.substring(0, camelVersionSubString.lastIndexOf(".jar"));
+                    break;
+                }
             }
         }
 
@@ -60,11 +73,11 @@ public class BeansImportHandlerUtil {
 
         Set<String> importedModulesForBeansNames = new HashSet<String>();
         for (IMPORTType item : imports) {
-            importedModulesForBeansNames.add(item.getMODULE());
+            importedModulesForBeansNames.add(item.getMODULE().replaceAll(VERSION_PATTERN, ""));
         }
-
+        
         for (ModuleNeeded model : modulesNeededForBeans) {
-            if (!importedModulesForBeansNames.contains(model.getModuleName())) {
+            if (!importedModulesForBeansNames.contains(model.getModuleName().replaceAll(VERSION_PATTERN, ""))) {
                 IMPORTType importType = ComponentFactory.eINSTANCE.createIMPORTType();
                 importType.setMODULE(model.getModuleName());
                 importType.setMESSAGE(model.getInformationMsg());
@@ -74,7 +87,7 @@ public class BeansImportHandlerUtil {
             }
         }
 
-        String camelCxfPrefix = "camel-cxf-";
+        Set<IMPORTType> removeSet = new HashSet<>();
 
         for (Object imp : imports) {
 
@@ -88,24 +101,21 @@ public class BeansImportHandlerUtil {
                 }
             }
 
-            for (ModuleNeeded defaultNeed : ModulesNeededProvider.getModulesNeededForBeans()) {
-                String moduleName = defaultNeed.getId();
-
+            for (ModuleNeeded defaultNeed : modulesNeededForBeans) {
                 if (imp instanceof IMPORTType) {
                     IMPORTType importType = (IMPORTType) imp;
-
                     if (importType.getMODULE().indexOf('-') > 0) {
-                        String impName = importType.getMODULE().substring(0, importType.getMODULE().lastIndexOf('-'));
-                        if (moduleName.equals(impName) && !importType.getMODULE().equals(defaultNeed.getModuleName())) {
-                            importType.setMODULE(defaultNeed.getModuleName());
-                            importType.setMESSAGE(defaultNeed.getInformationMsg());
-                            importType.setMVN(defaultNeed.getMavenUri());
-                            // needResave = true;
+
+                        if (StringUtils.equals(importType.getMODULE().replaceAll(VERSION_PATTERN, ""),
+                                defaultNeed.getModuleName().replaceAll(VERSION_PATTERN, ""))) {
+                            removeSet.add(importType);
                         }
                     }
                 }
             }
         }
+
+        imports.removeAll(removeSet);
     }
 
 }

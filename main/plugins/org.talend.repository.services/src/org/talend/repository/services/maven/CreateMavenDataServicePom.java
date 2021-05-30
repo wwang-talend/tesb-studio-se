@@ -331,15 +331,35 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         pluginExecution.addGoal("kar");
         pluginExecution.setConfiguration(configuration);
         
-        Dependency dependency = new Dependency();
-        dependency.setGroupId("org.apache.maven.shared");
-        dependency.setArtifactId("maven-shared-utils");
-        dependency.setVersion("3.3.3");
-
-        plugin.addDependency(dependency);
-        
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
+
+        List<Dependency> dependencies = new ArrayList<Dependency>();
+        Dependency mavensharedDep = new Dependency();
+        mavensharedDep.setGroupId("org.apache.maven.shared");
+        mavensharedDep.setArtifactId("maven-shared-utils");
+        mavensharedDep.setVersion("3.3.3");
+
+        Dependency httpclientDep = new Dependency();
+        httpclientDep.setGroupId("org.apache.httpcomponents");
+        httpclientDep.setArtifactId("httpclient");
+        httpclientDep.setVersion("4.5.13");
+
+        Dependency httpcoreDep = new Dependency();
+        httpcoreDep.setGroupId("org.apache.httpcomponents");
+        httpcoreDep.setArtifactId("httpcore");
+        httpcoreDep.setVersion("4.4.13");
+
+        Dependency junitDep = new Dependency();
+        junitDep.setGroupId("junit");
+        junitDep.setArtifactId("junit");
+        junitDep.setVersion("4.13.2");
+
+        dependencies.add(mavensharedDep);
+        dependencies.add(httpclientDep);
+        dependencies.add(httpcoreDep);
+        dependencies.add(junitDep);
+        plugin.setDependencies(dependencies);
 
         return plugin;
     }
