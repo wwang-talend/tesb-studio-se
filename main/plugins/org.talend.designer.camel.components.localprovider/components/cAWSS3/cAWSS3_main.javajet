@@ -21,7 +21,7 @@ imports="
 
     String bucketName = ElementParameterParser.getValue(node, "__BUCKET_NAME__");
 
-    builder.setComponent("aws-s3");
+    builder.setComponent("aws2-s3");
     builder.useDoubleSlash(false);
     builder.setName(bucketName);
 
@@ -79,7 +79,7 @@ imports="
 
     String serverSideEncryption = ElementParameterParser.getValue(node, "__SERVER_SIDE_ENCRYPTION__");
     if ("true".equals(serverSideEncryption)) {
-        builder.addParam("serverSideEncryption", "\"AES256\"");
+        //builder.addParam("serverSideEncryption", "\"AES256\"");
     }
 
     String storageClass = ElementParameterParser.getValue(node,"__STORAGE_CLASS__");
