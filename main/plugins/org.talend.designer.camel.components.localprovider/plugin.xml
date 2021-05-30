@@ -1328,6 +1328,13 @@
             bundleID="" /> 
             
         <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="apache-client-2.16.23.jar"
+            id="aws-sdk-apache-client"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/apache-client-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/apache-client/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
             name="aws-xml-protocol-2.16.23.jar"
             id="aws-sdk-aws-xml-protocol"
             uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/aws-xml-protocol-2.16.23.jar"
@@ -1796,11 +1803,10 @@
            </library> 
            <library
                  id="reactive-streams">
-           </library>           
-        
-                    
-                    
-           
+           </library>
+           <library
+                 id="aws-sdk-apache-client">
+           </library>            
         </libraryNeededGroup> 
 
         <libraryNeededGroup
