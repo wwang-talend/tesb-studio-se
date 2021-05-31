@@ -76,7 +76,7 @@ public class RouteBundleExportAction extends JobExportAction {
      * @param type
      */
     public RouteBundleExportAction(List<? extends IRepositoryNode> nodes, String jobVersion, String bundleVersion,
-    		JobJavaScriptOSGIForESBManager manager, String directoryName, String type) {
+            JobJavaScriptOSGIForESBManager manager, String directoryName, String type) {
         super(nodes, jobVersion, bundleVersion, manager, directoryName, type);
         this.nodes = nodes;
         this.runProcessService = CorePlugin.getDefault().getRunProcessService();
@@ -118,7 +118,7 @@ public class RouteBundleExportAction extends JobExportAction {
     @Override
     protected void doArchiveExport(IProgressMonitor monitor, List<ExportFileResource> resourcesToExport) {
 
-    	Collection<String> unSelectedBundles = new ArrayList<String>();
+        Collection<String> unSelectedBundles = new ArrayList<String>();
 
         if (resourcesToExport.size() > 0) {
             FilesUtils.emptyFolder(getTemporaryStoreFile(new File(""), LIB));
@@ -162,7 +162,7 @@ public class RouteBundleExportAction extends JobExportAction {
                                         exist = true;
                                     }
                                 }
-
+                                
                                 if (!exist) {
                                     FilesUtils.copyFile(file, getTemporaryStoreFile(file, LIB));
                                 }
