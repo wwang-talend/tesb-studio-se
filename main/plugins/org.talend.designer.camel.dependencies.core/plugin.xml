@@ -296,17 +296,6 @@
         <classpath name="cConfig"
             parameter="DRIVER_JAR"
             optional="true"/>
-        <classpath name="cConfig"
-            parameter="DRIVER_JAR_SE"
-            optional="true"/>        
-        <classpath name="cMQConnectionFactory"
-            parameter="WMQ_DRIVER_JAR"
-            optional="true">
-            <predicate
-                attributeName="MQ_TYPE"
-                attributeValue="WebSphere MQ">
-            </predicate>
-        </classpath>
         <classpath name="cMQConnectionFactory"
             parameter="OTHER_DRIVER_JAR"
             optional="true">
