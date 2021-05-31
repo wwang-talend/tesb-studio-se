@@ -350,6 +350,11 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         httpcoreDep.setArtifactId("httpcore");
         httpcoreDep.setVersion("4.4.13");
 
+        Dependency istackDep = new Dependency();
+        istackDep.setGroupId("com.sun.istack");
+        istackDep.setArtifactId("istack-commons-runtime");
+        istackDep.setVersion("3.0.10");
+
         Dependency junitDep = new Dependency();
         junitDep.setGroupId("junit");
         junitDep.setArtifactId("junit");
@@ -358,6 +363,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         dependencies.add(mavensharedDep);
         dependencies.add(httpclientDep);
         dependencies.add(httpcoreDep);
+        dependencies.add(istackDep);
         dependencies.add(junitDep);
         plugin.setDependencies(dependencies);
 
