@@ -26,11 +26,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.talend.camel.designer.ui.wizards.export.RouteDedicatedJobManager;
-import org.talend.camel.designer.ui.wizards.export.RouteJavaScriptOSGIForESBManager;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
@@ -45,7 +44,7 @@ import org.talend.designer.runprocess.ItemCacheManager;
 import org.talend.repository.documentation.ExportFileResource;
 import org.talend.repository.model.IRepositoryNode;
 import org.talend.repository.ui.wizards.exportjob.action.JobExportAction;
-import org.talend.repository.ui.wizards.exportjob.scriptsmanager.JobScriptsManager;
+import org.talend.repository.ui.wizards.exportjob.scriptsmanager.esb.JobJavaScriptOSGIForESBManager;
 
 /**
  * DOC sunchaoqun  class global comment. Detailled comment
@@ -60,7 +59,7 @@ public class RouteBundleExportAction extends JobExportAction {
 
     private IRunProcessService runProcessService;
 
-    private JobScriptsManager manager;
+    private JobJavaScriptOSGIForESBManager manager;
 
     private String type;
 
@@ -77,16 +76,12 @@ public class RouteBundleExportAction extends JobExportAction {
      * @param type
      */
     public RouteBundleExportAction(List<? extends IRepositoryNode> nodes, String jobVersion, String bundleVersion,
-            JobScriptsManager manager, String directoryName, String type) {
+    		JobJavaScriptOSGIForESBManager manager, String directoryName, String type) {
         super(nodes, jobVersion, bundleVersion, manager, directoryName, type);
         this.nodes = nodes;
         this.runProcessService = CorePlugin.getDefault().getRunProcessService();
         this.type = type;
-        if (manager instanceof RouteDedicatedJobManager) {
-            this.manager = (RouteDedicatedJobManager) manager;
-        } else {
-            this.manager = (RouteJavaScriptOSGIForESBManager) manager;
-        }
+        this.manager = manager;
 
     }
 
@@ -141,7 +136,7 @@ public class RouteBundleExportAction extends JobExportAction {
             // String rootName = fileResource.getDirectoryName();
 
             Set<String> paths = fileResource.getRelativePathList();
-
+            Map<String, String> nameMavenUriMap = manager.getNameMavenUriMap();
             for (Object element : paths) {
                 String relativePath = (String) element;
                 Set<URL> resource = fileResource.getResourcesByRelativePath(relativePath);
@@ -162,7 +157,8 @@ public class RouteBundleExportAction extends JobExportAction {
 							if (unSelectedBundles.size() > 0) {
 								boolean exist = false;
 								for (String name : unSelectedBundles) {
-									if (name.equals(file.getName())) {
+									String mavenUri = nameMavenUriMap.get(file.getName());
+									if (mavenUri.equals(name)) {
 										exist = true;
 									}
 								}
