@@ -182,17 +182,20 @@ public class CamelDesignerCoreService implements ICamelDesignerCoreService {
 
     @Override
     public Collection<String> getUnselectDependenciesBundle(ProcessItem processItem) {
-    	Collection<String> unSelectedBundles = new ArrayList<String>();
+        Collection<String> unSelectedBundles = new ArrayList();
 
         DependenciesResolver resolver = new DependenciesResolver(processItem);
+
         Map<?, ?> additionProperties = processItem.getProperty().getAdditionalProperties().map();
         Collection<BundleClasspath> userBundleClasspaths = DependenciesCoreUtil.getStoredBundleClasspaths(additionProperties);
         Collection<BundleClasspath> bundleClasspaths = resolver.getBundleClasspaths();
         for (BundleClasspath bc : bundleClasspaths) {
+
             if (!userBundleClasspaths.contains(bc)) {
-            	unSelectedBundles.add(bc.getName());
+                unSelectedBundles.add(bc.getName());
             }
         }
+
         return unSelectedBundles;
     }
 
