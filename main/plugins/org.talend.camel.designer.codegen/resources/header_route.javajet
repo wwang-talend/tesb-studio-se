@@ -3606,12 +3606,7 @@ if (isProvider) {
         
         org.apache.camel.builder.xml.XPathBuilder xpathBuilder_<%=cid%> = new org.apache.camel.builder.xml.XPathBuilder(<%=expression%>);
 		xpathBuilder_<%=cid%>.setNamespaces(<%=cid%>NSMap);
-		
-		<%
-			boolean parallelProcessing="true".equals(ElementParameterParser.getValue(node, "__PARALLET_PROCESSING__"));
-			if (parallelProcessing) { %>
-				xpathBuilder_<%=cid%>.threadSafety(true);
-		<% } %>
+		xpathBuilder_<%=cid%>.threadSafety(true);
         
 <%
     }else if("cSetHeader".equals(nodeComponentName) || "cSetProperty".equals(nodeComponentName)){
