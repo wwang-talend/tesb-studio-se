@@ -44,6 +44,8 @@ imports="
 		if("none".equals(language)){
 			//inorder expression for former migrate
 			%><%=exp%>)<%
+		}else if ("xpath".equals(language)) {
+			%>xpathBuilder_<%=cid%>)<%
 		}else{
 			//fill postorder expression
 			%>).<%=exp%><%
