@@ -37,7 +37,6 @@
     <mvn-dom4j>mvn:dom4j/dom4j/1.6.1</mvn-dom4j>
     <jackson.version>2.9.9</jackson.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
-	<activemq.version>5.15.10</activemq.version>
   </properties>
   <repositories>
 	<repository>
