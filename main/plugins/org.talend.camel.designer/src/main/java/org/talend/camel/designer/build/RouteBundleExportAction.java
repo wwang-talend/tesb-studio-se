@@ -31,6 +31,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.camel.designer.ui.wizards.export.RouteDedicatedJobManager;
 import org.talend.camel.designer.ui.wizards.export.RouteJavaScriptOSGIForESBManager;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -104,6 +105,21 @@ public class RouteBundleExportAction extends JobExportAction {
         return null;
     }
 
+    private File getTemporaryBundleResource(File realFile, String relatedPath) {
+
+        if (nodes != null && nodes.size() > 0) {
+            ITalendProcessJavaProject talendProcessJavaProject = runProcessService
+                    .getTalendJobJavaProject(nodes.get(0).getObject().getProperty());
+            File temporaryFile = new File(talendProcessJavaProject.getBundleResourcesFolder().getLocation().toOSString()
+                    + File.separator
+                    + relatedPath + File.separator + realFile.getName());
+
+            return temporaryFile;
+        }
+
+        return null;
+    }
+
     @Override
     protected void doArchiveExport(IProgressMonitor monitor, List<ExportFileResource> resourcesToExport) {
 
@@ -159,7 +175,13 @@ public class RouteBundleExportAction extends JobExportAction {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.BLUEPRINT_FOLDER_NAME));
                             } else if (FileConstants.SPRING_FOLDER_NAME.equals(relativePath)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.SPRING_FOLDER_NAME));
+                            } else if (relativePath.startsWith(FileConstants.TALEND_FOLDER_NAME)) {
+                                FilesUtils.copyFile(file, getTemporaryBundleResource(file, FileConstants.TALEND_FOLDER_NAME));
+                            } else if (relativePath.startsWith(FileConstants.MAVEN_FOLDER_NAME)) {
+                                FilesUtils.copyFile(file, getTemporaryStoreFile(file, relativePath));
                             }
+                        } else if (fileResource.getDirectoryName().equals(JavaUtils.JAVA_XML_MAPPING)) {
+                        	FilesUtils.copyFile(file, getTemporaryStoreFile(file, JavaUtils.JAVA_XML_MAPPING));
                         }
 
                     } catch (Exception e) {

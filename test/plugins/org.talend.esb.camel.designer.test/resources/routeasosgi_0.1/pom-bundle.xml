@@ -79,17 +79,17 @@
     </dependency>
     <dependency>
       <groupId>org.talend.libraries</groupId>
-      <artifactId>spring-beans-5.1.18.RELEASE</artifactId>
+      <artifactId>spring-beans-5.2.12.RELEASE</artifactId>
       <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.talend.libraries</groupId>
-      <artifactId>spring-context-5.1.18.RELEASE</artifactId>
+      <artifactId>spring-context-5.2.12.RELEASE</artifactId>
       <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.talend.libraries</groupId>
-      <artifactId>spring-core-5.1.18.RELEASE</artifactId>
+      <artifactId>spring-core-5.2.12.RELEASE</artifactId>
       <version>6.0.0</version>
     </dependency>
     <dependency>
@@ -141,6 +141,18 @@
         <plugins>
           <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
+            <dependencies>
+	            <dependency>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-compress</artifactId>
+					<version>1.19</version>
+				</dependency>
+				<dependency>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
+					<version>1.15</version>
+				 </dependency>
+			</dependencies>
             <executions>
               <execution>
                 <phase>package</phase>

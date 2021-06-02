@@ -84,7 +84,19 @@
                   isEditAction="false"
                   isPropertiesAction="false"
                   isReadAction="false"
-                  name="Rean Camel Bean">
+                  name="Read Camel Bean">
+            </Action>
+            <Action
+                  class="org.talend.camel.designer.ui.beansjar.CreateCamelBeansJarAction"
+                  id="org.talend.camel.designer.ui.beansjar.createCamelBeansJar"
+                  level="10"
+                  name="Create Camel Bean Jar">
+            </Action>
+            <Action
+                  class="org.talend.camel.designer.ui.bean.AssignBeansToJarAction"
+                  id="org.talend.camel.designer.ui.bean.assignBeansToJar"
+                  level="10"
+                  name="Assign Beans to">
             </Action>
          </extension>
    <extension
@@ -295,9 +307,18 @@
                 breaks="7.3.0"
                 class="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask"
                 description="Update Beans default libraries"
-                id="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask.7.3.1-R2020-12"
-                name="UpdateBeansDefaultLibrariesMigrationTask 7.3.1-R2020-12"
+                id="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask.7.3.1-R2021-03"
+                name="UpdateBeansDefaultLibrariesMigrationTask 7.3.1-R2020-03"
                 version="7.3.1">
+          </projecttask>
+          <projecttask
+                 beforeLogon="true"
+                 breaks="7.3.0"
+                 class="org.talend.camel.designer.migration.UpdateBeansLibrariesMigrationTask"
+                 description="Update Beans libraries"
+                 id="org.talend.camel.designer.migration.UpdateBeansLibrariesMigrationTask.7.3.1"
+                 name="UpdateBeansLibrariesMigrationTask 7.3.1"
+                 version="7.3.1">
           </projecttask>
           <projecttask
                 beforeLogon="false"
@@ -430,6 +451,18 @@
                  <parameter
                        name="type"
                        value="BEANS">
+                 </parameter>
+              </importItemsHandler>
+           </importItemsProvider>
+           <importItemsProvider
+                 id="org.talend.camel.designer.importProvider.beansJar"
+                 name="Bean Jar importer"
+                 priority="HIGH">
+              <importItemsHandler
+                    class="org.talend.camel.designer.ui.view.handler.BeansJarImportHandler">
+                 <parameter
+                       name="type"
+                       value="BEANSJAR">
                  </parameter>
               </importItemsHandler>
            </importItemsProvider>

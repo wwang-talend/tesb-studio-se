@@ -85,6 +85,11 @@ package <%= packageName %>;
         }
     }
 */
+
+	for (String codesJar : CodeGeneratorRoutine.getRequiredCodesJarName(process)) {
+		importsSet.add("import "+ codesJar);
+	}
+
     importsSet.add("import java.util.HashMap");
     importsSet.add("import java.util.Map");
     importsSet.add("import routines.TalendString");
@@ -531,7 +536,8 @@ public class <%=className%> extends org.apache.camel.builder.RouteBuilder implem
     for (INode node : graphicalNodes) {
         if ("cMQConnectionFactory".equals(node.getComponent().getName())) {
             boolean hasPooledConnectionFactory = Boolean.parseBoolean(ElementParameterParser.getValue(node, "__AMQ_POOL__").trim());
-			if (hasPooledConnectionFactory) {
+            boolean isActiveMQ = "ActiveMQ".equals(ElementParameterParser.getValue(node, "__MQ_TYPE__"));
+			if (hasPooledConnectionFactory && isActiveMQ) {
                 String cid = node.getUniqueName();
 %>
 
@@ -2282,7 +2288,8 @@ if (isProvider) {
     for (INode node : graphicalNodes) {
         if ("cMQConnectionFactory".equals(node.getComponent().getName())) {
             boolean hasPooledConnectionFactory = Boolean.parseBoolean(ElementParameterParser.getValue(node, "__AMQ_POOL__").trim());
-			if (hasPooledConnectionFactory) {
+            boolean isActiveMQ = "ActiveMQ".equals(ElementParameterParser.getValue(node, "__MQ_TYPE__"));
+			if (hasPooledConnectionFactory && isActiveMQ) {
                 String cid = node.getUniqueName();
 %>
 
@@ -2306,6 +2313,22 @@ if (isProvider) {
                 compositeRegistry.addRegistry(camelContext.getRegistry());
                 compositeRegistry.addRegistry(registry);
                 ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(compositeRegistry);
+
+                <%if(exportTypeSpringBoot){%>
+                    <%
+                        if(process.getNodesOfType("cSOAP").size() > 0){
+                    %>
+                        String keyStore = System.getProperty("javax.net.ssl.keyStore");
+                        String keyStorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
+
+                        if (keyStore == null) {
+                            System.setProperty("javax.net.ssl.keyStore", "config/clientstore-conduits.jks");
+                        }
+                        if (keyStorePassword == null) {
+                            System.setProperty("javax.net.ssl.keyStorePassword", "cspass");
+                        }
+                    <%}%>
+                <%}%>
 
                 <%
                 	if(process.getNodesOfType("cREST").size() > 0){
