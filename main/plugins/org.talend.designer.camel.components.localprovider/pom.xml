@@ -12,7 +12,8 @@
   <packaging>eclipse-plugin</packaging>
 
     <properties>
-        <camel.version>2.25.2</camel.version>
+        <!-- <camel.version>2.25.2</camel.version> -->
+        <camel.version>3.9.0</camel.version>
         <camel.mqtt.version>${camel.version}.tesb1</camel.mqtt.version>
         <camel.wmq.version>${camel.version}</camel.wmq.version>
         <!-- camel-groovy -->
@@ -118,18 +119,157 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
+<!--         
+		<dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-blueprint</artifactId>
             <version>${camel.version}</version>
-        </dependency>
+        </dependency> 
 
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-context</artifactId>
             <version>${camel.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-boot</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-script</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-azure</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws</artifactId>
+            <version>${camel.version}</version>
+            <exclusions>
+            		<exclusion>
+				      <groupId>com.fasterxml.jackson.core</groupId>
+				      <artifactId>jackson-annotations</artifactId>
+            		</exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>azure-keyvault-core</artifactId>
+            <version>${azure-keyvault-core-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>azure-storage</artifactId>
+            <version>${azure-storage-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-kms</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sqs</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sns</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-kinesis</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-cloudfront</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-ses</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-mq</artifactId>
+            <version>${aws-java-sdk-version}</version>
+        </dependency> 
+        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mqtt</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.mqtt-client</groupId>
+            <artifactId>mqtt-client</artifactId>
+            <version>${mqtt-client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.hawtdispatch</groupId>
+            <artifactId>hawtdispatch-transport</artifactId>
+            <version>${hawtdispatch.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.hawtdispatch</groupId>
+            <artifactId>hawtdispatch</artifactId>
+            <version>${hawtdispatch.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.hawtbuf</groupId>
+            <artifactId>hawtbuf</artifactId>
+            <version>${hawtbuf.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-hawtdb</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.hawtdb</groupId>
+            <artifactId>hawtdb</artifactId>
+            <version>${hawtdb-version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-servletlistener</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jetty9</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+-->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cxf</artifactId>
@@ -199,18 +339,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-http-common</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-                
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-spring-boot</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-script</artifactId>
             <version>${camel.version}</version>
         </dependency>
 
@@ -334,82 +462,7 @@
             <artifactId>camel-mail</artifactId>
             <version>${camel.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-azure</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws</artifactId>
-            <version>${camel.version}</version>
-            <exclusions>
-            		<exclusion>
-				      <groupId>com.fasterxml.jackson.core</groupId>
-				      <artifactId>jackson-annotations</artifactId>
-            		</exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>azure-keyvault-core</artifactId>
-            <version>${azure-keyvault-core-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>azure-storage</artifactId>
-            <version>${azure-storage-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-core</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-kms</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-s3</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-sqs</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-sns</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-kinesis</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-cloudfront</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-ses</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-mq</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>        
+       
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
@@ -424,23 +477,12 @@
 
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-servletlistener</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-jetty</artifactId>
             <version>${camel.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jetty-common</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jetty9</artifactId>
             <version>${camel.version}</version>
         </dependency>
 
@@ -456,32 +498,6 @@
 		    <artifactId>javax.servlet-api</artifactId>
 		    <version>${javax.servlet-api.version}</version>
 		</dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mqtt</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.mqtt-client</groupId>
-            <artifactId>mqtt-client</artifactId>
-            <version>${mqtt-client.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtdispatch</groupId>
-            <artifactId>hawtdispatch-transport</artifactId>
-            <version>${hawtdispatch.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtdispatch</groupId>
-            <artifactId>hawtdispatch</artifactId>
-            <version>${hawtdispatch.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtbuf</groupId>
-            <artifactId>hawtbuf</artifactId>
-            <version>${hawtbuf.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -542,17 +558,6 @@
             <groupId>javax.jms</groupId>
             <artifactId>javax.jms-api</artifactId>
             <version>${jms-api.version}</version>
-        </dependency>
-        <!-- camel-hawtdb -->
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-hawtdb</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtdb</groupId>
-            <artifactId>hawtdb</artifactId>
-            <version>${hawtdb-version}</version>
         </dependency>
         
         <!-- camel-jsonpath -->
@@ -702,7 +707,8 @@
 
     <build>
         <plugins>
-            <plugin>
+<!--             
+			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -739,7 +745,8 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> 
+-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
