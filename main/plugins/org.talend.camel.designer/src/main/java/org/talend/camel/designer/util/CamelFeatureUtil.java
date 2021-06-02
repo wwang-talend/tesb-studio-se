@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2021 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -76,6 +76,7 @@ public final class CamelFeatureUtil {
         put("camel-http-common", new FeatureModel[] { });
         put("activemq-all", new FeatureModel[] { new FeatureModel("activemq-client") });
         put("tdm-camel", new FeatureModel[] { new FeatureModel("talend-data-mapper") });
+            put("tdm-lib-di", new FeatureModel[] { new FeatureModel("talend-data-mapper") });
         //put("camel-talendjob", new FeatureModel[] { new FeatureModel("camel-talendjob") });
         put("camel-cxf-transport", new FeatureModel[] { });
         put("camel-jetty-common", new FeatureModel[] { });

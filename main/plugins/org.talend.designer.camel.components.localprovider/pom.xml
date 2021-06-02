@@ -18,7 +18,7 @@
         <!-- camel-groovy -->
         <groovy.version>2.4.8</groovy.version>
         <!-- camel-xstream -->
-        <xstream.version>1.4.14</xstream.version>
+        <xstream.version>1.4.16</xstream.version>
         <xpp3.version>1.1.6</xpp3.version>
         <!-- camel-amqp -->
         <qpid-jms-client.version>0.38.0</qpid-jms-client.version>
@@ -72,12 +72,14 @@
         <mvn-commons-lang>mvn:commons-lang/commons-lang/2.6</mvn-commons-lang>
         <mvn-commons-pool>mvn:commons-pool/commons-pool/1.6</mvn-commons-pool>
         
-        <jetty-all.version>9.4.18.v20190429</jetty-all.version>
+        <jetty-all.version>9.4.35.v20201120</jetty-all.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 
         <hamcrest.version>1.3</hamcrest.version>
-        <jackson.version>2.10.1</jackson.version>
+        <jackson.version>2.11.4</jackson.version>
         <joda-time.version>2.8.1</joda-time.version>
+        <plexus.component.annotations.versions>2.1.0</plexus.component.annotations.versions>
+        <wagon.provider.api.version>3.2.0</wagon.provider.api.version>
     </properties>
 
     <dependencies>
@@ -677,6 +679,18 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>${snakeyaml.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-component-annotations</artifactId>
+            <version>${plexus.component.annotations.versions}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-provider-api</artifactId>
+            <version>${wagon.provider.api.version}</version>
         </dependency>
     </dependencies>
 

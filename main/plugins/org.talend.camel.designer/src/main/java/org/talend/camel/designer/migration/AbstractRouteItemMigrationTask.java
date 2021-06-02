@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2021 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -104,7 +104,7 @@ public abstract class AbstractRouteItemMigrationTask extends
 	}
 
 	@Override
-	public final ExecutionResult execute(Item item) {
+	public ExecutionResult execute(Item item) {
 		if (item instanceof CamelProcessItem) {
 			return execute((CamelProcessItem) item);
 		}

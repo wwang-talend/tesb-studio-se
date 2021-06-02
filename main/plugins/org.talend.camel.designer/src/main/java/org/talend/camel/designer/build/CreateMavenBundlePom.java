@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2021 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -397,6 +397,39 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
+
+        List<Dependency> dependencies = new ArrayList<Dependency>();
+        Dependency mavensharedDep = new Dependency();
+        mavensharedDep.setGroupId("org.apache.maven.shared");
+        mavensharedDep.setArtifactId("maven-shared-utils");
+        mavensharedDep.setVersion("3.3.3");
+
+        Dependency httpclientDep = new Dependency();
+        httpclientDep.setGroupId("org.apache.httpcomponents");
+        httpclientDep.setArtifactId("httpclient");
+        httpclientDep.setVersion("4.5.13");
+
+        Dependency httpcoreDep = new Dependency();
+        httpcoreDep.setGroupId("org.apache.httpcomponents");
+        httpcoreDep.setArtifactId("httpcore");
+        httpcoreDep.setVersion("4.4.13");
+
+        Dependency istackDep = new Dependency();
+        istackDep.setGroupId("com.sun.istack");
+        istackDep.setArtifactId("istack-commons-runtime");
+        istackDep.setVersion("3.0.10");
+
+        Dependency junitDep = new Dependency();
+        junitDep.setGroupId("junit");
+        junitDep.setArtifactId("junit");
+        junitDep.setVersion("4.13.2");
+
+        dependencies.add(mavensharedDep);
+        dependencies.add(httpclientDep);
+        dependencies.add(httpcoreDep);
+        dependencies.add(istackDep);
+        dependencies.add(junitDep);
+        plugin.setDependencies(dependencies);
 
         return plugin;
     }

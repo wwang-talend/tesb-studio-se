@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2021 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -65,6 +65,7 @@ import org.talend.designer.maven.utils.PomIdsHelper;
 import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IProcessor;
 import org.talend.designer.runprocess.ProcessorUtilities;
+import org.talend.designer.runprocess.java.TalendJavaProjectManager;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.wizards.exportjob.ExportTreeViewer;
 import org.talend.repository.ui.wizards.exportjob.JavaJobScriptsExportWSWizardPage;
@@ -313,7 +314,17 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
         String projectName = PomUtil.getPomProperty(pomFile, "talend.project.name.lowercase"); //$NON-NLS-1$
         String jobFolderPath = PomUtil.getPomProperty(pomFile, "talend.job.folder"); //$NON-NLS-1$
-        String jobName = PomUtil.getPomProperty(pomFile, "talend.job.name").toLowerCase(); //$NON-NLS-1$
+        String jobName = PomUtil.getPomProperty(pomFile, "talend.job.name"); //$NON-NLS-1$
+        
+        if (jobName == null) {
+        	TalendJavaProjectManager.generatePom(procesItem);
+        	
+        	jobName = PomUtil.getPomProperty(pomFile, "talend.job.name");
+        }
+        if (jobName != null) {
+            jobName = jobName.toLowerCase();
+        }
+        
         return projectName + "/" + jobFolderPath + jobName; //$NON-NLS-1$
     }
 
@@ -842,8 +853,7 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
         JavaCamelJobScriptsExportWSAction action = null;
 
         IRunnableWithProgress buildJobHandlerAction = null;
-        IRunnableWithProgress buildJobHandlerPrepare = null;
-        IRunnableWithProgress actionMS = null;
+
       
         Map<ExportChoice, Object> exportChoiceMap = getExportChoiceMap();
         boolean needMavenScript = false;
@@ -904,26 +914,6 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
 
                 exportChoiceMap.put(ExportChoice.esbExportType, "kar");
 
-                buildJobHandlerPrepare = new IRunnableWithProgress() {
-
-                    @Override
-                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-
-                        IBuildJobHandler buildJobHandler  = BuildJobFactory.createBuildJobHandler(getProcessItem(), getContextName(), version,
-                                            exportChoiceMap, "ROUTE");
-
-                        Map<String, Object> prepareParams = new HashMap<String, Object>();
-                        prepareParams.put(IBuildResourceParametes.OPTION_ITEMS, true);
-                        prepareParams.put(IBuildResourceParametes.OPTION_ITEMS_DEPENDENCIES, true);
-
-                        try {
-                              buildJobHandler.prepare(monitor, prepareParams);
-                        } catch (Exception e) {
-                            MessageBoxExceptionHandler.process(e.getCause() == null ? e : e.getCause(), getShell());
-                        }
-                    }
-                };
-
                 buildJobHandlerAction = new IRunnableWithProgress() {
 
                     @Override
@@ -957,15 +947,15 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                     }
                 };
 
-                action = new JavaCamelJobScriptsExportWSAction(nodes[0], version, destinationKar, false);
-
                 ProcessorUtilities.setExportAsOSGI(true);
             }
 
             try {
-            	getContainer().run(false, true, buildJobHandlerPrepare);
-            	getContainer().run(false, true, action);
-            	getContainer().run(false, true, buildJobHandlerAction);
+                if (needMavenScript) {
+                    getContainer().run(false, true, action);
+                } else {
+                    getContainer().run(false, true, buildJobHandlerAction);
+                }
             } catch (Exception e) {
                 MessageBoxExceptionHandler.process(e.getCause(), getShell());
                 return false;

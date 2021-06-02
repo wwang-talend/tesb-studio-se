@@ -2,7 +2,7 @@
 //
 // Talend Community Edition
 //
-// Copyright (C) 2006-2019 Talend – www.talend.com
+// Copyright (C) 2006-2021 Talend – www.talend.com
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -59,7 +59,7 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
     @Override
     public List<ERepositoryObjectType> getTypes() {
         List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
-        toReturn.add(ERepositoryObjectType.valueOf("Beans"));
+        toReturn.add(ERepositoryObjectType.BEANS);
         return toReturn;
     }
 

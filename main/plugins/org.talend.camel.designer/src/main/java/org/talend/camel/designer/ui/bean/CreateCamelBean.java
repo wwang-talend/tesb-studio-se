@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2021 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -28,19 +28,23 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.intro.IIntroSite;
 import org.eclipse.ui.intro.config.IIntroAction;
+import org.talend.camel.core.model.camelProperties.BeanItem;
 import org.talend.camel.designer.i18n.Messages;
 import org.talend.camel.designer.ui.wizards.CamelNewBeanWizard;
+import org.talend.camel.designer.ui.wizards.CamelNewInnerBeanWizard;
 import org.talend.camel.designer.util.ECamelCoreImage;
 import org.talend.camel.model.CamelRepositoryNodeType;
 import org.talend.commons.exception.SystemException;
 import org.talend.commons.ui.runtime.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.runtime.image.ImageProvider;
 import org.talend.commons.ui.runtime.image.OverlayImageProvider;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.routines.RoutinesUtil;
 import org.talend.core.model.utils.RepositoryManagerHelper;
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
+import org.talend.core.utils.CodesJarResourceCache;
+import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryNode;
@@ -89,14 +93,19 @@ public class CreateCamelBean extends AbstractBeanAction implements IIntroAction 
         if (canWork) {
             Object o = selection.getFirstElement();
             RepositoryNode node = (RepositoryNode) o;
+            ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
             switch (node.getType()) {
             case SIMPLE_FOLDER:
             case SYSTEM_FOLDER:
-                ERepositoryObjectType nodeType = (ERepositoryObjectType) node.getProperties(EProperties.CONTENT_TYPE);
                 if (nodeType != CamelRepositoryNodeType.repositoryBeansType) {
                     canWork = false;
                 }
                 if (node.getObject() != null && node.getObject().isDeleted()) {
+                    canWork = false;
+                }
+                break;
+            case REPOSITORY_ELEMENT:
+                if (nodeType != ERepositoryObjectType.BEANSJAR) {
                     canWork = false;
                 }
                 break;
@@ -137,14 +146,24 @@ public class CreateCamelBean extends AbstractBeanAction implements IIntroAction 
             node = (RepositoryNode) obj;
             path = RepositoryNodeUtilities.getPath(node);
         }
-
-        CamelNewBeanWizard beanWizard = new CamelNewBeanWizard(path);
+        CamelNewBeanWizard beanWizard;
+        if (ERepositoryObjectType.BEANSJAR == node.getParent().getContentType()) {
+            beanWizard = new CamelNewInnerBeanWizard(node, path);
+        } else {
+            beanWizard = new CamelNewBeanWizard(path);
+        }
         WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), beanWizard);
 
         if (dlg.open() == Window.OK) {
-
             try {
-                openBeanEditor(beanWizard.getBean(), false);
+                BeanItem beanItem = beanWizard.getBean();
+                openBeanEditor(beanItem, false);
+                if (RoutinesUtil.isInnerCodes(beanItem.getProperty())) {
+                    IRunProcessService.get().getTalendCodesJarJavaProject(CodesJarResourceCache.getCodesJarByInnerCode(beanItem))
+                            .buildWholeCodeProject();
+                } else {
+                    IRunProcessService.get().getTalendCodeJavaProject(ERepositoryObjectType.BEANS).buildWholeCodeProject();
+                }
             } catch (PartInitException e) {
                 MessageBoxExceptionHandler.process(e);
             } catch (SystemException e) {

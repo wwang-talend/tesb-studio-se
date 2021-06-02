@@ -1,6 +1,6 @@
 // ============================================================================
 //
-// Copyright (C) 2006-2019 Talend Inc. - www.talend.com
+// Copyright (C) 2006-2021 Talend Inc. - www.talend.com
 //
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
@@ -29,6 +29,7 @@ public class RouteNodeTester extends AbstractNodeTypeTester {
         {
             put("isRoutesTopNode", CamelRepositoryNodeType.repositoryRoutesType); //$NON-NLS-1$
             put("isBeans", CamelRepositoryNodeType.repositoryBeansType); //$NON-NLS-1$
+            put("isBeansJar", ERepositoryObjectType.BEANSJAR); //$NON-NLS-1$
         }
     };
 

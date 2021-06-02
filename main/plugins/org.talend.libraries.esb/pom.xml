@@ -188,6 +188,11 @@
         <artifactId>stax2-api</artifactId>
         <version>3.1.4</version>
     </dependency>
+    <dependency>
+	    <groupId>com.sun.istack</groupId>
+	    <artifactId>istack-commons-runtime</artifactId>
+	    <version>3.0.10</version>
+    </dependency>
 	<dependency>
 		<groupId>org.apache.cxf</groupId>
 		<artifactId>cxf-rt-ws-security</artifactId>
@@ -565,12 +570,6 @@
       <artifactId>jackson-dataformat-yaml</artifactId>
       <version>${jackson.version}</version>
     </dependency>
-    <!-- This can be removed once we pick up Jackson 2.10.5+ -->
-    <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>1.26</version>
-    </dependency>
 
     <!-- Validation API -->
     <dependency>
@@ -612,7 +611,7 @@
 	<dependency>
 	    <groupId>com.sun.activation</groupId>
 	    <artifactId>jakarta.activation</artifactId>
-	    <version>1.2.1</version>
+	    <version>1.2.2</version>
 	</dependency>
     <dependency>
         <groupId>org.apache.servicemix.specs</groupId>
@@ -637,7 +636,7 @@
 		</exclusions>
     </dependency>
 
-    <!-- fix CVE for TESB-30795 -->
+	  <!-- fix CVE for TESB-30795 -->
     <dependency>
         <groupId>org.cryptacular</groupId>
         <artifactId>cryptacular</artifactId>
