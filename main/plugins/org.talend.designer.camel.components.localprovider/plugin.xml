@@ -127,16 +127,16 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-geronimo-j2ee-management_1.1_spec}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-geronimo-jta_1.0.1B_spec}"
             id="geronimo-jta_1.0.1B_spec"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-geronimo-jta_1.0.1B_spec}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-geronimo-jta_1.0.1B_spec}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-xbean-spring}"
             id="xbean-spring"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-xbean-spring}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-xbean-spring}"
             bundleID="" />
 
         <libraryNeeded context="plugin:org.talend.libraries.esb"
