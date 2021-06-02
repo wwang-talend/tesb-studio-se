@@ -85,43 +85,43 @@
             <library id="activemq-jms-pool" />
         </libraryNeededGroup>
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-activemq-spring}"
             id="activemq-spring"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-spring}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-activemq-spring}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-activemq-broker}"
             id="activemq-broker"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-broker}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-activemq-broker}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-activemq-client}"
             id="activemq-client"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-client}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-activemq-client}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-activemq-openwire-legacy}"
             id="activemq-openwire-legacy"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-openwire-legacy}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-activemq-openwire-legacy}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-activemq-pool}"
             id="activemq-pool"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-pool}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-activemq-pool}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-activemq-jms-pool}"
             id="activemq-jms-pool"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-activemq-jms-pool}"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-activemq-jms-pool}"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-geronimo-j2ee-management_1.1_spec}"
             id="geronimo-j2ee-management_1.1_spec"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-geronimo-j2ee-management_1.1_spec}"
