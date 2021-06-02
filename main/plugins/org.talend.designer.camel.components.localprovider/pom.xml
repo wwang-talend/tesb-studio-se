@@ -65,6 +65,7 @@
         <validation-api.version>2.0.1.Final</validation-api.version>
         <snakeyaml.version>1.23</snakeyaml.version>
         <activemq.version>5.15.10</activemq.version>
+        <xbean-spring.version>4.14</xbean-spring.version>
         <!-- external deps -->
         <mvn-commons-collections>mvn:commons-collections/commons-collections/3.2.2</mvn-commons-collections>
         <mvn-commons-io>mvn:commons-io/commons-io/2.2</mvn-commons-io>
@@ -242,9 +243,20 @@
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
+            <version>${geronimo-j2ee-management.version}</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.apache.xbean</groupId>
+		    <artifactId>xbean-spring</artifactId>
+		    <version>${xbean-spring.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
             <version>${geronimo-j2ee-management.version}</version>
         </dependency>
+        
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-xstream</artifactId>
