@@ -154,12 +154,8 @@ public class RouteBundleExportAction extends JobExportAction {
                                 continue;
                             }
 
-                            boolean isUnselectLib = false;
                             String mavenUri = nameMavenUriMap.get(file.getName());
-                            if(unSelectedBundles.contains(mavenUri)) {
-                                isUnselectLib = true;
-                            }
-                            if (!isUnselectLib) {
+                            if(!unSelectedBundles.contains(mavenUri)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, LIB));
                             }
                         } else if (fileResource.getDirectoryName().equals("")) {
