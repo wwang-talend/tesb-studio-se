@@ -154,19 +154,22 @@ public class RouteBundleExportAction extends JobExportAction {
                                 continue;
                             }
 
-                            if (unSelectedBundles.size() > 0) {
+//                            if (unSelectedBundles.size() > 0) {
                                 boolean exist = false;
-                                for (String name : unSelectedBundles) {
-                                    String mavenUri = nameMavenUriMap.get(file.getName());
-                                    if (mavenUri.equals(name)) {
-                                        exist = true;
-                                    }
+                                String mavenUri = nameMavenUriMap.get(file.getName());
+                                if(unSelectedBundles.contains(mavenUri)) {
+                                    exist = true;
                                 }
+//                                for (String name : unSelectedBundles) {
+//                                    if (mavenUri.equals(name)) {
+//                                        exist = true;
+//                                    }
+//                                }
                                 
                                 if (!exist) {
                                     FilesUtils.copyFile(file, getTemporaryStoreFile(file, LIB));
                                 }
-                            }
+//                            }
                         } else if (fileResource.getDirectoryName().equals("")) {
                             if (FileConstants.BLUEPRINT_FOLDER_NAME.equals(relativePath)) {
                                 FilesUtils.copyFile(file, getTemporaryStoreFile(file, FileConstants.BLUEPRINT_FOLDER_NAME));
