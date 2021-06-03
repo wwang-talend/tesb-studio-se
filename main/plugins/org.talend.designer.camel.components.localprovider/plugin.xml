@@ -1725,7 +1725,23 @@
             uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-xstream-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-xstream/3.9.0"
             bundleID="" />
-            
+
+        <!-- camel-paho -->
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-paho-3.9.0.jar"
+            id="camel3-paho"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-paho-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-paho/3.9.0"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="org.eclipse.paho.client.mqttv3-1.2.5.jar"
+            id="org.eclipse.paho.client.mqttv3"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/org.eclipse.paho.client.mqttv3-1.2.5.jar"
+            mvn_uri="mvn:org.eclipse.paho/org.eclipse.paho.client.mqttv3/1.2.5"
+            bundleID="" />
+
+
         <libraryNeededGroup
                 description="camel-aws-s3"
                 id="camel-aws-s3"
@@ -1977,6 +1993,9 @@
                 description="camel-mqtt"
                 id="camel3-mqtt"
                 name="camel3-mqtt">
+            <library id="camel3-paho" />
+            <library id="org.eclipse.paho.client.mqttv3" />
+            <group id="camel3-core" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
