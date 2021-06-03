@@ -39,11 +39,11 @@
             uripath="platform:/plugin/org.talend.libraries.apache.common/lib/commons-collections-3.2.2.jar"
             bundleID="" />
         <!-- ${tesb-commons-io} -->
-        <libraryNeeded context="plugin:org.apache.commons.io"
+        <!--libraryNeeded context="plugin:org.apache.commons.io"
             name="org.apache.commons.io_2.2.0.v201405211200.jar"
             id="commons-io"
             uripath="platform:/base/plugins/org.apache.commons.io_2.2.0.v201405211200.jar"
-            bundleID="" />
+            bundleID="" /-->
         <!-- ${tesb-commons-pool} -->
         <libraryNeeded context="plugin:org.talend.libraries.apache.common"
             name="commons-pool-1.6.jar"
