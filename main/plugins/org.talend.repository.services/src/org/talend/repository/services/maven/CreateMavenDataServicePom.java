@@ -353,7 +353,14 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         dependency.setVersion("3.3.3");
 
         plugin.addDependency(dependency);
-        
+
+        Dependency commonsioDep = new Dependency();
+        commonsioDep.setGroupId("commons-io");
+        commonsioDep.setArtifactId("commons-io");
+        commonsioDep.setVersion("2.8.0");
+
+        plugin.addDependency(commonsioDep);
+
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
 
