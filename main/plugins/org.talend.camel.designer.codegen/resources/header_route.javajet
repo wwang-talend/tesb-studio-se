@@ -3585,6 +3585,9 @@ if (isProvider) {
         if(!"true".equals(useNamespaces)){
             continue;
         }
+        
+        String expression = ElementParameterParser.getValue(node, "__EXPRESSION__");
+        
         String cid = node.getUniqueName();
         List<Map<String, String>> namespaceValues = (List<Map<String,String>>)ElementParameterParser.getObjectValue(node, "__NAMESPACES__");
 %>
@@ -3600,6 +3603,11 @@ if (isProvider) {
             }
 %>
         }
+        
+        org.apache.camel.builder.xml.XPathBuilder xpathBuilder_<%=cid%> = new org.apache.camel.builder.xml.XPathBuilder(<%=expression%>);
+		xpathBuilder_<%=cid%>.setNamespaces(<%=cid%>NSMap);
+		xpathBuilder_<%=cid%>.threadSafety(true);
+        
 <%
     }else if("cSetHeader".equals(nodeComponentName) || "cSetProperty".equals(nodeComponentName)){
         String useNamespaces = ElementParameterParser.getValue(node, "__USE_NAMESPACES__");

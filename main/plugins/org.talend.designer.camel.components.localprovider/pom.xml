@@ -13,7 +13,6 @@
 
     <properties>
         <camel.version>2.23.1</camel.version>
-        <activemq.version>5.15.9</activemq.version>
         <!-- camel-groovy -->
         <groovy.version>2.4.6</groovy.version>
         <!-- camel-xstream -->
@@ -65,6 +64,8 @@
         <guava.version>20.0</guava.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <snakeyaml.version>1.23</snakeyaml.version>
+        <activemq.version>5.15.10</activemq.version>
+        <xbean-spring.version>4.14</xbean-spring.version>
         <!-- external deps -->
         <mvn-commons-collections>mvn:commons-collections/commons-collections/3.2.2</mvn-commons-collections>
         <mvn-commons-io>mvn:commons-io/commons-io/2.2</mvn-commons-io>
@@ -206,10 +207,56 @@
             <version>${activemq.version}</version>
         </dependency>
         <dependency>
+        	<groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-jms-pool</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-openwire-legacy</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-pool</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.0.1B_spec</artifactId>
+            <version>${geronimo-j2ee-management.version}</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.apache.xbean</groupId>
+		    <artifactId>xbean-spring</artifactId>
+		    <version>${xbean-spring.version}</version>
+		</dependency>
+        <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
             <version>${geronimo-j2ee-management.version}</version>
         </dependency>
+        
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-xstream</artifactId>
