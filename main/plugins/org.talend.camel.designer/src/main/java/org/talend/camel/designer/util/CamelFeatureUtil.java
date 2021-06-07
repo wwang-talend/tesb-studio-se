@@ -82,6 +82,7 @@ public final class CamelFeatureUtil {
         put("camel-http-common", new FeatureModel[] { });
         put("activemq-all", new FeatureModel[] { new FeatureModel("activemq-client") });
         put("tdm-camel", new FeatureModel[] { new FeatureModel("talend-data-mapper") });
+            put("tdm-lib-di", new FeatureModel[] { new FeatureModel("talend-data-mapper") });
         //put("camel-talendjob", new FeatureModel[] { new FeatureModel("camel-talendjob") });
         put("camel-cxf-transport", new FeatureModel[] { });
         put("camel-jetty-common", new FeatureModel[] { });
