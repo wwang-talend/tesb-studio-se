@@ -340,6 +340,11 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         mavensharedDep.setArtifactId("maven-shared-utils");
         mavensharedDep.setVersion("3.3.3");
 
+        Dependency commonsioDep = new Dependency();
+        commonsioDep.setGroupId("commons-io");
+        commonsioDep.setArtifactId("commons-io");
+        commonsioDep.setVersion("2.8.0");
+
         Dependency httpclientDep = new Dependency();
         httpclientDep.setGroupId("org.apache.httpcomponents");
         httpclientDep.setArtifactId("httpclient");
@@ -361,6 +366,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         junitDep.setVersion("4.13.2");
 
         dependencies.add(mavensharedDep);
+        dependencies.add(commonsioDep);
         dependencies.add(httpclientDep);
         dependencies.add(httpcoreDep);
         dependencies.add(istackDep);
