@@ -67,7 +67,7 @@
         <snakeyaml.version>1.26</snakeyaml.version>
         <!-- external deps -->
         <mvn-commons-collections>mvn:commons-collections/commons-collections/3.2.2</mvn-commons-collections>
-        <mvn-commons-io>mvn:commons-io/commons-io/2.2</mvn-commons-io>
+        <mvn-commons-io>mvn:commons-io/commons-io/2.8.0</mvn-commons-io>
         <mvn-commons-lang>mvn:commons-lang/commons-lang/2.6</mvn-commons-lang>
         <mvn-commons-pool>mvn:commons-pool/commons-pool/1.6</mvn-commons-pool>
         
