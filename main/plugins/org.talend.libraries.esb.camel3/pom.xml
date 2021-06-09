@@ -13,6 +13,7 @@
 	<packaging>eclipse-plugin</packaging>
 	<properties>
 		<camel3.version>3.9.0</camel3.version>
+		<aws.sdk.version>2.16.23</aws.sdk.version>
 	</properties>
 	<build>
 		<plugins>
@@ -133,6 +134,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-paho</artifactId>
+			<version>${camel3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jms</artifactId>
 			<version>${camel3.version}</version>
 		</dependency>
@@ -205,6 +211,42 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-kafka</artifactId>
 			<version>${camel3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-s3</artifactId>
+			<version>${camel3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-ses</artifactId>
+			<version>${camel3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-sns</artifactId>
+			<version>${camel3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-sqs</artifactId>
+			<version>${camel3.version}</version>
+		</dependency>
+		<!-- AWS SDK -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>sdk-core</artifactId>
+			<version>${aws.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>url-connection-client</artifactId>
+			<version>${aws.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>apache-client</artifactId>
+			<version>${aws.sdk.version}</version>
 		</dependency>
 	</dependencies>
 </project>

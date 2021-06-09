@@ -1257,7 +1257,132 @@
         
 
         <!-- Camel 3 Dependencies Begin -->
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="aws-core-2.16.23.jar"
+            id="aws-sdk-aws-core"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/aws-core-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/aws-core/2.16.23"
+            bundleID="" />
         
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="aws-sdk-protocol-core-2.16.23.jar"
+            id="aws-sdk-protocol-core"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/protocol-core-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/protocol-core/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="aws-core-2.16.23.jar"
+            id="aws-sdk-sdk-core"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/sdk-core-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/sdk-core/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="auth-2.16.23.jar"
+            id="aws-sdk-auth"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/auth-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/auth/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="s3-2.16.23.jar"
+            id="aws-sdk-s3"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/s3-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/s3/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="ses-2.16.23.jar"
+            id="aws-sdk-ses"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/ses-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/ses/2.16.23"
+            bundleID="" /> 
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="sns-2.16.23.jar"
+            id="aws-sdk-sns"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/sns-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/sns/2.16.23"
+            bundleID="" />  
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="sqs-2.16.23.jar"
+            id="aws-sdk-sqs"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/sqs-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/sqs/2.16.23"
+            bundleID="" />  
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="utils-2.16.23.jar"
+            id="aws-sdk-utils"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/utils-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/utils/2.16.23"
+            bundleID="" />  
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="http-client-spi-2.16.23.jar"
+            id="aws-sdk-http-client-spi"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/http-client-spi-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/http-client-spi/2.16.23"
+            bundleID="" /> 
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="apache-client-2.16.23.jar"
+            id="aws-sdk-apache-client"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/apache-client-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/apache-client/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="aws-xml-protocol-2.16.23.jar"
+            id="aws-sdk-aws-xml-protocol"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/aws-xml-protocol-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/aws-xml-protocol/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="regions-2.16.23.jar"
+            id="aws-sdk-regions"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/regions-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/regions/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="profiles-2.16.23.jar"
+            id="aws-sdk-profiles"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/profiles-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/profiles/2.16.23"
+            bundleID="" />  
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="url-connection-client-2.16.23.jar"
+            id="aws-sdk-url-connection-client"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/url-connection-client-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/url-connection-client/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="aws-query-protocol-2.16.23.jar"
+            id="aws-sdk-query-protocol"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/aws-query-protocol-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/aws-query-protocol/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="metrics-spi-2.16.23.jar"
+            id="aws-sdk-metrics-spi"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/metrics-spi-2.16.23.jar"
+            mvn_uri="mvn:software.amazon.awssdk/metrics-spi/2.16.23"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="metrics-spi-2.16.23.jar"
+            id="reactive-streams"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/reactive-streams-1.0.2.jar"
+            mvn_uri="mvn:org.reactivestreams/reactive-streams/1.0.2"
+            bundleID="" />
+             
         <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
             name="camel-core-3.9.0.jar"
             id="camel3-core"
@@ -1379,9 +1504,31 @@
             bundleID="" />
             
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="camel-aws-3.9.0.jar"
-            id="camel3-aws"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws-3.9.0.jar"
+            name="camel-aws2-s3-3.9.0.jar"
+            id="camel3-aws2-s3"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-s3-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-aws2-s3/3.9.0"
+            bundleID="" />
+            
+         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-aws2-ses-3.9.0.jar"
+            id="camel3-aws2-ses"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-ses-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-aws2-ses/3.9.0"
+            bundleID="" />
+            
+         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-aws2-sns-3.9.0.jar"
+            id="camel3-aws2-sns"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-sns-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-aws2-sns/3.9.0"
+            bundleID="" />
+            
+         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-aws2-sqs-3.9.0.jar"
+            id="camel3-aws2-sqs"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-sqs-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-aws2-sqs/3.9.0"
             bundleID="" />
         
         <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
@@ -1578,20 +1725,104 @@
             uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-xstream-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-xstream/3.9.0"
             bundleID="" />
-            
+
+        <!-- camel-paho -->
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="camel-paho-3.9.0.jar"
+            id="camel3-paho"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-paho-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-paho/3.9.0"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+            name="org.eclipse.paho.client.mqttv3-1.2.5.jar"
+            id="org.eclipse.paho.client.mqttv3"
+            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/org.eclipse.paho.client.mqttv3-1.2.5.jar"
+            mvn_uri="mvn:org.eclipse.paho/org.eclipse.paho.client.mqttv3/1.2.5"
+            bundleID="" />
+
+
+        <libraryNeededGroup
+                description="camel-aws-s3"
+                id="camel-aws-s3"
+                name="camel-aws-s3">
+            <library id="camel-aws" />
+            <library id="aws-java-sdk-core" />
+            <library id="aws-java-sdk-kms" />
+            <library id="aws-java-sdk-kinesis" />
+            <library id="aws-java-sdk-cloudfront" />
+            <library id="aws-java-sdk-s3" />
+        </libraryNeededGroup>     
         <libraryNeededGroup
               description="camel-aws-connection"
               id="camel3-aws-connection"
               name="camel3-aws-connection">
            <library
-                 id="camel3-aws">
+                 id="camel3-aws2-s3">
            </library>
            <library
-                 id="aws-java-sdk-core">
+                 id="camel3-aws2-ses">
            </library>
            <library
-                 id="aws-java-sdk-kinesis">
+                 id="camel3-aws2-sqs">
            </library>
+           <library
+                 id="camel3-aws2-sns">
+           </library>
+           <library
+                 id="aws-sdk-protocol-core">
+           </library>
+           <library
+                 id="aws-sdk-aws-core">
+           </library>
+           <library
+                 id="aws-sdk-sdk-core">
+           </library>
+           <library
+                 id="aws-sdk-auth">
+           </library>
+           <library
+                 id="aws-sdk-s3">
+           </library>
+           <library
+                 id="aws-sdk-ses">
+           </library>
+           <library
+                 id="aws-sdk-sqs">
+           </library>
+           <library
+                 id="aws-sdk-sns">
+           </library>
+           <library
+                 id="aws-sdk-utils">
+           </library>
+           <library
+                 id="aws-sdk-http-client-spi">
+           </library>
+           <library
+                 id="aws-sdk-aws-xml-protocol">
+           </library>
+           <library
+                 id="aws-sdk-profiles">
+           </library>
+           <library
+                 id="aws-sdk-regions">
+           </library>
+           <library
+                 id="aws-sdk-url-connection-client">
+           </library>           
+           <library
+                 id="aws-sdk-query-protocol">
+           </library> 
+           <library
+                 id="aws-sdk-metrics-spi">
+           </library> 
+           <library
+                 id="reactive-streams">
+           </library>
+           <library
+                 id="aws-sdk-apache-client">
+           </library>            
         </libraryNeededGroup> 
 
         <libraryNeededGroup
@@ -1609,6 +1840,7 @@
             
             <library id="camel3-base" />
             <library id="camel3-base-engine" />
+            <library id="camel3-file" />
             <library id="camel3-support" />
             <library id="camel3-util" />
             <library id="camel3-api" />
@@ -1761,6 +1993,9 @@
                 description="camel-mqtt"
                 id="camel3-mqtt"
                 name="camel3-mqtt">
+            <library id="camel3-paho" />
+            <library id="org.eclipse.paho.client.mqttv3" />
+            <group id="camel3-core" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
