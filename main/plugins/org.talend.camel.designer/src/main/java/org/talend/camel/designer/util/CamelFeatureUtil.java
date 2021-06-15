@@ -241,8 +241,6 @@ public final class CamelFeatureUtil {
 	 */
     public static void addFeatureAndBundles(ProcessItem routeProcess, FeaturesModel featuresModel) {
 
-        Project project = ProjectManager.getInstance().getCurrentProject();
-
         IDesignerCoreService designerService = RepositoryPlugin.getDefault().getDesignerCoreService();
 
         IProcess process = designerService.getProcessFromProcessItem(routeProcess, false);
@@ -252,24 +250,20 @@ public final class CamelFeatureUtil {
             Collection<FeatureModel> featureModel = computeFeature(getNameWithoutVersion(lib));
             if (featureModel != null) {
 
-                if (project != null && project.isCamel3()) {
-                    ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault()
-                            .getService(ILibrariesService.class);
+                ILibrariesService librariesService = (ILibrariesService) GlobalServiceRegister.getDefault()
+                        .getService(ILibrariesService.class);
 
-                    List<ModuleNeeded> mns = librariesService.getModuleNeeded("camel3-core", true);
-                    Set<String> artifactIdList = new HashSet<>();
-                    for (ModuleNeeded mn : mns) {
-                        MavenArtifact mavenArtifact = MavenUrlHelper.parseMvnUrl(mn.getMavenUri());
-                        artifactIdList.add(mavenArtifact.getArtifactId());
-                    }
+                List<ModuleNeeded> mns = librariesService.getModuleNeeded("camel3-core", true);
+                Set<String> artifactIdList = new HashSet<>();
+                for (ModuleNeeded mn : mns) {
+                    MavenArtifact mavenArtifact = MavenUrlHelper.parseMvnUrl(mn.getMavenUri());
+                    artifactIdList.add(mavenArtifact.getArtifactId());
+                }
 
-                    for (FeatureModel fm : featureModel) {
-                        if (!artifactIdList.contains(fm.getArtifactId())) {
-                            features.add(fm);
-                        }
+                for (FeatureModel fm : featureModel) {
+                    if (!artifactIdList.contains(fm.getArtifactId())) {
+                        features.add(fm);
                     }
-                } else {
-                    features.addAll(featureModel);
                 }
             }
         }

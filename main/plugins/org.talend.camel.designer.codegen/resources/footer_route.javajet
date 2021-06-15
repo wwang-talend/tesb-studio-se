@@ -38,8 +38,6 @@
     if(process.getClass().getName().endsWith("MicroServiceProcess")){
         exportTypeSpringBoot = true;
     }
-    
-    boolean camel3 = ProcessUtils.isCamel3(process);
 
 %>
 	}
@@ -114,37 +112,20 @@
                     runStat.updateStatOnConnection(connection, routines.system.RunStat.BEGIN, 0);
                 }
                 
-                <%if(camel3){%>
-					camelContext.addInterceptStrategy(new org.apache.camel.spi.InterceptStrategy() {
-						@Override
-						public org.apache.camel.Processor wrapProcessorInInterceptors(CamelContext context, org.apache.camel.NamedNode definition, org.apache.camel.Processor target, org.apache.camel.Processor nextTarget) throws Exception {
-							return new org.apache.camel.support.processor.DelegateAsyncProcessor(target) {
-								public boolean process(org.apache.camel.Exchange exchange, org.apache.camel.AsyncCallback callback) {
-									final String connection = targetNodeToConnectionMap.get(definition.getId());
-									if (null != connection) {
-										runStat.updateStatOnConnection(targetNodeToConnectionMap.get(definition.getId()),routines.system.RunStat.RUNNING, 1);
-									}
-									return super.process(exchange, callback);
+				camelContext.addInterceptStrategy(new org.apache.camel.spi.InterceptStrategy() {
+					@Override
+					public org.apache.camel.Processor wrapProcessorInInterceptors(CamelContext context, org.apache.camel.NamedNode definition, org.apache.camel.Processor target, org.apache.camel.Processor nextTarget) throws Exception {
+						return new org.apache.camel.support.processor.DelegateAsyncProcessor(target) {
+							public boolean process(org.apache.camel.Exchange exchange, org.apache.camel.AsyncCallback callback) {
+								final String connection = targetNodeToConnectionMap.get(definition.getId());
+								if (null != connection) {
+									runStat.updateStatOnConnection(targetNodeToConnectionMap.get(definition.getId()),routines.system.RunStat.RUNNING, 1);
 								}
-							};
-						}
-					});
-                <%}else{%>
-	                camelContext.addInterceptStrategy(new org.apache.camel.spi.InterceptStrategy() {
-	                    public org.apache.camel.Processor wrapProcessorInInterceptors(CamelContext context, final org.apache.camel.model.ProcessorDefinition<?> node,
-	                        final org.apache.camel.Processor target, org.apache.camel.Processor nextTarget) throws Exception {
-	                        return new org.apache.camel.processor.DelegateAsyncProcessor(target) {
-	                            public boolean process(org.apache.camel.Exchange exchange, org.apache.camel.AsyncCallback callback) {
-	                                final String connection = targetNodeToConnectionMap.get(node.getId());
-	                                if (null != connection) {
-	                                    runStat.updateStatOnConnection(targetNodeToConnectionMap.get(node.getId()), routines.system.RunStat.RUNNING, 1);
-	                                }
-	                                return super.process(exchange, callback);
-	                            }
-	                        };
-	                    }
-	                });
-                <%}%>
+								return super.process(exchange, callback);
+							}
+						};
+					}
+				});
                 
 <%
 } //if stats
@@ -155,11 +136,7 @@
 
         //add route
         
-        <%if(camel3){%>
-			main.bind("main", this);
-        <%}else{%>
-			main.addRouteBuilder(<%=isTestContainer ? "this.createRouteBuilder()" : "this" %>);
-        <%}%>
+		main.bind("main", this);
 		
 		<%
 				if(hasRouteletComponent(process)){
@@ -645,11 +622,7 @@ if (isTestContainer) {
                             context.load(inContext);
 				if (null != getContext().hasComponent("<%=className %>_properties")) {
 				
-					<%if(camel3){%>
-                        org.apache.camel.component.properties.PropertiesComponent props = (org.apache.camel.component.properties.PropertiesComponent) getContext().getComponent("TestR_properties");
-	                <%}else{%>
-						org.apache.camel.component.properties.PropertiesComponent props = getContext().getComponent("<%=className %>_properties", org.apache.camel.component.properties.PropertiesComponent.class);          
-	                <%}%>
+					org.apache.camel.component.properties.PropertiesComponent props = (org.apache.camel.component.properties.PropertiesComponent) getContext().getComponent("TestR_properties");
 	                
 	                	context.putAll(props.getOverrideProperties());
 				}
