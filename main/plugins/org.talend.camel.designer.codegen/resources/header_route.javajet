@@ -3693,6 +3693,17 @@ if (isProvider) {
             }
 %>
         }
+        
+<%		if ("cSplitter".equals(nodeComponentName)) {
+			String expression = ElementParameterParser.getValue(node, "__EXPRESSION__"); 
+%>
+
+		org.apache.camel.builder.xml.XPathBuilder xpathBuilder_<%=cid%> = new org.apache.camel.builder.xml.XPathBuilder(<%=expression%>);
+		xpathBuilder_<%=cid%>.setNamespaces(<%=cid%>NSMap);
+		xpathBuilder_<%=cid%>.threadSafety(true);
+		
+<%		}	%>
+
 <%
     }else if("cSetHeader".equals(nodeComponentName) || "cSetProperty".equals(nodeComponentName)){
         String useNamespaces = ElementParameterParser.getValue(node, "__USE_NAMESPACES__");
