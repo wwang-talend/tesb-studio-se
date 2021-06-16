@@ -701,7 +701,6 @@
 
     <build>
         <plugins>
-<!--             
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -719,7 +718,7 @@
                             <excludeGroupIds>p2.eclipse-plugin,org.talend.studio</excludeGroupIds>
                         </configuration>
                     </execution>
-                    <execution>
+<!--                     <execution>
                         <id>copy</id>
                         <phase>generate-resources</phase>
                         <goals>
@@ -737,10 +736,9 @@
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
-                    </execution>
+                    </execution> -->
                 </executions>
-            </plugin> 
--->
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
