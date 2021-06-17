@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import org.talend.commons.exception.PersistenceException;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 public class DeprecatedSimpleLanguageSyntaxMigrationTask extends AbstractRouteItemComponentMigrationTask {
@@ -17,6 +18,8 @@ public class DeprecatedSimpleLanguageSyntaxMigrationTask extends AbstractRouteIt
 
 	private String valueExpression = null;
 	private String valueLanguage = null;
+	private boolean save = false;
+	boolean isOldFormatExpression = false;
 
 	@Override
 	public String getComponentNameRegex() {
@@ -33,55 +36,84 @@ public class DeprecatedSimpleLanguageSyntaxMigrationTask extends AbstractRouteIt
 		return wrapSpecialCommands(node);
 	}
 
+	@SuppressWarnings("unchecked")
 	private boolean wrapSpecialCommands(NodeType currentNode) throws PersistenceException {
+		
+		save = false;
 
-		boolean save = false;
-		boolean isOldFormatExpression = false;
+		if ("cSetHeader".equalsIgnoreCase(currentNode.getComponentName())) {
 
-		ElementParameterType paramLanguages = UtilTool.findParameterType(currentNode, "LANGUAGES");
-		ElementParameterType paramExpression = UtilTool.findParameterType(currentNode, "EXPRESSION");
+			ElementParameterType paramValues = UtilTool.findParameterType(currentNode, "VALUES");
+			paramValues.getElementValue().forEach(e -> {
 
-		if (paramLanguages == null || paramExpression == null) {
-			return false;
-		}
+				ElementValueType element = (ElementValueType) e;
 
-		valueLanguage = paramLanguages.getValue();
-		valueExpression = paramExpression.getValue();
+				String name = ((ElementValueType) element).getElementRef();
+				String value = ((ElementValueType) element).getValue();
 
-		if (valueLanguage == null || valueExpression == null) {
-			return false;
-		}
+				if ("LANGUAGE".equalsIgnoreCase(name)) {
+					valueLanguage = value;
+				}
 
-		valueExpression = valueExpression.replaceAll("\"", "");
+				if ("EXPRESSION".equalsIgnoreCase(name) && "SIMPLE".equalsIgnoreCase(valueLanguage)) {
+					valueExpression = value;
 
-		if (valueLanguage.equalsIgnoreCase("SIMPLE")) {
-
-			isOldFormatExpression = isOldFormatExpression(valueExpression, false);
-
-			if (isOldFormatExpression) {
-				save = true;
-			}
-
-			String wrappedBodyAndHeaderExpressions = wrapBodyAndHeaderExpressions(valueExpression);
-			if (!valueExpression.equalsIgnoreCase(wrappedBodyAndHeaderExpressions)) {
-				valueExpression = wrappedBodyAndHeaderExpressions;
-				save = true;
-			}
-
-			if (save) {
-				for (Object e : currentNode.getElementParameter()) {
-					ElementParameterType p = (ElementParameterType) e;
-					if ("EXPRESSION".equals(p.getName())) {
-						if (isOldFormatExpression) {
-							p.setValue("\"" + WRAPPER_START + valueExpression + WRAPPER_END + "\"");
-						} else {
-							p.setValue("\"" + valueExpression + "\"");
-						}
-						break;
+					String wrappedBodyAndHeaderExpressions = wrapBodyAndHeaderExpressions(valueExpression);
+					if (!valueExpression.equalsIgnoreCase(wrappedBodyAndHeaderExpressions)) {
+						element.setValue(wrappedBodyAndHeaderExpressions);
+						save = true;
 					}
 				}
+
+			});
+
+		} else {
+
+			ElementParameterType paramLanguages = UtilTool.findParameterType(currentNode, "LANGUAGES");
+			ElementParameterType paramExpression = UtilTool.findParameterType(currentNode, "EXPRESSION");
+
+			if (paramLanguages == null || paramExpression == null) {
+				return false;
 			}
 
+			valueLanguage = paramLanguages.getValue();
+			valueExpression = paramExpression.getValue();
+
+			if (valueLanguage == null || valueExpression == null) {
+				return false;
+			}
+
+			valueExpression = valueExpression.replaceAll("\"", "");
+
+			if (valueLanguage.equalsIgnoreCase("SIMPLE")) {
+
+				isOldFormatExpression = isOldFormatExpression(valueExpression, false);
+
+				if (isOldFormatExpression) {
+					save = true;
+				}
+
+				String wrappedBodyAndHeaderExpressions = wrapBodyAndHeaderExpressions(valueExpression);
+				if (!valueExpression.equalsIgnoreCase(wrappedBodyAndHeaderExpressions)) {
+					valueExpression = wrappedBodyAndHeaderExpressions;
+					save = true;
+				}
+
+				if (save) {
+					for (Object e : currentNode.getElementParameter()) {
+						ElementParameterType p = (ElementParameterType) e;
+						if ("EXPRESSION".equals(p.getName())) {
+							if (isOldFormatExpression) {
+								p.setValue("\"" + WRAPPER_START + valueExpression + WRAPPER_END + "\"");
+							} else {
+								p.setValue("\"" + valueExpression + "\"");
+							}
+							break;
+						}
+					}
+				}
+
+			}
 		}
 
 		return save;

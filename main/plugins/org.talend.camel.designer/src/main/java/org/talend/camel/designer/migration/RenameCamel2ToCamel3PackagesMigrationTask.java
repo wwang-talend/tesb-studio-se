@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.talend.commons.exception.PersistenceException;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItemComponentMigrationTask {
@@ -18,6 +19,7 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 
 	private String valueExpression = null;
 	private String valueLanguage = null;
+	private boolean save = false;
 
 	private static Map<String, String> classesMap;
 	static {
@@ -67,43 +69,71 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 		return correctClassNames(node);
 	}
 
+	@SuppressWarnings("unchecked")
 	private boolean correctClassNames(NodeType currentNode) throws PersistenceException {
 
-		boolean save = false;
+		save = false;
+		
+		if ("cSetHeader".equalsIgnoreCase(currentNode.getComponentName())) {
+			
+			ElementParameterType paramValues = UtilTool.findParameterType(currentNode, "VALUES");
+			paramValues.getElementValue().forEach(e -> {
 
-		ElementParameterType paramLanguages = UtilTool.findParameterType(currentNode, "LANGUAGES");
-		ElementParameterType paramExpression = UtilTool.findParameterType(currentNode, "EXPRESSION");
+				ElementValueType element = (ElementValueType) e;
 
-		if (paramLanguages == null || paramExpression == null) {
-			return false;
-		}
+				String name = ((ElementValueType) element).getElementRef();
+				String value = ((ElementValueType) element).getValue();
 
-		valueLanguage = paramLanguages.getValue();
-		valueExpression = paramExpression.getValue();
+				if ("LANGUAGE".equalsIgnoreCase(name)) {
+					valueLanguage = value;
+				}
 
-		if (valueLanguage == null || valueExpression == null) {
-			return false;
-		}
+				if ("EXPRESSION".equalsIgnoreCase(name)) {
+					valueExpression = value;
 
+					String renameClassNamesInsideExpressions = renamePackageNamesInsideExpressions(valueExpression);
+					if (!valueExpression.equalsIgnoreCase(renameClassNamesInsideExpressions)) {
+						((ElementValueType) element).setValue(renameClassNamesInsideExpressions);
+						save = true;
+					}
+				}
 
-		String renameClassNamesInsideExpressions = renamePackageNamesInsideExpressions(valueExpression);
-		if (!valueExpression.equalsIgnoreCase(renameClassNamesInsideExpressions)) {
-			valueExpression = renameClassNamesInsideExpressions;
-			save = true;
-		}
+			});
 
-		if (save) {
-			for (Object e : currentNode.getElementParameter()) {
-				ElementParameterType p = (ElementParameterType) e;
-				if ("EXPRESSION".equals(p.getName())) {
-					p.setValue(valueExpression);
-					break;
+		} else {
+
+			ElementParameterType paramLanguages = UtilTool.findParameterType(currentNode, "LANGUAGES");
+			ElementParameterType paramExpression = UtilTool.findParameterType(currentNode, "EXPRESSION");
+
+			if (paramLanguages == null || paramExpression == null) {
+				return false;
+			}
+
+			valueLanguage = paramLanguages.getValue();
+			valueExpression = paramExpression.getValue();
+
+			if (valueLanguage == null || valueExpression == null) {
+				return false;
+			}
+
+			String renameClassNamesInsideExpressions = renamePackageNamesInsideExpressions(valueExpression);
+			if (!valueExpression.equalsIgnoreCase(renameClassNamesInsideExpressions)) {
+				valueExpression = renameClassNamesInsideExpressions;
+				save = true;
+			}
+
+			if (save) {
+				for (Object e : currentNode.getElementParameter()) {
+					ElementParameterType p = (ElementParameterType) e;
+					if ("EXPRESSION".equals(p.getName())) {
+						p.setValue(valueExpression);
+						break;
+					}
 				}
 			}
 		}
 
 		return save;
-
 	}
 
 	private static String renamePackageNamesInsideExpressions(String valueExpression) {
