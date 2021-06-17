@@ -356,6 +356,15 @@
                 name="DeprecatedSimpleLanguageSyntaxMigrationTask"
                 version="7.3.1">
           </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.RenameCamel2ToCamel3PackagesMigrationTask"
+                description="Rename Camel 2 package names to Camel 3"
+                id="org.talend.camel.designer.migration.RenameCamel2ToCamel3PackagesMigrationTask"
+                name="RenameCamel2ToCamel3ClassesMigrationTask"
+                version="7.3.1">
+          </projecttask>
     </extension>
 
         <extension
