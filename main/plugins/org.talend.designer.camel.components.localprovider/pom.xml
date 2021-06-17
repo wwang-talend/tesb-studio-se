@@ -19,7 +19,7 @@
         <!-- camel-groovy -->
         <groovy.version>2.4.8</groovy.version>
         <!-- camel-xstream -->
-        <xstream.version>1.4.16</xstream.version>
+        <xstream.version>1.4.17</xstream.version>
         <xpp3.version>1.1.6</xpp3.version>
         <!-- camel-amqp -->
         <qpid-jms-client.version>0.38.0</qpid-jms-client.version>
@@ -43,7 +43,7 @@
         <!-- camel-mail -->
         <mail.version>1.4.7</mail.version>
         <!-- camel-aws -->
-        <aws-java-sdk-version>1.11.269</aws-java-sdk-version>
+        <aws.sdk.version>2.16.23</aws.sdk.version>
         <!-- camel-azure -->
         <azure-storage-version>7.0.0</azure-storage-version>        
         <azure-keyvault-core-version>1.0.0</azure-keyvault-core-version>
@@ -69,7 +69,7 @@
         <snakeyaml.version>1.26</snakeyaml.version>
         <!-- external deps -->
         <mvn-commons-collections>mvn:commons-collections/commons-collections/3.2.2</mvn-commons-collections>
-        <mvn-commons-io>mvn:commons-io/commons-io/2.2</mvn-commons-io>
+        <mvn-commons-io>mvn:commons-io/commons-io/2.8.0</mvn-commons-io>
         <mvn-commons-lang>mvn:commons-lang/commons-lang/2.6</mvn-commons-lang>
         <mvn-commons-pool>mvn:commons-pool/commons-pool/1.6</mvn-commons-pool>
         
@@ -87,12 +87,6 @@
         <dependency>
             <groupId>org.talend.studio</groupId>
             <artifactId>org.talend.libraries.esb</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.talend.studio</groupId>
-            <artifactId>org.talend.libraries.esb.camel3</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
         </dependency>
@@ -119,157 +113,6 @@
             <version>${spring.version}</version>
         </dependency>
 
-<!--         
-		<dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-blueprint</artifactId>
-            <version>${camel.version}</version>
-        </dependency> 
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-context</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-spring-boot</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-script</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-azure</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws</artifactId>
-            <version>${camel.version}</version>
-            <exclusions>
-            		<exclusion>
-				      <groupId>com.fasterxml.jackson.core</groupId>
-				      <artifactId>jackson-annotations</artifactId>
-            		</exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>azure-keyvault-core</artifactId>
-            <version>${azure-keyvault-core-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>azure-storage</artifactId>
-            <version>${azure-storage-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-core</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-kms</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-s3</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-sqs</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-sns</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-kinesis</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-cloudfront</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-ses</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-mq</artifactId>
-            <version>${aws-java-sdk-version}</version>
-        </dependency> 
-        
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mqtt</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.mqtt-client</groupId>
-            <artifactId>mqtt-client</artifactId>
-            <version>${mqtt-client.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtdispatch</groupId>
-            <artifactId>hawtdispatch-transport</artifactId>
-            <version>${hawtdispatch.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtdispatch</groupId>
-            <artifactId>hawtdispatch</artifactId>
-            <version>${hawtdispatch.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtbuf</groupId>
-            <artifactId>hawtbuf</artifactId>
-            <version>${hawtbuf.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-hawtdb</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.hawtdb</groupId>
-            <artifactId>hawtdb</artifactId>
-            <version>${hawtdb-version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-servletlistener</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jetty9</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
--->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-cxf</artifactId>
@@ -480,6 +323,7 @@
             <artifactId>camel-jetty</artifactId>
             <version>${camel.version}</version>
         </dependency>
+        
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jetty-common</artifactId>
@@ -668,12 +512,6 @@
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>${jackson.version}</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>com.fasterxml.jackson.module</groupId>
-		    <artifactId>jackson-module-jaxb-annotations</artifactId>
-		    <version>${jackson.version}</version>
-		</dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -703,11 +541,67 @@
             <artifactId>wagon-provider-api</artifactId>
             <version>${wagon.provider.api.version}</version>
         </dependency>
+        
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-management</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-main</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel.karaf</groupId>
+			<artifactId>camel-blueprint</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-paho</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-s3</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-ses</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-sns</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-aws2-sqs</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<!-- AWS SDK -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>sdk-core</artifactId>
+			<version>${aws.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>url-connection-client</artifactId>
+			<version>${aws.sdk.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>apache-client</artifactId>
+			<version>${aws.sdk.version}</version>
+		</dependency>
     </dependencies>
 
     <build>
         <plugins>
-<!--             
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -725,7 +619,7 @@
                             <excludeGroupIds>p2.eclipse-plugin,org.talend.studio</excludeGroupIds>
                         </configuration>
                     </execution>
-                    <execution>
+<!--                     <execution>
                         <id>copy</id>
                         <phase>generate-resources</phase>
                         <goals>
@@ -743,10 +637,9 @@
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
-                    </execution>
+                    </execution> -->
                 </executions>
-            </plugin> 
--->
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>

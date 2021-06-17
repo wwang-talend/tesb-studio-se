@@ -39,11 +39,11 @@
             uripath="platform:/plugin/org.talend.libraries.apache.common/lib/commons-collections-3.2.2.jar"
             bundleID="" />
         <!-- ${tesb-commons-io} -->
-        <libraryNeeded context="plugin:org.apache.commons.io"
+        <!--libraryNeeded context="plugin:org.apache.commons.io"
             name="org.apache.commons.io_2.2.0.v201405211200.jar"
             id="commons-io"
             uripath="platform:/base/plugins/org.apache.commons.io_2.2.0.v201405211200.jar"
-            bundleID="" />
+            bundleID="" /-->
         <!-- ${tesb-commons-pool} -->
         <libraryNeeded context="plugin:org.talend.libraries.apache.common"
             name="commons-pool-1.6.jar"
@@ -1257,487 +1257,501 @@
         
 
         <!-- Camel 3 Dependencies Begin -->
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="aws-core-2.16.23.jar"
             id="aws-sdk-aws-core"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/aws-core-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/aws-core-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/aws-core/2.16.23"
             bundleID="" />
         
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="aws-sdk-protocol-core-2.16.23.jar"
             id="aws-sdk-protocol-core"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/protocol-core-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/protocol-core-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/protocol-core/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="aws-core-2.16.23.jar"
             id="aws-sdk-sdk-core"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/sdk-core-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/sdk-core-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/sdk-core/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="auth-2.16.23.jar"
             id="aws-sdk-auth"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/auth-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/auth-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/auth/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="s3-2.16.23.jar"
             id="aws-sdk-s3"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/s3-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/s3-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/s3/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="ses-2.16.23.jar"
             id="aws-sdk-ses"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/ses-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/ses-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/ses/2.16.23"
             bundleID="" /> 
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="sns-2.16.23.jar"
             id="aws-sdk-sns"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/sns-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/sns-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/sns/2.16.23"
             bundleID="" />  
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="sqs-2.16.23.jar"
             id="aws-sdk-sqs"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/sqs-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/sqs-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/sqs/2.16.23"
             bundleID="" />  
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="utils-2.16.23.jar"
             id="aws-sdk-utils"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/utils-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/utils-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/utils/2.16.23"
             bundleID="" />  
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="http-client-spi-2.16.23.jar"
             id="aws-sdk-http-client-spi"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/http-client-spi-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/http-client-spi-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/http-client-spi/2.16.23"
             bundleID="" /> 
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="apache-client-2.16.23.jar"
             id="aws-sdk-apache-client"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/apache-client-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/apache-client-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/apache-client/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="aws-xml-protocol-2.16.23.jar"
             id="aws-sdk-aws-xml-protocol"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/aws-xml-protocol-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/aws-xml-protocol-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/aws-xml-protocol/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="regions-2.16.23.jar"
             id="aws-sdk-regions"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/regions-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/regions-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/regions/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="profiles-2.16.23.jar"
             id="aws-sdk-profiles"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/profiles-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/profiles-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/profiles/2.16.23"
             bundleID="" />  
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="url-connection-client-2.16.23.jar"
             id="aws-sdk-url-connection-client"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/url-connection-client-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/url-connection-client-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/url-connection-client/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="aws-query-protocol-2.16.23.jar"
             id="aws-sdk-query-protocol"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/aws-query-protocol-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/aws-query-protocol-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/aws-query-protocol/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="metrics-spi-2.16.23.jar"
             id="aws-sdk-metrics-spi"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/metrics-spi-2.16.23.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/metrics-spi-2.16.23.jar"
             mvn_uri="mvn:software.amazon.awssdk/metrics-spi/2.16.23"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="metrics-spi-2.16.23.jar"
             id="reactive-streams"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/reactive-streams-1.0.2.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/reactive-streams-1.0.2.jar"
             mvn_uri="mvn:org.reactivestreams/reactive-streams/1.0.2"
             bundleID="" />
              
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-core-3.9.0.jar"
-            id="camel3-core"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-3.9.0.jar"
+            id="camel-core"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-core/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-core-model-3.9.0.jar"
-            id="camel3-core-model"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-model-3.9.0.jar"
+            id="camel-core-model"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-model-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-core-model/3.9.0"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-core-engine-3.9.0.jar"
-            id="camel3-core-engine"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-engine-3.9.0.jar"
+            id="camel-core-engine"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-engine-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-core-engine/3.9.0"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-core-languages-3.9.0.jar"
-            id="camel3-core-languages"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-languages-3.9.0.jar"
+            id="camel-core-languages"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-languages-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-core-languages/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-core-reifier-3.9.0.jar"
-            id="camel3-core-reifier"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-reifier-3.9.0.jar"
+            id="camel-core-reifier"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-reifier-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-core-reifier/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-core-processor-3.9.0.jar"
-            id="camel3-core-processor"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-core-processor-3.9.0.jar"
+            id="camel-core-processor"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-processor-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-core-processor/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-support-3.9.0.jar"
-            id="camel3-support"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-support-3.9.0.jar"
+            id="camel-support"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-support-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-support/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-util-3.9.0.jar"
-            id="camel3-util"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-util-3.9.0.jar"
+            id="camel-util"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-util-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-util/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-base-3.9.0.jar"
-            id="camel3-base"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-base-3.9.0.jar"
+            id="camel-base"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-base-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-base/3.9.0"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-base-engine-3.9.0.jar"
-            id="camel3-base-engine"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-base-engine-3.9.0.jar"
+            id="camel-base-engine"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-base-engine-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-base-engine/3.9.0"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-api-3.9.0.jar"
-            id="camel3-api"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-api-3.9.0.jar"
+            id="camel-api"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-api-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-api/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-main-3.9.0.jar"
-            id="camel3-main"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-main-3.9.0.jar"
+            id="camel-main"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-main-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-main/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-management-3.9.0.jar"
-            id="camel3-management"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-management-3.9.0.jar"
+            id="camel-management"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-management-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-management/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-management-api-3.9.0.jar"
-            id="camel3-management-api"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-management-api-3.9.0.jar"
+            id="camel-management-api"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-management-api-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-management-api/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-xpath-3.9.0.jar"
-            id="camel3-xpath"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-xpath-3.9.0.jar"
+            id="camel-xpath"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-xpath-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-xpath/3.9.0"
             bundleID="" />
             
         <libraryNeeded context="plugin:org.talend.libraries.apache.cxf"
             name="jakarta.ws.rs-api-2.1.6.jar"
             id="jakarta.ws.rs-api"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/jakarta.ws.rs-api-2.1.6.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/jakarta.ws.rs-api-2.1.6.jar"
             mvn_uri="mvn:jakarta.ws.rs/jakarta.ws.rs-api/2.1.6"
             bundleID="" />
             
         <!-- Camel 3 Components -->
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-attachments-3.9.0.jar"
-            id="camel3-attachments"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-attachments-3.9.0.jar"
+            id="camel-attachments"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-attachments-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-attachments/3.9.0"
             bundleID="" />
             
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-aws2-s3-3.9.0.jar"
-            id="camel3-aws2-s3"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-s3-3.9.0.jar"
+            id="camel-aws2-s3"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-aws2-s3-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-aws2-s3/3.9.0"
             bundleID="" />
             
          <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-aws2-ses-3.9.0.jar"
-            id="camel3-aws2-ses"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-ses-3.9.0.jar"
+            id="camel-aws2-ses"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-aws2-ses-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-aws2-ses/3.9.0"
             bundleID="" />
             
          <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-aws2-sns-3.9.0.jar"
-            id="camel3-aws2-sns"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-sns-3.9.0.jar"
+            id="camel-aws2-sns"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-aws2-sns-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-aws2-sns/3.9.0"
             bundleID="" />
             
          <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-aws2-sqs-3.9.0.jar"
-            id="camel3-aws2-sqs"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-aws2-sqs-3.9.0.jar"
+            id="camel-aws2-sqs"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-aws2-sqs-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-aws2-sqs/3.9.0"
             bundleID="" />
         
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-bean-3.9.0.jar"
-            id="camel3-bean"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-bean-3.9.0.jar"
+            id="camel-bean"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-bean-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-bean/3.9.0"
             bundleID="" />
             
-       <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+       <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-blueprint-3.9.0.jar"
-            id="camel3-blueprint"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-blueprint-3.9.0.jar"
+            id="camel-blueprint"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-blueprint-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel.karaf/camel-blueprint/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-cxf-3.9.0.jar"
-            id="camel3-cxf"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-cxf-3.9.0.jar"
+            id="camel-cxf"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-cxf-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-cxf/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-cxf-transport-3.9.0.jar"
-            id="camel3-cxf-transport"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-cxf-transport-3.9.0.jar"
+            id="camel-cxf-transport"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-cxf-transport-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-cxf-transport/3.9.0"
             bundleID="" />
         
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-direct-3.9.0.jar"
-            id="camel3-direct"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-direct-3.9.0.jar"
+            id="camel-direct"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-direct-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-direct/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-directvm-3.9.0.jar"
-            id="camel3-jms"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-directvm-3.9.0.jar"
+            id="camel-jms"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-directvm-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-directvm/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-http-3.9.0.jar"
-            id="camel3-http"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-http-3.9.0.jar"
+            id="camel-http"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-http-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-http/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-http-base-3.9.0.jar"
-            id="camel3-http-base"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-http-base-3.9.0.jar"
+            id="camel-http-base"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-http-base-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-http-base/3.9.0"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-file-3.9.0.jar"
-            id="camel3-file"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-file-3.9.0.jar"
+            id="camel-file"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-file-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-file/3.9.0"
             bundleID="" />
          
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-ftp-3.9.0.jar"
-            id="camel3-ftp"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-ftp-3.9.0.jar"
+            id="camel-ftp"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-ftp-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-ftp/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-flatpack-3.9.0.jar"
-            id="camel3-flatpack"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-flatpack-3.9.0.jar"
+            id="camel-flatpack"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-flatpack-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-flatpack/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-http-common-3.9.0.jar"
-            id="camel3-http-common"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-http-common-3.9.0.jar"
+            id="camel-http-common"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-http-common-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-http-common/3.9.0"
             bundleID="" />
    
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-jetty-3.9.0.jar"
-            id="camel3-jetty"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-jetty-3.9.0.jar"
+            id="camel-jetty"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-jetty-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-jetty/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-jetty-common-3.9.0.jar"
-            id="camel3-jetty-common"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-jetty-common-3.9.0.jar"
+            id="camel-jetty-common"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-jetty-common-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-jetty-common/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-jms-3.9.0.jar"
-            id="camel3-jms"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-jms-3.9.0.jar"
+            id="camel-jms"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-jms-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-jms/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-jsonpath-3.9.0.jar"
-            id="camel3-jsonpath"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-jsonpath-3.9.0.jar"
+            id="camel-jsonpath"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-jsonpath-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-jsonpath/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-kafka-3.9.0.jar"
-            id="camel3-kafka"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-kafka-3.9.0.jar"
+            id="camel-kafka"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-kafka-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-kafka/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-log-3.9.0.jar"
-            id="camel3-log"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-log-3.9.0.jar"
+            id="camel-log"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-log-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-log/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-dataset-3.9.0.jar"
+            id="camel-dataset"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-dataset-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-dataset/3.9.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-mock-3.9.0.jar"
+            id="camel-mock"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-mock-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-mock/3.9.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-mail-3.9.0.jar"
-            id="camel3-mail"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-mail-3.9.0.jar"
+            id="camel-mail"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-mail-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-mail/3.9.0"
             bundleID="" />
             
-       <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+       <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-saxon-3.9.0.jar"
-            id="camel3-saxon"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-saxon-3.9.0.jar"
+            id="camel-saxon"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-saxon-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-saxon/3.9.0"
             bundleID="" />
             
-       <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+       <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-spring-3.9.0.jar"
-            id="camel3-spring"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-spring-3.9.0.jar"
+            id="camel-spring"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-spring-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-spring/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-seda-3.9.0.jar"
-            id="camel3-seda"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-timer-3.9.0.jar"
+            id="camel-seda"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-timer-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-seda/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-servlet-3.9.0.jar"
-            id="camel3-servlet"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-servlet-3.9.0.jar"
+            id="camel-servlet"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-servlet-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-servlet/3.9.0"
             bundleID="" />
             
         <libraryNeeded
-              context="plugin:org.talend.libraries.esb"
-              id="camel3-talendjob"
+              context="plugin:org.talend.designer.camel.components.localprovider"
+              id="camel-talendjob"
               name="camel-talendjob-7.4.2-SNAPSHOT.jar"
-              uripath="platform:/plugin/org.talend.libraries.esb/lib/camel-talendjob-7.4.2-SNAPSHOT.jar">
+              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-talendjob-7.4.2-SNAPSHOT.jar">
         </libraryNeeded>
             
         <libraryNeeded
-              context="plugin:org.talend.libraries.esb.camel3"
-              id="camel3-test-spring"
-              name="camel3-test-spring-3.9.0.jar"
-              uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-test-spring-3.9.0.jar">
+              context="plugin:org.talend.designer.camel.components.localprovider"
+              id="camel-test-spring"
+              name="camel-test-spring-3.9.0.jar"
+              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-test-spring-3.9.0.jar">
         </libraryNeeded>
         <libraryNeeded
-              context="plugin:org.talend.libraries.esb.camel3"
-              id="camel3-test"
-              name="camel3-test-3.9.0.jar"
-              uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-test-3.9.0.jar">
+              context="plugin:org.talend.designer.camel.components.localprovider"
+              id="camel-test"
+              name="camel-test-3.9.0.jar"
+              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-test-3.9.0.jar">
         </libraryNeeded>
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-timer-3.9.0.jar"
-            id="camel3-timer"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-timer-3.9.0.jar"
+            id="camel-timer"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-timer-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-timer/3.9.0"
             bundleID="" />
             
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-xstream-3.9.0.jar"
-            id="camel3-xstream"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-xstream-3.9.0.jar"
+            id="camel-xstream"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-xstream-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-xstream/3.9.0"
             bundleID="" />
 
         <!-- camel-paho -->
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-paho-3.9.0.jar"
-            id="camel3-paho"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/camel-paho-3.9.0.jar"
+            id="camel-paho"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-paho-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-paho/3.9.0"
             bundleID="" />
 
-        <libraryNeeded context="plugin:org.talend.libraries.esb.camel3"
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="org.eclipse.paho.client.mqttv3-1.2.5.jar"
             id="org.eclipse.paho.client.mqttv3"
-            uripath="platform:/plugin/org.talend.libraries.esb.camel3/lib/org.eclipse.paho.client.mqttv3-1.2.5.jar"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/org.eclipse.paho.client.mqttv3-1.2.5.jar"
             mvn_uri="mvn:org.eclipse.paho/org.eclipse.paho.client.mqttv3/1.2.5"
             bundleID="" />
 
@@ -1755,19 +1769,19 @@
         </libraryNeededGroup>     
         <libraryNeededGroup
               description="camel-aws-connection"
-              id="camel3-aws-connection"
-              name="camel3-aws-connection">
+              id="camel-aws-connection"
+              name="camel-aws-connection">
            <library
-                 id="camel3-aws2-s3">
+                 id="camel-aws2-s3">
            </library>
            <library
-                 id="camel3-aws2-ses">
+                 id="camel-aws2-ses">
            </library>
            <library
-                 id="camel3-aws2-sqs">
+                 id="camel-aws2-sqs">
            </library>
            <library
-                 id="camel3-aws2-sns">
+                 id="camel-aws2-sns">
            </library>
            <library
                  id="aws-sdk-protocol-core">
@@ -1826,67 +1840,68 @@
         </libraryNeededGroup> 
 
         <libraryNeededGroup
-                description="camel3-core"
-                id="camel3-core"
-                name="camel3-core">
+                description="camel-core"
+                id="camel-core"
+                name="camel-core">
                 
-            <library id="camel3-core" />
-            <library id="camel3-attachments" />
-            <library id="camel3-core-model" />
-            <library id="camel3-core-engine" />
-            <library id="camel3-core-languages" />
-            <library id="camel3-core-reifier" />
-            <library id="camel3-core-processor" />
+            <library id="camel-core" />
+            <library id="camel-attachments" />
+            <library id="camel-core-model" />
+            <library id="camel-core-engine" />
+            <library id="camel-core-languages" />
+            <library id="camel-core-reifier" />
+            <library id="camel-core-processor" />
             
-            <library id="camel3-base" />
-            <library id="camel3-base-engine" />
-            <library id="camel3-file" />
-            <library id="camel3-support" />
-            <library id="camel3-util" />
-            <library id="camel3-api" />
-            <library id="camel3-main" />
-            <library id="camel3-management" />
-            <library id="camel3-management-api" />
+            <library id="camel-base" />
+            <library id="camel-base-engine" />
+            <library id="camel-file" />
+            <library id="camel-support" />
+            <library id="camel-util" />
+            <library id="camel-api" />
+            <library id="camel-main" />
+            <library id="camel-management" />
+            <library id="camel-management-api" />
             
             <library id="jakarta.xml.soap-api" />
             <library id="jakarta.ws.rs-api" />
             <library id="javax.activation-1.2.0" />
             
-            <library id="camel3-bean" />
-            <library id="camel3-direct" />
-            <library id="camel3-directvm" />
-            <library id="camel3-http-base" />
-            <library id="camel3-log" />
-            <library id="camel3-seda" />
-            <library id="camel3-timer" />
-            <library id="camel3-xpath" />
-            
+            <library id="camel-bean" />
+            <library id="camel-direct" />
+            <library id="camel-directvm" />
+            <library id="camel-http-base" />
+            <library id="camel-log" />
+            <library id="camel-seda" />
+            <library id="camel-timer" />
+            <library id="camel-xpath" />
+            <library id="camel-dataset" />
+            <library id="camel-mock" />
             
             <group id="slf4j" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
                 description="camel-jms"
-                id="camel3-jms"
-                name="camel3-jms">
-            <library id="camel3-jms" />
+                id="camel-jms"
+                name="camel-jms">
+            <library id="camel-jms" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
               description="camel-talendjob-alldep"
-              id="camel3-talendjob-alldep"
-              name="camel3-talendjob-alldep">
+              id="camel-talendjob-alldep"
+              name="camel-talendjob-alldep">
            <library
-                 id="camel3-talendjob">
+                 id="camel-talendjob">
            </library>
         </libraryNeededGroup>
 
         <libraryNeededGroup
                 description="camel-spring"
-                id="camel3-spring"
-                name="camel3-spring">
-            <library id="camel3-spring" />
-            <library id="camel3-blueprint" />
+                id="camel-spring"
+                name="camel-spring">
+            <library id="camel-spring" />
+            <library id="camel-blueprint" />
             <group id="spring-context" />
             <library id="spring-tx" />
             <library id="spring-osgi-core" />
@@ -1896,33 +1911,33 @@
 
         <libraryNeededGroup
                 description="camel-http"
-                id="camel3-http"
-                name="camel3-http">
-            <library id="camel3-http" />
-            <library id="camel3-http-common" />
+                id="camel-http"
+                name="camel-http">
+            <library id="camel-http" />
+            <library id="camel-http-common" />
             <library id="javax.servlet-api" />
             <library id="httpclient4" />
             <library id="httpcore4" />
-            <group id="camel3-core" />
+            <group id="camel-core" />
         </libraryNeededGroup>
 
         <libraryNeededGroup
                 description="camel-jetty"
-                id="camel3-jetty"
-                name="camel3-jetty">
-            <library id="camel3-http-common" />
-            <library id="camel3-jetty-common" />
-            <library id="camel3-jetty" />
+                id="camel-jetty"
+                name="camel-jetty">
+            <library id="camel-http-common" />
+            <library id="camel-jetty-common" />
+            <library id="camel-jetty" />
             <library id="jetty-all" />
-            <group id="camel3-core" />
+            <group id="camel-core" />
         </libraryNeededGroup>
 
         <libraryNeededGroup
                 description="camel-cxf"
-                id="camel3-cxf"
-                name="camel3-cxf">
-            <library id="camel3-cxf" />
-            <library id="camel3-cxf-transport" />
+                id="camel-cxf"
+                name="camel-cxf">
+            <library id="camel-cxf" />
+            <library id="camel-cxf-transport" />
             <group id="cxf-core" />
             <group id="cxf-rt-frontend-jaxws" />
             <group id="cxf-rt-rs-client" />
@@ -1931,10 +1946,10 @@
         
         <libraryNeededGroup
               description="camel-jsonpath-alldep"
-              id="camel3-jsonpath-alldep"
-              name="camel3-jsonpath-alldep">
+              id="camel-jsonpath-alldep"
+              name="camel-jsonpath-alldep">
            <library
-                 id="camel3-jsonpath">
+                 id="camel-jsonpath">
            </library>
            <library
                  id="json-path">
@@ -1952,10 +1967,10 @@
         
         <libraryNeededGroup
               description="camel-kafka-alldep"
-              id="camel3-kafka-alldep"
-              name="camel3-kafka-alldep">
+              id="camel-kafka-alldep"
+              name="camel-kafka-alldep">
            <library
-                 id="camel3-kafka">
+                 id="camel-kafka">
            </library>
            <library
                  id="kafka-clients">
@@ -1970,40 +1985,40 @@
         
         <libraryNeededGroup
                 description="camel-mail"
-                id="camel3-mail"
-                name="camel3-mail">
-            <library id="camel3-mail" />
+                id="camel-mail"
+                name="camel-mail">
+            <library id="camel-mail" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
                 description="camel-flatpack"
-                id="camel3-flatpack"
-                name="camel3-flatpack">
-            <library id="camel3-flatpack" />
+                id="camel-flatpack"
+                name="camel-flatpack">
+            <library id="camel-flatpack" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
                 description="camel-ftp"
-                id="camel3-ftp"
-                name="camel3-ftp">
-            <library id="camel3-ftp" />
+                id="camel-ftp"
+                name="camel-ftp">
+            <library id="camel-ftp" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
                 description="camel-mqtt"
-                id="camel3-mqtt"
-                name="camel3-mqtt">
-            <library id="camel3-paho" />
+                id="camel-mqtt"
+                name="camel-mqtt">
+            <library id="camel-paho" />
             <library id="org.eclipse.paho.client.mqttv3" />
-            <group id="camel3-core" />
+            <group id="camel-core" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
               description="camel-saxon-alldep"
-              id="camel3-saxon-alldep"
-              name="camel3-saxon-alldep">
+              id="camel-saxon-alldep"
+              name="camel-saxon-alldep">
            <library
-                 id="camel3-saxon">
+                 id="camel-saxon">
            </library>
            <library
                  id="saxon-he">
@@ -2012,25 +2027,25 @@
         
         <libraryNeededGroup
                 description="camel-servlet"
-                id="camel3-servlet"
-                name="camel3-servlet">
+                id="camel-servlet"
+                name="camel-servlet">
         </libraryNeededGroup>
         
         <libraryNeededGroup
                 description="camel-script"
-                id="camel3-script"
-                name="camel3-script">
+                id="camel-script"
+                name="camel-script">
         </libraryNeededGroup>
         
         <libraryNeededGroup
               description="camel-test"
-              id="camel3-test"
-              name="camel3-test">
+              id="camel-test"
+              name="camel-test">
            <library
-                 id="camel3-test-spring">
+                 id="camel-test-spring">
            </library>
            <library
-                 id="camel3-test">
+                 id="camel-test">
            </library>
            <library
                  id="spring-test">
@@ -2042,7 +2057,7 @@
                  id="jaxb-core">
            </library>
            <library
-                 id="camel3-spring">
+                 id="camel-spring">
            </library>
            <library
                  id="commons-logging">
@@ -2060,9 +2075,9 @@
         
         <libraryNeededGroup
                 description="camel-xstream"
-                id="camel3-xstream"
-                name="camel3-xstream">
-                <library id="camel3-xstream" />
+                id="camel-xstream"
+                name="camel-xstream">
+                <library id="camel-xstream" />
         </libraryNeededGroup>
         
         <!-- Camel 3 Dependencies end -->

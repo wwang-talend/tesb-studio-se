@@ -165,8 +165,6 @@ package <%= packageName %>;
  <%
         boolean exportTypeSpringBoot = process.getClass().getName().endsWith("MicroServiceProcess");
         boolean isRoutelet = ((IProcess2) process).getProperty().getItem().getClass().getName().endsWith("RouteletProcessItemImpl");
-        
-        boolean camel3 = ProcessUtils.isCamel3(process);
 
         boolean hasCSoapOrCRest = false;
         
@@ -2284,25 +2282,25 @@ if (isProvider) {
             public void configure() throws java.lang.Exception {
                 doConfig();
             }
-<%if(camel3){%>
-	private class DefaultRegistry {
-	
-		private org.apache.camel.spi.Registry registry = null;
-		
-		public DefaultRegistry(org.apache.camel.spi.Registry registry){
-			this.registry = registry;
-		}
 
-		public void put(String k, Object v) {
-			registry.bind(k, (v == null) ? Object.class: v.getClass(), v);
-		}
+			private class DefaultRegistry {
+			
+				private org.apache.camel.spi.Registry registry = null;
+				
+				public DefaultRegistry(org.apache.camel.spi.Registry registry){
+					this.registry = registry;
+				}
 		
-		public Object get(String k) {
-			return registry.lookupByName(k);
-		}
+				public void put(String k, Object v) {
+					registry.bind(k, (v == null) ? Object.class: v.getClass(), v);
+				}
+				
+				public Object get(String k) {
+					return registry.lookupByName(k);
+				}
+		
+			}
 
-	}
-<%}%>
             public void destroy() {
 <%
     for (INode node : graphicalNodes) {
@@ -2327,27 +2325,17 @@ if (isProvider) {
             public void doConfig() throws java.lang.Exception {
                 final /*org.apache.camel.model.Model*/CamelContext camelContext = getContext();
                 
-                <%if(camel3){%>
-					camelContext.setDebugging(true);
-					camelContext.setBacklogTracing(true);
-			        org.apache.camel.spi.Registry realRegistry = camelContext.getRegistry();
-			        
-			        if (realRegistry == null) {
-			            realRegistry = new org.apache.camel.support.DefaultRegistry();
-			        }
-			        
-			        DefaultRegistry registry = new DefaultRegistry(realRegistry);
-			        
-			        ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(realRegistry);
-                <%}else{%>
-	                final org.apache.camel.impl.SimpleRegistry registry = new org.apache.camel.impl.SimpleRegistry();
-	                final org.apache.camel.impl.CompositeRegistry compositeRegistry = new org.apache.camel.impl.CompositeRegistry();
-	                compositeRegistry.addRegistry(camelContext.getRegistry());
-	                compositeRegistry.addRegistry(registry);
-	                ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(compositeRegistry);
-                <%}%>
-
-                
+				camelContext.setDebugging(true);
+				camelContext.setBacklogTracing(true);
+		        org.apache.camel.spi.Registry realRegistry = camelContext.getRegistry();
+		        
+		        if (realRegistry == null) {
+		            realRegistry = new org.apache.camel.support.DefaultRegistry();
+		        }
+		        
+		        DefaultRegistry registry = new DefaultRegistry(realRegistry);
+		        
+		        ((org.apache.camel.impl.DefaultCamelContext) camelContext).setRegistry(realRegistry);
 
                 <%if(exportTypeSpringBoot){%>
                     <%
@@ -2816,7 +2804,7 @@ if (isProvider) {
                                : new java.util.ArrayList<org.apache.cxf.interceptor.Interceptor<? extends org.apache.cxf.message.Message>>());
                 registry.put("properties_<%=cid%>", <%=fbn%>.getProperties() != null ? <%=fbn%>.getProperties() : new java.util.HashMap<String, Object>());
                 <%
-                    String endpointConfigurerClassName = (camel3)? "CxfRsConfigurer": "CxfRsEndpointConfigurer";
+                    String endpointConfigurerClassName = "CxfRsConfigurer";
                 %>
                 registry.put("endpointConfigurer_<%=cid%>", new org.apache.camel.component.cxf.jaxrs.<%=endpointConfigurerClassName%>() {
                         @Override
@@ -3705,6 +3693,17 @@ if (isProvider) {
             }
 %>
         }
+        
+<%		if ("cSplitter".equals(nodeComponentName)) {
+			String expression = ElementParameterParser.getValue(node, "__EXPRESSION__"); 
+%>
+
+		org.apache.camel.builder.xml.XPathBuilder xpathBuilder_<%=cid%> = new org.apache.camel.builder.xml.XPathBuilder(<%=expression%>);
+		xpathBuilder_<%=cid%>.setNamespaces(<%=cid%>NSMap);
+		xpathBuilder_<%=cid%>.threadSafety(true);
+		
+<%		}	%>
+
 <%
     }else if("cSetHeader".equals(nodeComponentName) || "cSetProperty".equals(nodeComponentName)){
         String useNamespaces = ElementParameterParser.getValue(node, "__USE_NAMESPACES__");
@@ -3756,10 +3755,10 @@ if (isProvider) {
         List<Map<String, String>> namespaceValues = (List<Map<String,String>>)ElementParameterParser.getObjectValue(node, "__NAMESPACES__");
         if (!namespaceValues.isEmpty()) {
 %>
-        <%=(camel3)? "org.apache.camel.support.builder.Namespaces": "org.apache.camel.builder.xml.Namespaces"%> <%=cid%>ns =
+        <%="org.apache.camel.support.builder.Namespaces"%> <%=cid%>ns =
 <%
 
-            String ns = (camel3)? "new org.apache.camel.support.builder.Namespaces": "new org.apache.camel.builder.xml.Namespaces";
+            String ns = "new org.apache.camel.support.builder.Namespaces";
             for(Map<String, String> m: namespaceValues){
                 String pre = m.get("PREFIX");
                 String uri = m.get("URI");
