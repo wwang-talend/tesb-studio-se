@@ -163,16 +163,6 @@
             uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.soap-api-1.4.1.jar"
             bundleID="" />
 
-        <libraryNeededGroup
-                description="camel-core"
-                id="camel-core"
-                name="camel-core">
-            <library id="camel-core" />
-            <library id="jakarta.xml.soap-api" />
-            <library id="javax.activation-1.2.0" />
-            <group id="slf4j" />
-        </libraryNeededGroup>
-
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-camel-spring}"
             id="camel-spring"
@@ -194,19 +184,6 @@
             uripath="platform:/plugin/org.talend.libraries.esb/lib/geronimo-ws-metadata_2.0_spec-1.1.3.jar"
             bundleID="" />
 
-        <libraryNeededGroup
-                description="camel-spring"
-                id="camel-spring"
-                name="camel-spring">
-            <library id="camel-spring" />
-            <library id="camel-blueprint" />
-            <group id="spring-context" />
-            <library id="spring-tx" />
-            <library id="spring-osgi-core" />
-            <library id="org.eclipse.osgi" />
-            <library id="geronimo-ws-metadata"/>
-        </libraryNeededGroup>
-
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-camel-cxf}"
             id="camel-cxf"
@@ -222,19 +199,6 @@
             id="camel-http-common"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-http-common}"
             bundleID="" />
-
-        <libraryNeededGroup
-                description="camel-cxf"
-                id="camel-cxf"
-                name="camel-cxf">
-            <library id="camel-cxf" />
-            <library id="camel-cxf-transport" />
-            <library id="camel-http-common" />
-            <group id="cxf-core" />
-            <group id="cxf-rt-frontend-jaxws" />
-            <group id="cxf-rt-rs-client" />
-            <group id="cxf-rt-transports-http-jetty" />
-        </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-groovy-alldep-${camel.version}.jar"
