@@ -337,9 +337,9 @@
             bundleID="" />
         <!-- ${tesb-javax.annotation-api} -->
         <libraryNeeded context="plugin:javax.annotation"
-            name="javax.annotation_1.2.0.v201602091430.jar"
+            name="javax.annotation_1.3.5.v20200909-1856.jar"
             id="javax.annotation-api"
-            uripath="platform:/base/plugins/javax.annotation_1.2.0.v201602091430.jar"
+            uripath="platform:/base/plugins/javax.annotation_1.3.5.v20200909-1856.jar"
             bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-cxf-rt-rs-extension-providers}"
