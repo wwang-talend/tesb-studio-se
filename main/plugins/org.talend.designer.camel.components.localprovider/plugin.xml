@@ -656,10 +656,10 @@
             id="jaxb-core"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/jaxb-core-2.2.11.jar"
             bundleID="" />
-        <libraryNeeded context="plugin:org.talend.libraries.apache.cxf"
-            name="slf4j-api-1.7.29.jar"
+		<libraryNeeded context="plugin:org.talend.libraries.esb"
+            name="slf4j-api-1.7.30.jar"
             id="slf4j-api"
-            uripath="platform:/plugin:org.talend.libraries.apache.cxf/lib/slf4j-api-1.7.29.jar"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/slf4j-api-1.7.30.jar"
             bundleID="" />
         <!-- ms azure -->
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
