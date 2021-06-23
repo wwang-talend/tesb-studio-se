@@ -1304,7 +1304,7 @@
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="jakarta.ws.rs-api-2.1.6.jar"
             id="jakarta.ws.rs-api"
-            uripath="platform:/plugin:org.talend.libraries.esb/lib/jakarta.ws.rs-api-2.1.6.jar"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.ws.rs-api-2.1.6.jar"
             mvn_uri="mvn:jakarta.ws.rs/jakarta.ws.rs-api/2.1.6"
             bundleID="" />
             
