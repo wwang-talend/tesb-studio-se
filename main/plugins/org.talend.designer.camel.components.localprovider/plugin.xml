@@ -417,10 +417,10 @@
             id="hawtdispatch"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-hawtdispatch}"
             bundleID="" />
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+        <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-hawtbuf}"
             id="hawtbuf"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-hawtbuf}"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-hawtbuf}"
             bundleID="" />
 
         <libraryNeededGroup
