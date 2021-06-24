@@ -531,7 +531,6 @@
             <library id="camel-xstream" />
             <library id="xstream" />
             <library id="xpp3" />
-            <library id="stax-api" />
             <library id="jettison" />
             <library id="woodstox-core-asl" />
             <library id="stax2-api" />

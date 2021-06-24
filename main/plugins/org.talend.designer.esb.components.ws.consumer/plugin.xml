@@ -351,11 +351,6 @@
             id="jettison"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-jettison}"
             bundleID="" />
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="${tesb-stax-api}"
-            id="stax-api"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-stax-api}"
-            bundleID="" />
 
         <libraryNeededGroup
                 description="cxf-rt-rs-client"
@@ -371,7 +366,6 @@
             <!-- its not a part of feature but used together -->
             <library id="cxf-rt-rs-extension-providers" />
             <library id="jettison" />
-            <library id="stax-api" />
         </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.libraries.esb"
