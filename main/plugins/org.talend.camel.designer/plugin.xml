@@ -338,6 +338,33 @@
                 name="ChangeRouteResourceItemToResourceItemTask"
                 version="7.1.1">
           </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.UpdateMQTTMigrationTask"
+                description="Update the values of the options"
+                id="org.talend.camel.designer.migration.UpdateMQTTMigrationTask"
+                name="UpdateMQTTMigrationTask"
+                version="7.3.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.DeprecatedSimpleLanguageSyntaxMigrationTask"
+                description="Migrate depricated simple language syntax to new format"
+                id="org.talend.camel.designer.migration.DeprecatedSimpleLanguageSyntaxMigrationTask"
+                name="DeprecatedSimpleLanguageSyntaxMigrationTask"
+                version="7.3.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.RenameCamel2ToCamel3PackagesMigrationTask"
+                description="Rename Camel 2 package names to Camel 3"
+                id="org.talend.camel.designer.migration.RenameCamel2ToCamel3PackagesMigrationTask"
+                name="RenameCamel2ToCamel3ClassesMigrationTask"
+                version="7.3.1">
+          </projecttask>
     </extension>
 
         <extension

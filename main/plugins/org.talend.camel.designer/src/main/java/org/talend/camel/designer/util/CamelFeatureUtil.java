@@ -76,9 +76,14 @@ public final class CamelFeatureUtil {
         put("camel-http-common", new FeatureModel[] { });
         put("activemq-all", new FeatureModel[] { new FeatureModel("activemq-client") });
         put("tdm-camel", new FeatureModel[] { new FeatureModel("talend-data-mapper") });
-            put("tdm-lib-di", new FeatureModel[] { new FeatureModel("talend-data-mapper") });
+        put("tdm-lib-di", new FeatureModel[] { new FeatureModel("talend-data-mapper") });
         //put("camel-talendjob", new FeatureModel[] { new FeatureModel("camel-talendjob") });
         put("camel-cxf-transport", new FeatureModel[] { });
+        
+        put("camel-attachments", new FeatureModel[] { });
+        put("camel-core-osgi", new FeatureModel[] { });
+        put("camel-http-base", new FeatureModel[] { });
+        
         put("camel-jetty-common", new FeatureModel[] { });
         put("camel-jetty8", new FeatureModel[] { });
         put("camel-jetty", new FeatureModel[] { new FeatureModel("camel-jetty9") });
@@ -93,10 +98,9 @@ public final class CamelFeatureUtil {
     private static Collection<FeatureModel> computeFeature(String libraryName) {
         FeatureModel[] features = camelFeaturesMap.get(libraryName);
         if (null == features && libraryName.startsWith("camel-")) { //$NON-NLS-1$
-            features = new FeatureModel[] { new FeatureModel(
-                libraryName.endsWith("-alldep") //$NON-NLS-1$
-                ? libraryName.substring(0, libraryName.length() - "-alldep".length()) //$NON-NLS-1$
-                : libraryName) };
+            features = new FeatureModel[] { new FeatureModel(libraryName.endsWith("-alldep") //$NON-NLS-1$
+                    ? libraryName.substring(0, libraryName.length() - "-alldep".length()) //$NON-NLS-1$
+                    : libraryName) };
         }
         return features != null ? Arrays.asList(features) : null;
     }

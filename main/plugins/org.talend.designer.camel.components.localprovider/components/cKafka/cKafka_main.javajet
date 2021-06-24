@@ -126,12 +126,12 @@ imports="
 
         String serializerClass = ElementParameterParser.getValue(node, "__SERIALIZER_CLASS__").trim();
         if (!"\"\"".equals(serializerClass)) {
-            builder.addParam("serializerClass", serializerClass);
+            builder.addParam("valueSerializer", serializerClass);
         }
 
         String keySerializerClass = ElementParameterParser.getValue(node, "__KEY_SERIALIZER_CLASS__").trim();
         if (!"\"\"".equals(keySerializerClass)) {
-            builder.addParam("keySerializerClass", keySerializerClass);
+            builder.addParam("keySerializer", keySerializerClass);
         }
 
         String requestRequiredAcks = ElementParameterParser.getValue(node, "__REQUEST_REQUIRED_ACKS__").trim();
