@@ -1521,8 +1521,8 @@
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
               id="camel-talendjob"
-              name="camel-talendjob-7.4.2-SNAPSHOT.jar"
-              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-talendjob-7.4.2-SNAPSHOT.jar">
+              name="camel-talendjob-7.4.1-SNAPSHOT.jar"
+              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-talendjob-7.4.1-SNAPSHOT.jar">
         </libraryNeeded>
             
         <libraryNeeded
