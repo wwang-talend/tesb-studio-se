@@ -1356,6 +1356,13 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-blueprint-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel.karaf/camel-blueprint/3.9.0"
             bundleID="" />
+
+       <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-core-osgi-3.9.0.jar"
+            id="camel-core-osgi"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-osgi-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel.karaf/camel-core-osgi/3.9.0"
+            bundleID="" />
             
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-cxf-3.9.0.jar"
@@ -1520,13 +1527,6 @@
             
         <libraryNeeded
               context="plugin:org.talend.designer.camel.components.localprovider"
-              id="camel-talendjob"
-              name="camel-talendjob-7.4.1-SNAPSHOT.jar"
-              uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-talendjob-7.4.1-SNAPSHOT.jar">
-        </libraryNeeded>
-            
-        <libraryNeeded
-              context="plugin:org.talend.designer.camel.components.localprovider"
               id="camel-test-spring"
               name="camel-test-spring-3.9.0.jar"
               uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-test-spring-3.9.0.jar">
@@ -1550,6 +1550,13 @@
             id="camel-xstream"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-xstream-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-xstream/3.9.0"
+            bundleID="" />
+            
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="caffeine-2.9.0.jar"
+            id="caffeine-2.9.0"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/caffeine-2.9.0.jar"
+            mvn_uri="mvn:com.github.ben-manes.caffeine/caffeine/2.9.0"
             bundleID="" />
 
         <!-- camel-paho -->
@@ -1686,37 +1693,57 @@
                 name="camel-core">
                 
             <library id="camel-core" />
-            <library id="camel-attachments" />
-            <library id="camel-core-model" />
-            <library id="camel-core-engine" />
-            <library id="camel-core-languages" />
-            <library id="camel-core-reifier" />
-            <library id="camel-core-processor" />
             
-            <library id="camel-base" />
-            <library id="camel-base-engine" />
-            <library id="camel-file" />
-            <library id="camel-support" />
-            <library id="camel-util" />
-            <library id="camel-api" />
-            <library id="camel-main" />
-            <library id="camel-management" />
-            <library id="camel-management-api" />
+            <!-- Camel Core Feature -->
             
-            <library id="jakarta.xml.soap-api" />
-            <library id="jakarta.ws.rs-api" />
-            <library id="javax.activation-1.2.0" />
-            
-            <library id="camel-bean" />
-            <library id="camel-direct" />
-            <library id="camel-directvm" />
-            <library id="camel-http-base" />
-            <library id="camel-log" />
-            <library id="camel-seda" />
-            <library id="camel-timer" />
-            <library id="camel-xpath" />
-            <library id="camel-dataset" />
-            <library id="camel-mock" />
+            <library id="caffeine-2.9.0" />
+
+			<library id="camel-api" />
+			<library id="camel-management-api" />
+			<library id="camel-util" />
+			<library id="camel-util-json" />
+			<library id="camel-support" />
+			<library id="camel-base" />
+			<library id="camel-base-engine" />
+			<library id="camel-management" />
+			<library id="camel-core-model" />
+			<library id="camel-core-reifier" />
+			<library id="camel-core-processor" />
+			<library id="camel-core-engine" />
+			<library id="camel-core-languages" />
+			<library id="camel-core-osgi" />
+			<library id="camel-core-catalog" />
+			<library id="camel-cloud" />
+			<library id="camel-cluster" />
+			<library id="camel-health" />
+			<library id="camel-xml-jaxp" />
+			<library id="camel-xml-jaxb" />
+			<library id="camel-tooling-model" />
+			<library id="camel-main" />
+			
+			<!--  core components  -->
+			<library id="camel-bean" />
+			<library id="camel-browse" />
+			<library id="camel-controlbus" />
+			<library id="camel-dataformat" />
+			<library id="camel-dataset" />
+			<library id="camel-direct" />
+			<library id="camel-directvm" />
+			<library id="camel-file" />
+			<library id="camel-language" />
+			<library id="camel-log" />
+			<library id="camel-mock" />
+			<library id="camel-ref" />
+			<library id="camel-rest" />
+			<library id="camel-saga" />
+			<library id="camel-scheduler" />
+			<library id="camel-seda" />
+			<library id="camel-stub" />
+			<library id="camel-timer" />
+			<library id="camel-validator" />
+			<library id="camel-vm" />
+			<library id="camel-xpath" />
+			<library id="camel-xslt" />
             
             <group id="slf4j" />
         </libraryNeededGroup>
@@ -1783,6 +1810,8 @@
                 name="camel-cxf">
             <library id="camel-cxf" />
             <library id="camel-cxf-transport" />
+            <library id="camel-attachments" />
+            <library id="camel-http-base" />
             <group id="cxf-core" />
             <group id="cxf-rt-frontend-jaxws" />
             <group id="cxf-rt-rs-client" />
