@@ -89,6 +89,52 @@ public final class CamelFeatureUtil {
         put("camel-jetty", new FeatureModel[] { new FeatureModel("camel-jetty9") });
     }};
 
+    static List<String> CAMEL_CORE = Arrays.asList(
+            "camel-api",
+            "camel-management-api",
+            "camel-util",
+            "camel-util-json",
+            "camel-support",
+            "camel-base",
+            "camel-base-engine",
+            "camel-management",
+            "camel-core-model",
+            "camel-core-reifier",
+            "camel-core-processor",
+            "camel-core-engine",
+            "camel-core-languages",
+            "camel-core-catalog",
+            "camel-cloud",
+            "camel-cluster",
+            "camel-health",
+            "camel-xml-jaxp",
+            "camel-xml-jaxb",
+            "camel-tooling-model",
+            "camel-main",
+            "camel-bean",
+            "camel-browse",
+            "camel-controlbus",
+            "camel-dataformat",
+            "camel-dataset",
+            "camel-direct",
+            "camel-directvm",
+            "camel-file",
+            "camel-language",
+            "camel-log",
+            "camel-mock",
+            "camel-ref",
+            "camel-rest",
+            "camel-saga",
+            "camel-scheduler",
+            "camel-seda",
+            "camel-stub",
+            "camel-timer",
+            "camel-validator",
+            "camel-vm",
+            "camel-xpath",
+            "camel-xslt"
+            );
+
 	private static final String JAVA_SCRIPT = "javaScript"; //$NON-NLS-1$
 
 	private static final String LANGUAGES = "LANGUAGES"; //$NON-NLS-1$
@@ -96,13 +142,17 @@ public final class CamelFeatureUtil {
 
 
     private static Collection<FeatureModel> computeFeature(String libraryName) {
-        FeatureModel[] features = camelFeaturesMap.get(libraryName);
-        if (null == features && libraryName.startsWith("camel-")) { //$NON-NLS-1$
-            features = new FeatureModel[] { new FeatureModel(libraryName.endsWith("-alldep") //$NON-NLS-1$
-                    ? libraryName.substring(0, libraryName.length() - "-alldep".length()) //$NON-NLS-1$
-                    : libraryName) };
+        if (CAMEL_CORE.contains(libraryName)) {
+            return Arrays.asList(new FeatureModel("camel-core"));
+        } else {
+            FeatureModel[] features = camelFeaturesMap.get(libraryName);
+            if (null == features && libraryName.startsWith("camel-")) { //$NON-NLS-1$
+                features = new FeatureModel[] { new FeatureModel(libraryName.endsWith("-alldep") //$NON-NLS-1$
+                        ? libraryName.substring(0, libraryName.length() - "-alldep".length()) //$NON-NLS-1$
+                        : libraryName) };
+            }
+            return features != null ? Arrays.asList(features) : null;
         }
-        return features != null ? Arrays.asList(features) : null;
     }
 
     private static String getNameWithoutVersion(String libraryName) {
