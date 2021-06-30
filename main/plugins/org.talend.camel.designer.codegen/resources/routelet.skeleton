@@ -120,7 +120,11 @@ public class CLASS {
 	            	code.append(instanceName +".setArguments(overwriteContext_"+instanceName+");\n");
 	            }
 
-	            code.append("main.addRouteBuilder("+instanceName+");");
+	            code.append("main.bind(\"");
+	            code.append(instanceName);
+	            code.append("\",");
+	            code.append(instanceName);
+	            code.append(");");
             }
         }
     }
