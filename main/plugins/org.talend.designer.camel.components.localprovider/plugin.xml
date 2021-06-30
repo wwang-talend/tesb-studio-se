@@ -58,22 +58,6 @@
             bundleID="" />
 
        <libraryNeededGroup
-                description="activemq-all"
-                id="activemq-all"
-                name="activemq-all">
-            <library id="slf4j-api" />
-            <library id="geronimo-jms_1.1_spec" />
-            <library id="geronimo-j2ee-management_1.1_spec" />
-            <library id="geronimo-jta_1.1_spec" />
-            <library id="commons-logging" />
-            <library id="hawtbuf" />
-            <library id="xbean-spring" />
-			<library id="commons-pool2" />
-            <group id="aws-jackson" />
-            <group id="activemq" />
-        </libraryNeededGroup>
-
-       <libraryNeededGroup
                 description="activemq"
                 id="activemq"
                 name="activemq">
@@ -1242,7 +1226,21 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-processor-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-core-processor/3.9.0"
             bundleID="" />
-            
+
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-core-xml-3.9.0.jar"
+            id="camel-core-xml"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-xml-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core-xml/3.9.0"
+            bundleID="" />
+
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-xml-jaxb-3.9.0.jar"
+            id="camel-xml-jaxb"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-xml-jaxb-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-xml-jaxb/3.9.0"
+            bundleID="" />
+
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-support-3.9.0.jar"
             id="camel-support"
@@ -1516,7 +1514,14 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-spring-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-spring/3.9.0"
             bundleID="" />
-            
+
+       <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-spring-xml-3.9.0.jar"
+            id="camel-spring-xml"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-spring-xml-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-spring-xml/3.9.0"
+            bundleID="" />
+
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-seda-3.9.0.jar"
             id="camel-seda"
@@ -1719,6 +1724,7 @@
 			<library id="camel-core-languages" />
 			<library id="camel-core-osgi" />
 			<library id="camel-core-catalog" />
+			<library id="camel-core-xml" />
 			<library id="camel-cloud" />
 			<library id="camel-cluster" />
 			<library id="camel-health" />
@@ -1779,6 +1785,7 @@
                 id="camel-spring"
                 name="camel-spring">
             <library id="camel-spring" />
+            <library id="camel-spring-xml" />
             <library id="camel-blueprint" />
             <group id="spring-context" />
             <library id="spring-tx" />
@@ -1945,7 +1952,9 @@
                 id="camel-xstream"
                 name="camel-xstream">
                 <library id="camel-xstream" />
-        </libraryNeededGroup>       <libraryNeededGroup
+        </libraryNeededGroup>
+
+        <libraryNeededGroup
                 description="activemq-all"
                 id="activemq-all"
                 name="activemq-all">

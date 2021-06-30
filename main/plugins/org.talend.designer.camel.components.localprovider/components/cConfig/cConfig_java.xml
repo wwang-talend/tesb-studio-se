@@ -63,8 +63,12 @@
         </PARAMETER>
    </ADVANCED_PARAMETERS>
 
-   <CODEGENERATION>	
-	</CODEGENERATION>
+   <CODEGENERATION>
+        <IMPORTS>
+            <IMPORT MODULE_GROUP="camel-core" REQUIRED="true" />
+            <IMPORT MODULE_GROUP="camel-spring" REQUIRED="true" />
+        </IMPORTS>
+   </CODEGENERATION>
 
    <RETURNS/>
 
