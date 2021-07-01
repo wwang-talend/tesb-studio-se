@@ -1555,7 +1555,14 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-timer-3.9.0.jar"
             mvn_uri="mvn:org.apache.camel/camel-timer/3.9.0"
             bundleID="" />
-            
+
+        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
+            name="camel-vm-3.9.0.jar"
+            id="camel-vm"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-vm-3.9.0.jar"
+            mvn_uri="mvn:org.apache.camel/camel-vm/3.9.0"
+            bundleID="" />
+
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-xstream-3.9.0.jar"
             id="camel-xstream"
