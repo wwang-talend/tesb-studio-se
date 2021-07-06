@@ -21,10 +21,10 @@ public class UpdateMQTTMigrationTask extends AbstractRouteItemComponentMigration
 
 	@Override
 	protected boolean execute(NodeType node) throws Exception {
-		return renameReConnDelay(node);
+		return replaceValuesOfParas(node);
 	}
 
-	private boolean renameReConnDelay(NodeType currentNode) throws PersistenceException {
+	private boolean replaceValuesOfParas(NodeType currentNode) throws PersistenceException {
         boolean needSave = false;
 
         ElementParameterType param = UtilTool.findParameterType(currentNode, "MQTT_RECONNECT_DELAY");
@@ -32,10 +32,31 @@ public class UpdateMQTTMigrationTask extends AbstractRouteItemComponentMigration
 
         for (Object e : currentNode.getElementParameter()) {
             ElementParameterType p = (ElementParameterType) e;
-            if ("MQTT_MAX_RECONNECT_DELAY".equals(p.getName())) {
+            if ("MQTT_RECONNECT_DELAY".equals(p.getName())) {
                 p.setValue(value);
                 needSave = true;
                 break;
+            }
+        }
+
+        ElementParameterType paramQOS = UtilTool.findParameterType(currentNode, "MQTT_QOS");
+        String valueQOS = paramQOS.getValue();
+
+        for (Object e : currentNode.getElementParameter()) {
+            ElementParameterType p = (ElementParameterType) e;
+            if ("MQTT_QOS".equals(p.getName())) {
+                if ("AtLeastOnce".equalsIgnoreCase(valueQOS)) {
+                    p.setValue("0");
+                    needSave = true;
+                }
+                if ("AtMostOnce".equalsIgnoreCase(valueQOS)) {
+                    p.setValue("1");
+                    needSave = true;
+                }
+                if ("ExactlyOnce".equalsIgnoreCase(valueQOS)) {
+                    p.setValue("2");
+                    needSave = true;
+                }
             }
         }
 
