@@ -354,7 +354,7 @@
                 description="Update the values of the options"
                 id="org.talend.camel.designer.migration.UpdateMQTTMigrationTask"
                 name="UpdateMQTTMigrationTask"
-                version="7.3.1">
+                version="7.4.1">
           </projecttask>
           <projecttask
                 beforeLogon="false"

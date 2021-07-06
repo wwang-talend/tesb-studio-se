@@ -3207,9 +3207,9 @@ if (isProvider) {
                             config.setBrokerUrl(<%=brokerUri%>);
                             config.setAutomaticReconnect(<%=helper.getBoolParam("__MQTT_AUTO_RECONNECT__")%>);
                             config.setConnectionTimeout(<%=helper.getStringParam("__MQTT_CONNECTION_TIMEOUT__")%>);
-                            config.setMaxReconnectDelay(<%=helper.getStringParam("__MQTT_MAX_RECONNECT_DELAY__")%>);
-                            config.setMqttVersion("<%=helper.getStringParam("__MQTT_VERSION__")%>");
-                            config.setQos(<%=helper.getStringParam("__MQTT_QOS__")%>);
+                            config.setMaxReconnectDelay(<%=helper.getIntParam("__MQTT_RECONNECT_DELAY__")%>);
+                            config.setMqttVersion(<%=helper.getIntParam("__MQTT_VERSION__")%>);
+                            config.setQos(<%=helper.getIntParam("__MQTT_QOS__")%>);
                             <%if("true".equals(helper.getStringParam("__MQTT_SSL__"))){%>
                                 javax.net.ssl.TrustManagerFactory tmf = javax.net.ssl.TrustManagerFactory
                                 .getInstance(javax.net.ssl.TrustManagerFactory
