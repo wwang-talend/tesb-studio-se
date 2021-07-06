@@ -69,7 +69,7 @@ if ( "true".equals(System.getProperty("org.talend.studio.route.job.inloop")) ) {
 	        // copy headers from IN to OUT to propagate them
 			routerExchange_<%=cid%>.getOut().setHeaders(routerExchange_<%=cid%>.getIn().getHeaders());
 			// copy attachements from IN to OUT to propagate them
-			routerExchange_<%=cid%>.getOut().setAttachments(routerExchange_<%=cid%>.getIn().getAttachments());
+			//routerExchange_<%=cid%>.getOut().setAttachments(routerExchange_<%=cid%>.getIn().getAttachments());
 	        
 
 <%                   	
@@ -110,7 +110,7 @@ if ( "true".equals(System.getProperty("org.talend.studio.route.job.inloop")) ) {
         } // 3
 %>
 			//set output as fault    
-	        routerExchange_<%=cid%>.getOut().setFault(true);
+	        //routerExchange_<%=cid%>.getOut().setFault(true);
 <%
     } // 2
 } // 1
