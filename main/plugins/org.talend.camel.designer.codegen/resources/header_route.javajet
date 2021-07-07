@@ -3698,7 +3698,7 @@ if (isProvider) {
 			String expression = ElementParameterParser.getValue(node, "__EXPRESSION__"); 
 %>
 
-		org.apache.camel.builder.xml.XPathBuilder xpathBuilder_<%=cid%> = new org.apache.camel.builder.xml.XPathBuilder(<%=expression%>);
+		org.apache.camel.language.xpath.XPathBuilder xpathBuilder_<%=cid%> = new org.apache.camel.language.xpath.XPathBuilder(<%=expression%>);
 		xpathBuilder_<%=cid%>.setNamespaces(<%=cid%>NSMap);
 		xpathBuilder_<%=cid%>.threadSafety(true);
 		
