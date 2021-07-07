@@ -542,15 +542,6 @@
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-commons-net}"
             bundleID="" />
 
-        <libraryNeededGroup
-                description="camel-ftp"
-                id="camel-ftp"
-                name="camel-ftp">
-            <library id="camel-ftp" />
-            <library id="jsch" />
-            <library id="commons-net" />
-        </libraryNeededGroup>
-
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-camel-flatpack}"
             id="camel-flatpack"
@@ -1889,6 +1880,8 @@
                 id="camel-ftp"
                 name="camel-ftp">
             <library id="camel-ftp" />
+            <library id="jsch" />
+            <library id="commons-net" />
         </libraryNeededGroup>
         
         <libraryNeededGroup
