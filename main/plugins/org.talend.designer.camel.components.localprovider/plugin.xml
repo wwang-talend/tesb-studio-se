@@ -178,11 +178,6 @@
             id="camel-cxf-transport"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-cxf-transport}"
             bundleID="" />
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-camel-http-common}"
-            id="camel-http-common"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-http-common}"
-            bundleID="" />
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="camel-groovy-alldep-${camel.version}.jar"
@@ -254,33 +249,12 @@
             </library>
         </libraryNeededGroup>
 
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-camel-http}"
-            id="camel-http"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-http}"
-            bundleID="" />
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-			name="${tesb-camel-http-common}"
-			id="camel-http-common"
-			uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-http-common}"
-			bundleID="" />
         <!-- ${tesb-commons-codec} -->
         <!--libraryNeeded context="plugin:org.apache.commons.codec"
             name="org.apache.commons.codec_1.6.0.v201305230611.jar"
             id="commons-codec"
             uripath="platform:/base/plugins/org.apache.commons.codec_1.6.0.v201305230611.jar"
             bundleID="" /-->
-
-        <libraryNeededGroup
-                description="camel-http"
-                id="camel-http"
-                name="camel-http">
-            <library id="camel-http" />
-            <library id="javax.servlet-api" />
-            <library id="commons-logging" />
-            <library id="commons-codec" />
-            <library id="camel-http-common" />
-        </libraryNeededGroup>
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-camel-jms}"
@@ -458,34 +432,6 @@
             <group id="camel-http" />
         </libraryNeededGroup>
 
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-camel-jetty}"
-            id="camel-jetty"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-jetty}"
-            bundleID="" />
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-camel-jetty-common}"
-            id="camel-jetty-common"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-jetty-common}"
-            bundleID="" />
-        <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="${tesb-camel-jetty9}"
-            id="camel-jetty9"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-jetty9}"
-            bundleID="" />
-
-        <libraryNeededGroup
-                description="camel-jetty"
-                id="camel-jetty"
-                name="camel-jetty">
-            <library id="camel-jetty" />
-            <library id="camel-jetty-common" />
-            <library id="camel-jetty9" />
-            <library id="camel-http" />
-            <library id="camel-http-common" />
-            <library id="jetty-all" />
-        </libraryNeededGroup>
-        
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-jetty-all}"
             id="jetty-all"
@@ -1798,6 +1744,8 @@
                 name="camel-http">
             <library id="camel-http" />
             <library id="camel-http-common" />
+            <library id="camel-attachments" />
+            <library id="camel-http-base" />
             <library id="javax.servlet-api" />
             <library id="httpclient4" />
             <library id="httpcore4" />
@@ -1808,6 +1756,8 @@
                 description="camel-jetty"
                 id="camel-jetty"
                 name="camel-jetty">
+            <library id="camel-attachments" />
+            <library id="camel-http-base" />
             <library id="camel-http-common" />
             <library id="camel-jetty-common" />
             <library id="camel-jetty" />
