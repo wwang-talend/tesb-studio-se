@@ -8,7 +8,6 @@
     <update label="ESB Talend update site for milestones" url="http://talendforge.org/core/updatesite/testing/"/> 
   </url>  
   <requires>
-   <import feature="org.talend.help.esb.feature" version="0.0.0" match="greaterOrEqual"/>
     <import feature="org.talend.esbstandard.feature" version="0.0.0" match="greaterOrEqual"/>
   </requires>
   <plugin id="org.talend.designer.maven.tos" download-size="0" install-size="0" version="0.0.0" fragment="true"/>

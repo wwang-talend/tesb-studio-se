@@ -123,7 +123,6 @@
     <module>main/features/org.talend.esbstandard.feature</module>
     <module>main/features/org.talend.rcp.branding.esbstandard.feature</module>
     <module>main/features/org.talend.repository.services.feature</module>
-    <module>main/features/org.talend.help.esb.feature</module>
     <module>main/plugins/org.talend.camel.designer</module>
     <module>main/plugins/org.talend.camel.designer.codegen</module>
     <module>main/plugins/org.talend.camel.model</module>
