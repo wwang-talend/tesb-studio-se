@@ -64,7 +64,7 @@ public final class CamelFeatureUtil {
 	private static final FeatureModel FEATURE_CAMEL_SCRIPT = new FeatureModel("camel-script"); //$NON-NLS-1$
 
 	// ActiveMQ Karaf integration issue
-	private static final FeatureModel FEATURE_ACTIVEMQ_OPTIONAL = new FeatureModel("camel-http4"); //$NON-NLS-1$
+	private static final FeatureModel FEATURE_ACTIVEMQ_OPTIONAL = new FeatureModel("camel-http"); //$NON-NLS-1$
 
 	private static final FeatureModel FEATURE_ESB_SAM = new FeatureModel("tesb-sam-agent"); //$NON-NLS-1$
 	private static final FeatureModel FEATURE_ESB_LOCATOR = new FeatureModel("tesb-locator-client"); //$NON-NLS-1$
@@ -85,8 +85,7 @@ public final class CamelFeatureUtil {
         put("camel-http-base", new FeatureModel[] { });
         
         put("camel-jetty-common", new FeatureModel[] { });
-        put("camel-jetty8", new FeatureModel[] { });
-        put("camel-jetty", new FeatureModel[] { new FeatureModel("camel-jetty9") });
+        put("camel-jetty", new FeatureModel[] { new FeatureModel("camel-jetty") });
     }};
 
     static List<String> CAMEL_CORE = Arrays.asList(
