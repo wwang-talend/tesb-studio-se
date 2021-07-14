@@ -2283,7 +2283,7 @@ if (isProvider) {
                 doConfig();
             }
 
-			private class DefaultRegistry {
+			class DefaultRegistry {
 			
 				private org.apache.camel.spi.Registry registry = null;
 				
