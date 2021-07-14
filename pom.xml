@@ -109,10 +109,6 @@
   </pluginRepositories>
   
   <modules>
-    <module>i18n/plugins/org.talend.camel.designer.nl</module>
-    <module>i18n/plugins/org.talend.repository.services.nl</module>
-    <module>i18n/plugins/org.talend.repository.view.route.nl</module>
-    <module>i18n/plugins/org.talend.resources.export.route.nl</module>
     <module>main/features/org.talend.camel.feature</module>
     <module>main/features/org.talend.camel.core.feature</module>
     <module>main/features/org.talend.camel.designer.feature</module>
