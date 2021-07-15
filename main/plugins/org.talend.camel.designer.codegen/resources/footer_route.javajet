@@ -612,9 +612,18 @@ if (isTestContainer) {
                     if (inContext!=null) {
                         try {
                             context.load(inContext);
-				if (null != context().hasComponent("<%=className %>_properties")) {
+				if (null != <% if(isTestContainer){ %>
+								context()
+							<% } else {%>
+								getContext()
+							<% } %>
+				.hasComponent("<%=className %>_properties")) {
 				
-					org.apache.camel.component.properties.PropertiesComponent props = (org.apache.camel.component.properties.PropertiesComponent) context().getComponent("TestR_properties");
+					<% if(isTestContainer){ %>
+						org.apache.camel.component.properties.PropertiesComponent props = (org.apache.camel.component.properties.PropertiesComponent) context().getComponent("TestR_properties");
+					<% } else {%>
+						org.apache.camel.component.properties.PropertiesComponent props = (org.apache.camel.component.properties.PropertiesComponent) getContext().getComponent("TestR_properties");
+					<% } %>
 	                
 	                	context.putAll(props.getOverrideProperties());
 				}
