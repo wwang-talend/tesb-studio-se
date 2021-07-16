@@ -424,6 +424,11 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         istackDep.setArtifactId("istack-commons-runtime");
         istackDep.setVersion("3.0.10");
 
+        Dependency xzDep = new Dependency();
+        xzDep.setGroupId("org.tukaani");
+        xzDep.setArtifactId("xz");
+        xzDep.setVersion("1.8");
+
         Dependency junitDep = new Dependency();
         junitDep.setGroupId("junit");
         junitDep.setArtifactId("junit");
@@ -434,6 +439,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         dependencies.add(httpclientDep);
         dependencies.add(httpcoreDep);
         dependencies.add(istackDep);
+        dependencies.add(xzDep);
         dependencies.add(junitDep);
         plugin.setDependencies(dependencies);
 
