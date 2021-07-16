@@ -2,7 +2,7 @@
 <feature
       id="org.talend.camel.designer.feature"
       label="Designer_feature"
-      version="7.4.1.qualifier">
+      version="8.0.1.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -34,14 +34,6 @@
          download-size="0"
          install-size="0"
          version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.talend.camel.designer.nl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
          unpack="false"/>
 
    <plugin
@@ -92,26 +84,10 @@
          unpack="false"/>
 
    <plugin
-         id="org.talend.repository.view.route.nl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
          id="org.talend.resources.export.route"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
-   <plugin
-         id="org.talend.resources.export.route.nl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
 
    <plugin
          id="org.talend.repository.resource"

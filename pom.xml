@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.talend.studio</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>7.4.1-SNAPSHOT</version>
+    <version>8.0.1-SNAPSHOT</version>
 	<relativePath />
   </parent>
   <artifactId>tesb-studio-se</artifactId>
@@ -28,7 +28,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <cxf.version>3.3.10</cxf.version>
-    <spring.version>5.2.12.RELEASE</spring.version>
+    <spring.version>5.3.8</spring.version>
     <scala.version>2.11.7</scala.version>
     <jettison.version>1.4.1</jettison.version>
     <!--slf4j.version>1.7.9</slf4j.version-->
@@ -38,7 +38,7 @@
     <mvn-dom4j>mvn:org.dom4j/dom4j/${dom4j.version}</mvn-dom4j>
     <jackson.version>2.11.4</jackson.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
-    <activemq.version>5.15.13</activemq.version>
+    <activemq.version>5.16.1</activemq.version>
   </properties>
   <repositories>
 	<repository>
@@ -109,10 +109,6 @@
   </pluginRepositories>
   
   <modules>
-    <module>i18n/plugins/org.talend.camel.designer.nl</module>
-    <module>i18n/plugins/org.talend.repository.services.nl</module>
-    <module>i18n/plugins/org.talend.repository.view.route.nl</module>
-    <module>i18n/plugins/org.talend.resources.export.route.nl</module>
     <module>main/features/org.talend.camel.feature</module>
     <module>main/features/org.talend.camel.core.feature</module>
     <module>main/features/org.talend.camel.designer.feature</module>
@@ -123,7 +119,6 @@
     <module>main/features/org.talend.esbstandard.feature</module>
     <module>main/features/org.talend.rcp.branding.esbstandard.feature</module>
     <module>main/features/org.talend.repository.services.feature</module>
-    <module>main/features/org.talend.help.esb.feature</module>
     <module>main/plugins/org.talend.camel.designer</module>
     <module>main/plugins/org.talend.camel.designer.codegen</module>
     <module>main/plugins/org.talend.camel.model</module>
@@ -245,7 +240,7 @@
 				</licenseMerges>
 				<excludedGroups>org\.talend\.(.*)</excludedGroups>
 				<useMissingFile>true</useMissingFile>
-				<failIfWarning>true</failIfWarning>
+				<failIfWarning>false</failIfWarning>
 			</configuration>
 		</plugin>
 			<plugin>

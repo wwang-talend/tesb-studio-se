@@ -132,8 +132,9 @@ imports="
     builder.addParam("properties", "\"#properties_" + cid + "\"");
     builderRT.addParam("properties", "\"#properties_" + cid + "\"");
 
-    builder.addParam("cxfRsEndpointConfigurer", "\"#endpointConfigurer_" + cid + "\"");
-    builderRT.addParam("cxfRsEndpointConfigurer", "\"#endpointConfigurer_" + cid + "\"");
+    String cxfRsConfigurerName= "cxfRsConfigurer";
+    builder.addParam(cxfRsConfigurerName, "\"#endpointConfigurer_" + cid + "\"");
+    builderRT.addParam(cxfRsConfigurerName, "\"#endpointConfigurer_" + cid + "\"");
 
     builder.addParam("providers", "\"#providers\"");
     builderRT.addParam("providers", "\"#providers\"");
@@ -263,6 +264,10 @@ imports="
         }
         public void marshal(org.apache.camel.Exchange exchange, Object o, java.io.OutputStream os)
                     throws Exception {}
+            @Override
+            public void start() {}
+            @Override
+            public void stop() {}
         })
 <% } %>
 <%

@@ -68,22 +68,22 @@
 			sb.append(code);
 		}
 	}else if("true".equals(logHandler)){
-		sb.append("loggingErrorHandler()");
+		sb.append("deadLetterChannel(\"log:\"");
 		String useLogName = ElementParameterParser.getValue(node, "__USE_LOG_NAME__");
 		if("true".equals(useLogName)){
 			String logName = ElementParameterParser.getValue(node, "__LOG_NAME__");
-			sb.append(".logName(");
+			sb.append("+");
 			sb.append(logName);
-			sb.append(")");
 		}
 		String useLogLevel = ElementParameterParser.getValue(node, "__USE_LOG_LEVEL__");
 		if("true".equals(useLogLevel)){
 			String logLevel = ElementParameterParser.getValue(node, "__LOG_LEVEL__");
-			sb.append(".level(");
-			sb.append("org.apache.camel.LoggingLevel.");
+			sb.append("+\"?level=");
 			sb.append(logLevel);
-			sb.append(")");
+		}else{
+			sb.append("+\"?level=ERROR");
 		}
+		sb.append("&showAll=true\")");
 	}
 	sb.append("\n)");
 	

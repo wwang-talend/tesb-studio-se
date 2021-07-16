@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.talend.studio</groupId>
     <artifactId>tesb-studio-se</artifactId>
-    <version>7.4.1-SNAPSHOT</version>
+    <version>8.0.1-SNAPSHOT</version>
     <relativePath>../../../</relativePath>
   </parent>
   <artifactId>org.talend.libraries.esb</artifactId>
@@ -410,11 +410,6 @@
 		<version>3.1.1</version>
 	</dependency>
 	<dependency>
-		<groupId>stax</groupId>
-		<artifactId>stax-api</artifactId>
-		<version>1.0.1</version>
-	</dependency>
-	<dependency>
 		<groupId>org.codehaus.woodstox</groupId>
 		<artifactId>woodstox-core-asl</artifactId>
 		<version>4.4.1</version>
@@ -528,8 +523,7 @@
 		<groupId>org.talend.camel</groupId>
 		<artifactId>camel-talendjob</artifactId>
 		<version>${tesb.version}</version>
-	</dependency>	
-	
+	</dependency>
 	<!-- Scala -->
     <dependency>
       <groupId>org.scala-lang</groupId>
@@ -623,6 +617,12 @@
 		<groupId>org.apache.activemq</groupId>
 		<artifactId>activemq-camel</artifactId>
 		<version>${activemq.version}</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-jms</artifactId>
+			</exclusion>
+		</exclusions>
 	</dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
@@ -642,5 +642,12 @@
         <artifactId>cryptacular</artifactId>
         <version>1.2.4</version>
     </dependency>
+    
+	<dependency>
+	    <groupId>jakarta.ws.rs</groupId>
+	    <artifactId>jakarta.ws.rs-api</artifactId>
+	    <version>2.1.6</version>
+	</dependency>
+
   </dependencies>
 </project>

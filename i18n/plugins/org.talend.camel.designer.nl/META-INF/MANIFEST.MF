@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Nl
-Bundle-SymbolicName: org.talend.camel.designer.nl
-Bundle-Version: 7.4.1.qualifier
-Fragment-Host: org.talend.camel.designer
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8

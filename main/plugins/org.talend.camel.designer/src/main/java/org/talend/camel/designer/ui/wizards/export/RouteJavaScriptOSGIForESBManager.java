@@ -37,6 +37,7 @@ import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.QName;
 import org.dom4j.io.SAXReader;
+import org.dom4j.tree.DefaultAttribute;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
@@ -122,12 +123,13 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
         ExportFileResource libResource = new ExportFileResource(null, LIBRARY_FOLDER_NAME);
         List<URL> talendLibraries = getExternalLibraries(true, processes, getCompiledModuleNames());
         if (defaultModulesNeededForBeans == null) {
-            defaultModulesNeededForBeans = ModulesNeededProvider.getModulesNeededForBeans();
+            defaultModulesNeededForBeans = ModulesNeededProvider.getModulesNeededForBeans(processes);
         }
         if (talendLibraries != null) {
             for (URL libUrl : talendLibraries) {
                 boolean addRes = true;
                 // TESB-21485: Exclude DEFAULT beans model
+
                 for (ModuleNeeded need : defaultModulesNeededForBeans) {
                     if (need.getId() != null && libUrl.getFile().contains(need.getId())) {
                         addRes = false;
@@ -406,6 +408,9 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
                                 if (hasParentElement(refBean.getParent(), "constructor-arg")) {
                                      continue;
                                 }
+                                if (hasParentElementWithProperty(refBean.getParent(), "name", "constraintMappings")) {
+                                    continue;
+                                }
                                 ref.setQName(QName.get(ref.getName(), "bp", BLUEPRINT_NSURI));
                                 ref.addAttribute("component-id", refBean.getValue());
                                 ref.remove(refBean);
@@ -429,6 +434,20 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
                 Logger.getAnonymousLogger().log(Level.WARNING, "Unexpected File closing failure. ", e);
             }
         }
+    }
+    
+    private boolean hasParentElementWithProperty(Element element, String propertyName, String propertyValue) {
+        if (element == null || propertyName == null || propertyValue == null)  {
+            return false;
+        }
+
+        DefaultAttribute attribute = (DefaultAttribute) element.attribute(propertyName);
+
+        if (attribute != null && attribute.getValue().equalsIgnoreCase(propertyValue)) {
+            return true;
+        }
+
+        return hasParentElementWithProperty(element.getParent(), propertyName, propertyValue);
     }
 
     private boolean hasParentElement(Element element, String elementName) {

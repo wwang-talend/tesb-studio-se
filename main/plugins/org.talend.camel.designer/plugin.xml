@@ -307,8 +307,17 @@
                 breaks="7.3.0"
                 class="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask"
                 description="Update Beans default libraries"
-                id="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask.7.4.1-2021-03"
-                name="UpdateBeansDefaultLibrariesMigrationTask 7.4.1-2021-03"
+                id="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask.7.4.1-2021-07"
+                name="UpdateBeansDefaultLibrariesMigrationTask 7.4.1-2021-07"
+                version="7.4.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.UpdateBeansCodeMigrationTask"
+                description="Update Beans default libraries"
+                id="org.talend.camel.designer.migration.UpdateBeansCodeMigrationTask.7.4.1"
+                name="UpdateBeansCodeMigrationTask 7.4.1"
                 version="7.4.1">
           </projecttask>
           <projecttask
@@ -337,6 +346,60 @@
                 id="org.talend.camel.designer.migration.ChangeRouteResourceItemToResourceItemTask"
                 name="ChangeRouteResourceItemToResourceItemTask"
                 version="7.1.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.UpdateMQTTMigrationTask"
+                description="Update the values of the options"
+                id="org.talend.camel.designer.migration.UpdateMQTTMigrationTask"
+                name="UpdateMQTTMigrationTask"
+                version="7.4.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.DeprecatedSimpleLanguageSyntaxMigrationTask"
+                description="Migrate depricated simple language syntax to new format"
+                id="org.talend.camel.designer.migration.DeprecatedSimpleLanguageSyntaxMigrationTask"
+                name="DeprecatedSimpleLanguageSyntaxMigrationTask"
+                version="7.3.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.RenameCamel2ToCamel3PackagesMigrationTask"
+                description="Rename Camel 2 package names to Camel 3"
+                id="org.talend.camel.designer.migration.RenameCamel2ToCamel3PackagesMigrationTask"
+                name="RenameCamel2ToCamel3ClassesMigrationTask"
+                version="7.3.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.UpdatecKafkaMigrationTask"
+                description="Update options for cKafka component"
+                id="org.talend.camel.designer.migration.UpdatecKafkaMigrationTask"
+                name="UpdatecKafkaMigrationTask"
+                version="7.3.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.UpdateJavaDSLProcessorMigrationTask"
+                description="Update code for cJavaDSLProcessor component"
+                id="org.talend.camel.designer.migration.UpdateJavaDSLProcessorMigrationTask"
+                name="UpdateJavaDSLProcessorMigrationTask"
+                version="7.3.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.UpdateCHTTPUriMigrationTask"
+                description="Update the values of the Uri of cHttp"
+                id="org.talend.camel.designer.migration.UpdateCHTTPUriMigrationTask"
+                name="UpdateCHTTPUriMigrationTask"
+                version="7.4.1">
           </projecttask>
     </extension>
 
