@@ -552,7 +552,7 @@
               </buildType>
            </buildProvider>
            <buildProvider
-                 description="Build OSGi bundle for ESB Route"
+                 description="Build Talend Runtime (OSGi) Route"
                  id="build.provider.esb.route.osgibundle"
                  provider="org.talend.camel.designer.build.RouteOSGiBundleBuildProvider">
                  <buildType
@@ -562,7 +562,7 @@
            </buildType>
            </buildProvider>
            <buildProvider
-                 description="Build OSGi bundle for ESB Routelet"
+                 description="Build Talend Runtime (OSGi) Routelet"
                  id="build.provider.esb.routelet.osgibundle"
                  provider="org.talend.camel.designer.build.RouteletOSGiBundleBuildProvider">
                  <buildType
