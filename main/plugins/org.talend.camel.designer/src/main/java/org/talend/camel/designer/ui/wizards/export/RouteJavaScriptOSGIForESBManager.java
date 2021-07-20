@@ -263,6 +263,11 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             manifestImportPackage.append(subjobImportPackages.get(processItem.getProperty().getId()));
             manifestImportPackage.append(MANIFEST_ITEM_SEPARATOR);
         }
+        
+        //https://jira.talendforge.org/browse/APPINT-33388
+        manifestImportPackage.append("org.apache.camel.component.cxf.jaxrs.blueprint;resolution:=optional");
+        manifestImportPackage.append(MANIFEST_ITEM_SEPARATOR);
+        
         manifestImportPackage
                 .append(resolver.getManifestImportPackage(MANIFEST_ITEM_SEPARATOR))
                 .append(",*;resolution:=optional"); //$NON-NLS-1$
