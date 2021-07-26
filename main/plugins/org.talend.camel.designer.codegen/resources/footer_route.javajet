@@ -63,10 +63,24 @@
                         new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/spring/<%=className.toLowerCase()%>.xml"));
                         camelContext.setName("<%=className %>");
                         camelContext.getRegistry().bind("main", registry.lookupByName("main"));
+
+						<%
+								if(hasRouteletComponent(process)){
+						%>
+									
+									try {
+										addRoutelets(camelContext);
+									} catch (Exception ee) {
+										ee.printStackTrace();
+									}
+						<%
+								}
+						%>
 <%
                 } else { // Routelet
 %>
                     new org.apache.camel.impl.DefaultCamelContext();
+                    camelContext.getRegistry().bind("<%=className %>", registry.lookupByName("<%=className %>"));
 <%
                 }
     if (stats) {
@@ -130,13 +144,6 @@
         
 		main.bind("main", this);
 		
-		<%
-				if(hasRouteletComponent(process)){
-		%>
-					addRoutelets(main);
-		<%
-				}
-		%>
         main.run();
     }
 
@@ -152,7 +159,7 @@
 		}
 	}
 
-	<%= generateAddRouteletMethod(process)%>
+	<%= generateAddRouteletMethodWithCamelContext(process)%>
 
     <%
         if(exportTypeSpringBoot){
