@@ -104,6 +104,7 @@
 #end
     <camelContext id="${idName}" useBlueprintPropertyResolver="false" xmlns="http://camel.apache.org/schema/blueprint">
         <routeBuilder ref="route" />
+        $!{propertyPlaceholder}
 #foreach ($routelet in $routelets)
         <routeBuilder ref="${routelet}" />
 #end

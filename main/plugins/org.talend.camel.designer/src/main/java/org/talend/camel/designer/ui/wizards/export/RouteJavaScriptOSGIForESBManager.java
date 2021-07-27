@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import org.dom4j.Attribute;
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.QName;
@@ -220,27 +221,38 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             }
         }
 
-        Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
-
-        if (needBlueprint) {
-            final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
-
-            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
-                    collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
-
-            osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
-        }
-
         String springContent = null;
         if (processItem instanceof CamelProcessItem) {
             springContent = ((CamelProcessItem) processItem).getSpringContent();
         }
 
+        Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
+        
+        Map<String, Element> needHandleElements = new HashMap<>();
+
         if (springContent != null && springContent.length() > 0) {
             String springTargetFilePath = collectRouteInfo.get("name").toString().toLowerCase() + ".xml"; //$NON-NLS-1$
             InputStream springContentInputStream = new ByteArrayInputStream(springContent.getBytes());
+            
             handleSpringXml(springTargetFilePath, processItem, springContentInputStream, osgiResource, true,
-                    CONVERT_SPRING_IMPORT);
+                    CONVERT_SPRING_IMPORT, needHandleElements);
+        }
+
+        if (needBlueprint) {
+            final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
+
+            if(needHandleElements.size() > 0) {
+                for(String key:needHandleElements.keySet()) {
+                    if ("propertyPlaceholder".equals(key)) {
+                        collectRouteInfo.put(key, needHandleElements.get(key).asXML());
+                    }
+                }
+            }
+            
+            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
+                    collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE), false);
+            
+            osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
         }
     }
 
@@ -323,6 +335,141 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             return Boolean.parseBoolean((String) value);
         }
         return false;
+    }
+
+    private void handleSpringXml(String targetFilePath, ProcessItem processItem, InputStream springInput,
+            ExportFileResource osgiResource, boolean convertToBP, boolean convertImports,
+            Map<String, Element> needHandleElements) {
+
+        File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + targetFilePath);
+        try {
+            SAXReader saxReader = new SAXReader();
+            saxReader.setStripWhitespaceText(false);
+            Document document = saxReader.read(springInput);
+            Element root = document.getRootElement();
+
+            if (convertToBP) {
+                if ("blueprint".equals(root.getName())) {
+                    formatSchemaLocation(root, false, false);
+                    InputStream inputStream = new ByteArrayInputStream(root.asXML().getBytes());
+                    FilesUtils.copyFile(inputStream, targetFile);
+                    osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
+                    return;
+                }
+
+                String bpPrefix = "bp";
+                int cnt = 0;
+                while (root.getNamespaceForPrefix(bpPrefix) != null) {
+                    bpPrefix = "bp" + (++cnt);
+                }
+                root.setQName(QName.get("blueprint", bpPrefix, BLUEPRINT_NSURI));
+            }
+
+            Namespace springCamelNsp = Namespace.get("camel", CAMEL_SPRING_NSURI);
+            Namespace springCamelCxfNsp = Namespace.get("cxf", CAMEL_CXF_NSURI);
+            boolean addCamel = springCamelNsp.equals(root.getNamespaceForPrefix("camel"));
+            formatSchemaLocation(root, convertToBP, addCamel);
+
+            for (Iterator<?> i = root.elementIterator("import"); i.hasNext();) {
+                Element ip = (Element) i.next();
+                Attribute resource = ip.attribute("resource");
+                URL path = dummyURL(resource.getValue());
+                for (ResourceDependencyModel resourceModel : RouteResourceUtil.getResourceDependencies(processItem)) {
+                    if (matches(path, resourceModel)) {
+                        IFile resourceFile = RouteResourceUtil.getSourceFile(resourceModel.getItem());
+                        String cpUrl = adaptedClassPathUrl(resourceModel, convertImports);
+                        handleSpringXml(cpUrl, processItem, resourceFile.getContents(), osgiResource, convertImports,
+                                convertImports, needHandleElements);
+                        resource.setValue(IMPORT_RESOURCE_PREFIX + cpUrl);
+                    }
+                }
+                if (convertImports) {
+                    i.remove();
+                }
+            }
+
+            for (Iterator<?> i = root.elementIterator("bean"); i.hasNext();) {
+                Element ip = (Element) i.next();
+                Attribute resource = ip.attribute("class");
+                if ("org.apache.camel.component.properties.PropertiesComponent".equals(resource.getStringValue())) {
+                    // <propertyPlaceholder id="properties" location="classpath:RouteWithSpring.properties"/>
+                    Element propertyPlaceholderElement = DocumentHelper.createElement("propertyPlaceholder");
+                    propertyPlaceholderElement.addAttribute("id", ip.attribute("id").getStringValue());
+
+                    for (Iterator<?> ii = ip.elementIterator("property"); ii.hasNext();) {
+                        Element property = (Element) ii.next();
+                        if ("location".equals(property.attribute("name").getStringValue())) {
+                            propertyPlaceholderElement.addAttribute("location", property.attribute("value").getStringValue());
+                            needHandleElements.put("propertyPlaceholder", propertyPlaceholderElement);
+                        }
+                    }
+                    root.remove(ip);
+                }
+            }
+
+            if (CONVERT_CAMEL_CONTEXT) {
+                if (CONVERT_CAMEL_CONTEXT_ALL) {
+                    moveNamespace(root, CAMEL_SPRING_NSURI, CAMEL_BLUEPRINT_NSURI);
+                } else {
+                    Namespace blueprintCamelNsp = Namespace.get("camel", CAMEL_BLUEPRINT_NSURI);
+                    moveNamespace(root, springCamelNsp, blueprintCamelNsp);
+                    if (springCamelNsp.equals(root.getNamespaceForPrefix("camel"))) {
+                        root.remove(springCamelNsp);
+                        root.add(blueprintCamelNsp);
+                    }
+
+                    Namespace blueprintCamelCxfNsp = Namespace.get("cxf", CAMEL_BLUEPRINT_CXF_NSURI);
+                    moveNamespace(root, springCamelCxfNsp, blueprintCamelCxfNsp);
+                    if (springCamelCxfNsp.equals(root.getNamespaceForPrefix("cxf"))) {
+                        root.remove(springCamelCxfNsp);
+                        root.add(blueprintCamelCxfNsp);
+                    }
+
+                    Namespace springCamelDefNsp = Namespace.get(CAMEL_SPRING_NSURI);
+                    Namespace blueprintCamelDefNsp = Namespace.get(CAMEL_BLUEPRINT_NSURI);
+                    for (Iterator<?> i = root.elementIterator("camelContext"); i.hasNext();) {
+                        Element cc = (Element) i.next();
+                        if (springCamelDefNsp.equals(cc.getNamespace())) {
+                            moveNamespace(cc, springCamelDefNsp, blueprintCamelDefNsp);
+                        }
+                    }
+
+                    Namespace springBeansNsp = Namespace.get(SPRING_BEANS_NSURI);
+                    for (Iterator<?> iter = root.selectNodes("//*[name() = 'ref']").iterator(); iter.hasNext();) {
+                        Element ref = (Element) iter.next();
+                        if (springBeansNsp.equals(ref.getNamespace())) {
+                            Attribute refBean = ref.attribute("bean");
+                            if (refBean != null) {
+                                // skip sub elements of "constructor-arg" to avoid TESB-31904
+                                // as it is not supported by blueprint
+                                if (hasParentElement(refBean.getParent(), "constructor-arg")) {
+                                    continue;
+                                }
+                                if (hasParentElementWithProperty(refBean.getParent(), "name", "constraintMappings")) {
+                                    continue;
+                                }
+                                ref.setQName(QName.get(ref.getName(), "bp", BLUEPRINT_NSURI));
+                                ref.addAttribute("component-id", refBean.getValue());
+                                ref.remove(refBean);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            InputStream inputStream = new ByteArrayInputStream(root.asXML().getBytes());
+            FilesUtils.copyFile(inputStream, targetFile);
+            osgiResource.addResource(adaptedResourceFolderName(targetFilePath, convertToBP), targetFile.toURI().toURL());
+        } catch (Exception e) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Custom Spring to OSGi conversion failed. ", e);
+        } finally {
+            try {
+                springInput.close();
+            } catch (IOException e) {
+                Logger.getAnonymousLogger().log(Level.WARNING, "Unexpected File closing failure. ", e);
+            }
+        }
     }
 
     private void handleSpringXml(String targetFilePath, ProcessItem processItem, InputStream springInput,
