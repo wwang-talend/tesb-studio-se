@@ -29,11 +29,14 @@ import org.talend.core.model.properties.Item;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.migration.IProjectMigrationTask;
+import org.talend.migration.MigrationReportRecorder;
 
 public class ReplaceDefaultProxyIPMigrationTask extends AbstractJobMigrationTask {
 
     @Override
     public ExecutionResult execute(Item item) {
+        IProjectMigrationTask task = this;
         ProcessType processType = getProcessType(item);
         if (getProject().getLanguage() != ECodeLanguage.JAVA || processType == null) {
             return ExecutionResult.NOTHING_TO_DO;
@@ -56,6 +59,10 @@ public class ReplaceDefaultProxyIPMigrationTask extends AbstractJobMigrationTask
                                         ComponentUtilities.getNodeProperty(node, "PROXY_HOST"); //$NON-NLS-1$
                                 if (useProxy.getValue().equals("false") && "\"61.163.92.4\"".equals(proxyHost.getValue())) { //$NON-NLS-1$
                                     proxyHost.setValue("\"127.0.0.1\"");//$NON-NLS-1$
+
+                                    generateReportRecord(new MigrationReportRecorder(task,
+                                            MigrationReportRecorder.MigrationOperationType.MODIFY, item, node, "PROXY_HOST",
+                                            "\"61.163.92.4\"", "\"127.0.0.1\""));
                                 }
                             }
                         }));
