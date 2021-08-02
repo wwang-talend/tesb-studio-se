@@ -51,7 +51,7 @@ public class UpdateBeansCodeMigrationTask extends AbstractItemMigrationTask {
 
     @Override
     public Date getOrder() {
-        GregorianCalendar gc = new GregorianCalendar(2019, 5, 20, 0, 0, 0);
+        GregorianCalendar gc = new GregorianCalendar(2019, 4, 20, 0, 0, 0);
         return gc.getTime();
     }
 
