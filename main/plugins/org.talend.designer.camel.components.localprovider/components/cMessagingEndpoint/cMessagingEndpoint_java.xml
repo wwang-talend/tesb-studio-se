@@ -263,7 +263,6 @@
 						<ITEM NAME="REF" VALUE="REF"/>
 						<ITEM NAME="RESILIENCE4J" VALUE="RESILIENCE4J"/>
 						<ITEM NAME="REST-OPENAPI" VALUE="REST-OPENAPI"/>
-						<ITEM NAME="REST-SWAGGER" VALUE="REST-SWAGGER"/>
 						<ITEM NAME="REST" VALUE="REST"/>
 						<ITEM NAME="RESTEASY" VALUE="RESTEASY"/>
 						<ITEM NAME="RIBBON" VALUE="RIBBON"/>
@@ -314,7 +313,6 @@
 						<ITEM NAME="STREAM" VALUE="STREAM"/>
 						<ITEM NAME="STRINGTEMPLATE" VALUE="STRINGTEMPLATE"/>
 						<ITEM NAME="STUB" VALUE="STUB"/>
-						<ITEM NAME="SWAGGER-JAVA" VALUE="SWAGGER-JAVA"/>
 						<ITEM NAME="SYSLOG" VALUE="SYSLOG"/>
 						<ITEM NAME="TAGSOUP" VALUE="TAGSOUP"/>
 						<ITEM NAME="TARFILE" VALUE="TARFILE"/>
@@ -613,7 +611,6 @@
 			<IMPORT MODULE="camel-ref-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-ref-alldep-${camel.version}/6.0.0" NAME="talend-camel-ref" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-ref-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['REF']" />
 			<IMPORT MODULE="camel-resilience4j-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-resilience4j-alldep-${camel.version}/6.0.0" NAME="talend-camel-resilience4j" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-resilience4j-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['RESILIENCE4J']" />
 			<IMPORT MODULE="camel-rest-openapi-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-rest-openapi-alldep-${camel.version}/6.0.0" NAME="talend-camel-rest-openapi" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-rest-openapi-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['REST-OPENAPI']" />
-			<IMPORT MODULE="camel-rest-swagger-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-rest-swagger-alldep-${camel.version}/6.0.0" NAME="talend-camel-rest-swagger" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-rest-swagger-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['REST-SWAGGER']" />
 			<IMPORT MODULE="camel-rest-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-rest-alldep-${camel.version}/6.0.0" NAME="talend-camel-rest" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-rest-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['REST']" />
 			<IMPORT MODULE="camel-resteasy-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-resteasy-alldep-${camel.version}/6.0.0" NAME="talend-camel-resteasy" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-resteasy-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['RESTEASY']" />
 			<IMPORT MODULE="camel-ribbon-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-ribbon-alldep-${camel.version}/6.0.0" NAME="talend-camel-ribbon" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-ribbon-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['RIBBON']" />
@@ -664,7 +661,6 @@
 			<IMPORT MODULE="camel-stream-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-stream-alldep-${camel.version}/6.0.0" NAME="talend-camel-stream" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-stream-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['STREAM']" />
 			<IMPORT MODULE="camel-stringtemplate-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-stringtemplate-alldep-${camel.version}/6.0.0" NAME="talend-camel-stringtemplate" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-stringtemplate-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['STRINGTEMPLATE']" />
 			<IMPORT MODULE="camel-stub-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-stub-alldep-${camel.version}/6.0.0" NAME="talend-camel-stub" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-stub-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['STUB']" />
-			<IMPORT MODULE="camel-swagger-java-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-swagger-java-alldep-${camel.version}/6.0.0" NAME="talend-camel-swagger-java" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-swagger-java-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['SWAGGER-JAVA']" />
 			<IMPORT MODULE="camel-syslog-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-syslog-alldep-${camel.version}/6.0.0" NAME="talend-camel-syslog" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-syslog-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['SYSLOG']" />
 			<IMPORT MODULE="camel-tagsoup-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-tagsoup-alldep-${camel.version}/6.0.0" NAME="talend-camel-tagsoup" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-tagsoup-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['TAGSOUP']" />
 			<IMPORT MODULE="camel-tarfile-alldep-${camel.version}.jar" MVN="mvn:org.talend.libraries/camel-tarfile-alldep-${camel.version}/6.0.0" NAME="talend-camel-tarfile" UrlPath="platform:/plugin/org.talend.libraries.camel.alldeps/lib/camel-tarfile-alldep-${camel.version}.jar" REQUIRED_IF="HOTLIBS.LIBPATH IN ['TARFILE']" />

@@ -651,12 +651,7 @@ final Map<String, String> contentTypes = new java.util.HashMap<String, String>()
         put("ANY", "{ \"*/*\" }");
     }};
 
-    if ("true".equals(ElementParameterParser.getValue(node, "__EXPOSE_SWAGGER_SPEC__")) && !"RESOURCECLASS".equals(ElementParameterParser.getValue(node, "__SERVICE_TYPE__"))) {
-%>
-    @javax.ws.rs.Path("/")
-    @io.swagger.annotations.Api(value = "/", description = "<%=className%> <%=cid%> JAX-RS service")
-<%
-    }
+    
 %>
     public interface Service_<%=cid%> {
 <%
@@ -688,20 +683,7 @@ final Map<String, String> contentTypes = new java.util.HashMap<String, String>()
 %>
         @javax.ws.rs.Produces(<%=producesContentTypes%>)
 <%
-            }
-            if ("true".equals(ElementParameterParser.getValue(node, "__EXPOSE_SWAGGER_SPEC__")) && !"RESOURCECLASS".equals(ElementParameterParser.getValue(node, "__SERVICE_TYPE__"))) {
-                String opName = "Operation " + outputConn;
-                String notes = "";
-                if (producesContentTypes != null) {
-                    notes += "Produces: " + producesContentTypes + " ";
-                }
-                if (consumesContentTypes != null) {
-                    notes += "Consumes: " + consumesContentTypes;
-                }
-                notes = notes.replaceAll("\"", "");
-            %>
-        @io.swagger.annotations.ApiOperation(value = "<%=opName%>", notes = "<%=notes%>")<%
-            }
+            }            
 %>
         Object <%=outputConn%>(
 <%
@@ -2528,67 +2510,7 @@ if (isProvider) {
                             <%
                         }
                     }
-                    if ("true".equals(ElementParameterParser.getValue(node, "__EXPOSE_SWAGGER_SPEC__")) && !"RESOURCECLASS".equals(ElementParameterParser.getValue(node, "__SERVICE_TYPE__"))) {
-%>
-                    org.apache.cxf.jaxrs.swagger.Swagger2Feature swagger2Feature_<%=cid%> = new org.apache.cxf.jaxrs.swagger.Swagger2Feature();
-                    swagger2Feature_<%=cid%>.setScan(false);
-<%
 
-
-                        String epForSwagger = "";
-
-
-
-                        String initialEp = ElementParameterParser.getValue(node, "__URL__");
-
-				        String[] splittedEp = initialEp.split("\\+");
-
-				        if (splittedEp.length >= 1) {
-
-				            epForSwagger = "\"/services\"";
-
-				            for (String s : splittedEp) {
-				                s = s.trim();
-																 
-			                    epForSwagger += " + " + s;
-							
-													
-					 
-				            }
-					
-
-																			 
-																							  
-						}
-			 
-
-                        String swaggerTitle = className + " REST Application";
-                        String swaggerDescription = "";
-                        if ("true".equals(ElementParameterParser.getValue(node, "__INCLUDE_DOC_INTO_SWAGGER_SPEC__"))) {
-                            swaggerDescription = ElementParameterParser.getValue(node, "__COMMENT__").replace("\"", "\\\"");
-                            if (swaggerDescription.contains("\r\n")) {
-                              swaggerDescription = swaggerDescription.replace("\r\n", "\\n\" + \n\"");
-                            } else {
-                               swaggerDescription = swaggerDescription.replace("\n", "\\n\" + \n\"");
-                            }
-                        }
-                    %>
-
-                    // swagger2Feature_<%=cid%>.setBasePath(getCXFRSEndpointAddress(<%=ElementParameterParser.getValue(node, "__URL__")%>));
-					
-                    swagger2Feature_<%=cid%>.setBasePath(<%=epForSwagger%>);
-					
-                    swagger2Feature_<%=cid%>.setUsePathBasedConfig(true);
-                    swagger2Feature_<%=cid%>.setRunAsFilter(true);
-                    swagger2Feature_<%=cid%>.setSwaggerUiMavenGroupAndArtifact("org.talend.esb/swagger-ui");
-                    swagger2Feature_<%=cid%>.setTitle("<%=swaggerTitle%>");
-                    swagger2Feature_<%=cid%>.setDescription("<%=swaggerDescription%>");
-                    swagger2Feature_<%=cid%>.setContact(null);
-                    swagger2Feature_<%=cid%>.setLicense(null);
-                    swagger2Feature_<%=cid%>.setLicenseUrl(null);
-                    sf_<%=cid%>.getFeatures().add(swagger2Feature_<%=cid%>);
-<%
-                    }
                 } else {
 %>
                     org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean cf_<%=cid%> = new org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean() {
