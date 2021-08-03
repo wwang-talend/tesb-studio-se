@@ -534,6 +534,7 @@ try {
 		<% } %>
 
 	} catch (javax.ws.rs.WebApplicationException ex_<%=cid%>) {
+	    globalMap.put("<%=cid%>_ERROR_MESSAGE",e_<%=cid%>.getMessage());
 		<% if (null != connFault) {
 			String connFaultName = connFault.getName(); %>
 			if (<%=connFaultName%> == null) {
@@ -565,6 +566,7 @@ try {
 	}
 
 } catch(Exception e_<%=cid%>) {
+    globalMap.put("<%=cid%>_ERROR_MESSAGE",e_<%=cid%>.getMessage());
 	<% if (paramsHelper.getBoolParam( "__DIE_ON_ERROR__")) { %>
 		throw new TalendException(e_<%=cid%>, currentComponent, globalMap);
 	<% } else { %>
