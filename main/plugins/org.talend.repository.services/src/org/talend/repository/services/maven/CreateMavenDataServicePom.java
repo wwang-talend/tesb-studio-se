@@ -369,6 +369,11 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         junitDep.setGroupId("junit");
         junitDep.setArtifactId("junit");
         junitDep.setVersion("4.13.2");
+        
+        Dependency mavenCoreDep = new Dependency();
+        mavenCoreDep.setGroupId("org.apache.maven");
+        mavenCoreDep.setArtifactId("maven-core");
+        mavenCoreDep.setVersion("3.8.1");
 
         dependencies.add(mavensharedDep);
         dependencies.add(commonsioDep);
@@ -377,6 +382,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         dependencies.add(istackDep);
         dependencies.add(xzDep);
         dependencies.add(junitDep);
+        dependencies.add(mavenCoreDep);
         plugin.setDependencies(dependencies);
 
         return plugin;
