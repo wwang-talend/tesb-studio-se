@@ -45,7 +45,7 @@ public class ReplaceDefaultProxyIPMigrationTask extends AbstractJobMigrationTask
         for (String name : componentsName) {
             IComponentFilter filter = new NameComponentFilter(name);
             try {
-                ModifyComponentsAction.searchAndModify(item, processType, filter, Arrays
+                boolean modified = ModifyComponentsAction.searchAndModify(item, processType, filter, Arrays
                         .<IComponentConversion> asList(new IComponentConversion() {
 
                             public void transform(NodeType node) {
@@ -66,13 +66,16 @@ public class ReplaceDefaultProxyIPMigrationTask extends AbstractJobMigrationTask
                                 }
                             }
                         }));
+                if (modified) {
+                    return ExecutionResult.SUCCESS_WITH_ALERT;
+                }
             } catch (PersistenceException e) {
                 ExceptionHandler.process(e);
                 return ExecutionResult.FAILURE;
             }
         }
 
-        return ExecutionResult.SUCCESS_WITH_ALERT;
+        return ExecutionResult.NOTHING_TO_DO;
 
     }
 
