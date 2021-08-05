@@ -434,6 +434,11 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         junitDep.setArtifactId("junit");
         junitDep.setVersion("4.13.2");
 
+        Dependency mavenCompatDep = new Dependency();
+        mavenCompatDep.setGroupId("org.apache.maven");
+        mavenCompatDep.setArtifactId("maven-compat");
+        mavenCompatDep.setVersion("3.8.1");
+
         dependencies.add(mavensharedDep);
         dependencies.add(commonsioDep);
         dependencies.add(httpclientDep);
@@ -441,6 +446,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         dependencies.add(istackDep);
         dependencies.add(xzDep);
         dependencies.add(junitDep);
+        dependencies.add(mavenCompatDep);
         plugin.setDependencies(dependencies);
 
         return plugin;
