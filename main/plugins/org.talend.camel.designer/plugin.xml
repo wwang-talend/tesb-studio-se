@@ -307,8 +307,8 @@
                 breaks="7.3.0"
                 class="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask"
                 description="Update Beans default libraries"
-                id="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask.7.4.1-2021-07"
-                name="UpdateBeansDefaultLibrariesMigrationTask 7.4.1-2021-07"
+                id="org.talend.camel.designer.migration.UpdateBeansDefaultLibrariesMigrationTask.7.4.1-2021-08"
+                name="UpdateBeansDefaultLibrariesMigrationTask 7.4.1-2021-08"
                 version="7.4.1">
           </projecttask>
           <projecttask
@@ -316,8 +316,8 @@
                 breaks="7.3.0"
                 class="org.talend.camel.designer.migration.UpdateBeansCodeMigrationTask"
                 description="Update Beans default libraries"
-                id="org.talend.camel.designer.migration.UpdateBeansCodeMigrationTask.7.4.1"
-                name="UpdateBeansCodeMigrationTask 7.4.1"
+                id="org.talend.camel.designer.migration.UpdateBeansCodeMigrationTask.7.4.1-2021-07"
+                name="UpdateBeansCodeMigrationTask 7.4.1-2021-07"
                 version="7.4.1">
           </projecttask>
           <projecttask
@@ -399,6 +399,15 @@
                 description="Update the values of the Uri of cHttp"
                 id="org.talend.camel.designer.migration.UpdateCHTTPUriMigrationTask"
                 name="UpdateCHTTPUriMigrationTask"
+                version="7.4.1">
+          </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.NormalizeDataServiceJobBuildTypeMigrationTask"
+                description="Normalize Build Type for DataService jobs"
+                id="org.talend.camel.designer.migration.NormalizeDataServiceJobBuildTypeMigrationTask"
+                name="NormalizeDataServiceJobBuildTypeMigrationTask"
                 version="7.4.1">
           </projecttask>
     </extension>
@@ -552,17 +561,17 @@
               </buildType>
            </buildProvider>
            <buildProvider
-                 description="Build OSGi bundle for ESB Route"
+                 description="Build Talend Runtime (OSGi) Route"
                  id="build.provider.esb.route.osgibundle"
                  provider="org.talend.camel.designer.build.RouteOSGiBundleBuildProvider">
                  <buildType
-                       label="Route"
+                       label="Talend Runtime (OSGi)"
                        name="ROUTE"
                  order="20">
            </buildType>
            </buildProvider>
            <buildProvider
-                 description="Build OSGi bundle for ESB Routelet"
+                 description="Build Talend Runtime (OSGi) Routelet"
                  id="build.provider.esb.routelet.osgibundle"
                  provider="org.talend.camel.designer.build.RouteletOSGiBundleBuildProvider">
                  <buildType

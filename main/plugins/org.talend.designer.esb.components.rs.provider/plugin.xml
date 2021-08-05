@@ -66,26 +66,6 @@
  </extension>
  <extension point="org.talend.core.runtime.librariesNeeded">
 
-    <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="${tesb-cxf-rt-rs-service-description-swagger}"
-            id="cxf-rt-rs-service-description-swagger"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-cxf-rt-rs-service-description-swagger}"
-            bundleID="" />
-
-    <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="${tesb-swagger-annotations}"
-            id="swagger-annotations"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-swagger-annotations}"
-            bundleID="" />
-
-    <libraryNeededGroup
-            description="cxf-swagger"
-            id="cxf-swagger"
-            name="cxf-swagger">
-        <library id="cxf-rt-rs-service-description-swagger" />
-        <library id="swagger-annotations" />
-    </libraryNeededGroup>
-
  </extension>
  <extension
        point="org.eclipse.core.runtime.preferences">

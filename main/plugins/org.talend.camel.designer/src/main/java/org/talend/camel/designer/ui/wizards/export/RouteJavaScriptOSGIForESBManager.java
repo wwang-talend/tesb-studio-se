@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import org.dom4j.Attribute;
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.QName;
@@ -220,27 +221,38 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
             }
         }
 
-        Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
-
-        if (needBlueprint) {
-            final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
-
-            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
-                    collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE));
-
-            osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
-        }
-
         String springContent = null;
         if (processItem instanceof CamelProcessItem) {
             springContent = ((CamelProcessItem) processItem).getSpringContent();
         }
 
+        Map<String, Object> collectRouteInfo = collectRouteInfo(processItem, process);
+        
+        Map<String, Element> needHandleElements = new HashMap<>();
+
         if (springContent != null && springContent.length() > 0) {
             String springTargetFilePath = collectRouteInfo.get("name").toString().toLowerCase() + ".xml"; //$NON-NLS-1$
             InputStream springContentInputStream = new ByteArrayInputStream(springContent.getBytes());
+            
             handleSpringXml(springTargetFilePath, processItem, springContentInputStream, osgiResource, true,
-                    CONVERT_SPRING_IMPORT);
+                    CONVERT_SPRING_IMPORT, needHandleElements);
+        }
+
+        if (needBlueprint) {
+            final File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + "blueprint.xml"); //$NON-NLS-1$
+
+            if(needHandleElements.size() > 0) {
+                for(String key:needHandleElements.keySet()) {
+                    if ("propertyPlaceholder".equals(key)) {
+                        collectRouteInfo.put(key, needHandleElements.get(key).asXML());
+                    }
+                }
+            }
+            
+            TemplateProcessor.processTemplate("ROUTE_BLUEPRINT_CONFIG", //$NON-NLS-1$
+                    collectRouteInfo, targetFile, getClass().getResourceAsStream(TEMPLATE_BLUEPRINT_ROUTE), false);
+            
+            osgiResource.addResource(FileConstants.BLUEPRINT_FOLDER_NAME, targetFile.toURI().toURL());
         }
     }
 
@@ -326,7 +338,8 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
     }
 
     private void handleSpringXml(String targetFilePath, ProcessItem processItem, InputStream springInput,
-            ExportFileResource osgiResource, boolean convertToBP, boolean convertImports) {
+            ExportFileResource osgiResource, boolean convertToBP, boolean convertImports,
+            Map<String, Element> needHandleElements) {
 
         File targetFile = new File(getTmpFolder() + PATH_SEPARATOR + targetFilePath);
         try {
@@ -366,12 +379,31 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
                         IFile resourceFile = RouteResourceUtil.getSourceFile(resourceModel.getItem());
                         String cpUrl = adaptedClassPathUrl(resourceModel, convertImports);
                         handleSpringXml(cpUrl, processItem, resourceFile.getContents(), osgiResource, convertImports,
-                                convertImports);
+                                convertImports, needHandleElements);
                         resource.setValue(IMPORT_RESOURCE_PREFIX + cpUrl);
                     }
                 }
                 if (convertImports) {
                     i.remove();
+                }
+            }
+
+            for (Iterator<?> i = root.elementIterator("bean"); i.hasNext();) {
+                Element ip = (Element) i.next();
+                Attribute resource = ip.attribute("class");
+                if ("org.apache.camel.component.properties.PropertiesComponent".equals(resource.getStringValue())) {
+                    // <propertyPlaceholder id="properties" location="classpath:RouteWithSpring.properties"/>
+                    Element propertyPlaceholderElement = DocumentHelper.createElement("propertyPlaceholder");
+                    propertyPlaceholderElement.addAttribute("id", ip.attribute("id").getStringValue());
+
+                    for (Iterator<?> ii = ip.elementIterator("property"); ii.hasNext();) {
+                        Element property = (Element) ii.next();
+                        if ("location".equals(property.attribute("name").getStringValue())) {
+                            propertyPlaceholderElement.addAttribute("location", property.attribute("value").getStringValue());
+                            needHandleElements.put("propertyPlaceholder", propertyPlaceholderElement);
+                        }
+                    }
+                    root.remove(ip);
                 }
             }
 
@@ -411,7 +443,7 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
                                 // skip sub elements of "constructor-arg" to avoid TESB-31904
                                 // as it is not supported by blueprint
                                 if (hasParentElement(refBean.getParent(), "constructor-arg")) {
-                                     continue;
+                                    continue;
                                 }
                                 if (hasParentElementWithProperty(refBean.getParent(), "name", "constraintMappings")) {
                                     continue;
@@ -428,8 +460,7 @@ public class RouteJavaScriptOSGIForESBManager extends AdaptedJobJavaScriptOSGIFo
 
             InputStream inputStream = new ByteArrayInputStream(root.asXML().getBytes());
             FilesUtils.copyFile(inputStream, targetFile);
-            osgiResource
-                    .addResource(adaptedResourceFolderName(targetFilePath, convertToBP), targetFile.toURI().toURL());
+            osgiResource.addResource(adaptedResourceFolderName(targetFilePath, convertToBP), targetFile.toURI().toURL());
         } catch (Exception e) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Custom Spring to OSGi conversion failed. ", e);
         } finally {
