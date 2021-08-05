@@ -361,6 +361,13 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
 
         plugin.addDependency(commonsioDep);
 
+        Dependency mavenCompatDep = new Dependency();
+        mavenCompatDep.setGroupId("org.apache.maven");
+        mavenCompatDep.setArtifactId("maven-compat");
+        mavenCompatDep.setVersion("3.8.1");
+
+        plugin.addDependency(mavenCompatDep);
+
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
 
