@@ -635,7 +635,11 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
                         Xpp3Dom subjobConfiguration = new Xpp3Dom("configuration");
                         Xpp3Dom subjobGroupId = new Xpp3Dom("groupId");
-                        subjobGroupId.setValue(PomIdsHelper.getJobGroupId(subjob.getProcessItem().getProperty()));
+                        if (isJob(subjob)) {
+                        	subjobGroupId.setValue(PomIdsHelper.getJobGroupId(getJobProcessor().getProperty()));                        	
+                        } else {
+                        	subjobGroupId.setValue(PomIdsHelper.getJobGroupId(subjob.getProcessItem().getProperty()));
+                        }
                         Xpp3Dom subjobArtifactId = new Xpp3Dom("artifactId");
                         subjobArtifactId.setValue(bundleModel.getArtifactId() + "_" + subjob.getJobName());
                         Xpp3Dom subjobVersion = new Xpp3Dom("version");
