@@ -151,6 +151,7 @@ public class LocalWSDLEditor extends InternalWSDLMultiPageEditor {
                         save();
                     }
                 };
+                repositoryWorkUnit.setAvoidSvnUpdate(true);
                 repositoryWorkUnit.setAvoidUnloadResources(true);
                 ProxyRepositoryFactory.getInstance().executeRepositoryWorkUnit(repositoryWorkUnit);
                 repositoryWorkUnit.throwPersistenceExceptionIfAny();
