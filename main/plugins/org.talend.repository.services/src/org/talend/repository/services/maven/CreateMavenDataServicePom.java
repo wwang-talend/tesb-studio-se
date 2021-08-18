@@ -41,7 +41,7 @@ import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.SVNConstant;
+import org.talend.core.model.repository.GITConstant;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.ItemResourceUtil;
 import org.talend.core.runtime.maven.MavenConstants;
@@ -100,7 +100,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         }
         String mainProjectBranch = ProjectManager.getInstance().getMainProjectBranch(project);
         if (mainProjectBranch == null) {
-            mainProjectBranch = SVNConstant.NAME_TRUNK;
+            mainProjectBranch = GITConstant.NAME_TRUNK;
         }
 
         // required by ci-builder
