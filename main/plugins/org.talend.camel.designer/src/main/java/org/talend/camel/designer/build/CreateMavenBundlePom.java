@@ -444,6 +444,11 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         mavenCompatDep.setArtifactId("maven-compat");
         mavenCompatDep.setVersion("3.8.1");
 
+        Dependency plexusArchiverDep = new Dependency();
+        plexusArchiverDep.setGroupId("org.codehaus.plexus");
+        plexusArchiverDep.setArtifactId("plexus-archiver");
+        plexusArchiverDep.setVersion("3.6.0");
+
         dependencies.add(mavensharedDep);
         dependencies.add(commonsioDep);
         dependencies.add(httpclientDep);
@@ -453,6 +458,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         dependencies.add(junitDep);
         dependencies.add(mavenCoreDep);
         dependencies.add(mavenCompatDep);
+        dependencies.add(plexusArchiverDep);
         plugin.setDependencies(dependencies);
 
         return plugin;
