@@ -335,12 +335,6 @@
             id="javax.ws.rs-api"
             uripath="platform:/plugin/org.talend.libraries.esb/lib/${tesb-javax.ws.rs-api}"
             bundleID="" />
-        <!-- ${tesb-javax.annotation-api} -->
-        <libraryNeeded context="plugin:javax.annotation"
-            name="javax.annotation_1.3.5.v20200909-1856.jar"
-            id="javax.annotation-api"
-            uripath="platform:/base/plugins/javax.annotation_1.3.5.v20200909-1856.jar"
-            bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
             name="${tesb-cxf-rt-rs-extension-providers}"
             id="cxf-rt-rs-extension-providers"
@@ -362,7 +356,7 @@
             <library id="cxf-rt-features-logging" />
             <library id="cxf-rt-rs-security-oauth2" />
             <library id="javax.ws.rs-api" />
-            <library id="javax.annotation-api" />
+            <library id="jakarta.annotation-api" />
             <!-- its not a part of feature but used together -->
             <library id="cxf-rt-rs-extension-providers" />
             <library id="jettison" />
@@ -737,7 +731,7 @@
             <library id="jakarta.xml.bind-api" />
             <library id="jakarta.xml.soap-api" />
             <library id="javax.activation" />
-            <library id="javax.annotation-api" />
+            <library id="jakarta.annotation-api" />
             <library id="jaxb-runtime" />
             <library id="stax-ex" />
             <library id="txw2" />
@@ -765,9 +759,9 @@
                        uripath="platform:/plugin/org.talend.libraries.esb/lib/javax.activation-1.2.0.jar"
                        bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
-                       name="javax.annotation-api-1.3.jar"
-                       id="javax.annotation-api"
-                       uripath="platform:/plugin/org.talend.libraries.esb/lib/javax.annotation-api-1.3.jar"
+                       name="jakarta.annotation-api-1.3.5.jar"
+                       id="jakarta.annotation-api"
+                       uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.annotation-api-1.3.5.jar"
                        bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
                        name="jaxb-runtime-2.3.2.jar"
@@ -785,9 +779,9 @@
             uripath="platform:/plugin/org.talend.libraries.esb/lib/org.apache.servicemix.bundles.xerces-2.12.0_1.jar"
             bundleID="" / -->
         <libraryNeeded context="plugin:org.talend.libraries.esb"
-                       name="stax-ex-1.8.jar"
+                       name="stax-ex-1.8.3.jar"
                        id="stax-ex"
-                       mvn_uri="mvn:org.jvnet.staxex/stax-ex/1.8"
+                       mvn_uri="mvn:org.jvnet.staxex/stax-ex/1.8.3"
                        bundleID="" />
         <libraryNeeded context="plugin:org.talend.libraries.esb"
 			            name="txw2-2.3.3.jar"
