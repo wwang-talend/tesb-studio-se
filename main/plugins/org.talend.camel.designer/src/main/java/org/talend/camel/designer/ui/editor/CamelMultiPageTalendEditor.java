@@ -27,10 +27,7 @@ import org.talend.camel.designer.util.CamelSpringUtil;
 import org.talend.camel.designer.util.ECamelCoreImage;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.runtime.image.IImage;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
 import org.talend.core.model.process.IProcess2;
-import org.talend.core.services.ISVNProviderService;
 import org.talend.designer.core.ui.AbstractMultiPageTalendEditor;
 import org.talend.designer.core.ui.editor.AbstractTalendEditor;
 
@@ -99,18 +96,6 @@ public class CamelMultiPageTalendEditor extends AbstractMultiPageTalendEditor {
         }
         // if (getActivePage() == 1) {
         final IProcess2 process2 = this.getProcess();
-        if (PluginChecker.isSVNProviderPluginLoaded()) {
-            final ISVNProviderService service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(
-                    ISVNProviderService.class);
-            if (revisionChanged && service.isProjectInSvnMode()) {
-                revisionNumStr = service.getCurrentSVNRevision(process2);
-                revisionChanged = false;
-                if (revisionNumStr != null) {
-                    revisionNumStr = ".r" + revisionNumStr;
-                }
-            }
-        }
-
         final String itemName = process2.getElementName();
         final String label = getEditorInput().getName();
         final String jobVersion = (process2 != null) ? process2.getVersion() : "0.1";

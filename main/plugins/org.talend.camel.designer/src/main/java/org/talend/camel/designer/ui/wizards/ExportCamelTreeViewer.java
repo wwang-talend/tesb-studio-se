@@ -239,8 +239,6 @@ public class ExportCamelTreeViewer extends ExportTreeViewer {
             // Fix bug TESB-2939 LiXiaopeng
             if (contentType == CamelRepositoryNodeType.repositoryRoutesType) { // referenced project.
                 return true;
-            } else if (contentType == ERepositoryObjectType.SVN_ROOT) {
-                return true;
             } else if (contentType == ERepositoryObjectType.REFERENCED_PROJECTS) {
                 return true;
             } else {
