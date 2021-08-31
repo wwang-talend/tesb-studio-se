@@ -41,7 +41,7 @@ import org.talend.core.model.process.JobInfo;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryViewObject;
-import org.talend.core.model.repository.SVNConstant;
+import org.talend.core.model.repository.GITConstant;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.core.repository.utils.ItemResourceUtil;
 import org.talend.core.runtime.maven.MavenConstants;
@@ -100,7 +100,7 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         }
         String mainProjectBranch = ProjectManager.getInstance().getMainProjectBranch(project);
         if (mainProjectBranch == null) {
-            mainProjectBranch = SVNConstant.NAME_TRUNK;
+            mainProjectBranch = GITConstant.NAME_TRUNK;
         }
 
         // required by ci-builder
@@ -380,6 +380,21 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         mavenCompatDep.setArtifactId("maven-compat");
         mavenCompatDep.setVersion("3.8.1");
 
+        Dependency mavenSettingsDep = new Dependency();
+        mavenSettingsDep.setGroupId("org.apache.maven");
+        mavenSettingsDep.setArtifactId("maven-settings");
+        mavenSettingsDep.setVersion("3.8.1");
+
+        Dependency mavenSettingsBdDep = new Dependency();
+        mavenSettingsBdDep.setGroupId("org.apache.maven");
+        mavenSettingsBdDep.setArtifactId("maven-settings-builder");
+        mavenSettingsBdDep.setVersion("3.8.1");
+
+        Dependency plexusArchiverDep = new Dependency();
+        plexusArchiverDep.setGroupId("org.codehaus.plexus");
+        plexusArchiverDep.setArtifactId("plexus-archiver");
+        plexusArchiverDep.setVersion("3.6.0");
+
         dependencies.add(mavensharedDep);
         dependencies.add(commonsioDep);
         dependencies.add(httpclientDep);
@@ -389,6 +404,9 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
         dependencies.add(junitDep);
         dependencies.add(mavenCoreDep);
         dependencies.add(mavenCompatDep);
+        dependencies.add(mavenSettingsDep);
+        dependencies.add(mavenSettingsBdDep);
+        dependencies.add(plexusArchiverDep);
         plugin.setDependencies(dependencies);
 
         return plugin;

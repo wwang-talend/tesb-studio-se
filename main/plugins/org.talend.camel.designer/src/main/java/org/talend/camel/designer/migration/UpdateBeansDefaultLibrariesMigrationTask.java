@@ -111,6 +111,7 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
         List<ModuleNeeded> modulesNeededForBeans = ModulesNeededProvider.getModulesNeededForBeans();
         EList imports = beanItem.getImports();
 
+        List<IMPORTType> deprecatedModules = new ArrayList<IMPORTType>();
         for (Object imp : imports) {
 
             if (imp instanceof IMPORTType) {
@@ -121,6 +122,11 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
                     importType.setMODULE(CAMEL_CXF_PREFIX + camelVersionSubString);
                     importType.setMVN("mvn:org.talend.libraries/" + CAMEL_CXF_PREFIX + camelVersion + "/6.0.0-SNAPSHOT/jar");
                 }
+                
+                if (StringUtils.startsWith(importType.getMODULE(), "javax.annotation") ) {
+                	deprecatedModules.add(importType);
+                }
+                
             }
 
             for (ModuleNeeded defaultNeed : modulesNeededForBeans) {
@@ -166,6 +172,6 @@ public class UpdateBeansDefaultLibrariesMigrationTask extends AbstractItemMigrat
             }
         }
         imports.addAll(missingModels);
-
+        imports.removeAll(deprecatedModules);
     }
 }
