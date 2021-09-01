@@ -62,7 +62,7 @@
                     new org.apache.camel.spring.SpringCamelContext(
                         new org.springframework.context.support.ClassPathXmlApplicationContext("META-INF/spring/<%=className.toLowerCase()%>.xml"));
                         camelContext.setName("<%=className %>");
-                        camelContext.getRegistry().bind("main", registry.lookupByName("main"));
+                        camelContext.getRegistry().bind("<%=className %>", registry.lookupByName("<%=className %>"));
 
 						<%
 								if(hasRouteletComponent(process)){
@@ -142,7 +142,7 @@
 
         //add route
         
-		main.bind("main", this);
+		main.bind("<%=className %>", this);
 		
         main.run();
     }
