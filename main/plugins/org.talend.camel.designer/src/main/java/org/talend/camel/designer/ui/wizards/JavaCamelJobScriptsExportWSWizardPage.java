@@ -204,6 +204,13 @@ public class JavaCamelJobScriptsExportWSWizardPage extends JobScriptsExportWizar
                         if(exportAsZipButton != null) exportAsZipButton.setEnabled(false);
                     }
 
+                    String buildType = (String) getProcessItem().getProperty()
+                            .getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE);
+
+                    if (EXPORTTYPE_KAR.equals(destination) && "ROUTE".equals(buildType)) {
+                        optionsGroupComposite.getParent().setVisible(false);
+                    }
+
                     String destinationValue = getDestinationValue();
 
                     if (isMS) {
