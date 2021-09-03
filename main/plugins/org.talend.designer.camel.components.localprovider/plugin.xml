@@ -1125,10 +1125,10 @@
             bundleID="" />
              
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
-            name="camel-core-3.9.0.jar"
+            name="camel-core-${camel.version}.jar"
             id="camel-core"
-            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-3.9.0.jar"
-            mvn_uri="mvn:org.apache.camel/camel-core/3.9.0"
+            uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/camel-core-${camel.version}.jar"
+            mvn_uri="mvn:org.apache.camel/camel-core/${camel.version}"
             bundleID="" />
             
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
