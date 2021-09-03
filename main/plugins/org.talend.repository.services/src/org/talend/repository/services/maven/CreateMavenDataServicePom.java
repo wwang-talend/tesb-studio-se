@@ -163,10 +163,6 @@ public class CreateMavenDataServicePom extends CreateMavenJobPom {
                             String module = relativePath + TalendJavaProjectConstants.DIR_PROCESS + "/" + node.getPath() + "/"
                                     + AggregatorPomsHelper.getJobProjectFolderName(node.getProperty());
                             pomModel.addModule(module);
-                            // check if need to remove from parent pom
-                            IFile jobPom = AggregatorPomsHelper.getItemPomFolder(node.getProperty())
-                                    .getFile(TalendMavenConstants.POM_FILE_NAME);
-                            AggregatorPomsHelper.removeFromParentModules(jobPom);
                         }
                     }
                     tmpJobId = operation.getReferenceJobId();

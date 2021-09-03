@@ -15,7 +15,6 @@ import java.util.Set;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.filesystem.IFileSystem;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IStatus;
@@ -24,17 +23,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.core.PluginChecker;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.impl.ProcessItemImpl;
 import org.talend.core.model.relationship.Relation;
 import org.talend.core.model.relationship.RelationshipItemBuilder;
 import org.talend.core.repository.model.ProxyRepositoryFactory;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
-import org.talend.designer.maven.model.TalendMavenConstants;
-import org.talend.designer.maven.tools.AggregatorPomsHelper;
 import org.talend.repository.documentation.ERepositoryActionName;
 import org.talend.repository.services.model.services.ServiceItem;
 import org.talend.repository.utils.EsbConfigUtils;
@@ -104,7 +99,6 @@ public class ServicesPlugin extends AbstractUIPlugin {
                     if (isDataServiceJob(item)) {
                         createServiceRelation(item, false);
                         needSave = true;
-                        removeFromParentModules(item);
                     }
                 }
                 if (needSave) {
@@ -237,16 +231,4 @@ public class ServicesPlugin extends AbstractUIPlugin {
         }
     }
 
-    private void removeFromParentModules(Item item) {
-        // remove from parant pom
-        try {
-            Property property = item.getProperty();
-            if (property != null) {
-                IFile jobPom = AggregatorPomsHelper.getItemPomFolder(property).getFile(TalendMavenConstants.POM_FILE_NAME);
-                AggregatorPomsHelper.removeFromParentModules(jobPom);
-            }
-        } catch (Exception ex) {
-            ExceptionHandler.process(ex);
-        }
-    }
 }
