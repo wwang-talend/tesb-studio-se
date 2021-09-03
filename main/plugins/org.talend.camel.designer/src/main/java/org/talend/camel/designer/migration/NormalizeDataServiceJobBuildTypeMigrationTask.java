@@ -47,6 +47,7 @@ public class NormalizeDataServiceJobBuildTypeMigrationTask extends AbstractDataS
     public ExecutionResult execute(Item item) {
         final ProcessType processType = getProcessType(item);
 
+        boolean modified = false;
         for (String name : ESB_COMPONENTS) {
             IComponentFilter filter = new NameComponentFilter(name);
 
@@ -58,6 +59,7 @@ public class NormalizeDataServiceJobBuildTypeMigrationTask extends AbstractDataS
                     item.getProperty().getAdditionalProperties().put(BUILD_TYPE_PROPERTY, BUILD_TYPE_OSGI);
                     try {
                         save(item);
+                        modified |= true;
                      } catch (PersistenceException e) {
                         ExceptionHandler.process(e);
                         return ExecutionResult.FAILURE;
@@ -67,7 +69,11 @@ public class NormalizeDataServiceJobBuildTypeMigrationTask extends AbstractDataS
             }
         }
 
-        return ExecutionResult.SUCCESS_NO_ALERT;
+        if (modified) {
+            return ExecutionResult.SUCCESS_NO_ALERT;
+        } else {
+            return ExecutionResult.NOTHING_TO_DO;
+        }
     }
 
     public static List<NodeType> searchComponent(ProcessType processType, IComponentFilter filter) {
