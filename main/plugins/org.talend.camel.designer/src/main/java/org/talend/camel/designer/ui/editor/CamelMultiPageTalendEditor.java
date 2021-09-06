@@ -33,6 +33,7 @@ import org.talend.core.model.process.IProcess2;
 import org.talend.core.services.ISVNProviderService;
 import org.talend.designer.core.ui.AbstractMultiPageTalendEditor;
 import org.talend.designer.core.ui.editor.AbstractTalendEditor;
+import org.talend.designer.core.ui.views.jobsettings.JobSettings;
 
 /**
  * DOC guanglong.du class global comment. Detailled comment
@@ -99,10 +100,12 @@ public class CamelMultiPageTalendEditor extends AbstractMultiPageTalendEditor {
         }
         // if (getActivePage() == 1) {
         final IProcess2 process2 = this.getProcess();
+        boolean needRefreshJobSettingTitle = false;
         if (PluginChecker.isSVNProviderPluginLoaded()) {
             final ISVNProviderService service = (ISVNProviderService) GlobalServiceRegister.getDefault().getService(
                     ISVNProviderService.class);
             if (revisionChanged && service.isProjectInSvnMode()) {
+                needRefreshJobSettingTitle = true;
                 revisionNumStr = service.getCurrentSVNRevision(process2);
                 revisionChanged = false;
                 if (revisionNumStr != null) {
@@ -119,6 +122,9 @@ public class CamelMultiPageTalendEditor extends AbstractMultiPageTalendEditor {
             title += revisionNumStr;
         }
         setPartName(title);
+        if (needRefreshJobSettingTitle) {
+            JobSettings.switchToCurJobSettingsView();
+        }
     }
 
     @Override
