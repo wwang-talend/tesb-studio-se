@@ -9,6 +9,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.migration.MigrationReportRecorder;
 
 public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItemComponentMigrationTask {
 
@@ -95,6 +96,9 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 					if (!valueExpression.equalsIgnoreCase(renameClassNamesInsideExpressions)) {
 						((ElementValueType) element).setValue(renameClassNamesInsideExpressions);
 						save = true;
+						generateReportRecord(new MigrationReportRecorder(this,
+						    MigrationReportRecorder.MigrationOperationType.MODIFY, getRouteItem(), currentNode, "Language Expression",
+							    value, renameClassNamesInsideExpressions));
 					}
 				}
 
@@ -127,6 +131,9 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 					ElementParameterType p = (ElementParameterType) e;
 					if ("EXPRESSION".equals(p.getName())) {
 						p.setValue(valueExpression);
+						generateReportRecord(new MigrationReportRecorder(this,
+						    MigrationReportRecorder.MigrationOperationType.MODIFY, getRouteItem(), currentNode, "Language Expression",
+						        p.getValue(), valueExpression));
 						break;
 					}
 				}
