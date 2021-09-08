@@ -18,8 +18,8 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 //		System.out.println(renameClassNamesInsideExpressions(test));
 //	}
 
-	private String valueExpression = null;
-	private String valueLanguage = null;
+	private String expression = null;
+	private String language = null;
 	private boolean save = false;
 
 	private static Map<String, String> classesMap;
@@ -86,19 +86,19 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 				String value = ((ElementValueType) element).getValue();
 
 				if ("LANGUAGE".equalsIgnoreCase(name)) {
-					valueLanguage = value;
+					language = value;
 				}
 
 				if ("EXPRESSION".equalsIgnoreCase(name)) {
-					valueExpression = value;
+					expression = value;
 
-					String renameClassNamesInsideExpressions = renamePackageNamesInsideExpressions(valueExpression);
-					if (!valueExpression.equalsIgnoreCase(renameClassNamesInsideExpressions)) {
-						((ElementValueType) element).setValue(renameClassNamesInsideExpressions);
+					String modifiedExpression = renamePackageNamesInsideExpressions(expression);
+					if (!expression.equalsIgnoreCase(modifiedExpression)) {
+						((ElementValueType) element).setValue(modifiedExpression);
 						save = true;
 						generateReportRecord(new MigrationReportRecorder(this,
 						    MigrationReportRecorder.MigrationOperationType.MODIFY, getRouteItem(), currentNode, "Language Expression",
-							    value, renameClassNamesInsideExpressions));
+						    expression, modifiedExpression));
 					}
 				}
 
@@ -113,16 +113,16 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 				return false;
 			}
 
-			valueLanguage = paramLanguages.getValue();
-			valueExpression = paramExpression.getValue();
+			language = paramLanguages.getValue();
+			expression = paramExpression.getValue();
 
-			if (valueLanguage == null || valueExpression == null) {
+			if (language == null || expression == null) {
 				return false;
 			}
 
-			String renameClassNamesInsideExpressions = renamePackageNamesInsideExpressions(valueExpression);
-			if (!valueExpression.equalsIgnoreCase(renameClassNamesInsideExpressions)) {
-				valueExpression = renameClassNamesInsideExpressions;
+			String modifiedExpression = renamePackageNamesInsideExpressions(valueExpression);
+			if (!expression.equalsIgnoreCase(modifiedExpression)) {
+				expression = modifiedExpression;
 				save = true;
 			}
 
@@ -130,10 +130,10 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 				for (Object e : currentNode.getElementParameter()) {
 					ElementParameterType p = (ElementParameterType) e;
 					if ("EXPRESSION".equals(p.getName())) {
-						p.setValue(valueExpression);
+						p.setValue(modifiedExpression);
 						generateReportRecord(new MigrationReportRecorder(this,
 						    MigrationReportRecorder.MigrationOperationType.MODIFY, getRouteItem(), currentNode, "Language Expression",
-						        p.getValue(), valueExpression));
+						        expression, modifiedExpression));
 						break;
 					}
 				}
