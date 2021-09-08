@@ -440,6 +440,13 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
 
         plugin.addDependency(mavenCompatDep);
 
+        Dependency commonsCompressDep = new Dependency();
+        commonsCompressDep.setGroupId("org.apache.commons");
+        commonsCompressDep.setArtifactId("commons-compress");
+        commonsCompressDep.setVersion("1.21");
+
+        plugin.addDependency(commonsCompressDep);
+
         pluginExecutions.add(pluginExecution);
         plugin.setExecutions(pluginExecutions);
 
