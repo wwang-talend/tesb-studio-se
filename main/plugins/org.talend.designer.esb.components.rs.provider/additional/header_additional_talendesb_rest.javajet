@@ -1476,7 +1476,11 @@ class Thread4RestServiceProviderEndpoint extends Thread {
 			org.apache.cxf.jaxrs.provider.json.JSONProvider jsonProvider =
 					new org.apache.cxf.jaxrs.provider.json.JSONProvider();
 			jsonProvider.setIgnoreNamespaces(true);
-			jsonProvider.setAttributesToElements(true);
+			<% if (Boolean.valueOf(ElementParameterParser.getValue(node,"__ATTRIBUTES_TO_ELEMENTS__"))) { %>
+				jsonProvider.setAttributesToElements(true);
+			<% } else { %>
+				jsonProvider.setAttributesToElements(false);
+			<% } %>
 			<% if (Boolean.valueOf(ElementParameterParser.getValue(node,"__WRAP_JSON_REQUEST__"))) { %>
 				jsonProvider.setSupportUnwrapped(true);
 				jsonProvider.setWrapperName("root");
