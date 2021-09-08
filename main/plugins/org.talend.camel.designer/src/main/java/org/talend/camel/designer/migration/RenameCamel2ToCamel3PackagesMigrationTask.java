@@ -120,7 +120,7 @@ public class RenameCamel2ToCamel3PackagesMigrationTask extends AbstractRouteItem
 				return false;
 			}
 
-			String modifiedExpression = renamePackageNamesInsideExpressions(valueExpression);
+			String modifiedExpression = renamePackageNamesInsideExpressions(expression);
 			if (!expression.equalsIgnoreCase(modifiedExpression)) {
 				expression = modifiedExpression;
 				save = true;
