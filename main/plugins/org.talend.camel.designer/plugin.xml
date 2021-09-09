@@ -419,6 +419,15 @@
                 name="NormalizeDataServiceJobBuildTypeMigrationTask"
                 version="7.4.1">
           </projecttask>
+          <projecttask
+                beforeLogon="false"
+                breaks="7.3.0"
+                class="org.talend.camel.designer.migration.RemoveUnsupportedCompMigrationTask"
+                description="Remove unsupported camel components from cMessagingEndpoint"
+                id="org.talend.camel.designer.migration.RemoveUnsupportedCompMigrationTask"
+                name="RemoveUnsupportedCompMigrationTask"
+                version="7.4.1">
+          </projecttask>
     </extension>
 
         <extension
