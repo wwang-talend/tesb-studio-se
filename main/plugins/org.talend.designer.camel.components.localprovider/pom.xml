@@ -13,7 +13,7 @@
 
 	<properties>
 		<!-- <camel.version>2.25.2</camel.version> -->
-		<camel.version>3.9.0</camel.version>
+		<camel.version>3.11.1</camel.version>
 		<camel.mqtt.version>${camel.version}.tesb1</camel.mqtt.version>
 		<camel.wmq.version>${camel.version}</camel.wmq.version>
 		<!-- camel-groovy -->

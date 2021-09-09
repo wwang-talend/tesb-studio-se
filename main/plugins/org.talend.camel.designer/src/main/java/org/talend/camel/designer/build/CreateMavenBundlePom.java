@@ -459,6 +459,11 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         plexusArchiverDep.setArtifactId("plexus-archiver");
         plexusArchiverDep.setVersion("3.6.0");
 
+        Dependency commonsCompressDep = new Dependency();
+        commonsCompressDep.setGroupId("org.apache.commons");
+        commonsCompressDep.setArtifactId("commons-compress");
+        commonsCompressDep.setVersion("1.21");
+
         dependencies.add(mavensharedDep);
         dependencies.add(commonsioDep);
         dependencies.add(httpclientDep);
@@ -471,6 +476,7 @@ public class CreateMavenBundlePom extends CreateMavenJobPom {
         dependencies.add(mavenSettingsDep);
         dependencies.add(mavenSettingsBdDep);
         dependencies.add(plexusArchiverDep);
+        dependencies.add(commonsCompressDep);
         plugin.setDependencies(dependencies);
 
         return plugin;
