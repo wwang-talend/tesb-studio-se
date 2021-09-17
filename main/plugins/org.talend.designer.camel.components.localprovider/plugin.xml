@@ -141,11 +141,6 @@
             id="camel-core"
             uripath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/${tesb-camel-core}"
             bundleID="" />
-        <libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="jakarta.xml.soap-api-1.4.1.jar"
-            id="jakarta.xml.soap-api"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/jakarta.xml.soap-api-1.4.1.jar"
-            bundleID="" />
 
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
             name="${tesb-camel-spring}"
@@ -583,9 +578,10 @@
             uripath="platform:/plugin/org.talend.libraries.esb/lib/jaxb-core-2.2.11.jar"
             bundleID="" />
 		<libraryNeeded context="plugin:org.talend.libraries.esb"
-            name="slf4j-api-1.7.30.jar"
+            name="slf4j-api-${slf4j-api.version}.jar"
             id="slf4j-api"
-            uripath="platform:/plugin/org.talend.libraries.esb/lib/slf4j-api-1.7.30.jar"
+            mvn_uri="mvn:org.slf4j/slf4j-api/${slf4j-api.version}"
+            uripath="platform:/plugin/org.talend.libraries.esb/lib/slf4j-api-${slf4j-api.version}.jar"
             bundleID="" />
         <!-- ms azure -->
         <libraryNeeded context="plugin:org.talend.designer.camel.components.localprovider"
@@ -1702,8 +1698,8 @@
 			<library id="camel-vm" />
 			<library id="camel-xpath" />
 			<library id="camel-xslt" />
-            
-            <group id="slf4j" />
+
+            <library id="slf4j-api" />
         </libraryNeededGroup>
         
         <libraryNeededGroup

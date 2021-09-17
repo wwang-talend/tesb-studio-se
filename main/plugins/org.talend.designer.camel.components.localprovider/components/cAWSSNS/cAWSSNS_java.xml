@@ -65,7 +65,7 @@
                 MVN="mvn:joda-time/joda-time/2.8.1"
                 UrlPath="platform:/plugin/org.talend.designer.camel.components.localprovider/lib/joda-time-2.8.1.jar"
                 REQUIRED="true" />
-            <IMPORT NAME="commons-logging" MODULE="commons-logging" MVN="mvn:commons-logging/commons-logging/1.2.0" REQUIRED="true" />
+            <IMPORT NAME="commons-logging" MODULE="commons-logging" MVN="mvn:commons-logging/commons-logging/1.2" REQUIRED="true" />
         </IMPORTS>
     </CODEGENERATION>
 
